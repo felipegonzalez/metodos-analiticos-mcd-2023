@@ -37,9 +37,12 @@ jobs:
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-renv@v2
-      - name: run install script
+      - name: Install cmdstan
         run: |
-          R -e 'cmdstanr::install_cmdstan()'
+          cmdstanr::check_cmdstan_toolchain(fix = TRUE)
+          cmdstanr::install_cmdstan(cores = 2)
+        shell: Rscript {0}
+        
       - name: Render book to all format
         # Add any command line argument needed
         run: |
