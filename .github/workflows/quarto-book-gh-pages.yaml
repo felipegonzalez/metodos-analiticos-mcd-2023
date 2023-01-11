@@ -38,6 +38,7 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
       - name: run install script
+        run: |
           R -e 'cmdstanr::install_cmdstan()'
       - name: Render book to all format
         # Add any command line argument needed
