@@ -610,7 +610,7 @@ Chain 4 finished in 0.0 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 0.0 seconds.
-Total execution time: 0.6 seconds.</code></pre>
+Total execution time: 0.7 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"x"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"x"</span>))</span>
@@ -787,16 +787,6 @@ Total execution time: 0.5 seconds.</code></pre>
 </div>
 </div>
 <p>La asociación entre estas dos cantidades es interesante porque ninguna depende directamente de la otra (o lo largo de una cadena): su asociación aparece porque son causas que compiten para explicar una observación.</p>
-<p>La factorización de la conjunta se puede escribir como:</p>
-<p><span class="math display">\[\begin{align}
-p() = &amp; p(Pos, Inf, npos, poskit, sens, nneg, negkit, esp, prev) = \\
-  &amp; p(Pos|N,prev,esp,sens) \\
-  &amp; p(Inf|p) \\
-  &amp; p(nposkit|npos,sens)p(sens) \\
-  &amp; p(negkit|nneg,esp)p(esp) \\
-  &amp; p(N)p(nneg)p(npos)
-\end{align}\]</span></p>
-<p>Podemos ignorar la última línea si consideramos que estas cantidades fueron fijadas sin relación a las variables de interés (de modo que el análisis es condicional a estas variables).</p>
 </section>
 </section>
 <section id="independencia-condicional" class="level2" data-number="2.4">
