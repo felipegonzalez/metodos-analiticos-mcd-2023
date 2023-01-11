@@ -55,4 +55,4 @@ jobs:
           # The branch the action should deploy to.
           branch: gh-pages
           # The folder the action should deploy. Adapt if you changed in Quarto config
-          folder: _book
+          folder: notas/_book
