@@ -416,20 +416,6 @@ La asociación entre estas dos cantidades es interesante porque ninguna
 depende directamente de la otra (o lo largo de una cadena): su asociación
 aparece porque son causas que compiten para explicar una observación.
 
-La factorización de la conjunta se puede escribir como:
-
-\begin{align}
-p() = & p(Pos, Inf, npos, poskit, sens, nneg, negkit, esp, prev) = \\ 
-  & p(Pos|N,prev,esp,sens) \\
-  & p(Inf|p) \\
-  & p(nposkit|npos,sens)p(sens) \\
-  & p(negkit|nneg,esp)p(esp) \\
-  & p(N)p(nneg)p(npos)
-\end{align}
-
-Podemos ignorar la última línea si consideramos que estas
-cantidades fueron fijadas sin relación a las variables de interés (de
-modo que el análisis es condicional a estas variables).
 
 ## Independencia condicional
 
