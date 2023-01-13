@@ -172,6 +172,25 @@ set.seed(992)
 sims <- sim_wh(500)
 ggplot(sims, aes(x = h, y = w)) + geom_point()
 ```
+También escribimos este modelo en [stan](https://mc-stan.org/):
+
+```{r}
+mod_peso <- cmdstanr::cmdstan_model("../src/peso_estatura.stan")
+print(mod_peso)
+```
+
+```{r}
+datos_lista <- list(N = 500)
+ajuste <- mod_peso$sample(data = datos_lista, refresh = 1000, fixed_param = TRUE)
+sims <- ajuste$draws(c("h", "w"), format = "df")
+resumen <- ajuste$summary(c("h", "w"))
+resumen |> select(variable, mean, q5, q95)
+```
+
+```{r, fig.width=5, fig.height = 3, warning=FALSE}
+ggplot(sims, aes(x = h, y = w)) + geom_point()
+```
+
 
 
 ## Caso multivariado
@@ -270,6 +289,54 @@ ggplot(sims_monedas, aes(x = s_1, y = s_2)) + geom_jitter(width = 0.25, height =
 - Cuando no conocemos $X$, saber $S_1$ nos da información acerca de $S_2$, porque
 saber $S_1$ cambia la distribución de $X$ (cuál es la probablidad de sol)
 - Si no conocemos $X$, la información puede *fluir* de $S_1$ a $S_2$.
+
+### Ejemplo
+
+Regresamos al ejemplo de estatura y peso. Supongamos que agregamos una variable
+adicional $S$ que vale 1 cuando la persona es hombre y 0 si no. Podemos discutir
+distintas maneras de construir nuestro modelo, por ejemplo, supongamos
+que usamos:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    S 
+    H 
+    W
+  edge [minlen = 3]
+    S -> H
+    H -> W
+    S -> W
+{ rank = same; S; H; W }
+}
+", width = 200, height = 50)
+```
+
+
+```{r}
+mod_peso <- cmdstanr::cmdstan_model("../src/peso_estatura_2.stan")
+print(mod_peso)
+```
+
+```{r}
+datos_lista <- list(N = 500)
+ajuste <- mod_peso$sample(data = datos_lista, refresh = 1000, fixed_param = TRUE)
+sims <- ajuste$draws(c("s", "h", "w"), format = "df")
+resumen <- ajuste$summary(c("h", "w"))
+resumen |> select(variable, mean, q5, q95)
+```
+
+```{r, fig.width=5, fig.height = 3, warning=FALSE}
+ggplot(sims, aes(x = h, y = w, colour = factor(s))) + geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+*Pregunta*: construye un modelo quitando la flecha $S\to W$.
+
+
 
 ## Variables observadas y no observadas
 
