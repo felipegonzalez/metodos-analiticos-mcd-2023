@@ -20,12 +20,12 @@ transformed parameters {
 
 }
 model {
-  // verosimilitud
+  // modelo de número de positivos
   n ~ binomial(N, prob_pos);
-  // info de kit
+  // modelos para resultados del kit
   kit_pos ~ binomial(n_kit_pos, sens);
   kit_neg ~ binomial(n_kit_neg, esp);
-  // iniciales,
+  // iniciales para cantidades no medidas
   p ~ beta(1.0, 10.0);
   sens ~ beta(2.0, 1.0);
   esp ~ beta(2.0, 1.0);

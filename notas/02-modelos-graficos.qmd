@@ -316,6 +316,27 @@ digraph {
 ```
 
 
+En este caso, para definir nuestro modelo generativo
+tenemos que definir $p(z)$, $p(h|z)$ y finalmente $p(w|h,z)$.  En
+este caso, consideramos que además de que los hombres tienen estatura
+mayor y por tanto mayor peso, existe un efecto adicional
+que, entre hombres y mujeres de la misma estatura, los hombres
+tienden a ser más un poco más pesados.
+
+- Entender la diferencia y cuantificar el efecto de hombre-mujer sobre peso a través de estatura y el efecto *directo* es importante y veremos cómo hacerlo más adelante.
+
+En este modelo, podríamos argumentar que hay, por ejemplo:
+
+- Muchas causas de sexo que podríamos considerar, pero no nos interesan
+pues nuestras preguntas están relacionadas con el efecto de sexo. Si esas
+variables pudieran influír causalmente tanto a sexo como a peso, entonces
+deberíamos incluirlas, como veremos más adelante. 
+- También sabemos que hay muchas causas comunes de altura y peso. Por ejemplo,
+nutrición o medio ambiente. Si esas causas **no** influyen también a sexo, entonces veremos más adelante por qué no es necesario que las incluyamos *para la
+pregunta particular que estamos formulando en este ejemplo*.
+
+Dada el diagrama, consideramos un modelo generativo como sigue:
+
 ```{r}
 mod_peso <- cmdstanr::cmdstan_model("../src/peso_estatura_2.stan")
 print(mod_peso)
@@ -334,14 +355,31 @@ ggplot(sims, aes(x = h, y = w, colour = factor(s))) + geom_point() +
   geom_smooth(se = FALSE)
 ```
 
-*Pregunta*: construye un modelo quitando la flecha $S\to W$.
+::: callout-tip
+# Modelos lineales
 
+- En estos ejemplos, estamos usando modelos lineales sin interacciones, 
+pero en realidad podríamos incluír no linealidad (en forma de splines o
+modelos teóricos) o interacciones, por ejemplo
+
+- En todos los casos, es importante checar los modelos que hemos construido
+(ver [flujo bayesiano](https://arxiv.org/abs/2011.01808)).
+
+:::
+
+
+*Ejercicios*: 
+
+- Construye un modelo quitando la flecha $S\to W$. 
+- Construye un modelo donde $H$ y $S$ interactúan para determinar $W$.
+- ¿Qué modelos son más simples en términos de parámetros que son necesarios
+para definirlos?
 
 
 ## Variables observadas y no observadas
 
 Nótese que en muchos casos, la estructura que genera los datos puede incluir
-variables que no hemos medido. No es una buena idea quitar estas variables
+variables que no hemos medido. No siempre es una buena idea quitar estas variables
 porque simplemente nos las conocemos. Dado el proceso generador,
 no tendría mucho sentido escribir $S_1 \to S_2$ o $S_2 \to S_1$ (aunque podríamos construir tales modelos).
 
@@ -368,7 +406,7 @@ digraph {
 
 
 La estructura del modelo junto con la naturaleza de las relaciones que conocemos
-nos permite hacer inferencia sobre esas variables no observadas:
+nos permitirá hacer inferencia sobre esas variables no observadas, por ejemplo:
 
 ```{r}
 mod_monedas <- cmdstanr::cmdstan_model("../src/monedas.stan")
@@ -384,6 +422,10 @@ resumen |> select(variable, mean, q5, q95)
 
 De modo que con alta probabilidad, escogimos una $X$ entre .5 y 0.93.
 
+
+
+
+
 ### Ejemplo (estudio de Santa Clara)
 
 En 2020 se hizo un estudio de seroprevalencia de COVID en Santa Clara, California.
@@ -398,7 +440,150 @@ y sensibilidad menores a 1. En pruebas de *gold standard*, el kit identificó co
 e identificó correctamente como negativos a 399 de 401 personas no infectadas.
 
 
-Constuiremos ahora una gráfica que indica cómo es el proceso generador de datos
+Aunque aprender el flujo de construcción y validación de modelos en todos sus aspectos
+no es el objetivo de este curso, mostramos un resumen abajo:
+
+:::callout-note
+# Desarrollo de modelos
+
+1. Establecer la pregunta que queremos contestar
+2. Especificar nuestros supuestos causales
+3. Definir un modelo generativo dado el paso anterior
+4. Definir una estrategia para contestar la pregunta de 1)
+5. Probar el modelo y nuestra estrategia usando el modelo generativo
+6. Analizar datos con el modelo, checar supuestos y resumir.
+:::
+
+
+Construiremos ahora una gráfica que indica cómo es el proceso generador de datos.
+En primer lugar, no interesa estimar la seropositividad en una población dada,
+que suponemos fue muestreada al azar. Nosotros solamente observamos si la prueba
+que usamos es positiva o negativa. Escribimos entonces para empezar:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=circle]
+    prev
+    Inf
+  node [shape=plaintext]
+    Inf
+    Positivos
+    N
+    
+  edge [minlen = 3]
+    prev -> Inf
+    Inf -> Positivos
+    N -> Inf
+    
+}
+", width = 150, height = 60)
+```
+
+Nótese que estamos pensando de forma causal al dibujar las aristas:
+
+- $N$ (el tamaño de muestra) es una variable que controlamos. No está determinada
+por la prevalencia. La flecha debe ser $prev \to Inf$, pues sabemos que si la prevalencia
+es diferente, entonces el número de personas con infección previa tiene una distribución
+diferente. Sin embargo, si intervenimos y cambiamos por alguna razón la variable $Inf$, claramente
+esto no tiene ningún efecto en $p$ ni en $N$.
+
+- $Inf$ influye en la distribución de positivos, y el número de positivos está determinado solamente por las características de la prueba. Nótese que si sabemos $Inf$, entonces
+el número de positivos no influye en en $p$ ni en $N$, y que cambiar la prueba por ejemplo,
+no cambia la distribución de la variable $Inf$. De modo que la única flecha que
+debemos agregar es $Inf \to Positivos$.
+
+- Aunque podríamos agregar muchos factores que influyen en la prevalencia, estas variables
+no afectan directamente a otras variables de nuestro diagrama. Dado que no nos interesa
+contestar este tipo de preguntas, omitimos estas variables.
+
+Un camino sería ahora decidir que $Inf=Positivos$, es decir no son releventes las
+características de la prueba, y proceder con la inferencia. Sin embargo, la pregunta qué tenemos qué hacer, es ¿puede ser que las características
+de la prueba influyan considerablemente en las estimaciones que obtenemos?
+
+Antes de proceder a incluir las características de la prueba, haremos el análisis
+pensando que el error de medición no es importante:
+
+```{r}
+library(cmdstanr)
+mod_sc <- cmdstan_model("../src/sclara-simple.stan")
+print(mod_sc)
+```
+
+
+
+```{r}
+n <- 50
+N <- 3300
+datos_lista <- list(N = 3300, n = 50)
+ajuste <- mod_sc$sample(data = datos_lista, refresh = 1000)
+sims <- ajuste$draws(c("p"), format = "df")
+resumen <- ajuste$summary(c("p"))
+```
+
+```{r}
+
+resumen |> select(variable, mean, q5, q95)
+```
+
+Y podemos graficar la posterior de la seroprevalencia:
+
+```{r, fig.width = 5, fig.height=3.5}
+ggplot(sims, aes(x = p)) + 
+  geom_histogram()
+```
+Donde parece ser que la prevalencia está muy probablemente por arriba de 1.2%
+Si este es el caso, esto implicaría que el subconteo de infecciones era muy
+grande, y la estimación del IFR podría ser demasiado baja.
+
+
+Sin embargo, observamos positivos en la prueba, y no realmente
+si alguien se ha infectado o no. 
+Ahora incluimos sensibilidad y especificidad:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=circle]
+    prev
+    Inf
+    sens
+    esp
+  node [shape=plaintext]
+    Inf
+    Positivos
+    N
+
+  edge [minlen = 3]
+    prev -> Inf
+    Inf -> Positivos
+    N -> Inf
+    sens -> Positivos
+    esp -> Positivos
+}
+", width = 150, height = 60)
+```
+
+- Nótese que sens y esp, si las modificamos, no cambian nada de $N$, $Inf$, ni
+la prevalencia. Igualmente, las flechas deben ir hacia $Inf$, pues modificar esta
+cantidad no produce cambios en las características de la prueba.
+- Para entender si tenemos que agregar una flecha de sensibilidad a especificidad
+tendríamos que pensar en el proceso que genera estas variables. Podemos
+pensar en primer lugar que una variable común que determina estas dos cantidades
+es, por ejemplo, la curva ROC de la prueba que produciría una asociación negativa
+en estas variables. En un ejercicio más adelante exploraremos esto, pero por el
+momento no consideramos esto (por ejemplo, podría ser que existiera una
+relación inversa entre especificidad y sensibilidad, que depende de la curva ROC).
+
+
+Finalmente, tenemos los datos de las pruebas de gold estándar que se hicieron para
+las pruebas. Esto incluye cuantos casos verificados positivos/negativos se les aplicó la prueba,
+cuántos casos fueron correctamente clasificados por la prueba en cada caso. Dibujamos entonces:
+
 
 ```{r}
 #| code-fold: true
@@ -434,6 +619,11 @@ digraph {
 ", width = 150, height = 60)
 ```
 
+- Las flechas que acabamos de dibujar corresponden a la discusión que tenemos arriba. Por ejemplo, cambiar $esp$ cambia la distribución de el número de negativos que obtuvimos,
+pero intervenir en el número de negativos (por ejemplo, escogiendo las personas que se ven sanas para hacerse la prueba y descartar a otro) no tiene efecto sobre $esp$. 
+
+Ahora escribimos los modelos locales siguiendo los supuestos que acabamos de establecer,
+que en este caso están determinados:
 
 
 ```{r}
@@ -476,11 +666,11 @@ si graficamos la relación entre especificidad de la prueba y estimación de pre
 
 ```{r, fig.width = 5, fig.height=4}
 ggplot(sims, aes(x = esp, y = p)) + geom_point() +
-  xlab("Especificidad del kit") + ylab("Prevalencia")
+  xlab("Especificidad del kit") + ylab("Prevalencia") + geom_smooth()
 ```
 
-La asociación entre estas dos cantidades es interesante porque ninguna
-depende directamente de la otra (o lo largo de una cadena): su asociación
+La asociación entre estas dos cantidades es interesante porque conceptualmente
+(y desde punto de vista del modelo), no hay relación entre estas dos variables: su asociación
 aparece porque son causas que compiten para explicar una observación.
 
 
@@ -522,6 +712,7 @@ ggplot(aes(x = s_2, y = prop_cond, colour = s_1, group = factor(s_1))) +
   geom_line()
 ```
 Las condicionales son iguales, de modo que son independientes dado $x = 0.4$.
+
 
 
 ## Gráficas dirigidas acíclicas
@@ -566,11 +757,12 @@ Esta gráfica representa una conjunta $p(o,f,c,t)$ cuando es posible factorizar
 
 $$p(o,f,c,t) = p(f)p(o)p(c|o,f)p(t|f),$$    
 de forma que podemos entender el proceso generador de este conjunto de variables como
-sigue: simulamos primero $F$ y $C$, usando el valor de $F$ podemos simular $T$,
+sigue: simulamos primero $F$ y $O$, usando el valor de $F$ podemos simular $T$,
 y usando el valor de $F$ y $C$ podemos simular $C$. En este ejemplo podemos
 pensar que las variables son Obesidad, Fumador, Enfermedad de Corazón y Tos. Nótese
 que la distribución de Enfermedad de Corazón depende del estado de Obesidad y fumador.
 La probabilidad de tener tos depende directamente del estado de fumador.
+
 
 El conjunto de independencias condicionales de una conjunta $p$ está fuertemente ligado a la estructura
 de la gráfica que la representa:
@@ -579,7 +771,7 @@ de la gráfica que la representa:
 Una distribución $p$ es representada por $G$ si y sólo si para cada variable
 $W$, cuando condicionamos a los padres $pa(W)$ de $W$, $W$ es
 condicionalmente independiente
-de todas las variables que nos descendientes o padres de $W$.
+de todas las variables que no son descendientes o padres de $W$.
 :::
 
 Es decir, si condicionamos a los padres de una variable, esta variable es
@@ -588,6 +780,39 @@ condicionales que están presentes, veremos que para calcular éstas es necesari
 usar el concepto de d-separación. Antes discutiremos las estructuras básicas
 que nos interesan en una gráfica.
 
+### Independencia condicional, parsimonia y supuestos
+
+La independencia condicional es un concepto central para construir modelos
+probabilísticos, pues nos permite construir modelos **parsimoniosos**.
+
+- En una factorización dada, cada factor representa un modelo distinto, que
+puede tener parámetros que definen la relación entre la variable resultante y sus
+padres.
+- Si en nuestro modelo existen independencias condicionales, podemos hacer modelos
+con menos parámetros, y cada relación es más simple.
+
+En nuestro ejemplo anterior, si $T$ tuviera más padres en lugar
+de tener que definir o estimar $p(t|f)$, tendríamos que modelar
+$p(t|o,f,c)$, que es un modelo más complicado: por ejemplo, puede tener interacciones
+complicadas y no linealidades más complejas que el modelo $f(t|f)$
+
+Adicionalmente, el conjunto de independencias condicionales también nos dice 
+que implicaciones tiene el modelo que estamos considerando. Más adelante veremos
+cómo:
+
+- Calcular todas las independencias condicionales dada nuestra gráfica
+- Entender en qué lugares puede haber dependencias y explicar la razón de su existencia,
+por ejemplo, asi la relación es causal o no.
+
+Por ejemplo, cuando consideramos las dos colecciones de volados ($S_1$ y $S_2$) dada una misma moneda ($X$), podemos entender por qué $S_1$ y $S_2$ **no** son independientes: saber el resultado de $S_1$, por ejemplo, nos da información acerca la $X$, lo cual a su vez 
+nos da información de $S_2$. La información fluye a lo largo de la gráfica correspondiente
+dado el supuesto que hicimos que las dos series de volados se hacen con una moneda.
+
+
+
+
+
+
 ## Estructuras básicas en DAGs
 
 Veremos que para razonar acerca de las asociaciones e independencias
@@ -595,7 +820,8 @@ que pueden aparecer en una conjunta, podemos examinar la gráfica que la represe
 puede propagarse información de un nodo a otro.
 
 Consideremos entonces tres variables $X$, $Y$ y $Z$. Las tres estructuras
-que tenemos que entender en primer lugar son:
+que tenemos que entender en primer lugar pueden verse también como métodos de
+razonamiento lógico derivados de las leyes de probabilidad:
 
 ### Razonamiento de mediación
 
@@ -620,7 +846,7 @@ digraph {
 
 En este caso, 
 
-- Existe  asociación entre $X$ y $Y$.
+- Existe  asociación entre $X$ y $Y$, pero no existe relación directa entre ellas.
 - Si condicionamos a un valor de $Z$, $X$ y $Y$ son condicionalmente independientes.
 
 Podemos pensar en $Z$ como un mediador del efecto de $X$ sobre $Y$. Si no 
@@ -631,10 +857,22 @@ $Z$ es dolor de cabeza y $Y$ es bienestar general, $X$ y $Y$ están
 relacionadas. Sin embargo, si condicionamos a un valor fijo de dolor
 de cabeza, no hay relación entre tomar la medicina y bienestar general.
 
+En términos de factorización, podemos checar la independencia condicional:
+como $p(x,y,z) = p(x)p(z|x)p(y|z)$, entonces
+
+$$p(x, y | z) = p(x,y,z) / p(z) = (p(x)(z|x)) (p(y|z) / p(z))$$
+y vemos que el lado izquierdo se factoriza en una parte que sólo involucra a $x$ y $z$
+y otro factor que sólo tiene a $y$ y $z$: no hay términos que incluyan conjuntamente a 
+$x$, $y$ y $z$. Podemos de cualquier forma continuar notando
+
+$$p(x)p(z|x)/p(z) = p(x,z)/p(z) = p(x | z)$$
+de modo que
+
+$$p(x, y | z) = p(x|z) p(y|z) $$
 
 ### Razonamiento de causa común
 
-
+En el siguiente ejemplo, llamamos a $Z$ una causa que es común a $X$ y $Y$.
 
 ```{r}
 #| code-fold: true
@@ -659,21 +897,25 @@ En este caso,
 - Si condicionamos a  $Z$, entonces $X$ y $Y$ son condicionalmente
 independientes.
 
-En este caso, variación en $Z$ produce variación conjunta de $X$ y $Y$.
 
-Este tipo de estructura también se llama bifurcación, o decimos que $Z$ es una
-variable de confusión. 
+Este tipo de estructura también se llama bifurcación, o decimos que $Z$ es un
+**confusor** en esta gráfica. Variación en $Z$ produce variación conjunta de $X$ y $Y$.
 
 Por ejemplo,  podríamos encontrar que el uso de aspirina $X$ está asociado
 a una mortalidad más alta $Y$. Una causa común es enfermedad grave que produce dolor ($Z$). Sin embargo, si condicionamos a personas sanas, veríamos
 que no hay relación entre uso de aspirina y mortalidad, igualmente veríamos
 que entre las personas enfermas el uso de aspirina no les ayuda a vivir más tiempo.
 
+En este caso, tenemos:
 
+$$p(x, y, z) =  p(z)p(x|z)p(y|z)$$
+Y como el lado izquierdo es igual (en general) a $p(x,y|z)p(z)$, obtenemos
+la independiencia condicional de $X$ y $Y$ dado $Z$.
 
-### Razonamiento de causas alternativas
+### Razonamiento de causas alternativas o efecto común
 
-En este caso, a $Z$ también le llamamos un **colisionador**:
+En este caso, a $Z$ también le llamamos un **colisionador**. Este es
+el caso que puede ser más difícil de entender en un principio.
 
 ```{r}
 #| code-fold: true
@@ -695,14 +937,277 @@ digraph {
 - En este caso $X$ y $Y$ son independientes
 - Sin embargo, si condicionamos a $Z$ entonces $X$ y $Y$ están asociados.
 
-En este caso, si observamos un valor particular de $Z$, entonces
-existen menos posibles configuraciones probables de $X$ y $Y$, y esto 
-generalmente produce dependencia. 
 
 Por ejemplo, si observamos que el 
 pasto está mojado, entonces saber que no llovió implica que probablemente
 se encendieron los aspersores.
 
-Podríamos considerar las variables apariencia física $X$ y capacidad intelectual $Y$. En principio, estas dos variables podrían ser independientes en la población
-general. Sin embargo, si consideramos solamente aquellas personas famosas, 
-encontraríamos una correlación negativa entre apariencia y capacidad. 
+Como la conjunta se factoriza como:
+
+$$p(x,y,z) = p(x)p(y)p(z|x,y)$$
+podemos integrar sobre $Z$:
+
+$$p(x,y) = \int p(x,y,z)dz = p(x)p(y)\int p(z|x,y)\, dz$$
+pero $p(z|x,y)$ integra uno porque es una densidad, de forma que $x$ y $y$ son 
+independientes.
+
+### Ejemplo
+
+Verificamos que en nuestro modelo de Santa Clara, efectivamente nuestro
+modelo no implica ninguna dependencia no condicional entre sensibilidad de la
+prueba y prevalencia. Eso debería ser claro de la simulación, pero de
+todas formas lo checamos
+
+```{r}
+library(cmdstanr)
+mod_sc <- cmdstan_model("../src/sclara.stan")
+print(mod_sc)
+```
+
+En este caso, no pondremos información acerca de positivos en la prueba:
+
+```{r}
+datos_lista <- list(N = 0, n = 0,
+ kit_pos = 103, n_kit_pos = 122,
+ kit_neg = 399, n_kit_neg = 401)
+ajuste <- mod_sc$sample(data = datos_lista, refresh = 1000, iter_sampling = 400)
+sims <- ajuste$draws(c("p", "sens", "esp"), format = "df")
+resumen <- ajuste$summary(c("p"))
+```
+
+```{r}
+ggplot(sims, aes(x = p, y = sens)) + geom_point() +
+  scale_x_sqrt()
+```
+
+No vemos ninguna asocación entre estas dos variables. Podemos hacer
+algunas permutaciones al azar para checar que nuestra interpetación de la gráfica es 
+correcta:
+
+```{r}
+library(nullabor)
+ggplot(lineup(null_permute("p"), sims, n = 5), aes(x = p, y = sens)) +
+  geom_point(alpha = 0.3) + facet_wrap(~ .sample) +
+  scale_x_sqrt()
+```
+
+Donde no notamos ninguna diferencia sistemática después de hacer permutaciones.
+
+Sin embargo, al condicionar al valor de Positivos, creamos una relación que 
+no podemos interpretar como casual. En este caso particular supondremos
+prácticamente fija la sensibilidad para ver solamente lo que sucede 
+en el colisionador de especificidad y número de positivos (la especificidad
+en este ejemplo es más crítica):
+
+```{r}
+datos_lista <- list(N = 3300, n = 50,
+ kit_pos = 1030000, n_kit_pos = 1220000, # números grandes para que esté practicamente
+# fija la sensibilidad
+ kit_neg = 399, n_kit_neg = 401)
+ajuste <- mod_sc$sample(data = datos_lista, refresh = 1000, iter_sampling = 400)
+sims <- ajuste$draws(c("p", "sens", "esp"), format = "df")
+resumen <- ajuste$summary(c("p"))
+```
+
+```{r}
+ggplot(sims, aes(x = p, y = esp)) + geom_point() 
+```
+Y vemos que condiconando al colisionador, obtenemos una relación fuerte entre prevalencia
+y especificidad de la prueba: necesitaríamos más datos de especificidad para
+obtener una estimación útil.
+
+- La razón de que la especificidad es más importante en este ejemplo es que
+la prevalencia es muy baja al momento del estudio, y los falsos positivos pueden introducir
+más error en la estimación
+- También repetimos nótese que el análisis correcto de estos datos no se puede
+hacer con intervalos separados para cada cantidad, sino que debe examinarse la conjunta
+de estos parámetros.
+
+### Razonamiento de descendientes de efecto común
+
+Condicionar a un descendiente de un colisionador también produce dependencias 
+condicionales:
+
+```{r}
+#| code-fold: true
+
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    X
+    Y
+    Z
+    A
+  edge [minlen = 3]
+   X -> Z
+   Y -> Z
+   Z -> A
+}
+", width = 200, height = 50)
+```
+
+En este caso,
+
+- $X$ y $Y$ son independientes
+- $X$ y $Y$ son  dependientes si condicionamos a $A$.
+
+Dependiendo de la naturaleza de la asociación entre el colisionador $Z$ y su descendiente
+$A$, esta dependencia puede ser más fuerte o más débil. 
+
+Por ejemplo, en nuestro ejemplo donde el pasto mojado es un colisionador entre
+cuánta agua dieron los aspersores y cuánta lluvia cayó, un descendiente del pasto
+mojado es el estado de las plantas del jardín. Aunque los aspersores trabajan independientemente
+de la lluvia, si observamos que las plantas se secaron entonces lluvia y aspersores están
+correlacionados: por ejemplo, si noto que los aspersores están descompuestos, encontces
+concluimos que no hubo lluvia.
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    X [label = lluvia]
+    Y [label = aspersores]
+    Z [label = humedad]
+    A [label = plantas]
+  edge [minlen = 3]
+   X -> Z
+   Y -> Z
+   Z -> A
+}
+", width = 200, height = 50)
+
+```
+
+
+Con estas tres estructuras elementales podemos entender de manera abstracta
+la existencia o no de asociaciones entre nodos de cualquier gráfica dirigida.
+
+
+## d-separación
+
+
+Ahora buscaremos describir todas las posibles independendencias condicionales
+y no condicionales que pueden aparecer en una gráfica, para entender cómo aparecen
+asociaciones entre variables de nuestro modelo, y dependiendo del tipo de condicionamiento
+que hacemos.
+
+Veremos que el criterio es algorítmico. Más adelante discutiremos cuáles de estas
+asociaciones se deben a efectos causales y cuáles no, y esto nos permitirá establecer
+estrategias de condicionamiento (qué variables controlar o no), recolección de datos
+para construir los estimadores correctos de los efectos causales de interés.
+
+
+::: callout-note
+# Caminos activos y bloqueados
+
+- Un **camino** entre $X$ y $Y$ es una sucesión de aristas que conecta a $X$ con $Y$
+(sin importar) la dirección de las aristas.
+- Decimos que un camino $p$ entre $X$ y $Y$ está **bloqueado** por un conjunto de nodos
+$A$ cuando:
+1. El camino $p$ contiene una cadena o una bifurcación tal que el nodo intermedio
+está en $A$, o
+2. El camino $p$ contiene un nodo colisionador $Z$ tal que el nodo de colisión no está en $A$,
+y ningún descendiente de $Z$ está en $A$
+
+Si $A$ bloquea todos los caminos posibles entre $X$ y $Y$, decimos que $X$ y $Y$ están
+$d$-**separados** condicionalmente a $Z$.
+:::
+
+Cuando un camino entre $X$ y $Y$ no está bloqueado, entonces decimos que está **activo**. Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos
+probabilísticos, el siguiente teorema no es sorpresa:
+
+::: callout-note
+# Criterio de d-separación
+
+En una DAG $G$:
+
+- Si dos variables están d-separadas condicional a $Z$, entonces $X$ y $Y$ son condicionalmente independientes para cualquier conjunta representada por $G$.
+- Si dos variables **no** están d-separadas condicional a $Z$, entonces existen conjuntas representadas por $G$ tales que $X$ y $Y$ **no** tienen dependencia condicional a $Z$.
+:::
+
+**Nota 1**: nótese que este teorema nos da una manera abstracta de razonar acerca
+de la asociación en un modelo gráfico: no es necesario saber la forma particular
+de las condicionales para utilizarlo.
+
+**Nota 2**: Vale la pena mencionar que el segundo inciso en general es una implicación más fuerte:  cuando no hay $d$-separación, existe algún tipo de dependencia casi seguro (en el sentido probabilístico de posible conjuntas).
+
+Finalmente (ver por ejemplo @koller2009, p 75), existe un algoritmo eficiente para encontrar
+todas las posibles independencias condicionales implicadas por una gráfica:
+
+::: callout-note
+# Cálculo de d-separación
+
+Existe un algoritmo de complejidad lineal en el tamaño de la gráfica para encontrar 
+todos los nodos con caminos activos a un nodo $X$ condicional a las variables $A$.
+:::
+
+### Ejemplo {-}
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    Z 
+    W 
+    X
+    Y 
+    U
+  edge [minlen = 3]
+    Z -> W
+    X -> W
+    X -> Y
+    W -> U
+    S -> Y
+    UZ -> Z
+}
+")
+```
+
+Consideremos la relación entre Z y Y.
+
+- En primer lugar, ¿son independientes? Sí, pues el único camino entre $Z$ y $Y$ está 
+bloqueado por $W$, que es un colisionador.
+- Si condicionamos a $W$, ¿son independientes? No, pues activamos el único camino al
+condicionar a un colisiionador.
+- Si condicionamos a $W$, ¿son independientes? No, pues activamos el único camino al
+condicionar a el descendiente de un colisionador.
+- Sin embargo, si por alguna razón tenemos datos condicionales a $W$, condicionando adicionalmente a $X$ (es decir, condicionando al conjunto $\{W, X\}$), notamos
+que ahora hemos bloqueado el camino que condicionar al colisionador había abierto.
+Por lo tanto, $X$ y $Y$ son condicionalmente independientes dadas  $\{W, X\}$
+
+### Ejercicio
+
+Repite el ejemplo anterior para la siguiente gráfica. 
+Analiza que pasa si condicionamos o no a valores de $T$, y qué pasa si adicionalmente
+condicionamos a $W$, y luego repite los pasos del ejemplo anterior.
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    Z 
+    W 
+    X
+    Y 
+    U
+    T
+  edge [minlen = 3]
+    T -> Z
+    T -> Y
+    Z -> W
+    X -> W
+    X -> Y
+    W -> U
+    S -> Y
+    UZ -> Z
+}
+")
+
+```
+
