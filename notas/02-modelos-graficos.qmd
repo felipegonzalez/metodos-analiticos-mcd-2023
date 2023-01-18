@@ -323,7 +323,8 @@ mayor y por tanto mayor peso, existe un efecto adicional
 que, entre hombres y mujeres de la misma estatura, los hombres
 tienden a ser más un poco más pesados.
 
-- Entender la diferencia y cuantificar el efecto de hombre-mujer sobre peso a través de estatura y el efecto *directo* es importante y veremos cómo hacerlo más adelante.
+- Entender la diferencia y cuantificar el efecto de hombre-mujer sobre peso a través de estatura y el efecto *directo* es importante y veremos cómo hacerlo más adelante, y bajo
+qué condicinoes es posible.
 
 En este modelo, podríamos argumentar que hay, por ejemplo:
 
@@ -333,7 +334,7 @@ variables pudieran influír causalmente tanto a sexo como a peso, entonces
 deberíamos incluirlas, como veremos más adelante. 
 - También sabemos que hay muchas causas comunes de altura y peso. Por ejemplo,
 nutrición o medio ambiente. Si esas causas **no** influyen también a sexo, entonces veremos más adelante por qué no es necesario que las incluyamos *para la
-pregunta particular que estamos formulando en este ejemplo*.
+pregunta particular que estamos formulando en este ejemplo* (el efecto total de sexo).
 
 Dada el diagrama, consideramos un modelo generativo como sigue:
 
@@ -1059,7 +1060,7 @@ Por ejemplo, en nuestro ejemplo donde el pasto mojado es un colisionador entre
 cuánta agua dieron los aspersores y cuánta lluvia cayó, un descendiente del pasto
 mojado es el estado de las plantas del jardín. Aunque los aspersores trabajan independientemente
 de la lluvia, si observamos que las plantas se secaron entonces lluvia y aspersores están
-correlacionados: por ejemplo, si noto que los aspersores están descompuestos, encontces
+correlacionados: por ejemplo, si noto que los aspersores están descompuestos, entonces
 concluimos que no hubo lluvia.
 
 ```{r}
@@ -1112,7 +1113,7 @@ está en $A$, o
 y ningún descendiente de $Z$ está en $A$
 
 Si $A$ bloquea todos los caminos posibles entre $X$ y $Y$, decimos que $X$ y $Y$ están
-$d$-**separados** condicionalmente a $Z$.
+$d$-**separados** condicionalmente a $Z$, o $d$ separados por $Z$.
 :::
 
 Cuando un camino entre $X$ y $Y$ no está bloqueado, entonces decimos que está **activo**. Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos
@@ -1123,8 +1124,8 @@ probabilísticos, el siguiente teorema no es sorpresa:
 
 En una DAG $G$:
 
-- Si dos variables están d-separadas condicional a $Z$, entonces $X$ y $Y$ son condicionalmente independientes para cualquier conjunta representada por $G$.
-- Si dos variables **no** están d-separadas condicional a $Z$, entonces existen conjuntas representadas por $G$ tales que $X$ y $Y$ **no** tienen dependencia condicional a $Z$.
+- Si dos variables están d-separadas por las variables $Z$, entonces $X$ y $Y$ son condicionalmente independientes para cualquier conjunta representada por $G$.
+- Si dos variables **no** están d-separadas por $Z$, entonces existen conjuntas representadas por $G$ tales que $X$ y $Y$ **no** tienen dependencia condicional a $Z$.
 :::
 
 **Nota 1**: nótese que este teorema nos da una manera abstracta de razonar acerca
