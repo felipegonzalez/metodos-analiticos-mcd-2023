@@ -323,6 +323,26 @@ div.csl-indent {
   </tr>
   <tr>
    <td style="text-align:left;"> B </td>
+   <td style="text-align:left;"> grandes </td>
+   <td style="text-align:left;"> mejora </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> chicos </td>
+   <td style="text-align:left;"> sin_mejora </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> grandes </td>
+   <td style="text-align:left;"> mejora </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:left;"> chicos </td>
+   <td style="text-align:left;"> mejora </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
    <td style="text-align:left;"> chicos </td>
    <td style="text-align:left;"> mejora </td>
   </tr>
@@ -332,33 +352,13 @@ div.csl-indent {
    <td style="text-align:left;"> mejora </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> grandes </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> chicos </td>
    <td style="text-align:left;"> mejora </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A </td>
    <td style="text-align:left;"> grandes </td>
-   <td style="text-align:left;"> sin_mejora </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> chicos </td>
-   <td style="text-align:left;"> mejora </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> chicos </td>
-   <td style="text-align:left;"> mejora </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> chicos </td>
-   <td style="text-align:left;"> sin_mejora </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B </td>
-   <td style="text-align:left;"> chicos </td>
    <td style="text-align:left;"> mejora </td>
   </tr>
   <tr>
@@ -607,8 +607,8 @@ Nota
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-f6cd06504c2327b89ffb" style="width:100%;height:162px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f6cd06504c2327b89ffb">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    T \n    M \n    C\n  edge [minlen = 3]\n    T -> M\n    C -> T\n    C -> M\n{ rank = same; M; T }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c98612ba180d7b41a6ca" style="width:100%;height:162px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c98612ba180d7b41a6ca">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    T \n    M \n    C\n  edge [minlen = 3]\n    T -> M\n    C -> T\n    C -> M\n{ rank = same; M; T }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Es decir, el tamaño de los cálculos es una causa común de tratamiento (T) y resultado (M). Veremos más adelante que la decisión de condicionar a el tipo de cálculos proviene de un análisis relativamente simple de este diagrama causal, independientemente de los métodos que usemos para estimar las proporciones de interés (en este ejemplo, examinar las tablas cruzadas es equivalente a hacer estimaciones de máxima verosimlitud).</p>
@@ -725,8 +725,8 @@ Nota
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-f18f37cfbebd0c4fdd30" style="width:100%;height:162px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f18f37cfbebd0c4fdd30">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    P\n    T \n    M \n  edge [minlen = 3]\n    T -> P\n    P -> M\n    T -> M\n{ rank = same; M; T}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-28fae7bcfb967230b719" style="width:100%;height:162px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-28fae7bcfb967230b719">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    P\n    T \n    M \n  edge [minlen = 3]\n    T -> P\n    P -> M\n    T -> M\n{ rank = same; M; T}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -1053,8 +1053,8 @@ Nota
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)<span class="co">#, width = 200, height = 50)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e2ca8d31648d83643dda" style="width:100%;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e2ca8d31648d83643dda">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Prueba\n    TrabSalud\n    Síntomas\n    Fumar\n    Covid\n  edge [minlen = 3]\n    #TrabSalud -> Covid\n    TrabSalud -> Prueba\n    TrabSalud -> Fumar\n    TrabSalud -> Covid\n    U -> Síntomas\n    Covid -> Síntomas\n    Síntomas -> Prueba\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e7d9cbc5fb5b12f23afb" style="width:100%;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e7d9cbc5fb5b12f23afb">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Prueba\n    TrabSalud\n    Síntomas\n    Fumar\n    Covid\n  edge [minlen = 3]\n    #TrabSalud -> Covid\n    TrabSalud -> Prueba\n    TrabSalud -> Fumar\n    TrabSalud -> Covid\n    U -> Síntomas\n    Covid -> Síntomas\n    Síntomas -> Prueba\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>El código para simular es el siguiente: todas las variables toman valores 0 o 1, pero con diferentes probabilidades y dependiendo de las variables que son padres en la gráfica de arriba.</p>
