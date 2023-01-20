@@ -1,0 +1,195 @@
+---
+title: "Tarea 1: introducción y modelos probabilísticos"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(DiagrammeR)
+```
+
+
+# Paradoja de Simpson (versión continua. Pearl, capítulo 1)
+
+Supón que en un estudio que mide horas de ejercicio a la semana
+y niveles de colesterol, observamos que hay una correlación positiva.
+
+Usaremos dos supuestos causales:
+
+- Sabemos que el ejercicio tiene un efecto benéfico
+(lo baja) sobre los niveles de colesterol.
+- Las personas mayores tienden a hacer más ejercicio (por recomendaciones
+de los doctores, por ejemplo) y también
+naturalmente tienen niveles de colesterol más alto.
+
+
+**Pregunta 1**: Dibuja una gráfica dirigida que capture la factorización
+que vas a utilizar para construir tu modelo, y que utilice los supuestos que hicimos arriba. Pon especial atención a la dirección de las flechas.
+
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    Edad
+    Ejercicio
+    Colesterol
+  edge [minlen = 3]
+
+
+
+
+
+}
+")
+```
+
+
+
+**Pregunta 2**: Escribe la conjunta de tu modelo según tu factorización. 
+
+
+**Pregunta 3**: Para la edad supón una distribución continua uniforme entre 18 y 40 años para la población de interés (aunque puede escoger otra si quieres). Escribe
+el código para simular edad y horas por semana de ejercicio. 
+
+Nota: por el momento, no te preocupes mucho por la forma distribucional exacta
+que utilices, basta que produzca números más o menos razonables para cada cantidad, y que siga los supuestos que hicimos arriba:
+
+```{r}
+simular_personas_1 <- function(n = 10){
+  edad <- runif(n, 18, 40) |> round(0)
+  # esta variable debería estar entre 0 y 30 horas a la semana, por ejemplo
+  #### completa este código #############
+  ejercicio <- rnorm(n, , ) 
+  ##########
+  tibble(edad, ejercicio)
+}
+```
+
+Checa tus simulaciones y que existe la asociación positiva que planteamos:
+
+```{r}
+sims <- simular_personas_1(5000)
+ggplot(sims, aes(edad, ejercicio)) +
+  geom_point()
+```
+
+
+**Pregunta 4**: Ahora incluye en tu simulación la variable
+colesterol, que debe depender de edad y ejercicio en la forma
+que se describió arriba:
+
+
+```{r}
+simular_personas_2 <- function(n = 10){
+  edad <- runif(n, 18, 40) |> round(0)
+  # esta variable debería estar entre 0 y 30 horas a la semana, por ejemplo
+  #### completa este código #############
+  ejercicio <- rnorm(n, , ) 
+  ##########
+  # para más "realismo" los niveles de colesterol aprox
+  # deben estar entre 50 y 300 por ejemplo
+  ####### completa aquí tu código ########
+  colesterol <- rnorm(n, , )
+  ##############
+  tibble(edad, ejercicio, colesterol)
+}
+```
+
+Checa tus simulaciones y verifica que existe una asociación positiva
+entre ejercicio y colesterol:
+
+```{r}
+sims <- simular_personas_2(5000)
+ggplot(sims, aes(ejercicio, colesterol)) +
+  geom_point()
+cor(sims)
+```
+
+**Pregunta 5**: Según tus supuestos y datos generados, ¿sería correcto
+concluir con esta gráfica que las personas que hacer más ejercicio sube los niveles 
+de colesterol?
+
+
+**Pregunta 6**: Grafica la relación entre ejercicio y colesterol para
+las edades 20, 30 y 40 (puedes escoger otros) y grafica identificando los
+grupos. Verifica que en efecto dentro de cada estos grupos la asociación
+es negativa:
+
+
+```{r}
+ggplot(sims |> filter(edad %in% c(20, 30, 40)), aes(ejercicio, colesterol, colour = factor(edad))) +
+  geom_point() + geom_smooth(se = FALSE)
+```
+
+
+**Pregunta 7**: Con los supuestos que hicimos, si quisiéramos contestar
+la pregunta ¿en cuánto reduce el colesterol hacer el ejercicio, deberíamos
+incluir (es decir estratificar con) la variable *edad* en nuestro análisis o no? 
+Explica tu razonamiento.
+
+Para terminar considera los dos siguientes ajustes con un modelo lineal:
+
+```{r}
+lm(colesterol ~ ejercicio, sims) |> coef()
+lm(colesterol ~ ejercicio + edad, sims) |> coef()
+```
+¿Qué pasa en cada modelo con el coeficiente de *ejercicio*?
+
+
+## Factorización de conjunta según una gráfica dirigida
+
+Considera la siguiente gráfica asociada a un modelo probabilístico:
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    X
+    U
+    V
+    W
+    Y
+    S1
+    S2
+  edge [minlen = 3]
+    X -> U
+    U -> S1
+    V -> U
+    W -> S2
+    V -> W
+    Y -> W
+}
+")
+```
+
+
+**Pregunta 8**: Usando la regla del producto, escribe la factorización
+del la conjunta de estas variables implicada por este diagrama.
+
+
+**Pregunta 9**: (Pearl, cap 2) 
+onsidera, en *un año fijo* dado en Estados Unidos, tenemos la cantidad 
+de fondos públicos
+disponibles para cada escuela (X), el promedio del examen 
+SAT de esa escuela (Y) y la tasa de aceptación 
+de esos estudiantes en universidades (Z). Consideramos el diagrama 
+$X\to Y\to Z$, y las dos flechas representan incrementos positivos.
+
+**Pregunta 10**: Discute por qué razón o no deberías
+incluír una flecha directa que vaya de $X$ a $Z$.
+
+**Pregunta 11** (opcional, más difícil para discusión): 
+ Supón que este caso, alguien nota que en los datos de este año las
+tasas de aceptación de estudiantes de escuelas con muchos fondos es muy
+similar a la de bajos fondos. Considera dos variables adicionales 
+que pudieran explicar esta falta de asociación, por ejemplo:
+
+- $W$, los resultados en el SAT para del año anterior
+- $U$, la dificultad promedio de las universidades que seleccionan los alumnos para
+enviar sus aplicaciones.
+
+En cada caso, agrega $U$ y $W$ a tu diagrama original en los lugares que sean correctos.
+
