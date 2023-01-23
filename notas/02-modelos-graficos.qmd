@@ -677,11 +677,15 @@ aparece porque son causas que compiten para explicar una observación.
 
 ## Independencia condicional
 
-::: {.callout-note}
-# Indepencia condicional
+Recordamos el concepto de independencia condicional, que está relacionado
+a cómo se puede factorizar una conjunta:
 
-Sean $X,Y,Z$ variables aleatorias. Decimos que $X$ y $Y$ son condicionalmente independientes
-cuando satisfacen
+::: {.callout-note}
+# Independencia condicional
+
+Sean $X,Y,Z$ variables aleatorias. Decimos que $X$ y $Y$ son condicionalmente 
+independientes dado $Z$
+cuando se satisface
 $$p(x,y|z) = p(x|z)p(y|z)$$
 o equivalentemente,
 $$p(x|y,z) = p(x|z)$$
@@ -696,8 +700,8 @@ todo a $Z$.
 
 En nuestro
 primer ejemplo de la sección anterior, observamos que una vez que sabíamos $X$, la probabilidad
-de sol, no hay relación entre $X$ y $Y$, aún cuando no es cierto que
-$p(x,y) = p(x)p(y)$.
+de sol, no hay relación entre $S_1$ y $S_2$, aún cuando no es cierto que
+$p(s_1,s_2) = p(s_1)p(s_2)$.
 
 Podemos checar esto en las simulaciones, por ejemplo:
 
@@ -712,14 +716,16 @@ simular_dos(1e5, x = 0.4) |>
 ggplot(aes(x = s_2, y = prop_cond, colour = s_1, group = factor(s_1))) +
   geom_line()
 ```
-Las condicionales son iguales, de modo que son independientes dado $x = 0.4$.
+Las condicionales son iguales en cada caso, 
+de modo que $S_1$ y $S_2$ son independientes dada $X$ (prueba con otros valores
+de $X$).
 
 
 
 ## Gráficas dirigidas acíclicas
 
-Para representar la construcción de modelos que hemos considerado
-de manera gráfica, podemos usar las siguiente idea: 
+Para representar gráficamente 
+la construcción de modelos que hemos considerado, podemos usar las siguiente idea: 
 
 ::: {.callout-note}
 Decimos que una gráfica dirigida $G$ **representa** a una conjunta $p(x_1,\ldots, x_p)$
@@ -756,10 +762,10 @@ digraph {
 
 Esta gráfica representa una conjunta $p(o,f,c,t)$ cuando es posible factorizar
 
-$$p(o,f,c,t) = p(f)p(o)p(c|o,f)p(t|f),$$    
+$$p(ob,f,ec,t) = p(f)p(o)p(ec|o,f)p(t|f),$$    
 de forma que podemos entender el proceso generador de este conjunto de variables como
-sigue: simulamos primero $F$ y $O$, usando el valor de $F$ podemos simular $T$,
-y usando el valor de $F$ y $C$ podemos simular $C$. En este ejemplo podemos
+sigue: simulamos primero $F$ y $Ob$, usando el valor de $F$ podemos simular $T$,
+y usando el valor de $F$ y $Ob$ podemos simular $C$. En este ejemplo podemos
 pensar que las variables son Obesidad, Fumador, Enfermedad de Corazón y Tos. Nótese
 que la distribución de Enfermedad de Corazón depende del estado de Obesidad y fumador.
 La probabilidad de tener tos depende directamente del estado de fumador.
@@ -776,10 +782,11 @@ de todas las variables que no son descendientes o padres de $W$.
 :::
 
 Es decir, si condicionamos a los padres de una variable, esta variable es
-condicionalmente independiente de "el pasado". Estas no son las únicas independencias
+condicionalmente independiente del "pasado", en el sentido del orden de la gráfica. 
+Estas no son las únicas independencias
 condicionales que están presentes, veremos que para calcular éstas es necesario
 usar el concepto de d-separación. Antes discutiremos las estructuras básicas
-que nos interesan en una gráfica.
+que nos interesan estudiar en una gráfica.
 
 ### Independencia condicional, parsimonia y supuestos
 
@@ -803,15 +810,11 @@ cómo:
 
 - Calcular todas las independencias condicionales dada nuestra gráfica
 - Entender en qué lugares puede haber dependencias y explicar la razón de su existencia,
-por ejemplo, asi la relación es causal o no.
+por ejemplo, si la relación es causal o no.
 
 Por ejemplo, cuando consideramos las dos colecciones de volados ($S_1$ y $S_2$) dada una misma moneda ($X$), podemos entender por qué $S_1$ y $S_2$ **no** son independientes: saber el resultado de $S_1$, por ejemplo, nos da información acerca la $X$, lo cual a su vez 
 nos da información de $S_2$. La información fluye a lo largo de la gráfica correspondiente
 dado el supuesto que hicimos que las dos series de volados se hacen con una moneda.
-
-
-
-
 
 
 ## Estructuras básicas en DAGs
@@ -871,6 +874,85 @@ de modo que
 
 $$p(x, y | z) = p(x|z) p(y|z) $$
 
+Y mostramos un ejemplo simulado:
+
+```{r}
+rbern <- function(n, prob){
+  rbinom(n, 1, prob = prob)
+} 
+simular_mediador <- function(n = 10){
+  x <- rbern(n, p = 0.5) |> as.numeric()
+  z <- rbern(n, p = x * 0.8 + (1 - x) * 0.3)
+  y <- rbinom(n, 2, z * 0.7 + (1 - z) * 0.5)
+  tibble(x, z, y)
+}
+sims_mediador <- simular_mediador(50000)
+```
+
+$X$ y $Y$ son dependientes:
+
+```{r}
+sims_mediador |> select(x, y) |> 
+  count(x, y) |> 
+  group_by(x) |> 
+  mutate(p_cond = n / sum(n)) |>
+  select(x, y, p_cond) |> 
+ggplot(aes(x = y, y = p_cond, fill = factor(x))) +
+  geom_col(position = "dodge") +
+  labs(subtitle = "Condicional de Y dada X")
+```
+
+Sin embargo, si condicionamos a $Z$, que puede tomar los valores 0 o 1:
+
+```{r}
+sims_mediador |> 
+  count(x, y, z) |> 
+  group_by(x, z) |> 
+  mutate(p_cond = n / sum(n)) |>
+  select(x, y, z, p_cond) |> 
+ggplot(aes(x = y, y = p_cond, fill = factor(x))) +
+  geom_col(position = "dodge") + facet_wrap(~ z) +
+  labs(subtitle = "Condicional de Y dada X y Z")
+```
+Y vemos que la condicional de $Y$ dada $Z$ y $X$ sólo depende de $Z$. Una consecuencia
+es por ejemplo que la correlación debe ser cero:
+
+```{r}
+cor(sims_mediador |> filter(z == 1) |> select(x,y)) |> round(3)
+cor(sims_mediador |> filter(z == 0) |> select(x,y)) |> round(3)
+```
+
+Podemos también hacer un ejemplo continuo:
+
+```{r}
+simular_mediador <- function(n = 10){
+  x <- rnorm(n, 100, 10)
+  prob <- 1 / (1 + exp(-(x - 100)/5))
+  z <- rbern(n, p = prob)
+  y <- rnorm(n, 100 + 30 * z, 15)
+  tibble(x, z, y)
+}
+sims_mediador <- simular_mediador(2000)
+```
+
+$X$ y $Y$ son dependientes (por ejemplo si vemos la media condicional
+de $Y$ dado $X$:
+
+```{r}
+ggplot(sims_mediador, aes(x = x, y = y, colour = z)) + geom_point() +
+  geom_smooth(span = 1)
+```
+
+Si condicionamos a $Z$, no hay dependencia entre $X$ y $Y$
+
+```{r}
+ggplot(sims_mediador, aes(x = x, y = y, colour = z, group = z)) + 
+  geom_point() +
+  geom_smooth(span = 2)
+```
+
+
+
 ### Razonamiento de causa común
 
 En el siguiente ejemplo, llamamos a $Z$ una causa que es común a $X$ y $Y$.
@@ -913,6 +995,82 @@ $$p(x, y, z) =  p(z)p(x|z)p(y|z)$$
 Y como el lado izquierdo es igual (en general) a $p(x,y|z)p(z)$, obtenemos
 la independiencia condicional de $X$ y $Y$ dado $Z$.
 
+```{r}
+rbern <- function(n, prob){
+  rbinom(n, 1, prob = prob)
+} 
+simular_confusor <- function(n = 10){
+  z <- rbern(n, p = 0.5) |> as.numeric()
+  x <- rbern(n, p = z * 0.3 + (1 - z) * 0.8)
+  y <- rbinom(n, 4, z * 0.9 + (1 - z) * 0.3)
+  tibble(x, z, y)
+}
+sims_confusor <- simular_confusor(50000)
+```
+
+$X$ y $Y$ son dependientes:
+
+```{r}
+sims_confusor |> select(x, y) |> 
+  count(x, y) |> 
+  group_by(x) |> 
+  mutate(p_cond = n / sum(n)) |>
+  select(x, y, p_cond) |> 
+ggplot(aes(x = y, y = p_cond, fill = factor(x))) +
+  geom_col(position = "dodge") +
+  labs(subtitle = "Condicional de Y dada X")
+```
+
+Sin embargo, si condicionamos a $Z$, que puede tomar los valores 0 o 1:
+
+```{r}
+sims_confusor |> 
+  count(x, y, z) |> 
+  group_by(x, z) |> 
+  mutate(p_cond = n / sum(n)) |>
+  select(x, y, z, p_cond) |> 
+ggplot(aes(x = y, y = p_cond, fill = factor(x))) +
+  geom_col(position = "dodge") + facet_wrap(~ z) +
+  labs(subtitle = "Condicional de Y dada X y Z")
+```
+Y vemos que la condicional de $Y$ dada $Z$ y $X$ sólo depende de $Z$. Una consecuencia
+es por ejemplo que la correlación debe ser cero:
+
+```{r}
+cor(sims_confusor |> filter(z == 1) |> select(x,y)) |> round(3)
+cor(sims_confusor |> filter(z == 0) |> select(x,y)) |> round(3)
+```
+
+
+```{r}
+simular_bifurcacion <- function(n = 10){
+  z <- rbern(n, p = 0.5)
+  x <- rnorm(n, 100 + 20 * z, 15)
+  y <- rnorm(n, 100 + 30 * z, 20)
+  tibble(x, z, y)
+}
+sims_bifurcacion <- simular_bifurcacion(5000)
+```
+
+$X$ y $Y$ son dependientes (por ejemplo si vemos la media condicional
+de $Y$ dado $X$:
+
+```{r}
+ggplot(sims_bifurcacion, aes(x = x, y = y, colour = z)) + 
+  geom_point(alpha = 0.2) +
+  geom_smooth(span = 1)
+```
+
+Si condicionamos a $Z$, no hay dependencia entre $X$ y $Y$
+
+```{r}
+ggplot(sims_bifurcacion, aes(x = x, y = y, colour = z, group = z)) + 
+  geom_point(alpha = 0.2) +
+  geom_smooth(span = 2)
+```
+
+
+
 ### Razonamiento de causas alternativas o efecto común
 
 En este caso, a $Z$ también le llamamos un **colisionador**. Este es
@@ -952,7 +1110,140 @@ $$p(x,y) = \int p(x,y,z)dz = p(x)p(y)\int p(z|x,y)\, dz$$
 pero $p(z|x,y)$ integra uno porque es una densidad, de forma que $x$ y $y$ son 
 independientes.
 
-### Ejemplo
+Y mostramos un ejemplo simulado:
+
+```{r}
+simular_colisionador <- function(n = 10){
+  x <- rbern(n, 0.5) 
+  y <- rbinom(n, 2, 0.7)
+  z <- rbern(n, p = 0.1 + 0.7 * x * (y > 1)) 
+  tibble(x, z, y)
+}
+sims_colisionador <- simular_colisionador(50000)
+```
+
+$X$ y $Y$ son independientes:
+
+```{r}
+sims_colisionador|> select(x, y) |> 
+  count(x, y) |> 
+  group_by(x) |> 
+  mutate(p_cond = n / sum(n)) |>
+  select(x, y, p_cond) |> 
+ggplot(aes(x = y, y = p_cond, fill = factor(x))) +
+  geom_col(position = "dodge") +
+  labs(subtitle = "Condicional de Y dada X")
+```
+
+Sin embargo, si condicionamos a $Z$, que puede tomar los valores 0 o 1:
+
+```{r}
+sims_colisionador |> 
+  count(x, y, z) |> 
+  group_by(x, z) |> 
+  mutate(p_cond = n / sum(n)) |>
+  select(x, y, z, p_cond) |> 
+ggplot(aes(x = y, y = p_cond, fill = factor(x))) +
+  geom_col(position = "dodge") + facet_wrap(~ z) +
+  labs(subtitle = "Condicional de Y dada X y Z")
+```
+Y vemos que la condicional de $Y$ dada $Z$ y $X$ depende de $X$ y de $Z$.  
+Las correlaciones condicionales, por ejemplo, no son cero:
+
+```{r}
+print("Dado Z = 0")
+cor(sims_colisionador |> filter(z == 0) |> select(x,y)) |> round(3)
+print("Dado Z = 1")
+cor(sims_colisionador |> filter(z == 1) |> select(x,y)) |> round(3)
+```
+
+Otro ejemplo con variables continuas:
+
+```{r}
+simular_colisionador_2 <- function(n = 10){
+  x <- rnorm(n, 100, 20) 
+  y <- rnorm(n, 100, 20)
+  z <- rbern(n, p = 0.92 * ((x + y) > 220) + 0.05) 
+  tibble(x, z, y)
+}
+sims_colisionador <- simular_colisionador_2(1000)
+```
+
+$X$ y $Y$ son independientes:
+
+```{r}
+ggplot(sims_colisionador, aes(x = x, y = y)) + geom_point()
+```
+
+Sin embargo, si condicionamos a un valor de $Z$, $X$ y $Y$ ya no son independientes:
+
+```{r}
+ggplot(sims_colisionador, aes(x = x, y = y, group = z, colour = factor(z))) + 
+  geom_point() + geom_smooth(method = "lm", se = FALSE) 
+```
+
+Y vemos que condicional a $Z$, $X$ y $Y$ no son dependientes.
+
+### Razonamiento de descendientes de efecto común
+
+Condicionar a un descendiente de un colisionador también produce dependencias 
+condicionales:
+
+```{r}
+#| code-fold: true
+
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    X
+    Y
+    Z
+    A
+  edge [minlen = 3]
+   X -> Z
+   Y -> Z
+   Z -> A
+}
+", width = 200, height = 50)
+```
+
+En este caso,
+
+- $X$ y $Y$ son independientes
+- $X$ y $Y$ son  dependientes si condicionamos a $A$.
+
+Dependiendo de la naturaleza de la asociación entre el colisionador $Z$ y su descendiente
+$A$, esta dependencia puede ser más fuerte o más débil. 
+
+Por ejemplo, en nuestro ejemplo donde el pasto mojado es un colisionador entre
+cuánta agua dieron los aspersores y cuánta lluvia cayó, un descendiente del pasto
+mojado es el estado de las plantas del jardín. Aunque los aspersores trabajan independientemente
+de la lluvia, si observamos que las plantas se secaron entonces lluvia y aspersores están
+correlacionados: por ejemplo, si noto que los aspersores están descompuestos, entonces
+concluimos que no hubo lluvia.
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    X [label = lluvia]
+    Y [label = aspersores]
+    Z [label = humedad]
+    A [label = plantas]
+  edge [minlen = 3]
+   X -> Z
+   Y -> Z
+   Z -> A
+}
+", width = 200, height = 50)
+
+```
+
+
+
+### Ejemplo: dependencias de colisionador
 
 Verificamos que en nuestro modelo de Santa Clara, efectivamente nuestro
 modelo no implica ninguna dependencia no condicional entre sensibilidad de la
@@ -1024,66 +1315,12 @@ más error en la estimación
 hacer con intervalos separados para cada cantidad, sino que debe examinarse la conjunta
 de estos parámetros.
 
-### Razonamiento de descendientes de efecto común
-
-Condicionar a un descendiente de un colisionador también produce dependencias 
-condicionales:
-
-```{r}
-#| code-fold: true
-
-grViz("
-digraph {
-  graph [ranksep = 0.2]
-  node [shape=plaintext]
-    X
-    Y
-    Z
-    A
-  edge [minlen = 3]
-   X -> Z
-   Y -> Z
-   Z -> A
-}
-", width = 200, height = 50)
-```
-
-En este caso,
-
-- $X$ y $Y$ son independientes
-- $X$ y $Y$ son  dependientes si condicionamos a $A$.
-
-Dependiendo de la naturaleza de la asociación entre el colisionador $Z$ y su descendiente
-$A$, esta dependencia puede ser más fuerte o más débil. 
-
-Por ejemplo, en nuestro ejemplo donde el pasto mojado es un colisionador entre
-cuánta agua dieron los aspersores y cuánta lluvia cayó, un descendiente del pasto
-mojado es el estado de las plantas del jardín. Aunque los aspersores trabajan independientemente
-de la lluvia, si observamos que las plantas se secaron entonces lluvia y aspersores están
-correlacionados: por ejemplo, si noto que los aspersores están descompuestos, entonces
-concluimos que no hubo lluvia.
-
-```{r}
-grViz("
-digraph {
-  graph [ranksep = 0.2]
-  node [shape=plaintext]
-    X [label = lluvia]
-    Y [label = aspersores]
-    Z [label = humedad]
-    A [label = plantas]
-  edge [minlen = 3]
-   X -> Z
-   Y -> Z
-   Z -> A
-}
-", width = 200, height = 50)
-
-```
+---
 
 
 Con estas tres estructuras elementales podemos entender de manera abstracta
 la existencia o no de asociaciones entre nodos de cualquier gráfica dirigida.
+
 
 
 ## d-separación
@@ -1101,19 +1338,19 @@ para construir los estimadores correctos de los efectos causales de interés.
 
 
 ::: callout-note
-# Caminos activos y bloqueados
+# d-separación: Caminos activos y bloqueados
 
 - Un **camino** entre $X$ y $Y$ es una sucesión de aristas que conecta a $X$ con $Y$
 (sin importar) la dirección de las aristas.
 - Decimos que un camino $p$ entre $X$ y $Y$ está **bloqueado** por un conjunto de nodos
 $A$ cuando:
-1. El camino $p$ contiene una cadena o una bifurcación tal que el nodo intermedio
-está en $A$, o
-2. El camino $p$ contiene un nodo colisionador $Z$ tal que el nodo de colisión no está en $A$,
-y ningún descendiente de $Z$ está en $A$
+1. El camino $p$ contiene alguna cadena ($U_1\to A_j\to U_2$) o alguna bifurcación 
+($U_1\gets A_j\to U_2$) tal que su nodo intermedio
+está en $A$. Si este no es el caso, 
+2. Si el camino $p$ contiene un nodo colisionador $B_j$ ($U_1\to Z\gets U_2$) tal que el nodo de colisión $Z$ no está en $A$, y ningún descendiente de $Z$ está en $A$.
 
 Si $A$ bloquea todos los caminos posibles entre $X$ y $Y$, decimos que $X$ y $Y$ están
-$d$-**separados** condicionalmente a $Z$, o $d$ separados por $Z$.
+$d$-**separados** condicionalmente a $A$, o $d$-separados por $A$.
 :::
 
 Cuando un camino entre $X$ y $Y$ no está bloqueado, entonces decimos que está **activo**. Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos
@@ -1164,21 +1401,34 @@ digraph {
     W -> U
     S -> Y
     UZ -> Z
+    V -> Z
+    V -> S
 }
 ")
 ```
 
-Consideremos la relación entre Z y Y.
+Consideremos la relación entre Z y Y. Primero vemos que hay dos
+caminos entre $Z$ y $Y$, que son $p_1:X\gets V \to S$ y $p_2: Z\to W \gets X \to Y$
 
-- En primer lugar, ¿son independientes? Sí, pues el único camino entre $Z$ y $Y$ está 
-bloqueado por $W$, que es un colisionador.
-- Si condicionamos a $W$, ¿son independientes? No, pues activamos el único camino al
-condicionar a un colisiionador.
-- Si condicionamos a $W$, ¿son independientes? No, pues activamos el único camino al
-condicionar a el descendiente de un colisionador.
-- Sin embargo, si por alguna razón tenemos datos condicionales a $W$, condicionando adicionalmente a $X$ (es decir, condicionando al conjunto $\{W, X\}$), notamos
-que ahora hemos bloqueado el camino que condicionar al colisionador había abierto.
-Por lo tanto, $X$ y $Y$ son condicionalmente independientes dadas  $\{W, X\}$
+
+- En primer lugar, ¿son independientes si no condicionamos a ninguna variable? 
+No, pues el camino $p_1$ es activo, e induce correlación. 
+
+- ¿Son condicionalmente independientes si condicionamos a $V$? En este caso,
+condicionar a $V$ bloquea el camino $p_1$. El camino $p_2$ está bloqueado por
+el colisionador $W$, así que todos los caminos están bloqueados si condicionamos a $V$.
+
+- Si condicionamos a $W y V$, ¿son independientes? No. El camino $p_1$ está bloqueado,
+así que ese no induce asociación. Sin embargo, al condicionar al colisionador $W$ activamos
+el camino $p_2$.
+
+- Ahora supongamos que tenemos datos condicionales a algún valor de $W$ solamente.
+Condicionando a $V$ bloqueamos el camino $p_1$, pero el camino $p_2$ está activo.
+¿Qué pasaría si condicionamos adicionalmente a $X$? En este caso, el conjunto
+de condicionamiento es $\{V, W, X\}$. El camino $p_2$ está bloqueado. Y aunque
+condicionamos al colisionador, $X$ bloque el camino. Por lo tanto 
+$Z$ y $Y$ son condicionalmente independientes dado $\{V, W, X\}$.
+
 
 ### Ejercicio
 
