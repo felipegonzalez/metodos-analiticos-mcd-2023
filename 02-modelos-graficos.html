@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -217,12 +236,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#razonamiento-de-mediación" id="toc-razonamiento-de-mediación" class="nav-link" data-scroll-target="#razonamiento-de-mediación"><span class="toc-section-number">2.6.1</span>  Razonamiento de mediación</a></li>
   <li><a href="#razonamiento-de-causa-común" id="toc-razonamiento-de-causa-común" class="nav-link" data-scroll-target="#razonamiento-de-causa-común"><span class="toc-section-number">2.6.2</span>  Razonamiento de causa común</a></li>
   <li><a href="#razonamiento-de-causas-alternativas-o-efecto-común" id="toc-razonamiento-de-causas-alternativas-o-efecto-común" class="nav-link" data-scroll-target="#razonamiento-de-causas-alternativas-o-efecto-común"><span class="toc-section-number">2.6.3</span>  Razonamiento de causas alternativas o efecto común</a></li>
-  <li><a href="#ejemplo-5" id="toc-ejemplo-5" class="nav-link" data-scroll-target="#ejemplo-5"><span class="toc-section-number">2.6.4</span>  Ejemplo</a></li>
-  <li><a href="#razonamiento-de-descendientes-de-efecto-común" id="toc-razonamiento-de-descendientes-de-efecto-común" class="nav-link" data-scroll-target="#razonamiento-de-descendientes-de-efecto-común"><span class="toc-section-number">2.6.5</span>  Razonamiento de descendientes de efecto común</a></li>
+  <li><a href="#razonamiento-de-descendientes-de-efecto-común" id="toc-razonamiento-de-descendientes-de-efecto-común" class="nav-link" data-scroll-target="#razonamiento-de-descendientes-de-efecto-común"><span class="toc-section-number">2.6.4</span>  Razonamiento de descendientes de efecto común</a></li>
+  <li><a href="#ejemplo-dependencias-de-colisionador" id="toc-ejemplo-dependencias-de-colisionador" class="nav-link" data-scroll-target="#ejemplo-dependencias-de-colisionador"><span class="toc-section-number">2.6.5</span>  Ejemplo: dependencias de colisionador</a></li>
   </ul></li>
   <li><a href="#d-separación" id="toc-d-separación" class="nav-link" data-scroll-target="#d-separación"><span class="toc-section-number">2.7</span>  d-separación</a>
   <ul class="collapse">
-  <li><a href="#ejemplo-6" id="toc-ejemplo-6" class="nav-link" data-scroll-target="#ejemplo-6">Ejemplo</a></li>
+  <li><a href="#ejemplo-5" id="toc-ejemplo-5" class="nav-link" data-scroll-target="#ejemplo-5">Ejemplo</a></li>
   <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio"><span class="toc-section-number">2.7.1</span>  Ejercicio</a></li>
   </ul></li>
   </ul>
@@ -1190,21 +1209,22 @@ Total execution time: 0.5 seconds.</code></pre>
 </section>
 <section id="independencia-condicional" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="independencia-condicional"><span class="header-section-number">2.4</span> Independencia condicional</h2>
+<p>Recordamos el concepto de independencia condicional, que está relacionado a cómo se puede factorizar una conjunta:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Indepencia condicional
+Independencia condicional
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Sean <span class="math inline">\(X,Y,Z\)</span> variables aleatorias. Decimos que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son condicionalmente independientes cuando satisfacen <span class="math display">\[p(x,y|z) = p(x|z)p(y|z)\]</span> o equivalentemente, <span class="math display">\[p(x|y,z) = p(x|z)\]</span></p>
+<p>Sean <span class="math inline">\(X,Y,Z\)</span> variables aleatorias. Decimos que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son condicionalmente independientes dado <span class="math inline">\(Z\)</span> cuando se satisface <span class="math display">\[p(x,y|z) = p(x|z)p(y|z)\]</span> o equivalentemente, <span class="math display">\[p(x|y,z) = p(x|z)\]</span></p>
 </div>
 </div>
 <p>En palabras: si conocemos el valor de <span class="math inline">\(Z\)</span>, <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> ya no están asociadas, o si ya condicionamos a z, entonces condicionar adicionalmente a <span class="math inline">\(Y\)</span> no cambia la distribución condicional de <span class="math inline">\(X\)</span>. Para ver por qué las dos formas son equivalentes recuerda que cualquier regla de probabilidad general puede condicionarse a cualquier infromación y sigue siendo una regla válida. Como de mostramos que <span class="math inline">\(p(x,y) = p(x)p(y)\)</span> si y sólo si <span class="math inline">\(p(y|x) = p(y)\)</span>, podemos obtener una regla válida condicionando todo a <span class="math inline">\(Z\)</span>.</p>
-<p>En nuestro primer ejemplo de la sección anterior, observamos que una vez que sabíamos <span class="math inline">\(X\)</span>, la probabilidad de sol, no hay relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, aún cuando no es cierto que <span class="math inline">\(p(x,y) = p(x)p(y)\)</span>.</p>
+<p>En nuestro primer ejemplo de la sección anterior, observamos que una vez que sabíamos <span class="math inline">\(X\)</span>, la probabilidad de sol, no hay relación entre <span class="math inline">\(S_1\)</span> y <span class="math inline">\(S_2\)</span>, aún cuando no es cierto que <span class="math inline">\(p(s_1,s_2) = p(s_1)p(s_2)\)</span>.</p>
 <p>Podemos checar esto en las simulaciones, por ejemplo:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">812</span>)</span>
@@ -1220,11 +1240,11 @@ Indepencia condicional
 <p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
-<p>Las condicionales son iguales, de modo que son independientes dado <span class="math inline">\(x = 0.4\)</span>.</p>
+<p>Las condicionales son iguales en cada caso, de modo que <span class="math inline">\(S_1\)</span> y <span class="math inline">\(S_2\)</span> son independientes dada <span class="math inline">\(X\)</span> (prueba con otros valores de <span class="math inline">\(X\)</span>).</p>
 </section>
 <section id="gráficas-dirigidas-acíclicas" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="gráficas-dirigidas-acíclicas"><span class="header-section-number">2.5</span> Gráficas dirigidas acíclicas</h2>
-<p>Para representar la construcción de modelos que hemos considerado de manera gráfica, podemos usar las siguiente idea:</p>
+<p>Para representar gráficamente la construcción de modelos que hemos considerado, podemos usar las siguiente idea:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1267,8 +1287,8 @@ Nota
 </div>
 </div>
 <p>Esta gráfica representa una conjunta <span class="math inline">\(p(o,f,c,t)\)</span> cuando es posible factorizar</p>
-<p><span class="math display">\[p(o,f,c,t) = p(f)p(o)p(c|o,f)p(t|f),\]</span><br>
-de forma que podemos entender el proceso generador de este conjunto de variables como sigue: simulamos primero <span class="math inline">\(F\)</span> y <span class="math inline">\(O\)</span>, usando el valor de <span class="math inline">\(F\)</span> podemos simular <span class="math inline">\(T\)</span>, y usando el valor de <span class="math inline">\(F\)</span> y <span class="math inline">\(C\)</span> podemos simular <span class="math inline">\(C\)</span>. En este ejemplo podemos pensar que las variables son Obesidad, Fumador, Enfermedad de Corazón y Tos. Nótese que la distribución de Enfermedad de Corazón depende del estado de Obesidad y fumador. La probabilidad de tener tos depende directamente del estado de fumador.</p>
+<p><span class="math display">\[p(ob,f,ec,t) = p(f)p(o)p(ec|o,f)p(t|f),\]</span><br>
+de forma que podemos entender el proceso generador de este conjunto de variables como sigue: simulamos primero <span class="math inline">\(F\)</span> y <span class="math inline">\(Ob\)</span>, usando el valor de <span class="math inline">\(F\)</span> podemos simular <span class="math inline">\(T\)</span>, y usando el valor de <span class="math inline">\(F\)</span> y <span class="math inline">\(Ob\)</span> podemos simular <span class="math inline">\(C\)</span>. En este ejemplo podemos pensar que las variables son Obesidad, Fumador, Enfermedad de Corazón y Tos. Nótese que la distribución de Enfermedad de Corazón depende del estado de Obesidad y fumador. La probabilidad de tener tos depende directamente del estado de fumador.</p>
 <p>El conjunto de independencias condicionales de una conjunta <span class="math inline">\(p\)</span> está fuertemente ligado a la estructura de la gráfica que la representa:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -1283,7 +1303,7 @@ Nota
 <p>Una distribución <span class="math inline">\(p\)</span> es representada por <span class="math inline">\(G\)</span> si y sólo si para cada variable <span class="math inline">\(W\)</span>, cuando condicionamos a los padres <span class="math inline">\(pa(W)\)</span> de <span class="math inline">\(W\)</span>, <span class="math inline">\(W\)</span> es condicionalmente independiente de todas las variables que no son descendientes o padres de <span class="math inline">\(W\)</span>.</p>
 </div>
 </div>
-<p>Es decir, si condicionamos a los padres de una variable, esta variable es condicionalmente independiente de “el pasado”. Estas no son las únicas independencias condicionales que están presentes, veremos que para calcular éstas es necesario usar el concepto de d-separación. Antes discutiremos las estructuras básicas que nos interesan en una gráfica.</p>
+<p>Es decir, si condicionamos a los padres de una variable, esta variable es condicionalmente independiente del “pasado”, en el sentido del orden de la gráfica. Estas no son las únicas independencias condicionales que están presentes, veremos que para calcular éstas es necesario usar el concepto de d-separación. Antes discutiremos las estructuras básicas que nos interesan estudiar en una gráfica.</p>
 </section>
 <section id="independencia-condicional-parsimonia-y-supuestos" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="independencia-condicional-parsimonia-y-supuestos"><span class="header-section-number">2.5.1</span> Independencia condicional, parsimonia y supuestos</h3>
@@ -1296,7 +1316,7 @@ Nota
 <p>Adicionalmente, el conjunto de independencias condicionales también nos dice que implicaciones tiene el modelo que estamos considerando. Más adelante veremos cómo:</p>
 <ul>
 <li>Calcular todas las independencias condicionales dada nuestra gráfica</li>
-<li>Entender en qué lugares puede haber dependencias y explicar la razón de su existencia, por ejemplo, asi la relación es causal o no.</li>
+<li>Entender en qué lugares puede haber dependencias y explicar la razón de su existencia, por ejemplo, si la relación es causal o no.</li>
 </ul>
 <p>Por ejemplo, cuando consideramos las dos colecciones de volados (<span class="math inline">\(S_1\)</span> y <span class="math inline">\(S_2\)</span>) dada una misma moneda (<span class="math inline">\(X\)</span>), podemos entender por qué <span class="math inline">\(S_1\)</span> y <span class="math inline">\(S_2\)</span> <strong>no</strong> son independientes: saber el resultado de <span class="math inline">\(S_1\)</span>, por ejemplo, nos da información acerca la <span class="math inline">\(X\)</span>, lo cual a su vez nos da información de <span class="math inline">\(S_2\)</span>. La información fluye a lo largo de la gráfica correspondiente dado el supuesto que hicimos que las dos series de volados se hacen con una moneda.</p>
 </section>
@@ -1340,6 +1360,103 @@ Nota
 <p><span class="math display">\[p(x, y | z) = p(x,y,z) / p(z) = (p(x)(z|x)) (p(y|z) / p(z))\]</span> y vemos que el lado izquierdo se factoriza en una parte que sólo involucra a <span class="math inline">\(x\)</span> y <span class="math inline">\(z\)</span> y otro factor que sólo tiene a <span class="math inline">\(y\)</span> y <span class="math inline">\(z\)</span>: no hay términos que incluyan conjuntamente a <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> y <span class="math inline">\(z\)</span>. Podemos de cualquier forma continuar notando</p>
 <p><span class="math display">\[p(x)p(z|x)/p(z) = p(x,z)/p(z) = p(x | z)\]</span> de modo que</p>
 <p><span class="math display">\[p(x, y | z) = p(x|z) p(y|z) \]</span></p>
+<p>Y mostramos un ejemplo simulado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>rbern <span class="ot">&lt;-</span> <span class="cf">function</span>(n, prob){</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">prob =</span> prob)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>simular_mediador <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>){</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> x <span class="sc">*</span> <span class="fl">0.8</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> x) <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">2</span>, z <span class="sc">*</span> <span class="fl">0.7</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> z) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(x, z, y)</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>sims_mediador <span class="ot">&lt;-</span> <span class="fu">simular_mediador</span>(<span class="dv">50000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dependientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>sims_mediador <span class="sc">|&gt;</span> <span class="fu">select</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x) <span class="sc">|&gt;</span> </span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cond =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x, y, p_cond) <span class="sc">|&gt;</span> </span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> p_cond, <span class="at">fill =</span> <span class="fu">factor</span>(x))) <span class="sc">+</span></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Condicional de Y dada X"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sin embargo, si condicionamos a <span class="math inline">\(Z\)</span>, que puede tomar los valores 0 o 1:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>sims_mediador <span class="sc">|&gt;</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(x, y, z) <span class="sc">|&gt;</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x, z) <span class="sc">|&gt;</span> </span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cond =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x, y, z, p_cond) <span class="sc">|&gt;</span> </span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> p_cond, <span class="at">fill =</span> <span class="fu">factor</span>(x))) <span class="sc">+</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span> z) <span class="sc">+</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Condicional de Y dada X y Z"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y vemos que la condicional de <span class="math inline">\(Y\)</span> dada <span class="math inline">\(Z\)</span> y <span class="math inline">\(X\)</span> sólo depende de <span class="math inline">\(Z\)</span>. Una consecuencia es por ejemplo que la correlación debe ser cero:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sims_mediador <span class="sc">|&gt;</span> <span class="fu">filter</span>(z <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(x,y)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       x      y
+x  1.000 -0.004
+y -0.004  1.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sims_mediador <span class="sc">|&gt;</span> <span class="fu">filter</span>(z <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(x,y)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x     y
+x 1.000 0.004
+y 0.004 1.000</code></pre>
+</div>
+</div>
+<p>Podemos también hacer un ejemplo continuo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>simular_mediador <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>){</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  prob <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(x <span class="sc">-</span> <span class="dv">100</span>)<span class="sc">/</span><span class="dv">5</span>))</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> prob)</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">100</span> <span class="sc">+</span> <span class="dv">30</span> <span class="sc">*</span> z, <span class="dv">15</span>)</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(x, z, y)</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>sims_mediador <span class="ot">&lt;-</span> <span class="fu">simular_mediador</span>(<span class="dv">2000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dependientes (por ejemplo si vemos la media condicional de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims_mediador, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> z)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">span =</span> <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The following aesthetics were dropped during statistical transformation: colour
+ℹ This can happen when ggplot fails to infer the correct grouping structure in
+  the data.
+ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+  variable into a factor?</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Si condicionamos a <span class="math inline">\(Z\)</span>, no hay dependencia entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims_mediador, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> z, <span class="at">group =</span> z)) <span class="sc">+</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">span =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="razonamiento-de-causa-común" class="level3" data-number="2.6.2">
 <h3 data-number="2.6.2" class="anchored" data-anchor-id="razonamiento-de-causa-común"><span class="header-section-number">2.6.2</span> Razonamiento de causa común</h3>
@@ -1347,18 +1464,18 @@ Nota
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y</span></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; X</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; Y</span></span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y</span></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; X</span></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; Y</span></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="htmlwidget-8edfca3aca749e74a10f" style="width:100%;height:162px;" class="grViz html-widget"></div>
@@ -1374,6 +1491,101 @@ Nota
 <p>Por ejemplo, podríamos encontrar que el uso de aspirina <span class="math inline">\(X\)</span> está asociado a una mortalidad más alta <span class="math inline">\(Y\)</span>. Una causa común es enfermedad grave que produce dolor (<span class="math inline">\(Z\)</span>). Sin embargo, si condicionamos a personas sanas, veríamos que no hay relación entre uso de aspirina y mortalidad, igualmente veríamos que entre las personas enfermas el uso de aspirina no les ayuda a vivir más tiempo.</p>
 <p>En este caso, tenemos:</p>
 <p><span class="math display">\[p(x, y, z) =  p(z)p(x|z)p(y|z)\]</span> Y como el lado izquierdo es igual (en general) a <span class="math inline">\(p(x,y|z)p(z)\)</span>, obtenemos la independiencia condicional de <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> dado <span class="math inline">\(Z\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>rbern <span class="ot">&lt;-</span> <span class="cf">function</span>(n, prob){</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">prob =</span> prob)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>simular_confusor <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>){</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> z <span class="sc">*</span> <span class="fl">0.3</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> z) <span class="sc">*</span> <span class="fl">0.8</span>)</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">4</span>, z <span class="sc">*</span> <span class="fl">0.9</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> z) <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(x, z, y)</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>sims_confusor <span class="ot">&lt;-</span> <span class="fu">simular_confusor</span>(<span class="dv">50000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dependientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>sims_confusor <span class="sc">|&gt;</span> <span class="fu">select</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x) <span class="sc">|&gt;</span> </span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cond =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x, y, p_cond) <span class="sc">|&gt;</span> </span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> p_cond, <span class="at">fill =</span> <span class="fu">factor</span>(x))) <span class="sc">+</span></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Condicional de Y dada X"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sin embargo, si condicionamos a <span class="math inline">\(Z\)</span>, que puede tomar los valores 0 o 1:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>sims_confusor <span class="sc">|&gt;</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(x, y, z) <span class="sc">|&gt;</span> </span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x, z) <span class="sc">|&gt;</span> </span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cond =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x, y, z, p_cond) <span class="sc">|&gt;</span> </span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> p_cond, <span class="at">fill =</span> <span class="fu">factor</span>(x))) <span class="sc">+</span></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span> z) <span class="sc">+</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Condicional de Y dada X y Z"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y vemos que la condicional de <span class="math inline">\(Y\)</span> dada <span class="math inline">\(Z\)</span> y <span class="math inline">\(X\)</span> sólo depende de <span class="math inline">\(Z\)</span>. Una consecuencia es por ejemplo que la correlación debe ser cero:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sims_confusor <span class="sc">|&gt;</span> <span class="fu">filter</span>(z <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(x,y)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x     y
+x 1.000 0.008
+y 0.008 1.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sims_confusor <span class="sc">|&gt;</span> <span class="fu">filter</span>(z <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(x,y)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x     y
+x 1.000 0.015
+y 0.015 1.000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>simular_bifurcacion <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>){</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> <span class="fl">0.5</span>)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">100</span> <span class="sc">+</span> <span class="dv">20</span> <span class="sc">*</span> z, <span class="dv">15</span>)</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">100</span> <span class="sc">+</span> <span class="dv">30</span> <span class="sc">*</span> z, <span class="dv">20</span>)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(x, z, y)</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>sims_bifurcacion <span class="ot">&lt;-</span> <span class="fu">simular_bifurcacion</span>(<span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dependientes (por ejemplo si vemos la media condicional de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims_bifurcacion, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> z)) <span class="sc">+</span> </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">span =</span> <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The following aesthetics were dropped during statistical transformation: colour
+ℹ This can happen when ggplot fails to infer the correct grouping structure in
+  the data.
+ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+  variable into a factor?</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Si condicionamos a <span class="math inline">\(Z\)</span>, no hay dependencia entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims_bifurcacion, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">colour =</span> z, <span class="at">group =</span> z)) <span class="sc">+</span> </span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">span =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="razonamiento-de-causas-alternativas-o-efecto-común" class="level3" data-number="2.6.3">
 <h3 data-number="2.6.3" class="anchored" data-anchor-id="razonamiento-de-causas-alternativas-o-efecto-común"><span class="header-section-number">2.6.3</span> Razonamiento de causas alternativas o efecto común</h3>
@@ -1381,18 +1593,18 @@ Nota
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y</span></span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z</span></span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Z</span></span>
-<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a><span class="st">   Y -&gt; Z</span></span>
-<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z</span></span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Z</span></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="st">   Y -&gt; Z</span></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="htmlwidget-4b0a442a876d3da54964" style="width:100%;height:162px;" class="grViz html-widget"></div>
@@ -1407,14 +1619,159 @@ Nota
 <p>Como la conjunta se factoriza como:</p>
 <p><span class="math display">\[p(x,y,z) = p(x)p(y)p(z|x,y)\]</span> podemos integrar sobre <span class="math inline">\(Z\)</span>:</p>
 <p><span class="math display">\[p(x,y) = \int p(x,y,z)dz = p(x)p(y)\int p(z|x,y)\, dz\]</span> pero <span class="math inline">\(p(z|x,y)\)</span> integra uno porque es una densidad, de forma que <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> son independientes.</p>
+<p>Y mostramos un ejemplo simulado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>simular_colisionador <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>){</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="fl">0.5</span>) </span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">2</span>, <span class="fl">0.7</span>)</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> <span class="fl">0.1</span> <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> x <span class="sc">*</span> (y <span class="sc">&gt;</span> <span class="dv">1</span>)) </span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(x, z, y)</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>sims_colisionador <span class="ot">&lt;-</span> <span class="fu">simular_colisionador</span>(<span class="dv">50000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>sims_colisionador<span class="sc">|&gt;</span> <span class="fu">select</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(x, y) <span class="sc">|&gt;</span> </span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x) <span class="sc">|&gt;</span> </span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cond =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x, y, p_cond) <span class="sc">|&gt;</span> </span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> p_cond, <span class="at">fill =</span> <span class="fu">factor</span>(x))) <span class="sc">+</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Condicional de Y dada X"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sin embargo, si condicionamos a <span class="math inline">\(Z\)</span>, que puede tomar los valores 0 o 1:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>sims_colisionador <span class="sc">|&gt;</span> </span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(x, y, z) <span class="sc">|&gt;</span> </span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(x, z) <span class="sc">|&gt;</span> </span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cond =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x, y, z, p_cond) <span class="sc">|&gt;</span> </span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> p_cond, <span class="at">fill =</span> <span class="fu">factor</span>(x))) <span class="sc">+</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span> z) <span class="sc">+</span></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Condicional de Y dada X y Z"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y vemos que la condicional de <span class="math inline">\(Y\)</span> dada <span class="math inline">\(Z\)</span> y <span class="math inline">\(X\)</span> depende de <span class="math inline">\(X\)</span> y de <span class="math inline">\(Z\)</span>.<br>
+Las correlaciones condicionales, por ejemplo, no son cero:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Dado Z = 0"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Dado Z = 0"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sims_colisionador <span class="sc">|&gt;</span> <span class="fu">filter</span>(z <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(x,y)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       x      y
+x  1.000 -0.287
+y -0.287  1.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Dado Z = 1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Dado Z = 1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sims_colisionador <span class="sc">|&gt;</span> <span class="fu">filter</span>(z <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(x,y)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x     y
+x 1.000 0.373
+y 0.373 1.000</code></pre>
+</div>
+</div>
+<p>Otro ejemplo con variables continuas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>simular_colisionador_2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>){</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">100</span>, <span class="dv">20</span>) </span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">rbern</span>(n, <span class="at">p =</span> <span class="fl">0.92</span> <span class="sc">*</span> ((x <span class="sc">+</span> y) <span class="sc">&gt;</span> <span class="dv">220</span>) <span class="sc">+</span> <span class="fl">0.05</span>) </span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(x, z, y)</span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>sims_colisionador <span class="ot">&lt;-</span> <span class="fu">simular_colisionador_2</span>(<span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims_colisionador, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sin embargo, si condicionamos a un valor de <span class="math inline">\(Z\)</span>, <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> ya no son independientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims_colisionador, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">group =</span> z, <span class="at">colour =</span> <span class="fu">factor</span>(z))) <span class="sc">+</span> </span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y vemos que condicional a <span class="math inline">\(Z\)</span>, <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> no son dependientes.</p>
 </section>
-<section id="ejemplo-5" class="level3" data-number="2.6.4">
-<h3 data-number="2.6.4" class="anchored" data-anchor-id="ejemplo-5"><span class="header-section-number">2.6.4</span> Ejemplo</h3>
+<section id="razonamiento-de-descendientes-de-efecto-común" class="level3" data-number="2.6.4">
+<h3 data-number="2.6.4" class="anchored" data-anchor-id="razonamiento-de-descendientes-de-efecto-común"><span class="header-section-number">2.6.4</span> Razonamiento de descendientes de efecto común</h3>
+<p>Condicionar a un descendiente de un colisionador también produce dependencias condicionales:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y</span></span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z</span></span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a><span class="st">    A</span></span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Z</span></span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a><span class="st">   Y -&gt; Z</span></span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; A</span></span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-34af4052103876969e9d" style="width:100%;height:162px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-34af4052103876969e9d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    X\n    Y\n    Z\n    A\n  edge [minlen = 3]\n   X -> Z\n   Y -> Z\n   Z -> A\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>En este caso,</p>
+<ul>
+<li><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes</li>
+<li><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dependientes si condicionamos a <span class="math inline">\(A\)</span>.</li>
+</ul>
+<p>Dependiendo de la naturaleza de la asociación entre el colisionador <span class="math inline">\(Z\)</span> y su descendiente <span class="math inline">\(A\)</span>, esta dependencia puede ser más fuerte o más débil.</p>
+<p>Por ejemplo, en nuestro ejemplo donde el pasto mojado es un colisionador entre cuánta agua dieron los aspersores y cuánta lluvia cayó, un descendiente del pasto mojado es el estado de las plantas del jardín. Aunque los aspersores trabajan independientemente de la lluvia, si observamos que las plantas se secaron entonces lluvia y aspersores están correlacionados: por ejemplo, si noto que los aspersores están descompuestos, entonces concluimos que no hubo lluvia.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X [label = lluvia]</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y [label = aspersores]</span></span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z [label = humedad]</span></span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="st">    A [label = plantas]</span></span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Z</span></span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a><span class="st">   Y -&gt; Z</span></span>
+<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; A</span></span>
+<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-9e6f202f6628b23c95d0" style="width:100%;height:162px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9e6f202f6628b23c95d0">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    X [label = lluvia]\n    Y [label = aspersores]\n    Z [label = humedad]\n    A [label = plantas]\n  edge [minlen = 3]\n   X -> Z\n   Y -> Z\n   Z -> A\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="ejemplo-dependencias-de-colisionador" class="level3" data-number="2.6.5">
+<h3 data-number="2.6.5" class="anchored" data-anchor-id="ejemplo-dependencias-de-colisionador"><span class="header-section-number">2.6.5</span> Ejemplo: dependencias de colisionador</h3>
 <p>Verificamos que en nuestro modelo de Santa Clara, efectivamente nuestro modelo no implica ninguna dependencia no condicional entre sensibilidad de la prueba y prevalencia. Eso debería ser claro de la simulación, pero de todas formas lo checamos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>mod_sc <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/sclara.stan"</span>)</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_sc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>mod_sc <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/sclara.stan"</span>)</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_sc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>data {
   int&lt;lower=0&gt; N;
@@ -1452,10 +1809,10 @@ model {
 </div>
 <p>En este caso, no pondremos información acerca de positivos en la prueba:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="dv">0</span>, <span class="at">n =</span> <span class="dv">0</span>,</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_pos =</span> <span class="dv">103</span>, <span class="at">n_kit_pos =</span> <span class="dv">122</span>,</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_neg =</span> <span class="dv">399</span>, <span class="at">n_kit_neg =</span> <span class="dv">401</span>)</span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_sc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">iter_sampling =</span> <span class="dv">400</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="dv">0</span>, <span class="at">n =</span> <span class="dv">0</span>,</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_pos =</span> <span class="dv">103</span>, <span class="at">n_kit_pos =</span> <span class="dv">122</span>,</span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_neg =</span> <span class="dv">399</span>, <span class="at">n_kit_neg =</span> <span class="dv">401</span>)</span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_sc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">iter_sampling =</span> <span class="dv">400</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 sequential chains...
 
@@ -1484,37 +1841,37 @@ All 4 chains finished successfully.
 Mean chain execution time: 0.0 seconds.
 Total execution time: 0.5 seconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"p"</span>, <span class="st">"sens"</span>, <span class="st">"esp"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"p"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"p"</span>, <span class="st">"sens"</span>, <span class="st">"esp"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"p"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> sens)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_sqrt</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> sens)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_sqrt</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>No vemos ninguna asocación entre estas dos variables. Podemos hacer algunas permutaciones al azar para checar que nuestra interpetación de la gráfica es correcta:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nullabor)</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">lineup</span>(<span class="fu">null_permute</span>(<span class="st">"p"</span>), sims, <span class="at">n =</span> <span class="dv">5</span>), <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> sens)) <span class="sc">+</span></span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span> .sample) <span class="sc">+</span></span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_sqrt</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nullabor)</span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">lineup</span>(<span class="fu">null_permute</span>(<span class="st">"p"</span>), sims, <span class="at">n =</span> <span class="dv">5</span>), <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> sens)) <span class="sc">+</span></span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span> .sample) <span class="sc">+</span></span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_sqrt</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>decrypt("0lta Uo1o uQ OhHu1uhQ DL")</code></pre>
+<pre><code>decrypt("0lta Uo1o uQ OhHu1uhQ DD")</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Donde no notamos ninguna diferencia sistemática después de hacer permutaciones.</p>
 <p>Sin embargo, al condicionar al valor de Positivos, creamos una relación que no podemos interpretar como casual. En este caso particular supondremos prácticamente fija la sensibilidad para ver solamente lo que sucede en el colisionador de especificidad y número de positivos (la especificidad en este ejemplo es más crítica):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="dv">3300</span>, <span class="at">n =</span> <span class="dv">50</span>,</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_pos =</span> <span class="dv">1030000</span>, <span class="at">n_kit_pos =</span> <span class="dv">1220000</span>, <span class="co"># números grandes para que esté practicamente</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fija la sensibilidad</span></span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_neg =</span> <span class="dv">399</span>, <span class="at">n_kit_neg =</span> <span class="dv">401</span>)</span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_sc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">iter_sampling =</span> <span class="dv">400</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="dv">3300</span>, <span class="at">n =</span> <span class="dv">50</span>,</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_pos =</span> <span class="dv">1030000</span>, <span class="at">n_kit_pos =</span> <span class="dv">1220000</span>, <span class="co"># números grandes para que esté practicamente</span></span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fija la sensibilidad</span></span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a> <span class="at">kit_neg =</span> <span class="dv">399</span>, <span class="at">n_kit_neg =</span> <span class="dv">401</span>)</span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_sc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">iter_sampling =</span> <span class="dv">400</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 sequential chains...
 
@@ -1527,12 +1884,12 @@ Chain 2 Iteration:    1 / 1400 [  0%]  (Warmup)
 Chain 2 Iteration: 1000 / 1400 [ 71%]  (Warmup) 
 Chain 2 Iteration: 1001 / 1400 [ 71%]  (Sampling) 
 Chain 2 Iteration: 1400 / 1400 [100%]  (Sampling) 
-Chain 2 finished in 0.1 seconds.
+Chain 2 finished in 0.0 seconds.
 Chain 3 Iteration:    1 / 1400 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 1400 [ 71%]  (Warmup) 
 Chain 3 Iteration: 1001 / 1400 [ 71%]  (Sampling) 
 Chain 3 Iteration: 1400 / 1400 [100%]  (Sampling) 
-Chain 3 finished in 0.1 seconds.
+Chain 3 finished in 0.0 seconds.
 Chain 4 Iteration:    1 / 1400 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 1400 [ 71%]  (Warmup) 
 Chain 4 Iteration: 1001 / 1400 [ 71%]  (Sampling) 
@@ -1543,13 +1900,13 @@ All 4 chains finished successfully.
 Mean chain execution time: 0.0 seconds.
 Total execution time: 0.5 seconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"p"</span>, <span class="st">"sens"</span>, <span class="st">"esp"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"p"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"p"</span>, <span class="st">"sens"</span>, <span class="st">"esp"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"p"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> esp)) <span class="sc">+</span> <span class="fu">geom_point</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> esp)) <span class="sc">+</span> <span class="fu">geom_point</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
+<p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-66-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Y vemos que condiconando al colisionador, obtenemos una relación fuerte entre prevalencia y especificidad de la prueba: necesitaríamos más datos de especificidad para obtener una estimación útil.</p>
@@ -1557,60 +1914,7 @@ Total execution time: 0.5 seconds.</code></pre>
 <li>La razón de que la especificidad es más importante en este ejemplo es que la prevalencia es muy baja al momento del estudio, y los falsos positivos pueden introducir más error en la estimación</li>
 <li>También repetimos nótese que el análisis correcto de estos datos no se puede hacer con intervalos separados para cada cantidad, sino que debe examinarse la conjunta de estos parámetros.</li>
 </ul>
-</section>
-<section id="razonamiento-de-descendientes-de-efecto-común" class="level3" data-number="2.6.5">
-<h3 data-number="2.6.5" class="anchored" data-anchor-id="razonamiento-de-descendientes-de-efecto-común"><span class="header-section-number">2.6.5</span> Razonamiento de descendientes de efecto común</h3>
-<p>Condicionar a un descendiente de un colisionador también produce dependencias condicionales:</p>
-<div class="cell">
-<details>
-<summary>Código</summary>
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y</span></span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z</span></span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="st">    A</span></span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Z</span></span>
-<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="st">   Y -&gt; Z</span></span>
-<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; A</span></span>
-<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="htmlwidget-34af4052103876969e9d" style="width:100%;height:162px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-34af4052103876969e9d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    X\n    Y\n    Z\n    A\n  edge [minlen = 3]\n   X -> Z\n   Y -> Z\n   Z -> A\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<p>En este caso,</p>
-<ul>
-<li><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes</li>
-<li><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dependientes si condicionamos a <span class="math inline">\(A\)</span>.</li>
-</ul>
-<p>Dependiendo de la naturaleza de la asociación entre el colisionador <span class="math inline">\(Z\)</span> y su descendiente <span class="math inline">\(A\)</span>, esta dependencia puede ser más fuerte o más débil.</p>
-<p>Por ejemplo, en nuestro ejemplo donde el pasto mojado es un colisionador entre cuánta agua dieron los aspersores y cuánta lluvia cayó, un descendiente del pasto mojado es el estado de las plantas del jardín. Aunque los aspersores trabajan independientemente de la lluvia, si observamos que las plantas se secaron entonces lluvia y aspersores están correlacionados: por ejemplo, si noto que los aspersores están descompuestos, entonces concluimos que no hubo lluvia.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="st">    X [label = lluvia]</span></span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Y [label = aspersores]</span></span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Z [label = humedad]</span></span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="st">    A [label = plantas]</span></span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Z</span></span>
-<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a><span class="st">   Y -&gt; Z</span></span>
-<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="st">   Z -&gt; A</span></span>
-<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="htmlwidget-9e6f202f6628b23c95d0" style="width:100%;height:162px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9e6f202f6628b23c95d0">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    X [label = lluvia]\n    Y [label = aspersores]\n    Z [label = humedad]\n    A [label = plantas]\n  edge [minlen = 3]\n   X -> Z\n   Y -> Z\n   Z -> A\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
+<hr>
 <p>Con estas tres estructuras elementales podemos entender de manera abstracta la existencia o no de asociaciones entre nodos de cualquier gráfica dirigida.</p>
 </section>
 </section>
@@ -1624,7 +1928,7 @@ Total execution time: 0.5 seconds.</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Caminos activos y bloqueados
+d-separación: Caminos activos y bloqueados
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1633,10 +1937,10 @@ Caminos activos y bloqueados
 <li>Decimos que un camino <span class="math inline">\(p\)</span> entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> está <strong>bloqueado</strong> por un conjunto de nodos <span class="math inline">\(A\)</span> cuando:</li>
 </ul>
 <ol type="1">
-<li>El camino <span class="math inline">\(p\)</span> contiene una cadena o una bifurcación tal que el nodo intermedio está en <span class="math inline">\(A\)</span>, o</li>
-<li>El camino <span class="math inline">\(p\)</span> contiene un nodo colisionador <span class="math inline">\(Z\)</span> tal que el nodo de colisión no está en <span class="math inline">\(A\)</span>, y ningún descendiente de <span class="math inline">\(Z\)</span> está en <span class="math inline">\(A\)</span></li>
+<li>El camino <span class="math inline">\(p\)</span> contiene alguna cadena (<span class="math inline">\(U_1\to A_j\to U_2\)</span>) o alguna bifurcación (<span class="math inline">\(U_1\gets A_j\to U_2\)</span>) tal que su nodo intermedio está en <span class="math inline">\(A\)</span>. Si este no es el caso,</li>
+<li>Si el camino <span class="math inline">\(p\)</span> contiene un nodo colisionador <span class="math inline">\(B_j\)</span> (<span class="math inline">\(U_1\to Z\gets U_2\)</span>) tal que el nodo de colisión <span class="math inline">\(Z\)</span> no está en <span class="math inline">\(A\)</span>, y ningún descendiente de <span class="math inline">\(Z\)</span> está en <span class="math inline">\(A\)</span>.</li>
 </ol>
-<p>Si <span class="math inline">\(A\)</span> bloquea todos los caminos posibles entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, decimos que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> están <span class="math inline">\(d\)</span>-<strong>separados</strong> condicionalmente a <span class="math inline">\(Z\)</span>, o <span class="math inline">\(d\)</span> separados por <span class="math inline">\(Z\)</span>.</p>
+<p>Si <span class="math inline">\(A\)</span> bloquea todos los caminos posibles entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, decimos que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> están <span class="math inline">\(d\)</span>-<strong>separados</strong> condicionalmente a <span class="math inline">\(A\)</span>, o <span class="math inline">\(d\)</span>-separados por <span class="math inline">\(A\)</span>.</p>
 </div>
 </div>
 <p>Cuando un camino entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> no está bloqueado, entonces decimos que está <strong>activo</strong>. Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos probabilísticos, el siguiente teorema no es sorpresa:</p>
@@ -1659,7 +1963,7 @@ Criterio de d-separación
 </div>
 <p><strong>Nota 1</strong>: nótese que este teorema nos da una manera abstracta de razonar acerca de la asociación en un modelo gráfico: no es necesario saber la forma particular de las condicionales para utilizarlo.</p>
 <p><strong>Nota 2</strong>: Vale la pena mencionar que el segundo inciso en general es una implicación más fuerte: cuando no hay <span class="math inline">\(d\)</span>-separación, existe algún tipo de dependencia casi seguro (en el sentido probabilístico de posible conjuntas).</p>
-<p>Finalmente (ver por ejemplo <span class="citation" data-cites="koller2009">(<a href="99-referencias.html#ref-koller2009" role="doc-biblioref"><strong>koller2009?</strong></a>)</span>, p 75), existe un algoritmo eficiente para encontrar todas las posibles independencias condicionales implicadas por una gráfica:</p>
+<p>Finalmente (ver por ejemplo <span class="citation" data-cites="koller2009">Koller y Friedman (<a href="99-referencias.html#ref-koller2009" role="doc-biblioref">2009</a>)</span>, p 75), existe un algoritmo eficiente para encontrar todas las posibles independencias condicionales implicadas por una gráfica:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1673,41 +1977,43 @@ Cálculo de d-separación
 <p>Existe un algoritmo de complejidad lineal en el tamaño de la gráfica para encontrar todos los nodos con caminos activos a un nodo <span class="math inline">\(X\)</span> condicional a las variables <span class="math inline">\(A\)</span>.</p>
 </div>
 </div>
-<section id="ejemplo-6" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ejemplo-6">Ejemplo</h3>
+<section id="ejemplo-5" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-5">Ejemplo</h3>
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="st">    Z </span></span>
-<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="st">    W </span></span>
-<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
-<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Y </span></span>
-<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
-<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a><span class="st">    Z -&gt; W</span></span>
-<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; W</span></span>
-<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; Y</span></span>
-<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a><span class="st">    W -&gt; U</span></span>
-<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; Y</span></span>
-<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a><span class="st">    UZ -&gt; Z</span></span>
-<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="st">    Z </span></span>
+<span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a><span class="st">    W </span></span>
+<span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
+<span id="cb125-8"><a href="#cb125-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Y </span></span>
+<span id="cb125-9"><a href="#cb125-9" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb125-10"><a href="#cb125-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb125-11"><a href="#cb125-11" aria-hidden="true" tabindex="-1"></a><span class="st">    Z -&gt; W</span></span>
+<span id="cb125-12"><a href="#cb125-12" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; W</span></span>
+<span id="cb125-13"><a href="#cb125-13" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; Y</span></span>
+<span id="cb125-14"><a href="#cb125-14" aria-hidden="true" tabindex="-1"></a><span class="st">    W -&gt; U</span></span>
+<span id="cb125-15"><a href="#cb125-15" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; Y</span></span>
+<span id="cb125-16"><a href="#cb125-16" aria-hidden="true" tabindex="-1"></a><span class="st">    UZ -&gt; Z</span></span>
+<span id="cb125-17"><a href="#cb125-17" aria-hidden="true" tabindex="-1"></a><span class="st">    V -&gt; Z</span></span>
+<span id="cb125-18"><a href="#cb125-18" aria-hidden="true" tabindex="-1"></a><span class="st">    V -&gt; S</span></span>
+<span id="cb125-19"><a href="#cb125-19" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb125-20"><a href="#cb125-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="htmlwidget-c603987047cae36b6fa2" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c603987047cae36b6fa2">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    Z \n    W \n    X\n    Y \n    U\n  edge [minlen = 3]\n    Z -> W\n    X -> W\n    X -> Y\n    W -> U\n    S -> Y\n    UZ -> Z\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-c603987047cae36b6fa2">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    Z \n    W \n    X\n    Y \n    U\n  edge [minlen = 3]\n    Z -> W\n    X -> W\n    X -> Y\n    W -> U\n    S -> Y\n    UZ -> Z\n    V -> Z\n    V -> S\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<p>Consideremos la relación entre Z y Y.</p>
+<p>Consideremos la relación entre Z y Y. Primero vemos que hay dos caminos entre <span class="math inline">\(Z\)</span> y <span class="math inline">\(Y\)</span>, que son <span class="math inline">\(p_1:X\gets V \to S\)</span> y <span class="math inline">\(p_2: Z\to W \gets X \to Y\)</span></p>
 <ul>
-<li>En primer lugar, ¿son independientes? Sí, pues el único camino entre <span class="math inline">\(Z\)</span> y <span class="math inline">\(Y\)</span> está bloqueado por <span class="math inline">\(W\)</span>, que es un colisionador.</li>
-<li>Si condicionamos a <span class="math inline">\(W\)</span>, ¿son independientes? No, pues activamos el único camino al condicionar a un colisiionador.</li>
-<li>Si condicionamos a <span class="math inline">\(W\)</span>, ¿son independientes? No, pues activamos el único camino al condicionar a el descendiente de un colisionador.</li>
-<li>Sin embargo, si por alguna razón tenemos datos condicionales a <span class="math inline">\(W\)</span>, condicionando adicionalmente a <span class="math inline">\(X\)</span> (es decir, condicionando al conjunto <span class="math inline">\(\{W, X\}\)</span>), notamos que ahora hemos bloqueado el camino que condicionar al colisionador había abierto. Por lo tanto, <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son condicionalmente independientes dadas <span class="math inline">\(\{W, X\}\)</span></li>
+<li><p>En primer lugar, ¿son independientes si no condicionamos a ninguna variable? No, pues el camino <span class="math inline">\(p_1\)</span> es activo, e induce correlación.</p></li>
+<li><p>¿Son condicionalmente independientes si condicionamos a <span class="math inline">\(V\)</span>? En este caso, condicionar a <span class="math inline">\(V\)</span> bloquea el camino <span class="math inline">\(p_1\)</span>. El camino <span class="math inline">\(p_2\)</span> está bloqueado por el colisionador <span class="math inline">\(W\)</span>, así que todos los caminos están bloqueados si condicionamos a <span class="math inline">\(V\)</span>.</p></li>
+<li><p>Si condicionamos a <span class="math inline">\(W y V\)</span>, ¿son independientes? No.&nbsp;El camino <span class="math inline">\(p_1\)</span> está bloqueado, así que ese no induce asociación. Sin embargo, al condicionar al colisionador <span class="math inline">\(W\)</span> activamos el camino <span class="math inline">\(p_2\)</span>.</p></li>
+<li><p>Ahora supongamos que tenemos datos condicionales a algún valor de <span class="math inline">\(W\)</span> solamente. Condicionando a <span class="math inline">\(V\)</span> bloqueamos el camino <span class="math inline">\(p_1\)</span>, pero el camino <span class="math inline">\(p_2\)</span> está activo. ¿Qué pasaría si condicionamos adicionalmente a <span class="math inline">\(X\)</span>? En este caso, el conjunto de condicionamiento es <span class="math inline">\(\{V, W, X\}\)</span>. El camino <span class="math inline">\(p_2\)</span> está bloqueado. Y aunque condicionamos al colisionador, <span class="math inline">\(X\)</span> bloque el camino. Por lo tanto <span class="math inline">\(Z\)</span> y <span class="math inline">\(Y\)</span> son condicionalmente independientes dado <span class="math inline">\(\{V, W, X\}\)</span>.</p></li>
 </ul>
 </section>
 <section id="ejercicio" class="level3" data-number="2.7.1">
@@ -1716,27 +2022,27 @@ Cálculo de d-separación
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="st">    Z </span></span>
-<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="st">    W </span></span>
-<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
-<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Y </span></span>
-<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
-<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a><span class="st">    T</span></span>
-<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb85-12"><a href="#cb85-12" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Z</span></span>
-<span id="cb85-13"><a href="#cb85-13" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
-<span id="cb85-14"><a href="#cb85-14" aria-hidden="true" tabindex="-1"></a><span class="st">    Z -&gt; W</span></span>
-<span id="cb85-15"><a href="#cb85-15" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; W</span></span>
-<span id="cb85-16"><a href="#cb85-16" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; Y</span></span>
-<span id="cb85-17"><a href="#cb85-17" aria-hidden="true" tabindex="-1"></a><span class="st">    W -&gt; U</span></span>
-<span id="cb85-18"><a href="#cb85-18" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; Y</span></span>
-<span id="cb85-19"><a href="#cb85-19" aria-hidden="true" tabindex="-1"></a><span class="st">    UZ -&gt; Z</span></span>
-<span id="cb85-20"><a href="#cb85-20" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb85-21"><a href="#cb85-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="st">    Z </span></span>
+<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="st">    W </span></span>
+<span id="cb126-7"><a href="#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="st">    X</span></span>
+<span id="cb126-8"><a href="#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Y </span></span>
+<span id="cb126-9"><a href="#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb126-10"><a href="#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="st">    T</span></span>
+<span id="cb126-11"><a href="#cb126-11" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb126-12"><a href="#cb126-12" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Z</span></span>
+<span id="cb126-13"><a href="#cb126-13" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb126-14"><a href="#cb126-14" aria-hidden="true" tabindex="-1"></a><span class="st">    Z -&gt; W</span></span>
+<span id="cb126-15"><a href="#cb126-15" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; W</span></span>
+<span id="cb126-16"><a href="#cb126-16" aria-hidden="true" tabindex="-1"></a><span class="st">    X -&gt; Y</span></span>
+<span id="cb126-17"><a href="#cb126-17" aria-hidden="true" tabindex="-1"></a><span class="st">    W -&gt; U</span></span>
+<span id="cb126-18"><a href="#cb126-18" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; Y</span></span>
+<span id="cb126-19"><a href="#cb126-19" aria-hidden="true" tabindex="-1"></a><span class="st">    UZ -&gt; Z</span></span>
+<span id="cb126-20"><a href="#cb126-20" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb126-21"><a href="#cb126-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="htmlwidget-8b0e93ac7f318ea0fc18" style="width:100%;height:464px;" class="grViz html-widget"></div>
@@ -1745,6 +2051,11 @@ Cálculo de d-separación
 </div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-koller2009" class="csl-entry" role="doc-biblioentry">
+Koller, D., y N. Friedman. 2009. <em>Probabilistic Graphical Models: Principles and Techniques</em>. MIT Press.
+</div>
+</div>
 </section>
 </section>
 
