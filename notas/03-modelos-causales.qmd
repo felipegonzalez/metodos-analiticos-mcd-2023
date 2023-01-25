@@ -424,8 +424,7 @@ estimar el efecto causal de $T$ sobre $Y$:
 grViz("
 digraph {
   graph [ranksep = 0.2, rankdir = LR]
-  node [shape=circle]
-  X
+
   node [shape=plaintext]
   
 
@@ -434,10 +433,13 @@ digraph {
    T -> Y
    X -> Z
    W -> Z
-   W -> Y
-   Y -> X
+   Y -> W 
+   Y -> Z
    A -> Y
    T -> A
+   X -> W
+   T -> X
+   S -> Y
 #{ rank = same; A; D }
 
 }
@@ -448,6 +450,10 @@ La variable $Dia$ que determina el tratamiento no tiene aristas en común
 con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún
 ajuste, no importa lo complicada que sea esta gráfica, y podemos usar
 simplemente $p(y|t)$. No hay necesidad de estratificar por ninguna variable.
+
+Por el contrario, si tenemos dados condicionados (por ejemplo por algún aspecto
+se la selección de muestra), o estratificamos sin cuidado por alguna de las otras variables,
+entonces podríamos agregar inducir asociaciones no causales en nuestra estimación.
 
 Eso quiere decir que para este propósito, podríamos simplemente 
 estimar $p(y|x)$ con un modelo simple. No es un modelo "mecanístico", ni nos
@@ -467,7 +473,7 @@ en el tratamiento que están conectadas con otras partes de la gráfica.
 de asignación del tratamiento (por ejemplo, datos perdidos). 
 - La decisión de controlar o estratificar por una variable sí depende de
 más aspectos de la estructura causal del problema, y es necesario entonces
-expandir más nuestro modelo.
+expandir más nuestro modelo para saber si es buena idea hacerlo.
 - También, saber más de la estructura causal nos puede ayudar a mejorar
 el **diseño** de nuestro experimento
 :::
