@@ -399,6 +399,83 @@ $$m_u = (\beta_0 + \beta_2 t) + \beta_1 d = \gamma_0 + \gamma_1 d$$
 Esta es una de las maneras más simples de obtener el efecto de $d$ estratificando por,
 o controlando por $t$, *siempre y cuando los modelos lineales sean apropiados*.
 
+## Experimentos
+
+En los experimentos clásicos, intentamos obtener datos de un proceso generador 
+especial:
+
+- Asignamos un tratamiento $T$ **al azar**: el punto es que la asignación de tratamiento no esté relacionada con ninguna variable de interés en el proceso generador de datos "natural".
+- Como no hay aristas que entren a $T$, no es necesario llevar a cabo ninguna
+cirugía y ningún ajuste.
+- Cuando nosotros hacemos cirugía, estamos proponiendo un proceso generador
+que imita a un experimento, *siempre y cuando nuestros supuestos causales sean
+correctos*
+
+Por ejemplo, si queremos podemos asignar tratamiento de aspirina o no aspirina a una persona, lo hacemos por ejemplo viendo el dígito de unidades en su fecha
+de nacimiento. Aunque no tiramos ninguna moneda, este dígito no tiene
+ninguna relación con las maneras en que el tratamiento puede ayudar a reducir
+el dolor de cabeza.
+
+Entonces podrías tener un diagrama como el que sigue, donde queremos 
+estimar el efecto causal de $T$ sobre $Y$:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=circle]
+  X
+  node [shape=plaintext]
+  
+
+  edge [minlen = 3]
+   Dia -> T
+   T -> Y
+   X -> Z
+   W -> Z
+   W -> Y
+   Y -> X
+   A -> Y
+   T -> A
+#{ rank = same; A; D }
+
+}
+")
+```
+
+La variable $Dia$ que determina el tratamiento no tiene aristas en común
+con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún
+ajuste, no importa lo complicada que sea esta gráfica, y podemos usar
+simplemente $p(y|t)$. No hay necesidad de estratificar por ninguna variable.
+
+Eso quiere decir que para este propósito, podríamos simplemente 
+estimar $p(y|x)$ con un modelo simple. No es un modelo "mecanístico", ni nos
+sirve para aprender otras cosas, pero
+sabemos que da una buena estrategia de identificación para el efecto causal
+que nos interesa.
+
+Resumiendo:
+
+::: callout-note
+# Experimentos e inferencia causal
+
+- Los experimentos nos dan la garantía de que no haya aristas que incidan
+en el tratamiento que están conectadas con otras partes de la gráfica.
+- El análisis se simplifica pues basta con estimar el modelo "predictivo" $p(y|x)$: podemos ignorar el conocimiento experto en este sentido.
+- Sin embargo, en muchos experimentos podemos estratificar o controlar por algunas variables auxiliares para **mejorar la precisión** o subsanar **fallas** en el proceso
+de asignación del tratamiento (por ejemplo, datos perdidos). 
+- La decisión de controlar o estratificar por una variable sí depende de
+más aspectos de la estructura causal del problema, y es necesario entonces
+expandir más nuestro modelo.
+- También, saber más de la estructura causal nos puede ayudar a mejorar
+el **diseño** de nuestro experimento
+:::
+
+Más adelante veremos más de diseño de experimentos, qué variables utilizar
+para mejorar su precisión, y su relación con nuestro análisis basado en DAGs causales.
+
+
 ## Simulación para estimar efectos causales
 
 La estrategia más general y conceptualmente simple para usar la idea de la fórmula
