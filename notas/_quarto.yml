@@ -8,6 +8,7 @@ book:
     - index.qmd
     - 01-introduccion.qmd
     - 02-modelos-graficos.qmd
+    - 03-modelos-causales.qmd
     - 99-referencias.qmd
 #  appendices:
 #    - 81-apendice-1.qmd

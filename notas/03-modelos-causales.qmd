@@ -1,0 +1,674 @@
+# Modelos causales e inferencia
+
+En esta parte consideramos nuestros modelos gráficos no simplemente
+como maneras de factorizar un modelo probabilístico, sino 
+también como una manera de establecer nuestros supuestos causales
+acerca del problema de interés. Estos son supuestos que son necesarios para hacer inferencia causal. 
+
+Comenzaremos entonces con una pregunta fundamental de inferencia causal: ¿qué sucede si modificamos una variable $X=x$ en una respuesta $Y$? 
+¿Podemos estimar este efecto a partir de datos observados? La respuesta dependerá
+de nuestros supuestos causales, y veremos varios ejemplos de cuándo es posible 
+y cómo **identificar** y calcular estas estimaciones causales.
+
+## Intervenciones
+
+```{r}
+#| code-fold: true
+#| warning: false
+library(tidyverse)
+library(kableExtra)
+library(DiagrammeR)
+ggplot2::theme_set(ggplot2::theme_light())
+```
+
+ Desde el punto de vista de Pearl, nuestro objeto principal
+de interés es la distribución condicional de la respuesta *dada una manipulación*,
+que define como
+$$p(y | do(x))$$
+Esto significa: ¿cómo se distribuye la $Y$ dado que intervenimos en la población
+completa (aunque podemos también considerar subpoblaciones más adelante) para
+poner en $X=x$?. En primer lugar, notemos que esto no es lo mismo que la distribución 
+
+$$p(y|x)$$
+que podemos estimar directamente de los datos.
+
+### Ejemplo (Pearl) {-}
+Supongamos que tenemos el siguiente modelo del diagrama causal: 
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+
+  edge [minlen = 3]
+   U_t -> T
+   T -> A
+   T -> Z
+   U_a -> A
+   U_z -> Z
+   
+   
+}
+")
+```
+
+donde
+$T$ es la temperatura, $A$ son las unidades de agua embotellada vendida
+y $Z$ es la actividad de los mosquitos (medido con muestreo, por ejemplo).
+Mostramos también otras variables causales que pueden afectar
+a las variables de interés (muchas veces omitimos estas variables que solo afectan a una
+variable de interés), pero que no tienen efecto sobre otras variables del diagrama.
+
+No interesa contestar la pregunta: ¿qué tanto influyen las ventas de agua embotellada en la actividad de los mosquitos? 
+Del diagrama, sabemos que no hay ningún camino causal de $Z$ a $T$, por 
+lo que nuestra respuesta debería ser igual a 0. 
+
+Sin embargo, sabemos que estas
+dos variables están asociadas (por el análisis de DAGs), de manera que describir cómo cambia $p(z|a)$ cuando
+condicionamos a distintos valores de $a$ no responde nuestra pregunta. La distribución $p(z|do(a))$ nos dice cómo se distribuye $X$ cuando manipulamos $a$ artificialmente. Por ejemplo, si cerramos todas las tiendas un día haciendo $do(a=0)$, veríamos que esta variable no tiene efecto sobre la actividad de mosquitos, por ejemplo comparado con $do(a = 10000)$.
+
+Ilustramos la diferencia entre $p(y|x)$ y $p(y|do(x))$ simulando del ejemplo anterior. Supondremos que sólo consideramos un día del año a lo largo de varios años, para
+no modelar el comportamiento cíclo de la temperatura:
+
+```{r}
+simular_t <- function(n = 10, dia = 150){
+  # simular un año, alrededor del día 160 (en junio)
+  t_maxima <- rnorm(n, 28, 2)
+  mosquitos <- rpois(n, 250 + 10 * (t_maxima - 28))
+  unidades <- rnorm(n, 20000 + 2000 * (t_maxima -  28), 2000)
+  tibble(t_maxima, unidades, mosquitos)
+}
+set.seed(128)
+simular_dias <- simular_t(50)
+```
+
+Si simulamos, vemos que $mosquitos$ y $unidades$ son dependientes, pues tenemos
+un camino abierto dado por la bifurcación en temperatura:
+
+```{r, fig.width = 5, fig.height=3.5}
+ggplot(simular_dias, aes(x = unidades, y = mosquitos)) + geom_point() +
+  geom_smooth(method = "loess", method.args = list(degree = 1)) +
+  xlab("Ventas de agua embotellada")
+```
+
+Sabemos que esta asociación no es causal, pues no hay caminos causales entre estas
+variables dos variables, pero que hay una dependencia debido a la bifurcación en 
+$T$. La gráfica muestra que la media condicional $E[M|A=a]$ depende fuertemente
+de $a$, lo que quiere decir que $p(m|a)$ depende de $a$ fuertemente.
+
+
+## Ejemplo: una intervención simple
+
+En este caso, nos interesaría saber qué sucede si alteramos artificalmente el número
+de botellas de agua vendidas (puedes imaginar distintas maneras de hacer esto).
+
+Cuando hacemos esto, quitamos las aristas que van hacia $A$,
+pues $A$ ya no está determinado por el proceso generador de datos. Tenemos
+entonces la nueva gráfica:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+   A
+  edge [minlen = 3]
+   U_t -> T
+   T -> Z
+   U_m -> Z
+{ rank = same; A; Z }
+}
+")
+```
+
+En esta nueva gráfica, $A$ y $Z$ son independientes, que es la respuesta correcta.
+Veamos cómo simularíamos de esta gráfica después de la cirugía. Establecemos
+un valor fijo de unidades, y seguimos el resto del modelo:
+
+```{r}
+simular_cirugia <- function(n = 10, unidades = unidades){
+  # simular un año, alrededor del día 160 (en junio)
+  t_maxima <- rnorm(n, 28, 2)
+  mosquitos <- rpois(n, 250 + 10 * (t_maxima - 28))
+  unidades <- unidades
+  tibble(t_maxima, unidades, mosquitos)
+}
+```
+
+
+Y ahora simulamos y graficamos $p(c|do(u))$ para distintos valores de $u$:
+
+```{r}
+set.seed(128)
+simular_dias_2 <- map_df(seq(10000, 30000, 1000),
+  \(u) simular_cirugia(50, unidades = u))
+```
+
+
+```{r, fig.width = 5, fig.height=3.5}
+ggplot(simular_dias_2, aes(x = unidades, y = mosquitos)) +
+  geom_point() + geom_smooth()
+```
+
+y vemos, como esperaríamos, que no hay relación entre unidades de agua embotellada
+y tasa de crimen.
+
+## Cálculo-do de Pearl
+
+El cálculo do nos da reglas para operar con probabilidades que incluyen
+nuestro operador do de intervención. En este ejemplo particular, veremos 
+cómo es el argumento:
+
+Nótese que al intervenir $A$ hemos modificado el proceso generador. Si la conjunta original
+tiene distribución $p$, escribimos $p_m$ para la conjunta de la gráfica modificada,
+de manera que $p(z|do(a)) = p_m(z|a)$.
+
+Aunque intuitivamente vimos cómo simular de esta distribución arriba, especificamos
+abajo qué reglas son las que nos permiten hacer esto: ¿cómo calculamos $p_m$?
+
+En primer lugar, consideremos $p_m(t)$. Esta marginal es invariante a nuestra
+cirugía, pues la arista $T->A$ que eliminamos $T$ no afecta el proceso que determina $T$. De
+modo que la marginal del proceso modificado es igual a la marginal observada:
+
+$$p_m(t) = p(t)$$
+En segundo lugar, tenemos que 
+
+$$p_m(z|t,a) = p(z|t,a),$$
+Pues el proceso por el cual responde $m$ a $t$ y $a$ es el mismo, no importa si
+$A$ fue modificada artificalmente o no.
+
+Juntamos estos argumentos. Primero, por definición,
+
+$$p(z|do(a)) = p_m(z|a)$$
+
+Por la regla de probabilidad total, podemos condicionar todo a $T$ y marginalizar.
+La segunda igualdad la obtenemos por la independencia entre $T$ y $A$ en nuestra
+gráfica modificada (están $d$ separadas):
+
+$$p_m(z|a) = \int p_m(z|a,t)p_m(z|t)dt = \int p_m(z|a,t)p_m(t)dt$$
+Finalmente, las últimas dos distribuciones podemos extraerlas de los datos, como
+explicamos arriba $p_m(z|t,a) = p(z|t,a)$ y $p_m(t) = p(t),$ y terminamos con la
+fórmula
+
+$$p(z|do(a))=p_m(z|a) = \int p(z|a,t)p(t)dt $$
+Las dos distribuciones de la derecha las tenemos pues están en el contexto
+de $p$, el proceso generador de datos. En general, estas tenemos que estimarlas
+de los datos observados.
+
+- Este argumento justifica el proceso que hicimos arriba: simulamos primero $T$
+con su proceso generador, y después simulamos $C$ condicional a $A$ y $T$ *según
+el proceso generador original*, el cual no depende de $A$ en este ejemplo.
+
+En el caso de arriba, simulamos de la distribución para entender cómo
+se distribuía $Z$ dependiendo de modificaciones a $A$. Muchas veces nos interesa
+calcular solamente la esperanza condicional, es decir, cuál es el valor
+esperado de la variable de interés dado el nivel intervenido, es decir:
+
+$E(Z|do(a)) = E_m(Z|A =a),$
+
+que mostramos arriba con la línea ajustada. También quisiéramos 
+calcular **contrastes** particulares, como qué pasaría si las ventas
+de agua las aumentamos en 10 mil unidades:
+
+$$E(Z|do(30000)) - E(Z|do(20000)),$$
+que podemos calcular de manera simple con simulación:
+
+```{r}
+simular_contraste <- map_df(c(20000, 30000),
+  \(u) simular_cirugia(1000, unidades = u)) |> 
+  group_by(unidades) |> 
+  summarise(media_mosquitos = mean(mosquitos))
+simular_contraste
+```
+Y vemos que no hay diferencia entre las dos medias.
+
+### Ejemplo {-}
+
+Ahora hagamos otro ejemplo donde hay una relación causal que
+queremos estimar. Imaginemos una ciudad en donde temperaturas altas
+producen desabasto de agua en algunos hogares, debido a un aumento del riego. 
+Nos interesa estimar el 
+efecto del desabasto en las compras de agua embotellada. Nuestro diagrama
+ahora es:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+
+  edge [minlen = 3]
+   U_t -> T
+   T -> A
+   T -> D
+   D -> A
+   U_a -> A
+   U_d -> D
+
+{ rank = same; A; D }
+
+}
+")
+```
+
+
+```{r}
+simular_t <- function(n = 10, dia = 150){
+  # simular un año, alrededor del día 160 (en junio)
+  t_maxima <- rnorm(n, 28, 2)
+  u <- rnorm(n, 0, 1)
+  desabasto_agua <- 1/(1 + exp(-(t_maxima - 28) + u))
+  unidades <- rnorm(n, 20000 + 2000 * (t_maxima -  28) + 8000*desabasto_agua, 2000)
+  tibble(t_maxima, unidades, desabasto_agua)
+}
+set.seed(128)
+simular_dias <- simular_t(150)
+```
+
+```{r, fig.width = 5, fig.height=3.5}
+ggplot(simular_dias, aes(x = desabasto_agua, y = unidades)) + 
+  geom_point() + geom_smooth()
+```
+
+La correlación parece muy fuerte, sin embargo, sabemos que hay un camino no causal
+de asociación entre estas dos variables. 
+
+Igual que en ejemplo anterior, vamos a intervenir teóricamente en el desabasto
+de agua. Después de la cirugía, nuestro diagrama modificado es:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+
+  edge [minlen = 3]
+   U_t -> T
+   T -> A
+   D -> A
+   U_a -> A
+{ rank = same; A; D }
+
+}
+")
+```
+
+Ahora queremos calcular $p(a|do(d)) = p_m(a|d)$ en función de los datos. Siguiendo el mismo
+argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o condicionar
+a $T$ para poder usar nuestro proceso generador de observaciones, y obtenemos:
+
+
+$$p_m(a|do(d))=p_m(a|d) = \int p(a|d,t)p(t)dt $$
+Aunque a veces es posible calcular analíticamente el lado derecho analíticamente,
+podemos simular como hicimos en los ejemplos anteriores:
+
+```{r}
+simular_cirugia <- function(n = 10, da = 0){
+  # simular un año, alrededor del día 160 (en junio)
+  t_maxima <- rnorm(n, 28, 2)
+  ### cirugía ####
+  #u <- rnorm(n, 0, 1) 
+  desabasto_agua <- da
+  ######
+  unidades <- rnorm(n, 20000 + 2000 * (t_maxima -  28) + 8000*desabasto_agua, 2000)
+  tibble(t_maxima, unidades, desabasto_agua)
+}
+set.seed(128)
+simular_dias_c <- map_df(seq(0, 1, 0.1), \(da) simular_cirugia(1000, da = da))
+```
+
+```{r, fig.width = 5, fig.height=3.5}
+ggplot(simular_dias_c, aes(x = desabasto_agua, y = unidades)) + 
+  geom_point() + geom_smooth()
+```
+
+Podemos también resumir promediando:
+
+```{r}
+simular_dias_c |> 
+  group_by(desabasto_agua) |> 
+  summarise(unidades_media = mean(unidades)) |> 
+ggplot(aes(x = desabasto_agua, y = unidades_media)) + 
+  geom_point() + geom_smooth()
+```
+
+
+Y este es el efecto causal del desabasto de agua. No tenemos
+medidas de incertidumbre pues conocemos todos los parámetros de los modelos.
+La media condicional
+parece ser lineal, así que podríamos resumir con un modelo lineal:
+
+```{r}
+# Modelo 1 (con datos de intervención)
+lm(unidades ~ desabasto_agua, simular_dias_c)
+```
+Aproximadamente, cada incremento en puntos porcentuales de 10% en desabasto incrementa las
+ventas en unas 800 unidades. Compara con el análisis donde no estratificamos o
+controlamos por la temperatura:
+
+```{r}
+# Modelo 2
+lm(unidades ~ desabasto_agua, simular_dias)
+```
+
+Otra forma de estratificar es ajustando un modelo que incluye la variable de temperatura.
+Podríamos hacer
+
+```{r}
+# Modelo 3
+lm(unidades ~ desabasto_agua + t_maxima, simular_dias)
+```
+
+## Fórmula de ajuste
+
+En resumen, tenemos la primera regla de Pearl de inferencia causal:
+
+::: callout-note
+# Fórmula de ajuste (Pearl)
+
+Sea $G$ donde los padres de $X$ son $Z_1,Z_2$. El efecto causal total de $X$ en $Y$ se puede calcular como
+
+$$p(y|do(x)) = \int p(y|x, z_1,z_2) p(z_1,z_2)\, dz_1dz_2$$
+Es decir, condicionamos al valor de $x$ y todos los padres de $X$ para
+calcular $p(y|x,z_1,z_2)$, y después marginalizamos sobre los padres.
+
+:::
+
+Este proceso se llama de diferentes maneras en distintos contextos:
+
+- Estamos calculando el efecto causal **estratificando** por las variables $z$.
+- **Controlamos** o **condicionamos** por las variables $z$ para calcular el efecto causal.
+
+**Nota 1**: Con este principio podemos resolver algunos problemas, pero
+no todos. Veremos que en algunos casos existen padres que no son observados,
+por ejemplo, no es posible condicionar para usar la fórmula de ajuste y es necesario desarrollar más estrategias.
+
+**Nota 2**: En regresión lineal, cuando incluímos una variable en el modelo (que consideramos una variable control), estamos
+estratificando por ella: por ejemplo, en el modelo lineal $U\sim N(m_u(d,t), \sigma_u)$,
+donde 
+
+$$m_u = \beta_0 +\beta_1 d + \beta_2 t$$
+Estamos calculando un estimador para cada valor de $T=t$, que es:
+
+$$m_u = (\beta_0 + \beta_2 t) + \beta_1 d = \gamma_0 + \gamma_1 d$$
+Esta es una de las maneras más simples de obtener el efecto de $d$ estratificando por,
+o controlando por $t$, *siempre y cuando los modelos lineales sean apropiados*.
+
+## Simulación para estimar efectos causales
+
+La estrategia más general y conceptualmente simple para usar la idea de la fórmula
+de ajuste es utilizar simulación:
+
+::: callout-note
+# Fórmula de ajuste con simulación
+
+Para calcular efectos causales de $X$ en $Y$ , podemos simular según el proceso
+generador de la gráfica mutilada donde quitamos todas las aristas que
+llegan a $X$. 
+En la práctica, esto implica fijar $X$, ignorar el proceso generador
+de $X$, y seguir el proceso generador
+original de nuestro modelo para el resto de los nodos.
+
+:::
+
+Nótese que cuando hacemos las simulaciones siguiendo el proceso generador, marginalizar
+es simple: si queremos la conjunta de $x_1$ y $x_2$ por ejemplo, simplemente extraemos
+las variables $x_1$ y $x_2$ y examinamos su relación.  
+
+
+En los ejemplos de arriba, todos los procesos generadores locales estaban
+determinados. Cuando tenemos tenemos parámetros desconocidos, es necesario 
+estimarlos antes de usar la fórmula de ajuste, y tomar en cuenta 
+la incertidumbre en la estimación. 
+
+
+Podemos ver cómo haríamos esto con modelos bayesianos.
+En primer lugar, empezamos con el diagrama causal original, y establecemos
+nuestros modelos locales
+
+```{r}
+#| message: false
+library(cmdstanr)
+mod_agua <- cmdstan_model("../src/agua-1.stan")
+print(mod_agua)
+```
+
+Tomamos una muestra simulada como datos para hacer la estimación (de modo
+que es no es necesario preocuparnos por el ajuste de modelos locales).
+
+```{r}
+set.seed(128)
+sim_dias <- simular_t(250)
+N <- nrow(sim_dias)
+desabasto_sim <- seq(0, 1, 0.1)
+datos_lista <- list(N = N, t_maxima = sim_dias$t_maxima,
+                    unidades = sim_dias$unidades,
+                    desabasto_agua = sim_dias$desabasto_agua,
+                    desabasto_sim = desabasto_sim)
+ajuste <- mod_agua$sample(data = datos_lista, refresh = 1000,
+                          init = 0.1)
+```
+
+
+```{r}
+sims <- ajuste$draws(format = "df")
+resumen <- ajuste$summary(
+  c("alpha_u", "beta_t", "beta_d", "mu_t", "alpha", "beta",
+    "sigma_t", "sigma_d", "sigma_unidades"))
+resumen |> select(variable, median, q5, q95)
+```
+
+Donde podemos checar que aproximadamente recuperamos los parámetros originales.
+
+Como explicamos según el concepto de cálculo-do, queremos simular de una
+distribución distinta para estimar el efecto causal de desabasto sobre
+unidades vendidas. Para esto utilizamos las simulaciones de nuestro modelo
+(que ajustamos con datos observacionales), pero en la sección de simulación
+hacemos un cálculo diferente:
+
+```{r}
+sim_intervenciones <- 
+  ajuste$draws(format = "df") |> 
+  select(".draw", contains("unidades_sim")) |> 
+  pivot_longer(cols = contains("unidades_sim")) |> 
+  separate(name, sep = "[\\[\\]]", into = c("variable", "indice"),
+           convert = TRUE, extra = "drop") |> 
+  left_join(tibble(desabasto = desabasto_sim, indice = seq_along(desabasto_sim)))
+```
+
+
+```{r}
+sim_intervenciones |> group_by(desabasto) |> 
+  summarise(media_unidades = mean(value), 
+            q5 = quantile(value, 0.05),
+            q95 = quantile(value, 0.95)) |> 
+ggplot(aes(x=desabasto, y = media_unidades, 
+           ymin = q5, ymax = q95)) +
+  geom_point() +
+  geom_linerange()
+
+```
+Esta gráfica es difícil de interpretar, porque puede haber correlación
+entre los distintos estimadores que estamos presentando.
+
+Para comparar, lo mejor es hacer contrastes. Comparamos con la situación
+de 0 desabasto, por ejemplo, y calculamos el incremento estimado:
+
+```{r}
+sim_nivel_0 <- filter(sim_intervenciones, desabasto == 0) |> 
+  select(.draw, value_0 = value)
+sim_intervenciones |> left_join(sim_nivel_0) |> 
+  mutate(dif = value - value_0) |> 
+  group_by(desabasto) |> 
+  summarise(diferencia_media = mean(dif), 
+            q5 = quantile(dif, 0.05),
+            q95 = quantile(dif, 0.95)) |> 
+ggplot(aes(x=desabasto, y = diferencia_media, 
+           ymin = q5, ymax = q95)) +
+  geom_point() +
+  geom_linerange()
+```
+
+Claramente todos los estimadores están bien separados de 0. Diez puntos
+porcentuales de incremento en desabasto incrementan las ventas en alrededor
+de 8 mil unidades.
+
+---
+
+Recordemos que en todos estos ejemplos nos estamos concentrando en 
+la *identificación* de un efecto causal que nos interesa, así que nos
+estamos saltando algunos pasos en el proceso de modelación y estimación
+que en el trabajo usual debemos seguir:
+
+::: callout-note 
+# Modelación y estimadores
+
+El procedimiento general es (@rethinking):
+
+1. Definir la cantidad a estimar
+2. Construir un modelo causal gráfico (puede incluir variables no medidas)
+3. Definir un modelo generativo basado en el modelo causal (puede tener parámetros
+desconocidos, que se estimarán con datos), recorriendo los nodos y definiendo 
+los modelos individuales.
+4. Definir el cálculo del estimador (por ejemplo, con la fórmula de ajuste)
+5. Ajustar el modelo completo a los datos y calcular el estimador del paso anterior.
+:::
+En 2 y 3 está la mayor parte del trabajo. La parte 3 es parte de un curso de
+estadística bayesiana, y para esta parte usamos un flujo bayesiano de construcción
+de modelos (ver [aquí](https://arxiv.org/abs/2011.01808) o [aquí](https://betanalpha.github.io/assets/case_studies/principled_bayesian_workflow.html)).
+
+## Ejemplo: estaturas (versión 1)
+
+Consideramos el ejemplo donde queremos entender el **efecto de sexo en el peso
+de personas**. Usaremos los siguientes datos (@rethinking), que son datos recolectados
+de una población particular (Kalahari !Kung San). Tomamos sólo a los adultos
+(definidos por más de 18 años).
+
+
+```{r}
+howell <- read_delim("../datos/Howell1.csv", delim = ";") |> 
+  filter(age >= 18)
+head(howell)
+```
+
+```{r}
+ggplot(howell, aes(x = height, y = weight, colour = male)) +
+  geom_point()
+```
+
+Empezaremos con el siguiente modelo causal:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    S
+    H
+    W 
+  node [shape = circle]
+    U
+  edge [minlen = 3]
+    S -> H
+    S -> W
+    H -> W
+    U -> H
+    U -> W
+{rank = same; S;H}
+}
+")
+
+```
+
+- En primer lugar, tenemos una flecha $H->W$. La razón es que podemos pensar
+en varias intervenciones que afectan el peso pero que no cambian la estatura. 
+- En segundo lugar, $S$ es causa de $H$, pero también puede afectar directamente 
+peso $W$ junto con la estatura $H$.
+- $H$ y $W$ pueden tener otras causas comunes no observadas (nutrición por ejemplo), que
+no influyen en $S$.
+
+Ahora veamos cómo calcular el efecto causal **total** de sexo sobre peso.
+
+*Podemos ver que no hay ninguna flecha que llegue a $S$, de modo que para el
+efecto total no es necesario hacer cirugía ni usar la fórmula de ajuste.* 
+
+De hecho, en este ejemplo sería mala idea condicionar a la estatura $H$, pues cerramos
+un camino causal por el que $S$ influye en $W$, y al mismo tiempo abrimos un
+camino no causal que pasa por $U$.
+
+El análisis detallado de la gráfica es:
+
+- Existen dos rutas causales de sexo a peso: una que está mediada por la estatura
+y otra que es efecto directo sobre peso. **No** queremos bloquear condicionando
+a la estatura $H$.
+- Existe una ruta no causal de sexo sobre peso, y es el camino $S\to H \gets U \to W$.
+Sin embargo, esta ruta está bloqueada por $H$, la estatura, que es un colisionador. 
+
+- Nota para más adelante: sin embargo, si quisiéramos calcular el efecto **directo**  de sexo sobre peso, será necesario seguir otro procedimento. Estratificar
+por estatura no funciona pues activamos un camino no causal, y por lo tanto deberemos bloquear la ruta no causal
+condicionando a $U$ que no hemos observado.
+
+
+Comenzamos ahora el proceso de modelado. Podemos excluir a $U$ en nuestro modelo,
+pues no tiene relevancia para la inferencia acerca del efecto total de $S$ sobre $W$,
+como discutimos arriba.
+
+::: callout-tip
+# Ojo: interpetación de modelos
+
+Nótese que la decisión de excluir de nuestro análisis la variable $U$
+sólo tiene sentido si lo que queremos estimar es el efecto total de sexo
+sobre peso. Esto implica que nuestras estimaciones que corresponden
+a $H\toW$ **no** tienen interpretación causal. Una estrategia de identificación
+para un efecto no implica que todo lo que salga de nuestras estimaciones
+es causal.
+
+:::
+
+
+Empezamos entonces con el modelo de estatura:
+
+$$H|S=s \sim N(m_h, \sigma_h)$$
+con 
+
+$$m_h = \alpha_0 + \alpha_1 s $$
+Y el modelo de peso:
+
+
+$$W|S=s,H=h \sim N(m_w, \sigma_w)$$
+$$m(s,a,h) = \gamma_0 + \gamma_1 s  + \gamma_2 h$$
+
+
+
+Lo escribimos en stan:
+
+```{r}
+mod_1 <- cmdstanr::cmdstan_model("../src/peso-estatura-inferencia-1.stan")
+print(mod_1)
+```
+
+```{r}
+datos_lista <- list(N = nrow(howell), s= howell$male, a = howell$age, 
+                    h = howell$height, w = howell$weight)
+ajuste <- mod_1$sample(data = datos_lista, refresh = 1000)
+sims <- ajuste$draws( format = "df")
+resumen <- ajuste$summary(c( "dif_male"))
+options(scipen = 9999)
+resumen |> select(variable, mean, q5, q95) |> 
+  mutate(across(where(is.numeric), round, 2))
+```
+
+```{r}
+sims |> ggplot(aes(x = dif_male)) + geom_histogram()
+```
+
+Esta es nuestra estimación del diferencia causal promedio de sexo sobre el peso para 
+personas de 35 años: está aproximadamente entre 5.5 y 8.5 kilos aproximadamente.
+
+
