@@ -201,7 +201,7 @@ $$p(x_1, x_2, \ldots, x_n)$$
 En el caso particular de 3 variables p(x,y,z) la regla del producto se
 escribe como
 
-$$p(x,y,z) = p(z|x,y)p(y|z)p(x)$$
+$$p(x,y,z) = p(z|x,y)p(y|x)p(x)$$
 que podemos escribir, dependiendo del problema, en cualquiera de las seis permutaciones
 posibles, por ejemplo:
 
@@ -441,19 +441,7 @@ y sensibilidad menores a 1. En pruebas de *gold standard*, el kit identificó co
 e identificó correctamente como negativos a 399 de 401 personas no infectadas.
 
 
-Aunque aprender el flujo de construcción y validación de modelos en todos sus aspectos
-no es el objetivo de este curso, mostramos un resumen abajo:
 
-:::callout-note
-# Desarrollo de modelos
-
-1. Establecer la pregunta que queremos contestar
-2. Especificar nuestros supuestos causales
-3. Definir un modelo generativo dado el paso anterior
-4. Definir una estrategia para contestar la pregunta de 1)
-5. Probar el modelo y nuestra estrategia usando el modelo generativo
-6. Analizar datos con el modelo, checar supuestos y resumir.
-:::
 
 
 Construiremos ahora una gráfica que indica cómo es el proceso generador de datos.
@@ -508,6 +496,7 @@ Antes de proceder a incluir las características de la prueba, haremos el análi
 pensando que el error de medición no es importante:
 
 ```{r}
+#! message: false
 library(cmdstanr)
 mod_sc <- cmdstan_model("../src/sclara-simple.stan")
 print(mod_sc)
@@ -537,7 +526,7 @@ ggplot(sims, aes(x = p)) +
 ```
 Donde parece ser que la prevalencia está muy probablemente por arriba de 1.2%
 Si este es el caso, esto implicaría que el subconteo de infecciones era muy
-grande, y la estimación del IFR podría ser demasiado baja.
+grande, y que el IFR es más bajo de lo que se creía.
 
 
 Sin embargo, observamos positivos en la prueba, y no realmente
@@ -674,6 +663,19 @@ La asociación entre estas dos cantidades es interesante porque conceptualmente
 (y desde punto de vista del modelo), no hay relación entre estas dos variables: su asociación
 aparece porque son causas que compiten para explicar una observación.
 
+Aunque aprender el flujo de construcción y validación de modelos en todos sus aspectos
+no es el objetivo de este curso, mostramos un resumen abajo:
+
+:::callout-note
+# Desarrollo de modelos
+
+1. Establecer la pregunta que queremos contestar
+2. Especificar nuestros supuestos causales
+3. Definir un modelo generativo dado el paso anterior
+4. Definir una estrategia para contestar la pregunta de 1)
+5. Probar el modelo y nuestra estrategia usando el modelo generativo
+6. Analizar datos con el modelo, checar supuestos y resumir.
+:::
 
 ## Independencia condicional
 
@@ -697,6 +699,12 @@ por qué las dos formas son equivalentes recuerda que cualquier regla de probabi
 puede condicionarse a cualquier infromación y sigue siendo una regla válida. Como de mostramos
 que $p(x,y) = p(x)p(y)$ si y sólo si $p(y|x) = p(y)$, podemos obtener una regla válida condicionando
 todo a $Z$.
+
+Este concepto en la modelación e interpretación, por ejemplo en el caso de
+Santa Clara, prevalencia y número de positivos son dependientes. Pero si 
+conocemos el número de infectados, prevalencia y positivos son condicionalmente
+independientes, y esto es una idea importante este modelo.
+
 
 En nuestro
 primer ejemplo de la sección anterior, observamos que una vez que sabíamos $X$, la probabilidad
@@ -827,7 +835,7 @@ Consideremos entonces tres variables $X$, $Y$ y $Z$. Las tres estructuras
 que tenemos que entender en primer lugar pueden verse también como métodos de
 razonamiento lógico derivados de las leyes de probabilidad:
 
-### Razonamiento de mediación
+### Cadenas o mediación
 
 En este caso tenemos:
 
@@ -953,7 +961,7 @@ ggplot(sims_mediador, aes(x = x, y = y, colour = z, group = z)) +
 
 
 
-### Razonamiento de causa común
+### Bifurcaciones o causa común
 
 En el siguiente ejemplo, llamamos a $Z$ una causa que es común a $X$ y $Y$.
 
@@ -1071,7 +1079,7 @@ ggplot(sims_bifurcacion, aes(x = x, y = y, colour = z, group = z)) +
 
 
 
-### Razonamiento de causas alternativas o efecto común
+### Colisionador o causas alternativas
 
 En este caso, a $Z$ también le llamamos un **colisionador**. Este es
 el caso que puede ser más difícil de entender en un principio.
@@ -1340,20 +1348,25 @@ para construir los estimadores correctos de los efectos causales de interés.
 ::: callout-note
 # d-separación: Caminos activos y bloqueados
 
+
 - Un **camino** entre $X$ y $Y$ es una sucesión de aristas que conecta a $X$ con $Y$
 (sin importar) la dirección de las aristas.
-- Decimos que un camino $p$ entre $X$ y $Y$ está **bloqueado** por un conjunto de nodos
-$A$ cuando:
-1. El camino $p$ contiene alguna cadena ($U_1\to A_j\to U_2$) o alguna bifurcación 
-($U_1\gets A_j\to U_2$) tal que su nodo intermedio
-está en $A$. Si este no es el caso, 
-2. Si el camino $p$ contiene un nodo colisionador $B_j$ ($U_1\to Z\gets U_2$) tal que el nodo de colisión $Z$ no está en $A$, y ningún descendiente de $Z$ está en $A$.
 
-Si $A$ bloquea todos los caminos posibles entre $X$ y $Y$, decimos que $X$ y $Y$ están
-$d$-**separados** condicionalmente a $A$, o $d$-separados por $A$.
+Ahora supongamos que $Z = \{Z_1,Z_2,\ldots, Z_q\}$ son una colección
+de nodos. Decimos que un camino $p$ entre $X$ y $Y$ está **activo condicional a los nodos en** $Z$ cuando:
+
+1. Siempre que hay un colisionador $X_i\to Z\gets X_j$ en el camino $p$, entonces
+$Z$ o alguno de sus descendientes está en $Z$.
+2. Ningún otro nodo a lo largo de $p$ está en $Z$.
+
+En caso contrario, decimos que el camino $p$ está **bloqueado**.
+
+
+Si $Z$ bloquea todos los caminos posibles entre $X$ y $Y$, decimos que $X$ y $Y$ están
+$d$-**separados** condicionalmente a $Z$, o $d$-separados por $Z$.
 :::
 
-Cuando un camino entre $X$ y $Y$ no está bloqueado, entonces decimos que está **activo**. Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos
+Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos
 probabilísticos, el siguiente teorema no es sorpresa:
 
 ::: callout-note
@@ -1361,8 +1374,8 @@ probabilísticos, el siguiente teorema no es sorpresa:
 
 En una DAG $G$:
 
-- Si dos variables están d-separadas por las variables $Z$, entonces $X$ y $Y$ son condicionalmente independientes para cualquier conjunta representada por $G$.
-- Si dos variables **no** están d-separadas por $Z$, entonces existen conjuntas representadas por $G$ tales que $X$ y $Y$ **no** tienen dependencia condicional a $Z$.
+- Si dos variables están d-separadas por las variables $Z$, entonces $X$ y $Y$ son condicionalmente independientes dadas las variables en $Z$ para cualquier conjunta representada por $G$.
+- Si dos variables **no** están d-separadas por $Z$, entonces existen conjuntas representadas por $G$ tales que $X$ y $Y$ **no** tienen dependencia condicional dado $Z$.
 :::
 
 **Nota 1**: nótese que este teorema nos da una manera abstracta de razonar acerca
@@ -1370,6 +1383,15 @@ de la asociación en un modelo gráfico: no es necesario saber la forma particul
 de las condicionales para utilizarlo.
 
 **Nota 2**: Vale la pena mencionar que el segundo inciso en general es una implicación más fuerte:  cuando no hay $d$-separación, existe algún tipo de dependencia casi seguro (en el sentido probabilístico de posible conjuntas).
+
+**Nota 3**: Las independencias condicionales también pueden ser útiles para checar
+los supuestos de nuestro modelo: si encontramos asociaciones fuertes
+(condicionales o no)
+entre variables que nuestra estructura implica independencia condicional,
+entonces puede ser que nuestra estructura causal requiera revisión. Qué tanto podemos
+probar esto depende del tamaño de los datos que tengamos y de el tipo de condicionamiento
+que estamos haciendo.
+
 
 Finalmente (ver por ejemplo @koller2009, p 75), existe un algoritmo eficiente para encontrar
 todas las posibles independencias condicionales implicadas por una gráfica:
@@ -1380,6 +1402,12 @@ todas las posibles independencias condicionales implicadas por una gráfica:
 Existe un algoritmo de complejidad lineal en el tamaño de la gráfica para encontrar 
 todos los nodos con caminos activos a un nodo $X$ condicional a las variables $A$.
 :::
+
+
+Ver por ejemplo el sitio [dagitty.net](http://www.dagitty.net/dags.html), donde
+podemos poner nuestra gráfica y enlistar todas los supuestos de independencia
+condicional implicados por un modelo.
+
 
 ### Ejemplo {-}
 
@@ -1461,4 +1489,34 @@ digraph {
 ")
 
 ```
+
+## Relación con inferencia causal
+
+Si el DAG que consideramos representa relaciones causales (mecanísticas) entre
+las variables, es decir, qué variable "escucha" a qué otras para decidir su valor,
+entonces podemos hacer una definición adicional
+
+::: callout-note
+# Caminos causales
+
+En un DAG, los caminos causales entre $X$ y $Y$ son de la forma
+$X\to U_1\to U_2 \to \cdots U_j \to Y$. Puede haber varios de ellos en un
+diagrama dado, y cada uno representa un mecanismo en que cambios en $X$ producen
+cambios en $Y$
+
+Si nos interesa el efecto **total** de $X$ sobre $Y$, 
+
+- Queremos que todos los caminos causales de $X$ a $Y$ estén activos,
+- Queremos condicionar para que todos los caminos no causales estén bloqueados, en particular, no queremos condicionar a colisionadores o sus descendientes que introduzcan relaciones 
+no causales, y queremos bloquear caminos no casuales creados por bifurcaciones.
+
+:::
+
+
+
+
+
+
+
+
 
