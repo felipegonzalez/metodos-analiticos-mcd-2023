@@ -233,9 +233,9 @@ div.csl-indent {
   </ul></li>
   <li><a href="#estructuras-básicas-en-dags" id="toc-estructuras-básicas-en-dags" class="nav-link" data-scroll-target="#estructuras-básicas-en-dags"><span class="toc-section-number">2.6</span>  Estructuras básicas en DAGs</a>
   <ul class="collapse">
-  <li><a href="#razonamiento-de-mediación" id="toc-razonamiento-de-mediación" class="nav-link" data-scroll-target="#razonamiento-de-mediación"><span class="toc-section-number">2.6.1</span>  Razonamiento de mediación</a></li>
-  <li><a href="#razonamiento-de-causa-común" id="toc-razonamiento-de-causa-común" class="nav-link" data-scroll-target="#razonamiento-de-causa-común"><span class="toc-section-number">2.6.2</span>  Razonamiento de causa común</a></li>
-  <li><a href="#razonamiento-de-causas-alternativas-o-efecto-común" id="toc-razonamiento-de-causas-alternativas-o-efecto-común" class="nav-link" data-scroll-target="#razonamiento-de-causas-alternativas-o-efecto-común"><span class="toc-section-number">2.6.3</span>  Razonamiento de causas alternativas o efecto común</a></li>
+  <li><a href="#cadenas-o-mediación" id="toc-cadenas-o-mediación" class="nav-link" data-scroll-target="#cadenas-o-mediación"><span class="toc-section-number">2.6.1</span>  Cadenas o mediación</a></li>
+  <li><a href="#bifurcaciones-o-causa-común" id="toc-bifurcaciones-o-causa-común" class="nav-link" data-scroll-target="#bifurcaciones-o-causa-común"><span class="toc-section-number">2.6.2</span>  Bifurcaciones o causa común</a></li>
+  <li><a href="#colisionador-o-causas-alternativas" id="toc-colisionador-o-causas-alternativas" class="nav-link" data-scroll-target="#colisionador-o-causas-alternativas"><span class="toc-section-number">2.6.3</span>  Colisionador o causas alternativas</a></li>
   <li><a href="#razonamiento-de-descendientes-de-efecto-común" id="toc-razonamiento-de-descendientes-de-efecto-común" class="nav-link" data-scroll-target="#razonamiento-de-descendientes-de-efecto-común"><span class="toc-section-number">2.6.4</span>  Razonamiento de descendientes de efecto común</a></li>
   <li><a href="#ejemplo-dependencias-de-colisionador" id="toc-ejemplo-dependencias-de-colisionador" class="nav-link" data-scroll-target="#ejemplo-dependencias-de-colisionador"><span class="toc-section-number">2.6.5</span>  Ejemplo: dependencias de colisionador</a></li>
   </ul></li>
@@ -244,6 +244,7 @@ div.csl-indent {
   <li><a href="#ejemplo-5" id="toc-ejemplo-5" class="nav-link" data-scroll-target="#ejemplo-5">Ejemplo</a></li>
   <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio"><span class="toc-section-number">2.7.1</span>  Ejercicio</a></li>
   </ul></li>
+  <li><a href="#relación-con-inferencia-causal" id="toc-relación-con-inferencia-causal" class="nav-link" data-scroll-target="#relación-con-inferencia-causal"><span class="toc-section-number">2.8</span>  Relación con inferencia causal</a></li>
   </ul>
 </nav>
     </div>
@@ -540,7 +541,7 @@ Total execution time: 0.6 seconds.</code></pre>
 <section id="caso-multivariado" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="caso-multivariado"><span class="header-section-number">2.2</span> Caso multivariado</h2>
 <p>Supongamos que tenemos <span class="math inline">\(X_1,\ldots, X_p\)</span> variables aleatorias. Denotamos su conjunta con <span class="math display">\[p(x_1, x_2, \ldots, x_n)\]</span> En el caso particular de 3 variables p(x,y,z) la regla del producto se escribe como</p>
-<p><span class="math display">\[p(x,y,z) = p(z|x,y)p(y|z)p(x)\]</span> que podemos escribir, dependiendo del problema, en cualquiera de las seis permutaciones posibles, por ejemplo:</p>
+<p><span class="math display">\[p(x,y,z) = p(z|x,y)p(y|x)p(x)\]</span> que podemos escribir, dependiendo del problema, en cualquiera de las seis permutaciones posibles, por ejemplo:</p>
 <p><span class="math display">\[p(x,y,z) = p(x|y,z)p(y|z)p(z)\]</span></p>
 <p>El proceso de simulación lo podemos mostrar gráficamente como sigue:</p>
 <div class="cell">
@@ -862,27 +863,6 @@ Total execution time: 0.5 seconds.</code></pre>
 <p>En 2020 se hizo un estudio de seroprevalencia de COVID en Santa Clara, California.</p>
 <p>Se tomó una muestra de individuos (ver los detalles en <a href="https://www.medrxiv.org/content/10.1101/2020.04.14.20062463v2.full.pdf">el artículo original</a>). Para propósitos de este análisis supondremos que la muestra puede considerarse como aleatoria simple.</p>
 <p>Se obtuvieron 3,300 individuos, y 50 de ellos resultaron con prueba positiva (1.5%). Sin embargo, el kit de prueba que estaban utilizando, tienen cierta especificidad y sensibilidad menores a 1. En pruebas de <em>gold standard</em>, el kit identificó correctamente como positivos a 103 de 122 personas infectadas, e identificó correctamente como negativos a 399 de 401 personas no infectadas.</p>
-<p>Aunque aprender el flujo de construcción y validación de modelos en todos sus aspectos no es el objetivo de este curso, mostramos un resumen abajo:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Desarrollo de modelos
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Establecer la pregunta que queremos contestar</li>
-<li>Especificar nuestros supuestos causales</li>
-<li>Definir un modelo generativo dado el paso anterior</li>
-<li>Definir una estrategia para contestar la pregunta de 1)</li>
-<li>Probar el modelo y nuestra estrategia usando el modelo generativo</li>
-<li>Analizar datos con el modelo, checar supuestos y resumir.</li>
-</ol>
-</div>
-</div>
 <p>Construiremos ahora una gráfica que indica cómo es el proceso generador de datos. En primer lugar, no interesa estimar la seropositividad en una población dada, que suponemos fue muestreada al azar. Nosotros solamente observamos si la prueba que usamos es positiva o negativa. Escribimos entonces para empezar:</p>
 <div class="cell">
 <details>
@@ -920,7 +900,8 @@ Desarrollo de modelos
 <p>Un camino sería ahora decidir que <span class="math inline">\(Inf=Positivos\)</span>, es decir no son releventes las características de la prueba, y proceder con la inferencia. Sin embargo, la pregunta qué tenemos qué hacer, es ¿puede ser que las características de la prueba influyan considerablemente en las estimaciones que obtenemos?</p>
 <p>Antes de proceder a incluir las características de la prueba, haremos el análisis pensando que el error de medición no es importante:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! message: false</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>This is cmdstanr version 0.5.3</code></pre>
 </div>
@@ -1015,7 +996,7 @@ Total execution time: 0.5 seconds.</code></pre>
 <p><img src="02-modelos-graficos_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
-<p>Donde parece ser que la prevalencia está muy probablemente por arriba de 1.2% Si este es el caso, esto implicaría que el subconteo de infecciones era muy grande, y la estimación del IFR podría ser demasiado baja.</p>
+<p>Donde parece ser que la prevalencia está muy probablemente por arriba de 1.2% Si este es el caso, esto implicaría que el subconteo de infecciones era muy grande, y que el IFR es más bajo de lo que se creía.</p>
 <p>Sin embargo, observamos positivos en la prueba, y no realmente si alguien se ha infectado o no. Ahora incluimos sensibilidad y especificidad:</p>
 <div class="cell">
 <details>
@@ -1205,6 +1186,27 @@ Total execution time: 0.5 seconds.</code></pre>
 </div>
 </div>
 <p>La asociación entre estas dos cantidades es interesante porque conceptualmente (y desde punto de vista del modelo), no hay relación entre estas dos variables: su asociación aparece porque son causas que compiten para explicar una observación.</p>
+<p>Aunque aprender el flujo de construcción y validación de modelos en todos sus aspectos no es el objetivo de este curso, mostramos un resumen abajo:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Desarrollo de modelos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Establecer la pregunta que queremos contestar</li>
+<li>Especificar nuestros supuestos causales</li>
+<li>Definir un modelo generativo dado el paso anterior</li>
+<li>Definir una estrategia para contestar la pregunta de 1)</li>
+<li>Probar el modelo y nuestra estrategia usando el modelo generativo</li>
+<li>Analizar datos con el modelo, checar supuestos y resumir.</li>
+</ol>
+</div>
+</div>
 </section>
 </section>
 <section id="independencia-condicional" class="level2" data-number="2.4">
@@ -1224,6 +1226,7 @@ Independencia condicional
 </div>
 </div>
 <p>En palabras: si conocemos el valor de <span class="math inline">\(Z\)</span>, <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> ya no están asociadas, o si ya condicionamos a z, entonces condicionar adicionalmente a <span class="math inline">\(Y\)</span> no cambia la distribución condicional de <span class="math inline">\(X\)</span>. Para ver por qué las dos formas son equivalentes recuerda que cualquier regla de probabilidad general puede condicionarse a cualquier infromación y sigue siendo una regla válida. Como de mostramos que <span class="math inline">\(p(x,y) = p(x)p(y)\)</span> si y sólo si <span class="math inline">\(p(y|x) = p(y)\)</span>, podemos obtener una regla válida condicionando todo a <span class="math inline">\(Z\)</span>.</p>
+<p>Este concepto en la modelación e interpretación, por ejemplo en el caso de Santa Clara, prevalencia y número de positivos son dependientes. Pero si conocemos el número de infectados, prevalencia y positivos son condicionalmente independientes, y esto es una idea importante este modelo.</p>
 <p>En nuestro primer ejemplo de la sección anterior, observamos que una vez que sabíamos <span class="math inline">\(X\)</span>, la probabilidad de sol, no hay relación entre <span class="math inline">\(S_1\)</span> y <span class="math inline">\(S_2\)</span>, aún cuando no es cierto que <span class="math inline">\(p(s_1,s_2) = p(s_1)p(s_2)\)</span>.</p>
 <p>Podemos checar esto en las simulaciones, por ejemplo:</p>
 <div class="cell">
@@ -1325,8 +1328,8 @@ Nota
 <h2 data-number="2.6" class="anchored" data-anchor-id="estructuras-básicas-en-dags"><span class="header-section-number">2.6</span> Estructuras básicas en DAGs</h2>
 <p>Veremos que para razonar acerca de las asociaciones e independencias que pueden aparecer en una conjunta, podemos examinar la gráfica que la represente, o dicho de otra manera, entender bajo qué condiciones puede propagarse información de un nodo a otro.</p>
 <p>Consideremos entonces tres variables <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> y <span class="math inline">\(Z\)</span>. Las tres estructuras que tenemos que entender en primer lugar pueden verse también como métodos de razonamiento lógico derivados de las leyes de probabilidad:</p>
-<section id="razonamiento-de-mediación" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="razonamiento-de-mediación"><span class="header-section-number">2.6.1</span> Razonamiento de mediación</h3>
+<section id="cadenas-o-mediación" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="cadenas-o-mediación"><span class="header-section-number">2.6.1</span> Cadenas o mediación</h3>
 <p>En este caso tenemos:</p>
 <div class="cell">
 <details>
@@ -1458,8 +1461,8 @@ y 0.004 1.000</code></pre>
 </div>
 </div>
 </section>
-<section id="razonamiento-de-causa-común" class="level3" data-number="2.6.2">
-<h3 data-number="2.6.2" class="anchored" data-anchor-id="razonamiento-de-causa-común"><span class="header-section-number">2.6.2</span> Razonamiento de causa común</h3>
+<section id="bifurcaciones-o-causa-común" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="bifurcaciones-o-causa-común"><span class="header-section-number">2.6.2</span> Bifurcaciones o causa común</h3>
 <p>En el siguiente ejemplo, llamamos a <span class="math inline">\(Z\)</span> una causa que es común a <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>.</p>
 <div class="cell">
 <details>
@@ -1587,8 +1590,8 @@ y 0.015 1.000</code></pre>
 </div>
 </div>
 </section>
-<section id="razonamiento-de-causas-alternativas-o-efecto-común" class="level3" data-number="2.6.3">
-<h3 data-number="2.6.3" class="anchored" data-anchor-id="razonamiento-de-causas-alternativas-o-efecto-común"><span class="header-section-number">2.6.3</span> Razonamiento de causas alternativas o efecto común</h3>
+<section id="colisionador-o-causas-alternativas" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="colisionador-o-causas-alternativas"><span class="header-section-number">2.6.3</span> Colisionador o causas alternativas</h3>
 <p>En este caso, a <span class="math inline">\(Z\)</span> también le llamamos un <strong>colisionador</strong>. Este es el caso que puede ser más difícil de entender en un principio.</p>
 <div class="cell">
 <details>
@@ -1934,16 +1937,17 @@ d-separación: Caminos activos y bloqueados
 <div class="callout-body-container callout-body">
 <ul>
 <li>Un <strong>camino</strong> entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> es una sucesión de aristas que conecta a <span class="math inline">\(X\)</span> con <span class="math inline">\(Y\)</span> (sin importar) la dirección de las aristas.</li>
-<li>Decimos que un camino <span class="math inline">\(p\)</span> entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> está <strong>bloqueado</strong> por un conjunto de nodos <span class="math inline">\(A\)</span> cuando:</li>
 </ul>
+<p>Ahora supongamos que <span class="math inline">\(Z = \{Z_1,Z_2,\ldots, Z_q\}\)</span> son una colección de nodos. Decimos que un camino <span class="math inline">\(p\)</span> entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> está <strong>activo condicional a los nodos en</strong> <span class="math inline">\(Z\)</span> cuando:</p>
 <ol type="1">
-<li>El camino <span class="math inline">\(p\)</span> contiene alguna cadena (<span class="math inline">\(U_1\to A_j\to U_2\)</span>) o alguna bifurcación (<span class="math inline">\(U_1\gets A_j\to U_2\)</span>) tal que su nodo intermedio está en <span class="math inline">\(A\)</span>. Si este no es el caso,</li>
-<li>Si el camino <span class="math inline">\(p\)</span> contiene un nodo colisionador <span class="math inline">\(B_j\)</span> (<span class="math inline">\(U_1\to Z\gets U_2\)</span>) tal que el nodo de colisión <span class="math inline">\(Z\)</span> no está en <span class="math inline">\(A\)</span>, y ningún descendiente de <span class="math inline">\(Z\)</span> está en <span class="math inline">\(A\)</span>.</li>
+<li>Siempre que hay un colisionador <span class="math inline">\(X_i\to Z\gets X_j\)</span> en el camino <span class="math inline">\(p\)</span>, entonces <span class="math inline">\(Z\)</span> o alguno de sus descendientes está en <span class="math inline">\(Z\)</span>.</li>
+<li>Ningún otro nodo a lo largo de <span class="math inline">\(p\)</span> está en <span class="math inline">\(Z\)</span>.</li>
 </ol>
-<p>Si <span class="math inline">\(A\)</span> bloquea todos los caminos posibles entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, decimos que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> están <span class="math inline">\(d\)</span>-<strong>separados</strong> condicionalmente a <span class="math inline">\(A\)</span>, o <span class="math inline">\(d\)</span>-separados por <span class="math inline">\(A\)</span>.</p>
+<p>En caso contrario, decimos que el camino <span class="math inline">\(p\)</span> está <strong>bloqueado</strong>.</p>
+<p>Si <span class="math inline">\(Z\)</span> bloquea todos los caminos posibles entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, decimos que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> están <span class="math inline">\(d\)</span>-<strong>separados</strong> condicionalmente a <span class="math inline">\(Z\)</span>, o <span class="math inline">\(d\)</span>-separados por <span class="math inline">\(Z\)</span>.</p>
 </div>
 </div>
-<p>Cuando un camino entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> no está bloqueado, entonces decimos que está <strong>activo</strong>. Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos probabilísticos, el siguiente teorema no es sorpresa:</p>
+<p>Según la discusión que tuvimos arriba de los modos de razonamiento en gráficas de modelos probabilísticos, el siguiente teorema no es sorpresa:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1956,13 +1960,14 @@ Criterio de d-separación
 <div class="callout-body-container callout-body">
 <p>En una DAG <span class="math inline">\(G\)</span>:</p>
 <ul>
-<li>Si dos variables están d-separadas por las variables <span class="math inline">\(Z\)</span>, entonces <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son condicionalmente independientes para cualquier conjunta representada por <span class="math inline">\(G\)</span>.</li>
-<li>Si dos variables <strong>no</strong> están d-separadas por <span class="math inline">\(Z\)</span>, entonces existen conjuntas representadas por <span class="math inline">\(G\)</span> tales que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> <strong>no</strong> tienen dependencia condicional a <span class="math inline">\(Z\)</span>.</li>
+<li>Si dos variables están d-separadas por las variables <span class="math inline">\(Z\)</span>, entonces <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son condicionalmente independientes dadas las variables en <span class="math inline">\(Z\)</span> para cualquier conjunta representada por <span class="math inline">\(G\)</span>.</li>
+<li>Si dos variables <strong>no</strong> están d-separadas por <span class="math inline">\(Z\)</span>, entonces existen conjuntas representadas por <span class="math inline">\(G\)</span> tales que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> <strong>no</strong> tienen dependencia condicional dado <span class="math inline">\(Z\)</span>.</li>
 </ul>
 </div>
 </div>
 <p><strong>Nota 1</strong>: nótese que este teorema nos da una manera abstracta de razonar acerca de la asociación en un modelo gráfico: no es necesario saber la forma particular de las condicionales para utilizarlo.</p>
 <p><strong>Nota 2</strong>: Vale la pena mencionar que el segundo inciso en general es una implicación más fuerte: cuando no hay <span class="math inline">\(d\)</span>-separación, existe algún tipo de dependencia casi seguro (en el sentido probabilístico de posible conjuntas).</p>
+<p><strong>Nota 3</strong>: Las independencias condicionales también pueden ser útiles para checar los supuestos de nuestro modelo: si encontramos asociaciones fuertes (condicionales o no) entre variables que nuestra estructura implica independencia condicional, entonces puede ser que nuestra estructura causal requiera revisión. Qué tanto podemos probar esto depende del tamaño de los datos que tengamos y de el tipo de condicionamiento que estamos haciendo.</p>
 <p>Finalmente (ver por ejemplo <span class="citation" data-cites="koller2009">Koller y Friedman (<a href="99-referencias.html#ref-koller2009" role="doc-biblioref">2009</a>)</span>, p 75), existe un algoritmo eficiente para encontrar todas las posibles independencias condicionales implicadas por una gráfica:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -1977,6 +1982,7 @@ Cálculo de d-separación
 <p>Existe un algoritmo de complejidad lineal en el tamaño de la gráfica para encontrar todos los nodos con caminos activos a un nodo <span class="math inline">\(X\)</span> condicional a las variables <span class="math inline">\(A\)</span>.</p>
 </div>
 </div>
+<p>Ver por ejemplo el sitio <a href="http://www.dagitty.net/dags.html">dagitty.net</a>, donde podemos poner nuestra gráfica y enlistar todas los supuestos de independencia condicional implicados por un modelo.</p>
 <section id="ejemplo-5" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-5">Ejemplo</h3>
 <div class="cell">
@@ -2049,6 +2055,29 @@ Cálculo de d-separación
 <script type="application/json" data-for="htmlwidget-8b0e93ac7f318ea0fc18">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    Z \n    W \n    X\n    Y \n    U\n    T\n  edge [minlen = 3]\n    T -> Z\n    T -> Y\n    Z -> W\n    X -> W\n    X -> Y\n    W -> U\n    S -> Y\n    UZ -> Z\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+</section>
+</section>
+<section id="relación-con-inferencia-causal" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="relación-con-inferencia-causal"><span class="header-section-number">2.8</span> Relación con inferencia causal</h2>
+<p>Si el DAG que consideramos representa relaciones causales (mecanísticas) entre las variables, es decir, qué variable “escucha” a qué otras para decidir su valor, entonces podemos hacer una definición adicional</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Caminos causales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En un DAG, los caminos causales entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son de la forma <span class="math inline">\(X\to U_1\to U_2 \to \cdots U_j \to Y\)</span>. Puede haber varios de ellos en un diagrama dado, y cada uno representa un mecanismo en que cambios en <span class="math inline">\(X\)</span> producen cambios en <span class="math inline">\(Y\)</span></p>
+<p>Si nos interesa el efecto <strong>total</strong> de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>,</p>
+<ul>
+<li>Queremos que todos los caminos causales de <span class="math inline">\(X\)</span> a <span class="math inline">\(Y\)</span> estén activos,</li>
+<li>Queremos condicionar para que todos los caminos no causales estén bloqueados, en particular, no queremos condicionar a colisionadores o sus descendientes que introduzcan relaciones no causales, y queremos bloquear caminos no casuales creados por bifurcaciones.</li>
+</ul>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
@@ -2056,7 +2085,6 @@ Cálculo de d-separación
 Koller, D., y N. Friedman. 2009. <em>Probabilistic Graphical Models: Principles and Techniques</em>. MIT Press.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
