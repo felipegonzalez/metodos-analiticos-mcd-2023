@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Métodos analíticos - 3&nbsp; Modelos causales e inferencia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./99-referencias.html" rel="next">
+<link href="./02-modelos-graficos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Métodos analíticos</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#intervenciones" id="toc-intervenciones" class="nav-link active" data-scroll-target="#intervenciones"><span class="toc-section-number">3.1</span>  Intervenciones</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-pearl" id="toc-ejemplo-pearl" class="nav-link" data-scroll-target="#ejemplo-pearl">Ejemplo (Pearl)</a></li>
+  </ul></li>
+  <li><a href="#ejemplo-una-intervención-simple" id="toc-ejemplo-una-intervención-simple" class="nav-link" data-scroll-target="#ejemplo-una-intervención-simple"><span class="toc-section-number">3.2</span>  Ejemplo: una intervención simple</a></li>
+  <li><a href="#cálculo-do-de-pearl" id="toc-cálculo-do-de-pearl" class="nav-link" data-scroll-target="#cálculo-do-de-pearl"><span class="toc-section-number">3.3</span>  Cálculo-do de Pearl</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#fórmula-de-ajuste" id="toc-fórmula-de-ajuste" class="nav-link" data-scroll-target="#fórmula-de-ajuste"><span class="toc-section-number">3.4</span>  Fórmula de ajuste</a></li>
+  <li><a href="#simulación-para-estimar-efectos-causales" id="toc-simulación-para-estimar-efectos-causales" class="nav-link" data-scroll-target="#simulación-para-estimar-efectos-causales"><span class="toc-section-number">3.5</span>  Simulación para estimar efectos causales</a></li>
+  <li><a href="#ejemplo-estaturas-versión-1" id="toc-ejemplo-estaturas-versión-1" class="nav-link" data-scroll-target="#ejemplo-estaturas-versión-1"><span class="toc-section-number">3.6</span>  Ejemplo: estaturas (versión 1)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>En esta parte consideramos nuestros modelos gráficos no simplemente como maneras de factorizar un modelo probabilístico, sino también como una manera de establecer nuestros supuestos causales acerca del problema de interés. Estos son supuestos que son necesarios para hacer inferencia causal.</p>
+<p>Comenzaremos entonces con una pregunta fundamental de inferencia causal: ¿qué sucede si modificamos una variable <span class="math inline">\(X=x\)</span> en una respuesta <span class="math inline">\(Y\)</span>? ¿Podemos estimar este efecto a partir de datos observados? La respuesta dependerá de nuestros supuestos causales, y veremos varios ejemplos de cuándo es posible y cómo <strong>identificar</strong> y calcular estas estimaciones causales.</p>
+<section id="intervenciones" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="intervenciones"><span class="header-section-number">3.1</span> Intervenciones</h2>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_light</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Desde el punto de vista de Pearl, nuestro objeto principal de interés es la distribución condicional de la respuesta <em>dada una manipulación</em>, que define como <span class="math display">\[p(y | do(x))\]</span> Esto significa: ¿cómo se distribuye la <span class="math inline">\(Y\)</span> dado que intervenimos en la población completa (aunque podemos también considerar subpoblaciones más adelante) para poner en <span class="math inline">\(X=x\)</span>?. En primer lugar, notemos que esto no es lo mismo que la distribución</p>
+<p><span class="math display">\[p(y|x)\]</span> que podemos estimar directamente de los datos.</p>
+<section id="ejemplo-pearl" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-pearl">Ejemplo (Pearl)</h3>
+<p>Supongamos que tenemos el siguiente modelo del diagrama causal:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">   U_t -&gt; T</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">   T -&gt; A</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">   T -&gt; Z</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">   U_a -&gt; A</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">   U_z -&gt; Z</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-fca99ca105a9453286b3" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fca99ca105a9453286b3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>donde <span class="math inline">\(T\)</span> es la temperatura, <span class="math inline">\(A\)</span> son las unidades de agua embotellada vendida y <span class="math inline">\(Z\)</span> es la actividad de los mosquitos (medido con muestreo, por ejemplo). Mostramos también otras variables causales que pueden afectar a las variables de interés (muchas veces omitimos estas variables que solo afectan a una variable de interés), pero que no tienen efecto sobre otras variables del diagrama.</p>
+<p>No interesa contestar la pregunta: ¿qué tanto influyen las ventas de agua embotellada en la actividad de los mosquitos? Del diagrama, sabemos que no hay ningún camino causal de <span class="math inline">\(Z\)</span> a <span class="math inline">\(T\)</span>, por lo que nuestra respuesta debería ser igual a 0.</p>
+<p>Sin embargo, sabemos que estas dos variables están asociadas (por el análisis de DAGs), de manera que describir cómo cambia <span class="math inline">\(p(z|a)\)</span> cuando condicionamos a distintos valores de <span class="math inline">\(a\)</span> no responde nuestra pregunta. La distribución <span class="math inline">\(p(z|do(a))\)</span> nos dice cómo se distribuye <span class="math inline">\(X\)</span> cuando manipulamos <span class="math inline">\(a\)</span> artificialmente. Por ejemplo, si cerramos todas las tiendas un día haciendo <span class="math inline">\(do(a=0)\)</span>, veríamos que esta variable no tiene efecto sobre la actividad de mosquitos, por ejemplo comparado con <span class="math inline">\(do(a = 10000)\)</span>.</p>
+<p>Ilustramos la diferencia entre <span class="math inline">\(p(y|x)\)</span> y <span class="math inline">\(p(y|do(x))\)</span> simulando del ejemplo anterior. Supondremos que sólo consideramos un día del año a lo largo de varios años, para no modelar el comportamiento cíclo de la temperatura:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>simular_t <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">dia =</span> <span class="dv">150</span>){</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simular un año, alrededor del día 160 (en junio)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  t_maxima <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">28</span>, <span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  mosquitos <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="dv">250</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> (t_maxima <span class="sc">-</span> <span class="dv">28</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  unidades <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">20000</span> <span class="sc">+</span> <span class="dv">2000</span> <span class="sc">*</span> (t_maxima <span class="sc">-</span>  <span class="dv">28</span>), <span class="dv">2000</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(t_maxima, unidades, mosquitos)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">128</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>simular_dias <span class="ot">&lt;-</span> <span class="fu">simular_t</span>(<span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si simulamos, vemos que <span class="math inline">\(mosquitos\)</span> y <span class="math inline">\(unidades\)</span> son dependientes, pues tenemos un camino abierto dado por la bifurcación en temperatura:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simular_dias, <span class="fu">aes</span>(<span class="at">x =</span> unidades, <span class="at">y =</span> mosquitos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">degree =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Ventas de agua embotellada"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>Sabemos que esta asociación no es causal, pues no hay caminos causales entre estas variables dos variables, pero que hay una dependencia debido a la bifurcación en <span class="math inline">\(T\)</span>. La gráfica muestra que la media condicional <span class="math inline">\(E[M|A=a]\)</span> depende fuertemente de <span class="math inline">\(a\)</span>, lo que quiere decir que <span class="math inline">\(p(m|a)\)</span> depende de <span class="math inline">\(a\)</span> fuertemente.</p>
+</section>
+</section>
+<section id="ejemplo-una-intervención-simple" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="ejemplo-una-intervención-simple"><span class="header-section-number">3.2</span> Ejemplo: una intervención simple</h2>
+<p>En este caso, nos interesaría saber qué sucede si alteramos artificalmente el número de botellas de agua vendidas (puedes imaginar distintas maneras de hacer esto).</p>
+<p>Cuando hacemos esto, quitamos las aristas que van hacia <span class="math inline">\(A\)</span>, pues <span class="math inline">\(A\)</span> ya no está determinado por el proceso generador de datos. Tenemos entonces la nueva gráfica:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">   A</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">   U_t -&gt; T</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">   T -&gt; Z</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">   U_m -&gt; Z</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">{ rank = same; A; Z }</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-fdf826f75c5a1a7effd5" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fdf826f75c5a1a7effd5">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>En esta nueva gráfica, <span class="math inline">\(A\)</span> y <span class="math inline">\(Z\)</span> son independientes, que es la respuesta correcta. Veamos cómo simularíamos de esta gráfica después de la cirugía. Establecemos un valor fijo de unidades, y seguimos el resto del modelo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>simular_cirugia <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">unidades =</span> unidades){</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simular un año, alrededor del día 160 (en junio)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  t_maxima <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">28</span>, <span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  mosquitos <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="dv">250</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> (t_maxima <span class="sc">-</span> <span class="dv">28</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  unidades <span class="ot">&lt;-</span> unidades</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(t_maxima, unidades, mosquitos)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Y ahora simulamos y graficamos <span class="math inline">\(p(c|do(u))\)</span> para distintos valores de <span class="math inline">\(u\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">128</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>simular_dias_2 <span class="ot">&lt;-</span> <span class="fu">map_df</span>(<span class="fu">seq</span>(<span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">1000</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  \(u) <span class="fu">simular_cirugia</span>(<span class="dv">50</span>, <span class="at">unidades =</span> u))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simular_dias_2, <span class="fu">aes</span>(<span class="at">x =</span> unidades, <span class="at">y =</span> mosquitos)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>y vemos, como esperaríamos, que no hay relación entre unidades de agua embotellada y tasa de crimen.</p>
+</section>
+<section id="cálculo-do-de-pearl" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cálculo-do-de-pearl"><span class="header-section-number">3.3</span> Cálculo-do de Pearl</h2>
+<p>El cálculo do nos da reglas para operar con probabilidades que incluyen nuestro operador do de intervención. En este ejemplo particular, veremos cómo es el argumento:</p>
+<p>Nótese que al intervenir <span class="math inline">\(A\)</span> hemos modificado el proceso generador. Si la conjunta original tiene distribución <span class="math inline">\(p\)</span>, escribimos <span class="math inline">\(p_m\)</span> para la conjunta de la gráfica modificada, de manera que <span class="math inline">\(p(z|do(a)) = p_m(z|a)\)</span>.</p>
+<p>Aunque intuitivamente vimos cómo simular de esta distribución arriba, especificamos abajo qué reglas son las que nos permiten hacer esto: ¿cómo calculamos <span class="math inline">\(p_m\)</span>?</p>
+<p>En primer lugar, consideremos <span class="math inline">\(p_m(t)\)</span>. Esta marginal es invariante a nuestra cirugía, pues la arista <span class="math inline">\(T-&gt;A\)</span> que eliminamos <span class="math inline">\(T\)</span> no afecta el proceso que determina <span class="math inline">\(T\)</span>. De modo que la marginal del proceso modificado es igual a la marginal observada:</p>
+<p><span class="math display">\[p_m(t) = p(t)\]</span> En segundo lugar, tenemos que</p>
+<p><span class="math display">\[p_m(z|t,a) = p(z|t,a),\]</span> Pues el proceso por el cual responde <span class="math inline">\(m\)</span> a <span class="math inline">\(t\)</span> y <span class="math inline">\(a\)</span> es el mismo, no importa si <span class="math inline">\(A\)</span> fue modificada artificalmente o no.</p>
+<p>Juntamos estos argumentos. Primero, por definición,</p>
+<p><span class="math display">\[p(z|do(a)) = p_m(z|a)\]</span></p>
+<p>Por la regla de probabilidad total, podemos condicionar todo a <span class="math inline">\(T\)</span> y marginalizar. La segunda igualdad la obtenemos por la independencia entre <span class="math inline">\(T\)</span> y <span class="math inline">\(A\)</span> en nuestra gráfica modificada (están <span class="math inline">\(d\)</span> separadas):</p>
+<p><span class="math display">\[p_m(z|a) = \int p_m(z|a,t)p_m(z|t)dt = \int p_m(z|a,t)p_m(t)dt\]</span> Finalmente, las últimas dos distribuciones podemos extraerlas de los datos, como explicamos arriba <span class="math inline">\(p_m(z|t,a) = p(z|t,a)\)</span> y <span class="math inline">\(p_m(t) = p(t),\)</span> y terminamos con la fórmula</p>
+<p><span class="math display">\[p(z|do(a))=p_m(z|a) = \int p(z|a,t)p(t)dt \]</span> Las dos distribuciones de la derecha las tenemos pues están en el contexto de <span class="math inline">\(p\)</span>, el proceso generador de datos. En general, estas tenemos que estimarlas de los datos observados.</p>
+<ul>
+<li>Este argumento justifica el proceso que hicimos arriba: simulamos primero <span class="math inline">\(T\)</span> con su proceso generador, y después simulamos <span class="math inline">\(C\)</span> condicional a <span class="math inline">\(A\)</span> y <span class="math inline">\(T\)</span> <em>según el proceso generador original</em>, el cual no depende de <span class="math inline">\(A\)</span> en este ejemplo.</li>
+</ul>
+<p>En el caso de arriba, simulamos de la distribución para entender cómo se distribuía <span class="math inline">\(Z\)</span> dependiendo de modificaciones a <span class="math inline">\(A\)</span>. Muchas veces nos interesa calcular solamente la esperanza condicional, es decir, cuál es el valor esperado de la variable de interés dado el nivel intervenido, es decir:</p>
+<p><span class="math inline">\(E(Z|do(a)) = E_m(Z|A =a),\)</span></p>
+<p>que mostramos arriba con la línea ajustada. También quisiéramos calcular <strong>contrastes</strong> particulares, como qué pasaría si las ventas de agua las aumentamos en 10 mil unidades:</p>
+<p><span class="math display">\[E(Z|do(30000)) - E(Z|do(20000)),\]</span> que podemos calcular de manera simple con simulación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>simular_contraste <span class="ot">&lt;-</span> <span class="fu">map_df</span>(<span class="fu">c</span>(<span class="dv">20000</span>, <span class="dv">30000</span>),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  \(u) <span class="fu">simular_cirugia</span>(<span class="dv">1000</span>, <span class="at">unidades =</span> u)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(unidades) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_mosquitos =</span> <span class="fu">mean</span>(mosquitos))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>simular_contraste</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  unidades media_mosquitos
+     &lt;dbl&gt;           &lt;dbl&gt;
+1    20000            250.
+2    30000            249.</code></pre>
+</div>
+</div>
+<p>Y vemos que no hay diferencia entre las dos medias.</p>
+<section id="ejemplo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
+<p>Ahora hagamos otro ejemplo donde hay una relación causal que queremos estimar. Imaginemos una ciudad en donde temperaturas altas producen desabasto de agua en algunos hogares, debido a un aumento del riego. Nos interesa estimar el efecto del desabasto en las compras de agua embotellada. Nuestro diagrama ahora es:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">   U_t -&gt; T</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">   T -&gt; A</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">   T -&gt; D</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">   D -&gt; A</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="st">   U_a -&gt; A</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="st">   U_d -&gt; D</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="st">{ rank = same; A; D }</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-a5c00142bf8709607036" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a5c00142bf8709607036">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>simular_t <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">dia =</span> <span class="dv">150</span>){</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simular un año, alrededor del día 160 (en junio)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  t_maxima <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">28</span>, <span class="dv">2</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  desabasto_agua <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(t_maxima <span class="sc">-</span> <span class="dv">28</span>) <span class="sc">+</span> u))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  unidades <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">20000</span> <span class="sc">+</span> <span class="dv">2000</span> <span class="sc">*</span> (t_maxima <span class="sc">-</span>  <span class="dv">28</span>) <span class="sc">+</span> <span class="dv">8000</span><span class="sc">*</span>desabasto_agua, <span class="dv">2000</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(t_maxima, unidades, desabasto_agua)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">128</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>simular_dias <span class="ot">&lt;-</span> <span class="fu">simular_t</span>(<span class="dv">150</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simular_dias, <span class="fu">aes</span>(<span class="at">x =</span> desabasto_agua, <span class="at">y =</span> unidades)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>La correlación parece muy fuerte, sin embargo, sabemos que hay un camino no causal de asociación entre estas dos variables.</p>
+<p>Igual que en ejemplo anterior, vamos a intervenir teóricamente en el desabasto de agua. Después de la cirugía, nuestro diagrama modificado es:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="st">   U_t -&gt; T</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="st">   T -&gt; A</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="st">   D -&gt; A</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">   U_a -&gt; A</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">{ rank = same; A; D }</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-b228f1803f86ee55f58d" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b228f1803f86ee55f58d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Ahora queremos calcular <span class="math inline">\(p(a|do(d)) = p_m(a|d)\)</span> en función de los datos. Siguiendo el mismo argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o condicionar a <span class="math inline">\(T\)</span> para poder usar nuestro proceso generador de observaciones, y obtenemos:</p>
+<p><span class="math display">\[p_m(a|do(d))=p_m(a|d) = \int p(a|d,t)p(t)dt \]</span> Aunque a veces es posible calcular analíticamente el lado derecho analíticamente, podemos simular como hicimos en los ejemplos anteriores:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>simular_cirugia <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">da =</span> <span class="dv">0</span>){</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simular un año, alrededor del día 160 (en junio)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  t_maxima <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">28</span>, <span class="dv">2</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">### cirugía ####</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#u &lt;- rnorm(n, 0, 1) </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  desabasto_agua <span class="ot">&lt;-</span> da</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">######</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  unidades <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">20000</span> <span class="sc">+</span> <span class="dv">2000</span> <span class="sc">*</span> (t_maxima <span class="sc">-</span>  <span class="dv">28</span>) <span class="sc">+</span> <span class="dv">8000</span><span class="sc">*</span>desabasto_agua, <span class="dv">2000</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(t_maxima, unidades, desabasto_agua)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">128</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>simular_dias_c <span class="ot">&lt;-</span> <span class="fu">map_df</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), \(da) <span class="fu">simular_cirugia</span>(<span class="dv">1000</span>, <span class="at">da =</span> da))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simular_dias_c, <span class="fu">aes</span>(<span class="at">x =</span> desabasto_agua, <span class="at">y =</span> unidades)) <span class="sc">+</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>Podemos también resumir promediando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>simular_dias_c <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(desabasto_agua) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unidades_media =</span> <span class="fu">mean</span>(unidades)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> desabasto_agua, <span class="at">y =</span> unidades_media)) <span class="sc">+</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y este es el efecto causal del desabasto de agua. No tenemos medidas de incertidumbre pues conocemos todos los parámetros de los modelos. La media condicional parece ser lineal, así que podríamos resumir con un modelo lineal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 1 (con datos de intervención)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(unidades <span class="sc">~</span> desabasto_agua, simular_dias_c)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = unidades ~ desabasto_agua, data = simular_dias_c)
+
+Coefficients:
+   (Intercept)  desabasto_agua  
+         19831            8272  </code></pre>
+</div>
+</div>
+<p>Aproximadamente, cada incremento en puntos porcentuales de 10% en desabasto incrementa las ventas en unas 800 unidades. Compara con el análisis donde no estratificamos o controlamos por la temperatura:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 2</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(unidades <span class="sc">~</span> desabasto_agua, simular_dias)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = unidades ~ desabasto_agua, data = simular_dias)
+
+Coefficients:
+   (Intercept)  desabasto_agua  
+         14102           19491  </code></pre>
+</div>
+</div>
+<p>Otra forma de estratificar es ajustando un modelo que incluye la variable de temperatura. Podríamos hacer</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 3</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(unidades <span class="sc">~</span> desabasto_agua <span class="sc">+</span> t_maxima, simular_dias)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = unidades ~ desabasto_agua + t_maxima, data = simular_dias)
+
+Coefficients:
+   (Intercept)  desabasto_agua        t_maxima  
+        -35030            8648            1948  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="fórmula-de-ajuste" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="fórmula-de-ajuste"><span class="header-section-number">3.4</span> Fórmula de ajuste</h2>
+<p>En resumen, tenemos la primera regla de Pearl de inferencia causal:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Fórmula de ajuste (Pearl)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\(G\)</span> donde los padres de <span class="math inline">\(X\)</span> son <span class="math inline">\(Z_1,Z_2\)</span>. El efecto causal total de <span class="math inline">\(X\)</span> en <span class="math inline">\(Y\)</span> se puede calcular como</p>
+<p><span class="math display">\[p(y|do(x)) = \int p(y|x, z_1,z_2) p(z_1,z_2)\, dz_1dz_2\]</span> Es decir, condicionamos al valor de <span class="math inline">\(x\)</span> y todos los padres de <span class="math inline">\(X\)</span> para calcular <span class="math inline">\(p(y|x,z_1,z_2)\)</span>, y después marginalizamos sobre los padres.</p>
+</div>
+</div>
+<p>Este proceso se llama de diferentes maneras en distintos contextos:</p>
+<ul>
+<li>Estamos calculando el efecto causal <strong>estratificando</strong> por las variables <span class="math inline">\(z\)</span>.</li>
+<li><strong>Controlamos</strong> o <strong>condicionamos</strong> por las variables <span class="math inline">\(z\)</span> para calcular el efecto causal.</li>
+</ul>
+<p><strong>Nota 1</strong>: Con este principio podemos resolver algunos problemas, pero no todos. Veremos que en algunos casos existen padres que no son observados, por ejemplo, no es posible condicionar para usar la fórmula de ajuste y es necesario desarrollar más estrategias.</p>
+<p><strong>Nota 2</strong>: En regresión lineal, cuando incluímos una variable en el modelo (que consideramos una variable control), estamos estratificando por ella: por ejemplo, en el modelo lineal <span class="math inline">\(U\sim N(m_u(d,t), \sigma_u)\)</span>, donde</p>
+<p><span class="math display">\[m_u = \beta_0 +\beta_1 d + \beta_2 t\]</span> Estamos calculando un estimador para cada valor de <span class="math inline">\(T=t\)</span>, que es:</p>
+<p><span class="math display">\[m_u = (\beta_0 + \beta_2 t) + \beta_1 d = \gamma_0 + \gamma_1 d\]</span> Esta es una de las maneras más simples de obtener el efecto de <span class="math inline">\(d\)</span> estratificando por, o controlando por <span class="math inline">\(t\)</span>, <em>siempre y cuando los modelos lineales sean apropiados</em>.</p>
+</section>
+<section id="simulación-para-estimar-efectos-causales" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="simulación-para-estimar-efectos-causales"><span class="header-section-number">3.5</span> Simulación para estimar efectos causales</h2>
+<p>La estrategia más general y conceptualmente simple para usar la idea de la fórmula de ajuste es utilizar simulación:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Fórmula de ajuste con simulación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para calcular efectos causales de <span class="math inline">\(X\)</span> en <span class="math inline">\(Y\)</span> , podemos simular según el proceso generador de la gráfica mutilada donde quitamos todas las aristas que llegan a <span class="math inline">\(X\)</span>. En la práctica, esto implica fijar <span class="math inline">\(X\)</span>, ignorar el proceso generador de <span class="math inline">\(X\)</span>, y seguir el proceso generador original de nuestro modelo para el resto de los nodos.</p>
+</div>
+</div>
+<p>Nótese que cuando hacemos las simulaciones siguiendo el proceso generador, marginalizar es simple: si queremos la conjunta de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> por ejemplo, simplemente extraemos las variables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> y examinamos su relación.</p>
+<p>En los ejemplos de arriba, todos los procesos generadores locales estaban determinados. Cuando tenemos tenemos parámetros desconocidos, es necesario estimarlos antes de usar la fórmula de ajuste, y tomar en cuenta la incertidumbre en la estimación.</p>
+<p>Podemos ver cómo haríamos esto con modelos bayesianos. En primer lugar, empezamos con el diagrama causal original, y establecemos nuestros modelos locales</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>mod_agua <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/agua-1.stan"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_agua)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data {
+  int&lt;lower=0&gt; N;
+  array[N] real t_maxima;
+  array[N] real unidades;
+  array[N] real desabasto_agua;
+  array[11] real desabasto_sim;
+}
+
+transformed data {
+    array[N] real logit_desabasto_agua;
+
+    for(i in 1:N){
+      logit_desabasto_agua[i] = logit(desabasto_agua[i]);
+    }
+}
+parameters {
+  real alpha;
+  real beta;
+  real alpha_u;
+  real beta_t;
+  real beta_d;
+  real mu_t;
+  real&lt;lower=0&gt; sigma_d;
+  real&lt;lower=0&gt; sigma_t;
+  real&lt;lower=0&gt; sigma_unidades;
+}
+
+transformed parameters {
+  array[N] real media_unidades;
+  array[N] real desabasto_agua_c;
+
+  for(i in 1:N){
+    desabasto_agua_c[i] = alpha + beta*(t_maxima[i] - 28);
+    media_unidades[i] = alpha_u + beta_t * (t_maxima[i] - 28) + beta_d * desabasto_agua[i];
+  }
+
+
+
+}
+model {
+  // modelo de número de temperatura
+  t_maxima ~ normal(mu_t + 28, sigma_t);
+  sigma_t ~ normal(0, 1);
+  mu_t ~ normal(0, 3);
+  // modelo de desabasto
+  logit_desabasto_agua ~ normal(desabasto_agua_c, sigma_d);
+  alpha ~ normal(0, 1);
+  beta ~ normal(0, 1);
+  sigma_d ~ normal(0, 1);
+  // modelo de ventas
+  for(i in 1:N){
+      unidades[i] ~ normal(10000 * media_unidades[i], 10000 * sigma_unidades);
+  }
+  sigma_unidades ~ normal(0, 0.5);
+  // iniciales para cantidades no medidas
+  alpha_u ~ normal(0, 1);
+  beta_t ~ normal(0, 1);
+  beta_d ~ normal(0, 1);
+}
+
+generated quantities{
+  real t_sim;
+  array[11] real unidades_sim;
+
+
+  // Extraemos una temperatura
+  t_sim = normal_rng(mu_t + 28, sigma_t);
+  // calculamos la media para la temperatura y desabasto
+  for(i in 1:11){
+    real media_unidades_sim = alpha_u + beta_t * (t_sim - 28) + beta_d * desabasto_sim[i];
+    // simulamos unidades
+    //unidades_sim_1 = normal_rng(10000 * media_unidades_sim, 10000 * sigma_unidades);
+    // podemos calcular la media haciendo simulación aquí, pero no es necesario
+   // por la forma del modelo, la media es:
+    unidades_sim[i] = 10000 * media_unidades_sim;
+  }
+}</code></pre>
+</div>
+</div>
+<p>Tomamos una muestra simulada como datos para hacer la estimación (de modo que es no es necesario preocuparnos por el ajuste de modelos locales).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">128</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sim_dias <span class="ot">&lt;-</span> <span class="fu">simular_t</span>(<span class="dv">250</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sim_dias)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>desabasto_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> N, <span class="at">t_maxima =</span> sim_dias<span class="sc">$</span>t_maxima,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">unidades =</span> sim_dias<span class="sc">$</span>unidades,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">desabasto_agua =</span> sim_dias<span class="sc">$</span>desabasto_agua,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">desabasto_sim =</span> desabasto_sim)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_agua<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">refresh =</span> <span class="dv">1000</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">init =</span> <span class="fl">0.1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 sequential chains...
+
+Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp0wopoq/model-1b865aa38133.stan', line 46, column 2 to column 59)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 1.6 seconds.
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp0wopoq/model-1b865aa38133.stan', line 46, column 2 to column 59)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 1.6 seconds.
+Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp0wopoq/model-1b865aa38133.stan', line 46, column 2 to column 59)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 1.5 seconds.
+Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp0wopoq/model-1b865aa38133.stan', line 46, column 2 to column 59)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 1.7 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 1.6 seconds.
+Total execution time: 6.6 seconds.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="at">format =</span> <span class="st">"df"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"alpha_u"</span>, <span class="st">"beta_t"</span>, <span class="st">"beta_d"</span>, <span class="st">"mu_t"</span>, <span class="st">"alpha"</span>, <span class="st">"beta"</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sigma_t"</span>, <span class="st">"sigma_d"</span>, <span class="st">"sigma_unidades"</span>))</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, median, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+  variable       median      q5   q95
+  &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 alpha_u        2.00    1.93   2.06 
+2 beta_t         0.206   0.186  0.225
+3 beta_d         0.767   0.641  0.890
+4 mu_t           0.166  -0.0471 0.378
+5 alpha          0.0764 -0.0254 0.179
+6 beta           1.02    0.968  1.07 
+7 sigma_t        2.07    1.93   2.23 
+8 sigma_d        0.973   0.902  1.05 
+9 sigma_unidades 0.204   0.190  0.221</code></pre>
+</div>
+</div>
+<p>Donde podemos checar que aproximadamente recuperamos los parámetros originales.</p>
+<p>Como explicamos según el concepto de cálculo-do, queremos simular de una distribución distinta para estimar el efecto causal de desabasto sobre unidades vendidas. Para esto utilizamos las simulaciones de nuestro modelo (que ajustamos con datos observacionales), pero en la sección de simulación hacemos un cálculo diferente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>sim_intervenciones <span class="ot">&lt;-</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">".draw"</span>, <span class="fu">contains</span>(<span class="st">"unidades_sim"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"unidades_sim"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(name, <span class="at">sep =</span> <span class="st">"[</span><span class="sc">\\</span><span class="st">[</span><span class="sc">\\</span><span class="st">]]"</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"indice"</span>),</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert =</span> <span class="cn">TRUE</span>, <span class="at">extra =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">tibble</span>(<span class="at">desabasto =</span> desabasto_sim, <span class="at">indice =</span> <span class="fu">seq_along</span>(desabasto_sim)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Dropping 'draws_df' class as required metadata was removed.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "indice"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>sim_intervenciones <span class="sc">|&gt;</span> <span class="fu">group_by</span>(desabasto) <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_unidades =</span> <span class="fu">mean</span>(value), </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">q5 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.05</span>),</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">q95 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.95</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>desabasto, <span class="at">y =</span> media_unidades, </span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> q5, <span class="at">ymax =</span> q95)) <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Esta gráfica es difícil de interpretar, porque puede haber correlación entre los distintos estimadores que estamos presentando.</p>
+<p>Para comparar, lo mejor es hacer contrastes. Comparamos con la situación de 0 desabasto, por ejemplo, y calculamos el incremento estimado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>sim_nivel_0 <span class="ot">&lt;-</span> <span class="fu">filter</span>(sim_intervenciones, desabasto <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.draw, <span class="at">value_0 =</span> value)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>sim_intervenciones <span class="sc">|&gt;</span> <span class="fu">left_join</span>(sim_nivel_0) <span class="sc">|&gt;</span> </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dif =</span> value <span class="sc">-</span> value_0) <span class="sc">|&gt;</span> </span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(desabasto) <span class="sc">|&gt;</span> </span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">diferencia_media =</span> <span class="fu">mean</span>(dif), </span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">q5 =</span> <span class="fu">quantile</span>(dif, <span class="fl">0.05</span>),</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">q95 =</span> <span class="fu">quantile</span>(dif, <span class="fl">0.95</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>desabasto, <span class="at">y =</span> diferencia_media, </span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> q5, <span class="at">ymax =</span> q95)) <span class="sc">+</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = ".draw"</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Claramente todos los estimadores están bien separados de 0. Diez puntos porcentuales de incremento en desabasto incrementan las ventas en alrededor de 8 mil unidades.</p>
+<hr>
+<p>Recordemos que en todos estos ejemplos nos estamos concentrando en la <em>identificación</em> de un efecto causal que nos interesa, así que nos estamos saltando algunos pasos en el proceso de modelación y estimación que en el trabajo usual debemos seguir:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Modelación y estimadores
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El procedimiento general es (<span class="citation" data-cites="rethinking">McElreath (<a href="99-referencias.html#ref-rethinking" role="doc-biblioref">2015</a>)</span>):</p>
+<ol type="1">
+<li>Definir la cantidad a estimar</li>
+<li>Construir un modelo causal gráfico (puede incluir variables no medidas)</li>
+<li>Definir un modelo generativo basado en el modelo causal (puede tener parámetros desconocidos, que se estimarán con datos), recorriendo los nodos y definiendo los modelos individuales.</li>
+<li>Definir el cálculo del estimador (por ejemplo, con la fórmula de ajuste)</li>
+<li>Ajustar el modelo completo a los datos y calcular el estimador del paso anterior.</li>
+</ol>
+</div>
+</div>
+<p>En 2 y 3 está la mayor parte del trabajo. La parte 3 es parte de un curso de estadística bayesiana, y para esta parte usamos un flujo bayesiano de construcción de modelos (ver <a href="https://arxiv.org/abs/2011.01808">aquí</a> o <a href="https://betanalpha.github.io/assets/case_studies/principled_bayesian_workflow.html">aquí</a>).</p>
+</section>
+<section id="ejemplo-estaturas-versión-1" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="ejemplo-estaturas-versión-1"><span class="header-section-number">3.6</span> Ejemplo: estaturas (versión 1)</h2>
+<p>Consideramos el ejemplo donde queremos entender el <strong>efecto de sexo en el peso de personas</strong>. Usaremos los siguientes datos (<span class="citation" data-cites="rethinking">McElreath (<a href="99-referencias.html#ref-rethinking" role="doc-biblioref">2015</a>)</span>), que son datos recolectados de una población particular (Kalahari !Kung San). Tomamos sólo a los adultos (definidos por más de 18 años).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>howell <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"../datos/Howell1.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">&gt;=</span> <span class="dv">18</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 544 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+dbl (4): height, weight, age, male
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(howell)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  height weight   age  male
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1   152.   47.8    63     1
+2   140.   36.5    63     0
+3   137.   31.9    65     0
+4   157.   53.0    41     1
+5   145.   41.3    51     0
+6   164.   63.0    35     1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(howell, <span class="fu">aes</span>(<span class="at">x =</span> height, <span class="at">y =</span> weight, <span class="at">colour =</span> male)) <span class="sc">+</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Empezaremos con el siguiente modelo causal:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="st">    S</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="st">    H</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="st">    W </span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; H</span></span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; W</span></span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a><span class="st">    H -&gt; W</span></span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a><span class="st">    U -&gt; H</span></span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a><span class="st">    U -&gt; W</span></span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; S;H}</span></span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-75b4ee1c1576a8845682" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-75b4ee1c1576a8845682">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>En primer lugar, tenemos una flecha <span class="math inline">\(H-&gt;W\)</span>. La razón es que podemos pensar en varias intervenciones que afectan el peso pero que no cambian la estatura.</li>
+<li>En segundo lugar, <span class="math inline">\(S\)</span> es causa de <span class="math inline">\(H\)</span>, pero también puede afectar directamente peso <span class="math inline">\(W\)</span> junto con la estatura <span class="math inline">\(H\)</span>.</li>
+<li><span class="math inline">\(H\)</span> y <span class="math inline">\(W\)</span> pueden tener otras causas comunes no observadas (nutrición por ejemplo), que no influyen en <span class="math inline">\(S\)</span>.</li>
+</ul>
+<p>Ahora veamos cómo calcular el efecto causal <strong>total</strong> de sexo sobre peso.</p>
+<p><em>Podemos ver que no hay ninguna flecha que llegue a <span class="math inline">\(S\)</span>, de modo que para el efecto total no es necesario hacer cirugía ni usar la fórmula de ajuste.</em></p>
+<p>De hecho, en este ejemplo sería mala idea condicionar a la estatura <span class="math inline">\(H\)</span>, pues cerramos un camino causal por el que <span class="math inline">\(S\)</span> influye en <span class="math inline">\(W\)</span>, y al mismo tiempo abrimos un camino no causal que pasa por <span class="math inline">\(U\)</span>.</p>
+<p>El análisis detallado de la gráfica es:</p>
+<ul>
+<li><p>Existen dos rutas causales de sexo a peso: una que está mediada por la estatura y otra que es efecto directo sobre peso. <strong>No</strong> queremos bloquear condicionando a la estatura <span class="math inline">\(H\)</span>.</p></li>
+<li><p>Existe una ruta no causal de sexo sobre peso, y es el camino <span class="math inline">\(S\to H \gets U \to W\)</span>. Sin embargo, esta ruta está bloqueada por <span class="math inline">\(H\)</span>, la estatura, que es un colisionador.</p></li>
+<li><p>Nota para más adelante: sin embargo, si quisiéramos calcular el efecto <strong>directo</strong> de sexo sobre peso, será necesario seguir otro procedimento. Estratificar por estatura no funciona pues activamos un camino no causal, y por lo tanto deberemos bloquear la ruta no causal condicionando a <span class="math inline">\(U\)</span> que no hemos observado.</p></li>
+</ul>
+<p>Comenzamos ahora el proceso de modelado. Podemos excluir a <span class="math inline">\(U\)</span> en nuestro modelo, pues no tiene relevancia para la inferencia acerca del efecto total de <span class="math inline">\(S\)</span> sobre <span class="math inline">\(W\)</span>, como discutimos arriba.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Ojo: interpetación de modelos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nótese que la decisión de excluir de nuestro análisis la variable <span class="math inline">\(U\)</span> sólo tiene sentido si lo que queremos estimar es el efecto total de sexo sobre peso. Esto implica que nuestras estimaciones que corresponden a <span class="math inline">\(H\toW\)</span> <strong>no</strong> tienen interpretación causal. Una estrategia de identificación para un efecto no implica que todo lo que salga de nuestras estimaciones es causal.</p>
+</div>
+</div>
+<p>Empezamos entonces con el modelo de estatura:</p>
+<p><span class="math display">\[H|S=s \sim N(m_h, \sigma_h)\]</span> con</p>
+<p><span class="math display">\[m_h = \alpha_0 + \alpha_1 s \]</span> Y el modelo de peso:</p>
+<p><span class="math display">\[W|S=s,H=h \sim N(m_w, \sigma_w)\]</span> <span class="math display">\[m(s,a,h) = \gamma_0 + \gamma_1 s  + \gamma_2 h\]</span></p>
+<p>Lo escribimos en stan:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>mod_1 <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(<span class="st">"../src/peso-estatura-inferencia-1.stan"</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data {
+  int&lt;lower=0&gt; N;
+  vector[N]  s;
+  vector[N]  h;
+  vector[N]  w;
+
+}
+
+transformed data {
+  vector[N] h_c;
+  real media_h;
+  int M;
+  // simulaciones
+  M = 1000;
+  // centrar
+  media_h = mean(h);
+  h_c = h - mean(h);
+}
+
+parameters {
+  real alpha_0;
+  real alpha_1;
+  real gamma_0;
+  real gamma_1;
+  real gamma_2;
+  real&lt;lower=0&gt; sigma_h;
+  real&lt;lower=0&gt; sigma_w;
+}
+
+
+
+transformed parameters {
+  vector[N] m_h;
+  vector[N] m_w;
+
+  m_h = alpha_0 + alpha_1 * s;
+  m_w = gamma_0 + gamma_1 * s + gamma_2 * h_c;
+
+}
+
+model {
+  // modelo para estatura
+  h ~ normal(m_h, sigma_h);
+  alpha_0 ~ normal(150, 30);
+  alpha_1 ~ normal(10, 20);
+  sigma_h ~ normal(0, 30);
+
+  // modelo para peso
+  w ~ normal(m_w, sigma_w);
+  gamma_0 ~ normal(50, 30);
+  gamma_1 ~ normal(10, 20);
+  gamma_2 ~ normal(0, 2);
+  sigma_w ~ normal(0, 5);
+
+
+}
+generated quantities {
+  real w_mean_male;
+  real w_mean_female;
+  real dif_male;
+  array[M] real w_sim_male;
+  array[M] real w_sim_female;
+
+  // simular hombres
+  real do_s = 1;
+  for(i in 1:M){
+    real h_sim_media = alpha_0 + alpha_1 * do_s;
+    real h_sim = normal_rng(h_sim_media, sigma_h);
+    real w_sim_media = gamma_0 + gamma_1 * do_s + gamma_2 * (h_sim - media_h);
+    w_sim_male[i] = normal_rng(w_sim_media, sigma_w);
+  }
+
+  do_s = 0;
+  for(i in 1:M){
+    real h_sim_media = alpha_0 + alpha_1 * do_s;
+    real h_sim = normal_rng(h_sim_media, sigma_h);
+    real w_sim_media = gamma_0 + gamma_1 * do_s + gamma_2 * (h_sim - media_h);
+    w_sim_female[i] = normal_rng(w_sim_media, sigma_w);
+  }
+
+  w_mean_male = mean(w_sim_male);
+  w_mean_female = mean(w_sim_female);
+  dif_male = w_mean_male - w_mean_female;
+
+}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(howell), <span class="at">s=</span> howell<span class="sc">$</span>male, <span class="at">a =</span> howell<span class="sc">$</span>age, </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">h =</span> howell<span class="sc">$</span>height, <span class="at">w =</span> howell<span class="sc">$</span>weight)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_1<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">refresh =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 sequential chains...
+
+Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 2.5 seconds.
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 2.2 seconds.
+Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 2.3 seconds.
+Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 2.2 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 2.3 seconds.
+Total execution time: 9.6 seconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">9999</span>)</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95) <span class="sc">|&gt;</span> </span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">2</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  variable  mean    q5   q95
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 dif_male  6.77  5.73  7.81</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>sims <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dif_male)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="03-modelos-causales_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Esta es nuestra estimación del diferencia causal promedio de sexo sobre el peso para personas de 35 años: está aproximadamente entre 5.5 y 8.5 kilos aproximadamente.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-rethinking" class="csl-entry" role="doc-biblioentry">
+McElreath, Richard. 2015. <em>Statistical Rethinking, A Course in R and Stan</em>. <a href="http://xcelab.net/rmpubs/rethinking/Statistical_Rethinking_sample.pdf">http://xcelab.net/rmpubs/rethinking/Statistical_Rethinking_sample.pdf</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-modelos-graficos.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./99-referencias.html" class="pagination-link">
+        <span class="nav-page-text">Referencias</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
