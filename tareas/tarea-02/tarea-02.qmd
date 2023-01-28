@@ -1,0 +1,149 @@
+---
+title: "Tarea 2"
+format: html
+editor: visual
+---
+
+## Waffle house y divorcios
+
+Este ejemplo es de nuestra referencia de Statistical Rethinking, donde tenemos 
+datos por estado de EUA acerca de tasas de divorcio, matrimonio, y otras variables:
+
+```{r}
+library(tidyverse)
+library(DiagrammeR)
+waffle <- read_delim("./datos/waffle-divorcio.csv", delim = ";")
+names(waffle)
+```
+
+Los Waffle Houses son una cadena de restaurantes baratos abiertos 24 horas, y aunque están en muchos lugares de estados unidos, su origen fue en el sur (Georgia) y predominan en el sur.
+
+Podemos considerar la siguiente gráfica, que muestra una correlación entre número de restaurantes WH con la tasa de divorcio **de cada estado**:
+
+```{r}
+ggplot(waffle, aes(x = WaffleHouses/Population, y = Divorce)) + 
+  geom_point() + geom_smooth(method = "lm", formula = "y~x")
+```
+
+Como parece ser que la correlación positiva está dominada por unos cuantos estados, coloreamos cuáles estados son del sur y cuáles no:
+
+```{r}
+ggplot(waffle, aes(x = WaffleHouses/Population, y = Divorce)) + 
+  geom_point(aes(colour = South)) + geom_smooth(method = "lm", formula = "y~x")
+```
+
+**Pregunta 1**: Considerando las dos gráficas de arriba y lo que sabes acerca del problema, ¿por qué crees que para entender las tasas de divorcio deberíamos o no considerar la cantidad de Waffle Houses?
+
+**Pregunta 2**: Como la correlación no es causal, qué estructura simple sería más apropiada para describir por qué aparece la correlación? $Estado\to Waffle \to Divorcio$ , $Divorcio \gets Estado\to Waffle$, $Estado\to Waffle \gets Divorcio$. Explica por qué puedes descartar de entrada el tercer modelo gráfico (colisionador simple), y por qué puedes descartar el primero.
+
+## Buscando explicaciones causales
+
+La gráfica de Waffle houses y divorcios no tiene mucho sentido causal. Sin embargo, quiséramos pensar cómo es que tal estructura aparece en los datos. Aunque sabemos algo del mecanismos de $Estado\to Waffles$ (Waffle house comenzó en el sur), ¿por qué tienden a existir más divorcios en los estados del sur que en el resto de Estados Unidos?
+
+¿Qué es importante para determinar la tasa de divorcio en cada estado? Pensemos primero en las cosas más básicas:
+
+-   Las tasas de divorcio responden a las tasas de matrimonio. Cuanto más gente se casa, generalmente esperamos más divorcios.
+-   En general, también esperamos que las personas que se casan más jóvenes tienden a divorciarse a tasas más altas (por varias razones)
+-   En estados donde las personas se casan más jóvenes, tiende a haber más matrimonios (hay más personas para casarase)
+
+Una gráfica causal que podríamos escribir sería entonces (donde DistGeorgia es
+alguna medida de la distancia a Georgia, donde empezó Waffle House):
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+  Mat
+  Div
+  EdadMat
+  Estado
+  Waffle
+  edge [minlen = 3]
+  Mat -> Div
+  EdadMat -> Div
+  EdadMat -> Mat
+  Estado -> EdadMat
+  Estado -> DistGeorgia
+  DistGeorgia -> Waffle
+}
+")
+
+```
+
+**Pregunta 3**: Según nuestros supuestos, explica por qué porqué podría aparecer una relación no causal entre Waffle houses y tasa de divorcio. Revisa nuestra definición de $d$-separación: ¿Qué rutas están activas entre estos dos nodos? ¿Alguna de ellas es causal? Concluye del análisis de caminos si Waffle y Divorcio son independientes o no.
+
+
+**Pregunta 4**: Haz una gráfica de edad mediana de matrimonio y divorcio, e identifica los puntos que corresponden estados del sur. Ahora podemos detallar mejor lo que está sucediendo: explica bajo esta perspectiva cuál es la correlación que acabamos de explorar entre divorcio y Waffle Houses.
+
+- Nota que en este ejemplo, logramos mostrar un camino con más detalles causales que
+explica al menos parcialmente la correlación que observamos en los datos: edades 
+promedio diferentes de  de matrimonio en el Sur vs otros estados son parte de la historia. 
+
+
+## Sesgo-M
+
+Considera es siguiente diagrama:
+
+-   Dr: frecuencia de visitas al doctor de cada persona (no observada)
+-   R: fragilidad de una persona, factores que influyen en hospitalización (no observada)
+-   VacunaInf: si recibió o no la vacuna de la influenza
+-   HospInf: si fue hospitalizado por influenza después de la vacunación
+-   HospAnt: si una persona fue hospitalizada *anteriormente* a la vacuna
+
+```{r}
+grViz("
+digraph {
+  graph [compound = true, ranksep = 0.2]
+  node [shape = circle]
+  Dr
+  R
+  node [shape=plaintext]
+  
+  edge [minlen = 3]
+  
+  Edad -> Dr 
+  Edad -> R 
+  subgraph estructura_m {
+  edge [color = crimson]
+  Dr -> HospAnt 
+  R -> HospAnt
+  Dr -> VacunaInfluenza
+  R -> HospInfluenza
+  }
+}
+")
+
+```
+
+**Pregunta 5**: ¿cuáles son los caminos entre Vacuna y Hospitalización por influenza? Si no condicionamos, qué caminos están activos y cuáles están bloqueados? si condicionamos a edad, ¿cuáles caminos están bloqueados y cuales activos?
+
+**Pregunta 6** ¿Qué podría ser engañoso de ver la relación entre Vacuna y Hospitalización por influenza con datos administrativos de un hospital, es decir, considerando todos aquellos que fueron hospitalizados antes, aún cuando condicionemos a edad?
+
+La estructura en rojo se llama "sesgo-M". Es un ejemplo de que la regla "siempre podemos condicionar a variables pre-tratamiento sin dañar el análisis" no siempre se cumple.
+
+## Estructura de mariposa
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape = circle]
+  U
+  V
+  node [shape=plaintext]
+  edge [minlen = 3]
+  U -> Z
+  U -> X
+  V -> Z
+  V -> Y
+  Z -> X
+  Z -> Y
+  X -> Y
+  {rank = same; X; Y}
+}
+")
+
+```
+
+**Pregunta 7**: (más difícil) En este caso, si no condicionamos a $Z$, ¿qué caminos entre $X$ y $Y$ están activos y cuáles bloqueados?. Si condicionamos a $Z$, qué caminos ahora están activos y cuáles bloqueados?
