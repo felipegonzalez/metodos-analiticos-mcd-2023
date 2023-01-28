@@ -288,8 +288,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-23d2a67616a350024f6b" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-23d2a67616a350024f6b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4582cbc660871048d1ef" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4582cbc660871048d1ef">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>donde <span class="math inline">\(T\)</span> es la temperatura, <span class="math inline">\(A\)</span> son las unidades de agua embotellada vendida y <span class="math inline">\(Z\)</span> es la actividad de los mosquitos (medido con muestreo, por ejemplo). Mostramos también otras variables causales que pueden afectar a las variables de interés (muchas veces omitimos estas variables que solo afectan a una variable de interés), pero que no tienen efecto sobre otras variables del diagrama.</p>
@@ -343,8 +343,8 @@ div.csl-indent {
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-403f1f9c634416cf3d1a" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-403f1f9c634416cf3d1a">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-07b35c18ded6ad7b88ff" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-07b35c18ded6ad7b88ff">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En esta nueva gráfica, <span class="math inline">\(A\)</span> y <span class="math inline">\(Z\)</span> son independientes, que es la respuesta correcta. Veamos cómo simularíamos de esta gráfica después de la cirugía. Establecemos un valor fijo de unidades, y seguimos el resto del modelo:</p>
@@ -435,8 +435,8 @@ div.csl-indent {
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-7bdbacda27aad379acc3" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7bdbacda27aad379acc3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d9cbf217a5e996320db7" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d9cbf217a5e996320db7">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -482,8 +482,8 @@ div.csl-indent {
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-0f05316ca856f72b8a8d" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0f05316ca856f72b8a8d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b47eb23b67d64db2f757" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b47eb23b67d64db2f757">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Ahora queremos calcular <span class="math inline">\(p(a|do(d)) = p_m(a|d)\)</span> en función de los datos. Siguiendo el mismo argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o condicionar a <span class="math inline">\(T\)</span> para poder usar nuestro proceso generador de observaciones, y obtenemos:</p>
@@ -635,8 +635,8 @@ Fórmula de ajuste (Pearl)
 <span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-970e695e07864a99a6d7" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-970e695e07864a99a6d7">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n   Dia -> T\n   T -> Y\n   X -> Z\n   W -> Z\n   Y -> W \n   Y -> Z\n   A -> Y\n   T -> A\n   X -> W\n   T -> X\n   S -> Y\n#{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e1a9fed273fcbec2e2b" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e1a9fed273fcbec2e2b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n   Dia -> T\n   T -> Y\n   X -> Z\n   W -> Z\n   Y -> W \n   Y -> Z\n   A -> Y\n   T -> A\n   X -> W\n   T -> X\n   S -> Y\n#{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>La variable <span class="math inline">\(Dia\)</span> que determina el tratamiento no tiene aristas en común con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún ajuste, no importa lo complicada que sea esta gráfica, y podemos usar simplemente <span class="math inline">\(p(y|t)\)</span>. No hay necesidad de estratificar por ninguna variable.</p>
@@ -788,7 +788,7 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
 <pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpicSkjM/model-1c0736614823.stan', line 46, column 2 to column 59)</code></pre>
+<pre><code>Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpaBwBvT/model-1bb92ede5758.stan', line 46, column 2 to column 59)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
@@ -810,7 +810,7 @@ Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
 <pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpicSkjM/model-1c0736614823.stan', line 46, column 2 to column 59)</code></pre>
+<pre><code>Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpaBwBvT/model-1bb92ede5758.stan', line 46, column 2 to column 59)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
@@ -832,7 +832,7 @@ Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
 <pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpicSkjM/model-1c0736614823.stan', line 46, column 2 to column 59)</code></pre>
+<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpaBwBvT/model-1bb92ede5758.stan', line 46, column 2 to column 59)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
@@ -854,7 +854,7 @@ Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
 <pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpicSkjM/model-1c0736614823.stan', line 46, column 2 to column 59)</code></pre>
+<pre><code>Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpaBwBvT/model-1bb92ede5758.stan', line 46, column 2 to column 59)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
@@ -869,7 +869,7 @@ Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
 <pre><code>Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 1.9 seconds.
+Chain 4 finished in 1.8 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 1.8 seconds.
@@ -1033,8 +1033,8 @@ dbl (4): height, weight, age, male
 <span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e2a7287f8caa6d19369b" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e2a7287f8caa6d19369b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3e055ee5f8a3bce3a66a" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e055ee5f8a3bce3a66a">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ul>
@@ -1172,26 +1172,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 3.3 seconds.
+Chain 1 finished in 3.2 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 3.0 seconds.
+Chain 2 finished in 2.8 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 3.3 seconds.
+Chain 3 finished in 3.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 3.1 seconds.
+Chain 4 finished in 2.9 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 3.2 seconds.
-Total execution time: 13.0 seconds.</code></pre>
+Mean chain execution time: 3.0 seconds.
+Total execution time: 12.3 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
