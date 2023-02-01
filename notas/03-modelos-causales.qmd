@@ -19,6 +19,8 @@ library(tidyverse)
 library(kableExtra)
 library(DiagrammeR)
 ggplot2::theme_set(ggplot2::theme_light())
+inv_logit <- \(x) 1 / (1 + exp(-x)) 
+
 ```
 
  Desde el punto de vista de Pearl, nuestro objeto principal
@@ -67,7 +69,7 @@ lo que nuestra respuesta debería ser igual a 0.
 
 Sin embargo, sabemos que estas
 dos variables están asociadas (por el análisis de DAGs), de manera que describir cómo cambia $p(z|a)$ cuando
-condicionamos a distintos valores de $a$ no responde nuestra pregunta. La distribución $p(z|do(a))$ nos dice cómo se distribuye $X$ cuando manipulamos $a$ artificialmente. Por ejemplo, si cerramos todas las tiendas un día haciendo $do(a=0)$, veríamos que esta variable no tiene efecto sobre la actividad de mosquitos, por ejemplo comparado con $do(a = 10000)$.
+condicionamos a distintos valores de $a$ no responde nuestra pregunta. La distribución $p(z|do(a))$ nos dice cómo se distribuye $Z$ cuando manipulamos $a$ artificialmente. Por ejemplo, si cerramos todas las tiendas un día haciendo $do(a=0)$, veríamos que esta variable no tiene efecto sobre la actividad de mosquitos, por ejemplo comparado con $do(a = 10000)$.
 
 Ilustramos la diferencia entre $p(y|x)$ y $p(y|do(x))$ simulando del ejemplo anterior. Supondremos que sólo consideramos un día del año a lo largo de varios años, para
 no modelar el comportamiento cíclo de la temperatura:
@@ -139,7 +141,7 @@ simular_cirugia <- function(n = 10, unidades = unidades){
 ```
 
 
-Y ahora simulamos y graficamos $p(c|do(u))$ para distintos valores de $u$:
+Y ahora simulamos y graficamos $p(z|do(a))$ para distintos valores de $u$:
 
 ```{r}
 set.seed(128)
@@ -170,14 +172,14 @@ Aunque intuitivamente vimos cómo simular de esta distribución arriba, especifi
 abajo qué reglas son las que nos permiten hacer esto: ¿cómo calculamos $p_m$?
 
 En primer lugar, consideremos $p_m(t)$. Esta marginal es invariante a nuestra
-cirugía, pues la arista $T->A$ que eliminamos $T$ no afecta el proceso que determina $T$. De
+cirugía, pues la arista $T\to A$ que eliminamos $T$ no afecta el proceso que determina $T$. De
 modo que la marginal del proceso modificado es igual a la marginal observada:
 
 $$p_m(t) = p(t)$$
 En segundo lugar, tenemos que 
 
 $$p_m(z|t,a) = p(z|t,a),$$
-Pues el proceso por el cual responde $m$ a $t$ y $a$ es el mismo, no importa si
+Pues el proceso por el cual $Z$ responde  a $T$ y $A$ es el mismo, no importa si
 $A$ fue modificada artificalmente o no.
 
 Juntamos estos argumentos. Primero, por definición,
@@ -185,21 +187,21 @@ Juntamos estos argumentos. Primero, por definición,
 $$p(z|do(a)) = p_m(z|a)$$
 
 Por la regla de probabilidad total, podemos condicionar todo a $T$ y marginalizar.
-La segunda igualdad la obtenemos por la independencia entre $T$ y $A$ en nuestra
+La segunda igualdad la obtenemos por la independencia entre $T$ y $Z$ en nuestra
 gráfica modificada (están $d$ separadas):
 
-$$p_m(z|a) = \int p_m(z|a,t)p_m(z|t)dt = \int p_m(z|a,t)p_m(t)dt$$
+$$p_m(z|a) = \int p_m(z|a,t)p_m(t|a)dt = \int p_m(z|a,t)p_m(t)dt$$
 Finalmente, las últimas dos distribuciones podemos extraerlas de los datos, como
 explicamos arriba $p_m(z|t,a) = p(z|t,a)$ y $p_m(t) = p(t),$ y terminamos con la
 fórmula
 
 $$p(z|do(a))=p_m(z|a) = \int p(z|a,t)p(t)dt $$
 Las dos distribuciones de la derecha las tenemos pues están en el contexto
-de $p$, el proceso generador de datos. En general, estas tenemos que estimarlas
+de $p$, el proceso generador de datos. Así que podemos estimarlas
 de los datos observados.
 
 - Este argumento justifica el proceso que hicimos arriba: simulamos primero $T$
-con su proceso generador, y después simulamos $C$ condicional a $A$ y $T$ *según
+con su proceso generador, y después simulamos $Z$ condicional a $A$ y $T$ *según
 el proceso generador original*, el cual no depende de $A$ en este ejemplo.
 
 En el caso de arriba, simulamos de la distribución para entender cómo
@@ -303,7 +305,7 @@ argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o con
 a $T$ para poder usar nuestro proceso generador de observaciones, y obtenemos:
 
 
-$$p_m(a|do(d))=p_m(a|d) = \int p(a|d,t)p(t)dt $$
+$$p(a|do(d))=p_m(a|d) = \int p(a|d,t)p(t)dt $$
 Aunque a veces es posible calcular analíticamente el lado derecho analíticamente,
 podemos simular como hicimos en los ejemplos anteriores:
 
@@ -379,10 +381,12 @@ calcular $p(y|x,z_1,z_2)$, y después marginalizamos sobre los padres.
 
 :::
 
-Este proceso se llama de diferentes maneras en distintos contextos:
+Esta fórmula se extiende a más de dos padres $Z_1,Z_2,Z_3,\ldots, Z_k$.
+
+A este proceso se llama de diferentes maneras en distintos contextos:
 
 - Estamos calculando el efecto causal **estratificando** por las variables $z$.
-- **Controlamos** o **condicionamos** por las variables $z$ para calcular el efecto causal.
+- **Controlamos**  por las variables $z$ para calcular el efecto causal.
 
 **Nota 1**: Con este principio podemos resolver algunos problemas, pero
 no todos. Veremos que en algunos casos existen padres que no son observados,
@@ -401,8 +405,7 @@ o controlando por $t$, *siempre y cuando los modelos lineales sean apropiados*.
 
 ## Experimentos
 
-En los experimentos clásicos, intentamos obtener datos de un proceso generador 
-especial:
+En los experimentos clásicos, intentamos obtener datos de un proceso generador  especial:
 
 - Asignamos un tratamiento $T$ **al azar**: el punto es que la asignación de tratamiento no esté relacionada con ninguna variable de interés en el proceso generador de datos "natural".
 - Como no hay aristas que entren a $T$, no es necesario llevar a cabo ninguna
@@ -416,7 +419,7 @@ de nacimiento. Aunque no tiramos ninguna moneda, este dígito no tiene
 ninguna relación con las maneras en que el tratamiento puede ayudar a reducir
 el dolor de cabeza.
 
-Entonces podrías tener un diagrama como el que sigue, donde queremos 
+Entonces podríamos tener un diagrama como el que sigue, donde queremos 
 estimar el efecto causal de $T$ sobre $Y$:
 
 ```{r}
@@ -451,15 +454,16 @@ con ningún otro nodo de nuestro modelo causal, así que para tener una estimaci
 ajuste, no importa lo complicada que sea esta gráfica, y podemos usar
 simplemente $p(y|t)$. No hay necesidad de estratificar por ninguna variable.
 
+
 Por el contrario, si tenemos dados condicionados (por ejemplo por algún aspecto
 se la selección de muestra), o estratificamos sin cuidado por alguna de las otras variables,
 entonces podríamos agregar inducir asociaciones no causales en nuestra estimación.
 
 Eso quiere decir que para este propósito, podríamos simplemente 
-estimar $p(y|x)$ con un modelo simple. No es un modelo "mecanístico", ni nos
+estimar $p(y|t)$ con un modelo simple. No es un modelo "mecanístico", ni nos
 sirve para aprender otras cosas, pero
-sabemos que da una buena estrategia de identificación para el efecto causal
-que nos interesa.
+sabemos que da una estrategia de identificación para el efecto causal
+que nos interesa. Nótese también que puede haber variables sobre las que estratificamos que pueden producir más o menos variabilidad, aún cuando no se creen caminos no causales.
 
 Resumiendo:
 
@@ -534,7 +538,7 @@ datos_lista <- list(N = N, t_maxima = sim_dias$t_maxima,
                     desabasto_agua = sim_dias$desabasto_agua,
                     desabasto_sim = desabasto_sim)
 ajuste <- mod_agua$sample(data = datos_lista, refresh = 1000,
-                          init = 0.1)
+                          init = 0.1, step_size = 0.1)
 ```
 
 
@@ -555,6 +559,8 @@ unidades vendidas. Para esto utilizamos las simulaciones de nuestro modelo
 hacemos un cálculo diferente:
 
 ```{r}
+#| warning: false
+#| message: false
 sim_intervenciones <- 
   ajuste$draws(format = "df") |> 
   select(".draw", contains("unidades_sim")) |> 
@@ -574,7 +580,6 @@ ggplot(aes(x=desabasto, y = media_unidades,
            ymin = q5, ymax = q95)) +
   geom_point() +
   geom_linerange()
-
 ```
 Esta gráfica es difícil de interpretar, porque puede haber correlación
 entre los distintos estimadores que estamos presentando.
@@ -583,6 +588,7 @@ Para comparar, lo mejor es hacer contrastes. Comparamos con la situación
 de 0 desabasto, por ejemplo, y calculamos el incremento estimado:
 
 ```{r}
+#| message: false
 sim_nivel_0 <- filter(sim_intervenciones, desabasto == 0) |> 
   select(.draw, value_0 = value)
 sim_intervenciones |> left_join(sim_nivel_0) |> 
@@ -616,11 +622,12 @@ El procedimiento general es (@rethinking):
 1. Definir la cantidad a estimar
 2. Construir un modelo causal gráfico (puede incluir variables no medidas)
 3. Definir un modelo generativo basado en el modelo causal (puede tener parámetros
-desconocidos, que se estimarán con datos), recorriendo los nodos y definiendo 
-los modelos individuales.
+desconocidos, que se estimarán con datos), recorriendo los nodos y definiendo  los modelos individuales. Hacer validación a priori.
 4. Definir el cálculo del estimador (por ejemplo, con la fórmula de ajuste)
-5. Ajustar el modelo completo a los datos y calcular el estimador del paso anterior.
+5. Ajustar el modelo completo a los datos, hacer
+validación posterior y calcular el estimador del paso anterior.
 :::
+
 En 2 y 3 está la mayor parte del trabajo. La parte 3 es parte de un curso de
 estadística bayesiana, y para esta parte usamos un flujo bayesiano de construcción
 de modelos (ver [aquí](https://arxiv.org/abs/2011.01808) o [aquí](https://betanalpha.github.io/assets/case_studies/principled_bayesian_workflow.html)).
@@ -669,7 +676,7 @@ digraph {
 
 ```
 
-- En primer lugar, tenemos una flecha $H->W$. La razón es que podemos pensar
+- En primer lugar, tenemos una flecha $H\to W$. La razón es que podemos pensar
 en varias intervenciones que afectan el peso pero que no cambian la estatura. 
 - En segundo lugar, $S$ es causa de $H$, pero también puede afectar directamente 
 peso $W$ junto con la estatura $H$.
@@ -693,12 +700,9 @@ a la estatura $H$.
 - Existe una ruta no causal de sexo sobre peso, y es el camino $S\to H \gets U \to W$.
 Sin embargo, esta ruta está bloqueada por $H$, la estatura, que es un colisionador. 
 
-- Nota para más adelante: sin embargo, si quisiéramos calcular el efecto **directo**  de sexo sobre peso, será necesario seguir otro procedimento. Estratificar
-por estatura no funciona pues activamos un camino no causal, y por lo tanto deberemos bloquear la ruta no causal
-condicionando a $U$ que no hemos observado.
 
 
-Comenzamos ahora el proceso de modelado. Podemos excluir a $U$ en nuestro modelo,
+Comenzamos ahora el proceso de modelado. Excluiremos a $U$ en nuestro modelo,
 pues no tiene relevancia para la inferencia acerca del efecto total de $S$ sobre $W$,
 como discutimos arriba.
 
@@ -708,7 +712,7 @@ como discutimos arriba.
 Nótese que la decisión de excluir de nuestro análisis la variable $U$
 sólo tiene sentido si lo que queremos estimar es el efecto total de sexo
 sobre peso. Esto implica que nuestras estimaciones que corresponden
-a $H\toW$ **no** tienen interpretación causal. Una estrategia de identificación
+a $H\to W$ **no** tienen interpretación causal. Una estrategia de identificación
 para un efecto no implica que todo lo que salga de nuestras estimaciones
 es causal.
 
@@ -748,10 +752,567 @@ resumen |> select(variable, mean, q5, q95) |>
 ```
 
 ```{r}
-sims |> ggplot(aes(x = dif_male)) + geom_histogram()
+sims |> ggplot(aes(x = dif_male)) + 
+  geom_histogram(bins = 40)
 ```
 
 Esta es nuestra estimación del diferencia causal promedio de sexo sobre el peso para 
-personas de 35 años: está aproximadamente entre 5.5 y 8.5 kilos aproximadamente.
+personas adultas: está aproximadamente entre 5.5 y 8.5 kilos aproximadamente.
 
+Sin embargo, dada la discusión que tuvimos arriba,
+podemos hacer un modelo más simple para estimar el efecto total,
+ignorando $W$:
+
+```{r}
+mod_2 <- cmdstanr::cmdstan_model("../src/peso-estatura-inferencia-simple.stan")
+print(mod_2)
+```
+```{r}
+datos_lista <- list(N = nrow(howell), s= howell$male, 
+                    w = howell$weight)
+ajuste <- mod_2$sample(data = datos_lista, refresh = 1000)
+sims <- ajuste$draws( format = "df")
+resumen <- ajuste$summary(c( "dif_male"))
+options(scipen = 9999)
+resumen |> select(variable, mean, q5, q95) |> 
+  mutate(across(where(is.numeric), round, 2))
+```
+
+```{r}
+sims |> ggplot(aes(x = dif_male)) + 
+  geom_histogram(bins = 40)
+```
+Y obtenemos el mismo resultado con un modelo más simple. El modelo
+anterior lo usaremos después para explorar el concepto de *mediación*.
+
+# Bloqueando puertas traseras
+
+En las partes anteriores vimos qué estratificando por los padres
+de la variable de tratamiento $X$ podíamos construir un estimador del
+efecto de $X$ sobre otra variable $Y$, pasando de una distribución 
+observacional a una conceptualmente experimental (dado que nos supuestos
+causales sean aproximadamente correctos).
+
+Sin embargo, esta aplicación de la fórmula de ajuste no funciona
+si existen padres que no fueron observados, y por tanto no podemos estratificar por ellos. El siguiente método (ajuste por "puerta trasera")
+nos da una técnica adicional que podemos usar dado ciertos tipos
+de estructura en nuestro modelo causal. Nótese que una vez más,
+este criterio sólo depende de la gráfica causal $G$ asociada a nuestro
+modelo, y no los modelos locales que utilizemos para modelar la
+condicional de cada nodo.
+
+::: callout-note
+# Ajuste de puerta trasera (Pearl)
+
+Si tenemos dos variables $T$ y $Y$ en una gráfica $G$, un conjunto $Z$
+de variables satisface el **criterio de puerta trasera** relativo
+a $T$ y $Y$ cuando $Z$ bloquea cualquier camino entre $T$ y $Y$ que 
+tenga una arista que incida en $T$.
+
+En tal caso, podemos utilizar la fórmula de ajuste, pero en lugar de
+estratificar por los padres de $T$, estratificamos por las variables en $Z$
+:::
+
+La idea es:
+
+1. Queremos bloquear todos los caminos no causales entre $T$ y $Y$.
+2. Queremos no perturbar todos los caminos dirigidos de $T$ a $Y$ (caminos causales).
+3. Queremos no crear caminos no causales al condicionar.
+
+Cumplimos 1 al estratificar por variables que bloquean los caminos
+que son causas de $T$, pues estos caminos no son causales y distorsionan
+la relación entre $T$ y $Y$. También nuestro criterio satisface 2, pues
+no intentamos bloquear caminos causales (todos ellos comienzan con $T\to$).
+Finalmente, nuestro criterio también implica que no condicionamos a 
+colisionadores, pues estos ocurren en caminos de la forma $X\to U_1 \cdots V_\gets Y$.
+
+### Ejemplo (Pearl)
+
+Consideramos primero este ejemplo simple, donde queremos
+evaluar la efectividad de un tratamiento en cierta enfermedad.
+Los datos que tenemos disponibles son si una persona
+recibió o no un tratamiento,  y si se recuperó o no.
+No se registró el nivel socioeconómico, pero sabemos que el tratamiento
+es caro, de forma que fue accedido más por gente de NSE más alto. 
+También que sabemos que para este tipo de tratamiento, el peso de la
+persona es un factor importante.
+Nuestros supuestos están en la siguiente gráfica:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+    Trata
+    Res
+  node [shape = circle]
+    NSE
+    Peso
+  edge [minlen = 3]
+    NSE -> Peso
+    NSE -> Trata
+    Trata -> Res
+    Peso -> Res
+}
+")
+
+```
+
+Observamos que no podemos directamente usar la fórmula de ajuste pues NSE no
+es una variable observada.
+
+En esta circunstancia no podríamos identificar el efecto causal, pues
+existe un camino abierto no causal. Quizá el tratamiento no es 
+muy efectivo, y parece ser bueno pues fue aplicado a personas
+con menor peso que las que no recibieron el tratamiento, a través
+del efecto de NSE. Sin embargo, supón que tuviéramos disponible
+la variable Peso:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+    Trata
+    Res
+    Peso
+  node [shape = circle]
+    NSE
+  edge [minlen = 3]
+    NSE -> Peso
+    NSE -> Trata
+    Trata -> Res
+    Peso -> Res
+}
+")
+
+```
+En este caso, todavía no podemos aplicar la fórmula original de ajuste
+pues no conocemos $NSE$. Sin embargo, podemos bloquear el camino
+no causal estratificando por Peso, y entonces podemos usar el
+criterio de puerta trasera para identificar el efecto del tratamiento,
+aún cuando no tengamos NSE.
+
+### Ejemplo {-}
+
+Primero consideramos un modelo generador:
+
+```{r}
+simular_bd <- function(n = 10){
+  nse <- sample(c(0, 1), n, replace = TRUE)
+  peso <- rnorm(n, 70 - 5 * nse, 12 + 2 * nse)
+  trata <- rbinom(n, 1, 0.8 * nse + 0.2 * (1 - nse))
+  p_trata <- inv_logit(1 * trata - 0.2 * (peso - 70))
+  res <- rbinom(n, 1, p_trata)
+  tibble(nse, peso, trata, res)
+}
+datos_bd <- simular_bd(10000)
+head(datos_bd)
+```
+Veamos qué sucede si cruzamos tratamiento con resultado (bueno):
+
+```{r}
+set.seed(428)
+datos_bd |> 
+  count(trata, res) |>
+  group_by(trata) |> 
+  mutate(p = n / sum(n)) |> 
+  filter(res == 1) |> 
+  ungroup() |> 
+  mutate(dif = p - lag(p))
+```
+Sabemos que esta diferencia en respuesta puede estar confundida
+por un camino no causal. El verdadero efecto casual podemos
+calcularlo en nuestras simulaciones como sigue a partir 
+de nuestro modelo:
+
+```{r}
+simular_efecto <- function(n = 10, peso = NULL){
+  # cómo es la población
+  nse <- sample(c(0, 1), n, replace = TRUE)
+  if(is.null(peso)){
+    peso <- rnorm(n, 70 - 5 * nse, 12 + 2 * nse)
+  }
+  # asignar al azar
+  trata <- rbinom(n, 1, 0.5)
+  p_trata <- inv_logit(1 * trata - 0.2 * (peso - 70))
+  res <- rbinom(n, 1, p_trata)
+  tibble(nse, peso, trata, res)
+}
+sims_efecto <- simular_efecto(10000)
+sims_efecto |> 
+  count(trata, res) |>
+  group_by(trata) |> 
+  mutate(p = n / sum(n)) |> 
+  filter(res == 1) |> 
+  ungroup() |> 
+  mutate(dif = p - lag(p))
+```
+La estimación del cruce simple es casi 50% más grande que
+el tamaño del efecto.
+
+Podemos también calcular el efecto para un peso particular:
+
+```{r}
+sims_efecto <- simular_efecto(10000, peso = 70)
+res_70 <- sims_efecto |> 
+  count(trata, res) |>
+  group_by(trata) |> 
+  mutate(p = n / sum(n)) |> 
+  filter(res == 1) |> 
+  ungroup() |> 
+  mutate(dif = p - lag(p))
+dif_70 <- res_70$dif[2]
+res_70
+```
+
+
+Suponiendo nuestro diagrama, queremos
+estimar estratificando por peso. Podríamos usar un sólo
+modelo logístico, pero pueden ser más simples los cálculos
+si construimos nuestro modelo en stan. En este caso,
+podríamos calcular las diferencias para un peso particular,
+por ejemplo 70 kg (en lugar de modelar estaturas para producir
+una estimación de diferencia promedio).
+
+```{r}
+mod_trata <- cmdstan_model("../src/trata-backdoor.stan")
+print(mod_trata)
+```
+
+```{r}
+set.seed(95)
+datos_bd <- simular_bd(2000)
+datos_lista <- list(N = nrow(datos_bd),
+  trata = datos_bd$trata, res = datos_bd$res,
+  peso = datos_bd$peso)
+ajuste <- mod_trata$sample(data = datos_lista, refresh = 1000)
+sims <- ajuste$draws( format = "df")
+resumen <- ajuste$summary(c( "dif_trata"))
+```
+```{r}
+resumen |> select(variable, mean, q5, q95)
+sims |> select(dif_trata) |> 
+  ggplot(aes(x = dif_trata)) + geom_histogram() +
+  geom_vline(xintercept = dif_70, colour = "red")
+```
+
+Y obtenemos una estimación correcta del efecto en 70 kg. Podríamos
+también calcular el efecto en distintos pesos (nuestro estimador
+es una curva), promediar estimando una distribución de pesos modelada, o tomar una distribución fija de pesos para modelar (cada una de
+estas estrategias tiene propósitos diferentes).
+
+## Reglas del cálculo-do (opcional)
+
+Existen tres axiomas básicos del cálculo-do de las que se 
+derivan los demás resultados, como veremos en el siguiente
+ejemplo del criterio de la puerta delantera. 
+
+
+Denotamos por $G_m$ la gráfica mutilada por $do(x)$, donde
+quitamos todas las aristas que entran en $X$. Los tres axiomas son:
+
+
+**Regla 1** Ignorar observaciones:
+Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$
+
+$$ p(y|do(x), z, w) = p(y|do(x), w)$$
+O en otras palabras, si $p_m$ es la conjunta para $G_m$
+
+$$p_m(y|x,z,w) = p_m(y|x, w)$$
+es cierto si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$
+(condicionalmente independientes).
+
+
+**Regla 2** Usando observaciones como intervenciones:
+
+Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$ quitándole todas las aristas que salen de $Z$, entonces
+
+$$ p_(y|do(x), do(z), w) = p(y|do(x), z, w)$$
+Esta es como el criterio de ajuste por puerta trasera,
+y reescribimos como:
+
+$$ p_m(y|do(z), x, w) = p_m(y|z, x, w)$$
+La intuición es: basta que no haya caminos activos
+entre $Y$ y $Z$ en $G_m$, excepto quizá caminos que 
+comienzan en $Z$, cuyo efecto no depende de cómo tomó
+su valor $Z$. En ese caso, condicionar y
+hacer la intervención nos da la misma distribución.
+
+
+**Regla 3** Ignorar intervenciones:
+
+Si $Y$ y $Z$ están $d$-separadas por $X$ y $W$ en la gráfica
+$G_m$ donde además quitamos cualquier arista a $Z$ si $Z$ no es antecesor de $W$ en $G_m$
+
+Entonces:
+
+$$ p(y|do(x), do(z), w) = p(y|do(x), w)$$
+Consideramos primero un caso más simple: ¿cuándo podemos hacer lo siguiente?
+
+$$p_m(y|do(z), x) = p_m(y|x)$$
+La respuesta es que basta que $Y$ y $Z$ estén $d$ separadas en $G_m$
+dado $X$, donde además quitamos todas las aristas que inciden en $Z$. En este caso, todas los caminos que conectan a $Y$ con $Z$,
+por la $d$ separación, tienen que estar bloqueados por $X$ o por
+un colisionador no condicionado, y por tanto manipular $Z$ no
+tiene efecto en la distribución de $Y$.
+
+
+
+## El criterio de puerta delantera
+
+En algunos casos, puede ser que no sea posible bloquear algún camino
+no causal con variables observadas. Un ejemplo clásico es el de la discusión acerca de la relación de fumar con cáncer de pulmón. Algunos estadísticos
+plantearon que los estudios de asociación entre fumar y cáncer de pulmón
+podrían tener efectos gravemente confundidos, por ejemplo, por aspectos genéticos que hacen a una persona propensa a fumar al mismo tiempo que
+aumenta su probabilidad de fumar:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    F
+    C
+  node [shape = circle]
+    U
+  edge [minlen = 3]
+    U -> F
+    U -> C
+    F -> C
+{rank= same; C; F}
+}
+")
+
+```
+
+En este caso, el efecto de fumar ($F$) sobre cáncer ($C$) no es identificable
+pues no podemos condicionar a la variable de Genotipo ($U$). Supongamos que
+tenemos una medida adicional, que es la cantidad de depósitos de alquitrán
+den los pulmones de los pacientes. Este es es afectado por $F$, y 
+a su vez, el alquitrán incrementa la probabilidad de cáncer:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    F
+    C
+    A
+  node [shape = circle]
+    U
+  edge [minlen = 3]
+    U -> F
+    U -> C
+    F -> A
+    A -> C
+{rank= same; C; F; A}
+}
+")
+
+```
+
+La idea es primero estimar el efecto de $F$ sobre $A$, y después
+estimar el efecto de $A$ sobre $C$. La "composición" de estos dos
+efectos, dado el diagrama, debe darnos el estimador correcto. 
+Primero consideramos el efecto de $F$ sobre $A$, y tenemos que
+
+$$p(a|do(f)) = p(a|f),$$
+La igualdad se debe a que una vez que condicionamos a $F$ no hay
+puertas traseras entre $F$ y $A$ (pues no condicionamos a $C$). Esta dependencia causal la podemos entonces estimar de los datos.
+
+El efecto de $A$ sobre $C$ también es identificable, pues el camino no
+causal se bloquea cuando condicionamos a $A$, de forma
+que por la fórmula de ajuste:
+
+$$p(c|do(a)) = \int p(c|a, f') p(f')\, df'$$
+Ahora encadenamos estas dos ecuaciones:
+
+$$p(c|do(f)) = \int p(c|do(a))p(a|f)\,da$$
+que equivale en simulación a: dado un valor de $F$, simulamos $A=a$ 
+con nuestro modelo ajustado con datos naturales. 
+Ahora intervenimos $A$ con el valor a que obtuvimos y simulamos $C$.
+Sin embargo, para hacer este último paso con datos naturales, necesitamos usar
+el criterio de puerta trasera como explicamos arriba: simulamos entonces $f´$ de $p(f)$, y después simulamos $C$ en función de
+$a$ y $f´$ (con una distribución construida a partir de datos).
+
+Requerimos en este caso construir y estimar la condicional
+$p(c|a, f)$ basado en los datos.
+
+En fórmula, esto se escribe como:
+
+::: callout-note 
+# Criterio de fuerta delantera (Pearl)
+
+Si $A$ satisface el criterio de puerta delantera en relación
+a $F$ y $C$, entonces el efecto causal de $F$ en $C$ es identificable
+y está dado por la fórmula:
+
+$$p(c|do(f)) = \int \left [ \int p(c|a,f´)p(f´)\,df´ \right ] p(a|f)\,da$$
+:::
+
+Todas estas cantidades puede estimarse de los datos, y esta
+es la fórmula de puerta delantera. 
+
+### Ejemplo: proceso generador {-}
+
+Antes de aplicar este nuevo procedimiento, describamos 
+el proceso generador que utilizaremos:
+
+
+```{r}
+# simular distribución natural
+simular_fd <- function(n = 10, efecto_a = 0.3){
+  ## causa común
+  u <- rnorm(n, 0, 1);
+  # cantidad que fuma
+  f <- exp(rnorm(n, 1 + 0.2 * u, 0.1))
+  # acumulación de alquitrán
+  a <- rnorm(n,  4 * f, 2)
+  # probabilidad de cancer
+  p_c <- inv_logit(-6 + efecto_a * a +  2 * u)
+  c <- rbinom(n, 1, p_c)
+  tibble(f, a, c, u)
+}
+# simular datos intervenidos (suponiendo que conocemos todo)
+sim_int_f <- function(n = 100, do_f = 0.3, efecto_a = 0.3){
+  a <- rnorm(n,  4 * do_f, 2)
+  u <- rnorm(n, 0, 1)
+  p_c <-  inv_logit(-6 + efecto_a * a +  2 * u)
+  c <- rbinom(n, 1, p_c)
+  tibble(do_f = do_f, media_c = mean(c))
+}
+```
+
+
+```{r}
+set.seed(4481)
+sims_fd <- simular_fd(5000)
+sims_fd_1 <- simular_fd(10000)
+qplot(sims_fd$f, sims_fd$a)
+```
+¿Cómo se ve la relación de fumador con cáncer? En esta gráfica
+mostramos también el valor de la variable no observada $U$. Nótese
+que parte de la correlación positiva que existe es debido a esta
+variable $U$.
+
+```{r}
+ggplot(sims_fd, aes(x = f, y = c, colour = u)) + 
+  geom_jitter() + scale_colour_continuous(type = "viridis")
+```
+
+Ahora veamos cómo se ve el efecto de $F$ sobre $C$ y
+también cómo se ve el cruce de $F$ y $C$ en los datos naturales:
+
+```{r}
+sims_1 <- map_df(seq(1, 4, 0.5), ~ sim_int_f(100000, .x))
+
+sims_1 |> 
+  ggplot() + geom_line(aes(x = do_f, y = media_c)) +
+  geom_smooth(data = sims_fd_1, aes(x = f, y = c), method = "loess", span = 0.3, se = FALSE, colour ="red") + xlab("Grado de tabaquismo") +
+  xlim(c(1,4))
+```
+
+En efecto causal promedio de fumar, en cada nivel, sobre la incidencia de cáncer de pulmón, suponiendo nuestro proceso generador. Nótese que la relación no
+es tan fuerte como observamos en los datos naturales (en rojo). 
+Esto se debe a que en los
+datos naturales, las personas existe una causa común entre no fumar
+y prevenir cáncer de pulmón. 
+
+
+### Ejemplo: proceso generador {-}
+
+
+Veamos cómo sería la estimación si tuviéramos datos disponible, y
+si es que podemos recuperar el efecto correcto dados los datos observados y la técnica de puerta delantera.
+
+Nótese que sólo necesitamos
+$p(c|a, f), p(a|f) y $p(f)$. Estos son modelos *estadístico* con el 
+que podemos identificar el efecto que nos interesa. Una vez que los estimemos,
+podemos usar simulación:
+
+0. Fijamos una $f$.
+1. Simulamos una $a$ del modelo $p(a|f)$
+2. Para calcular $\int p(c|a,f')p(f')$, tenemos que simular un valor
+$f'$ de la marginal de $p(f)$, y luego, sustituir junto la $a$ de 1 para
+simular una $c$ de $p(c|a, f')$.
+3. Consideramos solamente $c$ y $f$ para resumir el efecto.
+
+
+
+
+```{r}
+set.seed(481)
+sims_fd <- simular_fd(2000)
+mod_front_door <- cmdstan_model("../src/front-door-2.stan")
+print(mod_front_door)
+```
+
+```{r}
+do_f <- seq(1, 4, 0.1)
+n_f <- length(do_f)
+sims <- mod_front_door$sample(data = list(N = nrow(sims_fd),
+      f = sims_fd$f, a = sims_fd$a,
+      c = sims_fd$c, do_f = do_f, n_f = n_f),
+  init = 0.01, step_size = 0.01, 
+  refresh = 1000,
+  parallel_chains = 4)
+```
+
+
+```{r}
+#| warning: false
+sims_efecto_tbl <- sims$draws("mean_c", format = "df") |> 
+  pivot_longer(cols = contains("mean_c"), values_to = "media_c") |> 
+  separate(name, c("nom", "id"), 
+    sep = "[\\[\\]]", convert = TRUE, extra = "drop") |> 
+  left_join(tibble(f = do_f) |> 
+  mutate(id = seq_along(f))) 
+resumen_tbl <- sims_efecto_tbl |> 
+  group_by(id, f) |> 
+  summarise(media = mean(media_c), 
+    q5 = quantile(media_c, 0.05),
+    q95 = quantile(media_c, 0.95))
+```
+
+
+```{r}
+ggplot(resumen_tbl) + 
+  geom_linerange(aes(x= f, ymax = q95, ymin = q5)) + geom_point(aes(x = f, y = media)) +
+  geom_line(data = sims_1, aes(x = do_f, y = media_c)) +
+  xlab("Nivel de tabaquismo") + ylab("Prop afectada")
+```
+
+Y parece que hemos obtenido una estimación razonable del efecto
+causal de fumar sobre cáncer. Recordemos también que debemos
+ser cuidadosos al comparar intervalos que salen del mismo modelo
+por su nivel de traslape.
+
+Por ejemplo, si quisiéramos calcular contrastes con el nivel 2 de tabaquismo:
+
+```{r}
+efecto_2 <- sims_efecto_tbl |> filter(f == 3) |> 
+  select(.draw, efecto_2 = media_c)
+comp_tbl <- left_join(sims_efecto_tbl, efecto_2) |> 
+  mutate(dif_2 = media_c - efecto_2)
+comp_tbl |> group_by(f) |> 
+  summarise(media = mean(dif_2), q5 = quantile(dif_2, 0.05),
+            q95 = quantile(dif_2, 0.95)) |> 
+ggplot() + geom_linerange(aes(x= f, ymax = q95, ymin = q5)) + geom_point(aes(x = f, y = media))  +
+  xlab("Nivel de tabaquismo") + ylab("Prop afectada")
+  
+```
+
+**Nota**: nótese como en este ejemplo hemos evitado
+incluir en nuestro modelo la variable no observada $U$, gracias al procedimiento de puerta delantera descrito arriba.
+
+Es posible sin embargo intentar un modelo completo bayesiano, sin necesidad de recordar la fórmula. El procedimiento,
+que es más difícil de ajustar: considera una variable latente $U$ no observada, y es necesario definir cómo puede
+ser su relación con sus descendientes. Es necesario más cuidado en definir 
+formas funcionales e iniciales apropiadas para que los muestreadores funcionen apropiadamente.
 
