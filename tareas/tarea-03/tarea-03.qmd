@@ -1,0 +1,379 @@
+---
+title: "Tarea 3: fórmula de ajuste"
+format: html
+editor: visual
+---
+
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(DiagrammeR)
+```
+
+En esta tarea veremos nuestra primera técnica para poder extraer inferencias 
+causales **a partir de datos observacionales**. Se trata de la fórmula de ajuste. 
+Veremos que:
+
+1.  La fórmula de ajuste consiste en condicionar a los "padres" o causas directas 
+del tratamiento y marginalizar el resto de las variables para obtener el efecto 
+de un tratamiento $T$ sobre una variable $Y$.
+
+2.  Veremos que podemos usar la fórmula de ajuste con simulación para estimar 
+un efecto causal.
+
+3.  Veremos que la fórmula de ajuste también nos sugiere qué modelos podemos estimar para simplificar la estimación del efecto causal.
+
+## Parte 1: Datos naturales o observacionales
+
+Nos interesa saber qué tanto ayuda la existencia de un detector de humo 
+($T$, que vale 0 o 1) a reducir las pérdidas $Y$ por incendios en casas.
+
+  Hay dos tipos de casas (viejas y nuevas) ($TipoCasa$) que tienen distinta 
+probabilidad de tener un detector, sus materiales tienen distinta propensión a 
+dañarse con un incendio, y la intensidad de los incendios
+también dependen del tipo de casa ($Incendio$). La Alarma también puede fallar 
+incluso cuando exista un detector $T$. Algunas casas tienen Seguro de casa y 
+otras no, y a veces los seguros piden que se instalen alarmas de humo.
+
+Nuestro diagrama causal (gráfica dirigida acíclica) es el siguiente:
+
+```{r}
+#| code-fold: true
+gr_1 <- grViz("
+digraph {
+  graph [ranksep = 0.1]
+    node [shape=plaintext]
+  edge [minlen = 3]
+    TipoCasa -> T
+    Seguro -> T
+    T -> AlarmaActiva
+    AlarmaActiva -> Y
+    TipoCasa -> Incendio
+    TipoCasa -> Y
+    Incendio -> Y
+    Incendio -> AlarmaActiva
+}
+")
+gr_1
+```
+
+Los datos observados de este sistema (1500 casas) son:
+
+```{r}
+datos_tbl <- read_csv("datos/detectores-humo.csv")
+datos_tbl |> head()
+```
+
+Aquí puedes intentar algunas gráficas y cruces con estos datos observacionales. 
+Lo que nos interesa primero es calcular la mediana de pérdidas por grupo:
+
+```{r}
+datos_tbl |> group_by(detector) |>
+  summarise(mediana_perdidas = median(perdidas), n = n())
+```
+
+**Pregunta 0**: usa bootstrap o algunas muestras bootstrap para convencerte de 
+que el tamaño (alrededor de 17 mil en pérdidas) 
+de esta diferencia no se debe a variación muestral 
+(o cualquier otr método apropiado).
+
+```{r}
+remuestra <- function(dat_tbl){
+  dat_tbl |> slice_sample(n = nrow(dat_tbl), replace = TRUE)
+}
+```
+
+
+**Pregunta 1**: explica en términos del diagrama causal, caminos activos y 
+bloqueados y $d$-separación por qué no podemos interpretar la diferencia de 
+estas dos cantidades como el efecto causal de tener detector vs no tenerlo.
+
+**Pregunta 2**: explica en términos del problema por qué cuando comparamos casas 
+con detector y sin detector, la diferencia de pérdidas que observamos
+en la tabla de arriba puede exagerar el efecto de tener un detector de humo.
+
+**Pregunta 3**: Supón que pudieras en la realidad hacer un experimento, de 
+manera que asignes al azar el detector de humo a una selección grande de casas 
+seleccionadas al azar, en unas pondrías un detector de humo real y en 
+otras (control) no. Entonces tendrías nuevos datos para hacer el análisis. 
+¿Cómo harías el análisis? (Hint: en este caso, puedes comparar los grupos 
+directamente). Explica por qué aquí el enfoque ingenuo de comparar grupos
+funciona (usa tus respuestas de las preguntas 1 y 2).
+
+## Fórmula de ajuste y cirugía de gráficas
+
+En esta parte, veremos cómo **identificar** el efecto causal usando los datos observacionales. Esto quiere decir que queremos ver cómo usar los datos 
+observacionales para construir un estimador del efecto causal del 
+detector de humo.
+
+La instalación del detector de humo tiene un proceso generador en los
+datos observacionales. Supongamos que vamos a intervenir nuestro proceso, y 
+decidimos nostros si ponemos o no un detector, como si fuera un experimento. 
+Hacemos una gráfica para mostrar el nuevo diagrama hipotético 
+(que sería el correspondiente a un experimento donde la asignación del 
+tratamiento no tiene qué ver con otras variables del sistema).
+
+Este diagrama consiste en quitar todas las flechas que llegan a tratamiento. Aquí
+ponemos en gris las flechas que eliminamos:
+
+```{r}
+#| code-fold: true
+#| layout-ncol: 2
+#| fig-cap: 
+#|   - "Proceso natural (observado)"
+#|   - "Proceso intervenido"
+gr_2 <- grViz('
+digraph {
+  graph [ranksep = 0.1]
+  node [shape=plaintext]
+  edge [minlen = 3]
+    TipoCasa -> T [color="gray"]
+    Seguro -> T [color="gray"]
+    T -> AlarmaActiva
+    AlarmaActiva -> Y
+    TipoCasa -> Incendio
+    TipoCasa -> Y
+    Incendio -> Y
+    Incendio -> AlarmaActiva
+}
+')
+gr_2
+```
+
+La razón es que ahora el proceso que determina la instalación del 
+detector $T$ *no importa*, pues en este nuevo proceso generador nosotros determinados
+quién tendrá $T=1$ o $T=0$. Esta es la gráfica $G_m$ mutilada con el propósito 
+de intervenir en detector ($T$).
+
+Nótese que **ningún** nodo diferente el proceso generador cambia. En todos es el mismo proceso para generar cada nodo, sólo alteramos el proceso generador de **T**.
+
+Idealmente quisiéramos producir datos observados de este *nuevo* proceso generador
+(fijando una $T$ por ejemplo), donde la asignación de $T$ no responde a variables
+que están dentro de nuestro sistema.
+
+Llamaremos a $p_m$ la conjunta que gobierna a esta nuevo proceso $G_m$ intervenido,
+y recuerdamos que $p$ es la conjunta para el proceso observacional original.
+
+**Pregunta 4**: Utiliza las gráficas para explicar por qué $p_m$ es diferente a $p$. Por ejemplo,
+
+  - ¿Es cierto que $p(T|TipoCasa) = p(T)$? ¿Es cierto que $p_m(T|TipoCasa) = p_m(T)$?
+  - Bajo $p$, ¿existe correlación entre tener seguro e Incendio (tamaño del incendio)?
+  - Bajo $p_m$, explica por qué no hay correlación entre seguro e incendio.
+  
+**Pregunta 5**: Utiliza las gráficas para explica por qué $p_m$ tiene similitudes con $p$. Por ejemplo:
+
+- Argumenta que $p(Incendio|TipoCasa=1) = p_m(Incendio|TipoCasa=1)$ y
+  $p(Incendio|TipoCasa=0) = p_m(Incendio|TipoCasa=0)$, es decir las condicionales   
+  $p(Incendio|TipoCasa)$ y $p_m(Incendio|TipoCasa)$ son iguales.
+
+Tip: piensa en qué variables escucha Incendio para "poner" su nivel?¿Tiene qué ver con
+las flechas que quitamos?
+
+
+## Identificación con la fórmula de ajuste
+
+**Por definición**, el efecto causal $p(Y|do(T))$ está dado por la 
+distribución $p_m$ de la gráfica mutilada $G_m$ como:
+
+$$p(y|do(T))=p_m(Y|T)$$
+El lado derecho es una cantidad probabilística usual (no tiene misterio!). El 
+problema es que en principio **no** tenemos los datos para estimarla, pues los datos
+observados que tenemos provienen de $p$, no de $p_m$.
+
+Sin embargo, como vimos arriba, a veces es posible escribir probabilidades 
+asociadas a $p_m$ en términos de $p$. La fórmula de ajuste es un ejemplo. 
+
+## Fórmula de ajuste
+
+La fórmula de ajuste comienza con la regla de probabilidad total ($c$ es tipo
+de casa y $s$ es seguro):
+
+$$p_m(y|t) = \int p_m(y|t, c, s) p_m(c, s| t)\, dcds$$ 
+
+**Pregunta 6**: Explica por qué esta es la fórmula de probabilidad total, y que 
+sólo estamos marginalizando $c$ y $s$. Puedes comenzar con 
+la forma más familiar de probabilidad total $q(y) = \int q(y|a,b)q(a,b)\,dadb$, 
+y después condiciona.
+
+Ahora hacemos algunas observaciones de cómo es $p_m$.
+
+1. Comenzamos con el primer término $p_m(y|t,c,s)$. Observa la *gráfica original* no
+manipulada, y considera qué pasa si condicionamos a $t,c$ y $s$. En este caso, como
+$t,c,s$ están fijos, las flechas que van de tipo de casas a detector y de seguro 
+a detector $t$ **no importan**, pues bloqueamos $T$ y todos sus padres. Por esta razón,
+podemos obtener esta distribución del proceso de datos observados:
+
+$$p_m(y|t,c,s) = p(y|t,c,s)$$
+Sustituyendo, obtenemos en nuestra fórmula original:
+
+$$p_m(y|t) = \int p(y|t, c, s) p_m(c, s| t)\, dcds$$ 
+
+El primer factor de esta integral está *identificado*, porque podemos construir
+una estimación de él con datos observados.
+
+
+2. Ahora veamos el segundo término $p_m(c,s|t)$. Aquí observamos que $t$ está 
+$d$-separado de $c$ y $s$. En $G_m$, la gráfica manipulada (obsérvala), 
+todas las rutas entre $t$ y $(c,s)$ pasan por un colisionador no condicionado, 
+y por lo tanto:
+
+$$p_m(c,s|t) = p_m(c,s)$$
+La razón más general puedes dejarla para una segunda leída, pero aquí está:
+cualquier camino entre $t$ y $c$, por ejemplo, tiene que salir
+de $t$ (pues quitamos todas sus aristas entrada). Pero no puede entrar a $c$, pues 
+entonces existiría un ciclo en el diagrama original $G$ (y sólo usamos gráficas 
+dirigidas acíclicas). Por lo tanto, tiene que salir de $t$ y salir también 
+de $c$. Así que debe haber un colisionador en este camino, que no puede ser 
+ni $t$ ni $s$ ni $c$. Como no estamos condicionando a nada más, ese camino 
+está bloqueado.
+
+**Pregunta 7**: explica por qué condicionar a otras variables sin cuidado puede 
+hacer que este argumento de arriba deje de funcionar.
+
+
+
+3. Finalmente, consideramos $p_m(c,s)$. De la gráfica original, sólo alteramos
+los caminos que pasan por $t$, y los demás se quedan igual. Pero como en $p(c,s)$ no
+condicionamos a $t$, esos caminos que pasan por $t$ están bloqueados en la gráfica 
+original por el colisionador $t$. El resto de los caminos no los tocamos, así que
+
+$$p_m(c,s) = p(c,s)$$
+Ahora recordamos nuestra regla de probabilidad total con la que comenzamos. 
+Sustituyendo 1,2 y 3, la ecuación en $p_m$ dada por
+
+$$p_m(y|t) = \int p_m(y|t, c, s) p_m(c, s| t)\, dcds$$ 
+
+se convierte en
+
+$$p_m(y|t) = \int p(y|t, c, s) p(c, s)\, dcds,$$ 
+
+**Que está en términos de la distribución de los datos observados**, es decir,
+¡hemos identificado $p_m(y|t)$, pues todo lo relacionado con $p$ puede ser estimado
+con datos observacionales.
+
+**Pregunta 8**: explica en tus palabras por qué es importante que el lado derecho 
+esté en términos de la distribución de datos observados.
+
+
+## Interpretación de la fórmula de ajuste
+
+- La fórmula de ajuste dice que primero *fijamos* las causas de asignación del 
+tratamiento $t$, que son $c$ y $s$, y calculamos entonces la condicional de $y$ 
+dado $t$ (con $c$ y $s$ fijas).
+- Esto nos da el efecto de $t$ sobre $y$ condicional al tipo de observación 
+(tipo de casa $c$ y si tiene o no seguro $s$).
+- Finalmente, estimamos el efecto promedio en la población ponderando por 
+la distribución de $p(c,s)$.
+
+Así que si ponemos $t=1$ en esta fórmula, vemos el efecto en cada combinación $c$ y $s$ y 
+promediamos sobre su frecuencia en la población.
+
+**Pregunta 9**: explica por qué esta idea se puede expresar como sigue: "comparar
+p(y|t=1) y p(y|t=0) puede ser comparar peras con manzanas, porque se asigna el detector
+de humo $t$ a distintas poblaciones de casas. Pero si controlamos por las razones 
+que son diferentes con la fórmula de ajuste, ya podemos comparar peras con peras".
+
+## Marginalizando y fórmula de ajuste
+
+Antes de seguir, recordamos que si tenemos una conjunta $p(x,y,z)$ por ejemplo,
+marginalizar variables (por ejemplo $z$) implica hacer la integral
+
+$$p(z) = \int p(x,y,z) dxdy,$$
+y nos quedamos con la marginal de $z$. 
+
+En términos de simulación, si no queremos marginalizar por fórmula, podemos 
+aproximar así:
+
+- Simulamos $(x, y, z)$ de $p(x,y,z)$
+- Tiramos $x$ y $y$ para quedarnos con $z$
+- La distribución de las $z$'s simuladas aproximan la marginal $p(z)$
+
+En la fórmula de ajuste estamos marginalizando sobre los padres del 
+tratamiento $t$. 
+
+**Pregunta 10**: En la fórmula de la integral, suponemos $t$ fijo 
+(por ejemplo, igual a 1). Si pudiéras simular de las distribuciones 
+p(y|t,c,s) y p(c,s), explica cómo generarías valores de pérdida $y$ para 
+casas con detector de humo $t=1$. Explica por qué estas son simulaciones 
+de $p(y|do(t)) = p_m(y|t)$.
+
+
+## Resolviendo el problema de los detectores de humo.
+
+Nuestro siguiente paso es especificar y ajustar los modelos de los nodos
+de nuestro diagrama con los datos observacionales. Este paso no lo haremos
+ni explicaremos aquí, así que suponemos que ya ajustamos todos los modelos 
+univariados.
+
+
+Supondremos también que nuestra que nuestra estimación es muy precisa, así que 
+usaremos estimadores puntuales para todos los parámetros.
+Más adelante veremos cómo hacer esto con muestras finitas y parámetros con
+incertidumbre.
+
+Aquí estamos modelando todo lo que conocemos del proceso (aunque veremos más
+adelante que no siempre es necesario ni posible hacer todos los modelos del 
+diagrama):
+
+```{r}
+sim_modelos_ajustados <- function(n = 10, detector, datos_tbl){
+ 
+  ### estimar parámetros ####
+  p_seguro <- mean(datos_tbl$seguro)
+  p_tipo_casa <- mean(datos_tbl$tipo_casa)
+  ###### simular seguro y tipo de casa ##########
+  seguro <- rbinom(n, 1, p_seguro) # estimamos 0.2 de los datos
+  tipo_casa <- rbinom(n, 1, p_tipo_casa) # estimamos 0.5 de los datos
+  # estimamos parámetros para incendios:
+  datos_tipo_1 <- datos_tbl |> filter(tipo_casa == 1)
+  datos_tipo_0 <- datos_tbl |> filter(tipo_casa == 0)
+  lambda_tipo_1 <- 1 / mean(datos_tipo_1$incendio)
+  lambda_tipo_0 <- 1 / mean(datos_tipo_0$incendio)
+  ## simular incendio
+  incendio <- rexp(n, lambda_tipo_1 * tipo_casa +
+                      lambda_tipo_0 * (1 - tipo_casa)) 
+  # en los parámetros que siguen, suponemos que ya los estimamos:
+  alarma_activa <- ifelse(detector == 1, 
+    1/(1 + exp(-3.02 * incendio)), 0.0) # "est" de datos
+  # finalmente, simulación de y, con parámetros "estimados" de los datos:
+  media_perdidas <-  (102.1 * incendio) * (2542 - 1076 * tipo_casa - 503 * alarma_activa)
+  var_perdidas <- media_perdidas * 1.98
+  a <- media_perdidas^2 / var_perdidas
+  b <- var_perdidas / media_perdidas
+  perdidas <- rgamma(n, a, b)
+  # marginalizar ("integrar")
+  tibble(detector, perdidas)
+}
+```
+
+
+Y ahora simulamos una cantidad grande de casas con y sin detector de humo
+y calculamos la mediana
+
+```{r}
+sims_efecto <- map_df(c(0, 1),
+  ~ sim_modelos_ajustados(5000, detector = .x, datos_tbl))
+sims_efecto |> group_by(detector) |> 
+  summarise(mediana_perdidas = median(perdidas))
+```
+Y esta es nuestra estimación del efecto causal del detector.
+
+**Pregunta 11**: compara el estimador ingenuo que hicimos al principio con
+el estimador que obtuvimos aquí. Explica en tus palabras por qué son diferentes,
+y por qué el estimador ingenuo es probablemente una sobreestimación del efecto
+causal.
+
+**OJO** (opcional, para explicar más adelante) : la fórmula de ajuste también sugiere que no es necesario utilizar todo
+el modelo causal, basta con modelar las pérdidas en términos de t,c y s, y 
+luego ponderar c y s según los datos observacionales.
+
+
+
+
+
+
+
+
+
+
