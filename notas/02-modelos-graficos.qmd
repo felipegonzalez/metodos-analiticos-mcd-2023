@@ -1355,8 +1355,7 @@ para construir los estimadores correctos de los efectos causales de interés.
 Ahora supongamos que $Z = \{Z_1,Z_2,\ldots, Z_q\}$ son una colección
 de nodos. Decimos que un camino $p$ entre $X$ y $Y$ está **activo condicional a los nodos en** $Z$ cuando:
 
-1. Siempre que hay un colisionador $X_i\to Z\gets X_j$ en el camino $p$, entonces
-$Z$ o alguno de sus descendientes está en $Z$.
+1. Siempre que hay un colisionador $X_i\to U\gets X_j$ en el camino $p$, entonces $U$ o alguno de sus descendientes está en $Z$
 2. Ningún otro nodo a lo largo de $p$ está en $Z$.
 
 En caso contrario, decimos que el camino $p$ está **bloqueado**.
