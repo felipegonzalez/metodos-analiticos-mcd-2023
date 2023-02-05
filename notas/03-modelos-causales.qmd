@@ -5,7 +5,7 @@ como maneras de factorizar un modelo probabilístico, sino
 también como una manera de establecer nuestros supuestos causales
 acerca del problema de interés. Estos son supuestos que son necesarios para hacer inferencia causal. 
 
-Comenzaremos entonces con una pregunta fundamental de inferencia causal: ¿qué sucede si modificamos una variable $X=x$ en una respuesta $Y$? 
+Comenzaremos entonces con una pregunta fundamental de inferencia causal: ¿qué sucede si modificamos una variable $X=x$ a una variable respuesta $Y$? 
 ¿Podemos estimar este efecto a partir de datos observados? La respuesta dependerá
 de nuestros supuestos causales, y veremos varios ejemplos de cuándo es posible 
 y cómo **identificar** y calcular estas estimaciones causales.
@@ -79,8 +79,8 @@ simular_t <- function(n = 10, dia = 150){
   # simular un año, alrededor del día 160 (en junio)
   t_maxima <- rnorm(n, 28, 2)
   mosquitos <- rpois(n, 250 + 10 * (t_maxima - 28))
-  unidades <- rnorm(n, 20000 + 2000 * (t_maxima -  28), 2000)
-  tibble(t_maxima, unidades, mosquitos)
+  a_unidades <- rnorm(n, 20000 + 2000 * (t_maxima -  28), 2000)
+  tibble(t_maxima, a_unidades, mosquitos)
 }
 set.seed(128)
 simular_dias <- simular_t(50)
@@ -90,7 +90,7 @@ Si simulamos, vemos que $mosquitos$ y $unidades$ son dependientes, pues tenemos
 un camino abierto dado por la bifurcación en temperatura:
 
 ```{r, fig.width = 5, fig.height=3.5}
-ggplot(simular_dias, aes(x = unidades, y = mosquitos)) + geom_point() +
+ggplot(simular_dias, aes(x = a_unidades, y = mosquitos)) + geom_point() +
   geom_smooth(method = "loess", method.args = list(degree = 1)) +
   xlab("Ventas de agua embotellada")
 ```
@@ -127,16 +127,23 @@ digraph {
 ```
 
 En esta nueva gráfica, $A$ y $Z$ son independientes, que es la respuesta correcta.
-Veamos cómo simularíamos de esta gráfica después de la cirugía. Establecemos
-un valor fijo de unidades, y seguimos el resto del modelo:
+Como cambiamos la gráfica, su proceso generador es diferente al original
+de los datos observados. Sin embargo, en este ejemplo puedes ver por qué es
+claro que el cambio que hicimos (manipular $A$ en lugar de que esté determinado
+por su proceso generador original) no cambia el modelo de $Z$, de manera
+que podemos simular de nuestro nuevo proceso generador donde manipulamos $A$:
 
 ```{r}
-simular_cirugia <- function(n = 10, unidades = unidades){
+simular_cirugia <- function(n = 10, a_unidades = a_unidades){
   # simular un año, alrededor del día 160 (en junio)
   t_maxima <- rnorm(n, 28, 2)
+  #### cirugía #########
+  # ahora a_unidades es fijado por nosotros:
+  # a_unidades <- rnorm(n, 20000 + 2000 * (t_maxima -  28), 2000)
+  a_unidades <- a_unidades
+  ######################
   mosquitos <- rpois(n, 250 + 10 * (t_maxima - 28))
-  unidades <- unidades
-  tibble(t_maxima, unidades, mosquitos)
+  tibble(t_maxima, a_unidades, mosquitos)
 }
 ```
 
@@ -146,12 +153,12 @@ Y ahora simulamos y graficamos $p(z|do(a))$ para distintos valores de $u$:
 ```{r}
 set.seed(128)
 simular_dias_2 <- map_df(seq(10000, 30000, 1000),
-  \(u) simular_cirugia(50, unidades = u))
+  \(u) simular_cirugia(50, a_unidades = u))
 ```
 
 
 ```{r, fig.width = 5, fig.height=3.5}
-ggplot(simular_dias_2, aes(x = unidades, y = mosquitos)) +
+ggplot(simular_dias_2, aes(x = a_unidades, y = mosquitos)) +
   geom_point() + geom_smooth()
 ```
 
@@ -161,7 +168,7 @@ y tasa de crimen.
 ## Cálculo-do de Pearl
 
 El cálculo do nos da reglas para operar con probabilidades que incluyen
-nuestro operador do de intervención. En este ejemplo particular, veremos 
+nuestro operador *do* de intervención. En este ejemplo particular, veremos 
 cómo es el argumento:
 
 Nótese que al intervenir $A$ hemos modificado el proceso generador. Si la conjunta original
@@ -191,12 +198,16 @@ La segunda igualdad la obtenemos por la independencia entre $T$ y $Z$ en nuestra
 gráfica modificada (están $d$ separadas):
 
 $$p_m(z|a) = \int p_m(z|a,t)p_m(t|a)dt = \int p_m(z|a,t)p_m(t)dt$$
+En segunda igualdad, nótese que cambiamos $p_m(t|a) = p_m(t)$, lo cual podemos
+verificar pues en la gráfica modificada $A$ y $T$ están $d$-separados.
+
 Finalmente, las últimas dos distribuciones podemos extraerlas de los datos, como
 explicamos arriba $p_m(z|t,a) = p(z|t,a)$ y $p_m(t) = p(t),$ y terminamos con la
 fórmula
 
 $$p(z|do(a))=p_m(z|a) = \int p(z|a,t)p(t)dt $$
-Las dos distribuciones de la derecha las tenemos pues están en el contexto
+
+Las dos distribuciones de la derecha pueden ser estimadas pues están en el contexto
 de $p$, el proceso generador de datos. Así que podemos estimarlas
 de los datos observados.
 
@@ -220,8 +231,8 @@ que podemos calcular de manera simple con simulación:
 
 ```{r}
 simular_contraste <- map_df(c(20000, 30000),
-  \(u) simular_cirugia(1000, unidades = u)) |> 
-  group_by(unidades) |> 
+  \(u) simular_cirugia(1000, a_unidades = u)) |> 
+  group_by(a_unidades) |> 
   summarise(media_mosquitos = mean(mosquitos))
 simular_contraste
 ```
@@ -390,7 +401,7 @@ A este proceso se llama de diferentes maneras en distintos contextos:
 
 **Nota 1**: Con este principio podemos resolver algunos problemas, pero
 no todos. Veremos que en algunos casos existen padres que no son observados,
-por ejemplo, no es posible condicionar para usar la fórmula de ajuste y es necesario desarrollar más estrategias.
+por ejemplo, no es posible condicionar para usar la fórmula de ajuste y es necesario desarrollar otras estrategias.
 
 **Nota 2**: En regresión lineal, cuando incluímos una variable en el modelo (que consideramos una variable control), estamos
 estratificando por ella: por ejemplo, en el modelo lineal $U\sim N(m_u(d,t), \sigma_u)$,
