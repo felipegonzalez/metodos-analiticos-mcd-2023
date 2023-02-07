@@ -49,7 +49,8 @@ model {
   sigma_d ~ normal(0, 1);
   // modelo de ventas
   for(i in 1:N){
-      unidades[i] ~ normal(10000 * media_unidades[i], 10000 * sigma_unidades);
+      unidades[i] ~ normal(10000 * media_unidades[i],
+        10000 * sigma_unidades);
   }
   sigma_unidades ~ normal(0, 0.5);
   // iniciales para cantidades no medidas
@@ -59,19 +60,21 @@ model {
 }
 
 generated quantities{
-  real t_sim;
   array[11] real unidades_sim;
 
-
-  // Extraemos una temperatura
-  t_sim = normal_rng(mu_t + 28, sigma_t);
-  // calculamos la media para la temperatura y desabasto
   for(i in 1:11){
-    real media_unidades_sim = alpha_u + beta_t * (t_sim - 28) + beta_d * desabasto_sim[i];
-    // simulamos unidades
-    //unidades_sim_1 = normal_rng(10000 * media_unidades_sim, 10000 * sigma_unidades);
-    // podemos calcular la media haciendo simulación aquí, pero no es necesario
-   // por la forma del modelo, la media es:
-    unidades_sim[i] = 10000 * media_unidades_sim;
+    array[2000] real unidades_sim_1;
+    for(k in 1:2000){
+      // Extraemos una temperatura
+      real t_sim = normal_rng(mu_t + 28, sigma_t);
+      // calculamos la media para la temperatura y desabasto
+      real media_unidades_sim = alpha_u +
+      beta_t * (t_sim - 28) + beta_d * desabasto_sim[i];
+      // simulamos unidades
+      unidades_sim_1[k] = normal_rng(10000 * media_unidades_sim,
+        10000 * sigma_unidades);
+    }
+   // promediamos si nos interesa el valor esperado de unidades
+    unidades_sim[i] = mean(unidades_sim_1);
   }
 }

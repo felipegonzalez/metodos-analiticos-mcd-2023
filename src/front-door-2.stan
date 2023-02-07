@@ -57,8 +57,8 @@ generated quantities {
   array[n_f] real mean_c;
 
   for(i in 1:n_f){
-    array[1000] real res_sim;
-    for(j in 1:1000){
+    array[2000] real res_sim;
+    for(j in 1:2000){
       real a_sim = normal_rng(beta * (do_f[i]), sigma_a);
       real f_sim = gamma_rng(a_f, b_f);
       res_sim[j] = bernoulli_rng(inv_logit(int_a + alpha_a * a_sim + alpha_f * f_sim));

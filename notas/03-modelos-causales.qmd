@@ -394,10 +394,38 @@ calcular $p(y|x,z_1,z_2)$, y después marginalizamos sobre los padres.
 
 Esta fórmula se extiende a más de dos padres $Z_1,Z_2,Z_3,\ldots, Z_k$.
 
+::: callout-tip
+
 A este proceso se llama de diferentes maneras en distintos contextos:
 
 - Estamos calculando el efecto causal **estratificando** por las variables $z$.
 - **Controlamos**  por las variables $z$ para calcular el efecto causal.
+
+:::
+
+Podemos pensar en esta fórmula de dos maneras: en primer lugar,
+si estamos modelando toda nuestra gráfica causal, podemos
+simular de la conjunta de la gráfica mutilada:
+
+1. Fijando el nivel del tratamiento $T$
+2. Simulando $p(z_1,z_2,\ldots, z_k)$ (marginalizando
+estas variables), 
+3. Usar $t$ y las $z$ simuladas para simular $y$
+
+El otro enfoque busca sólo construir modelos para la
+parte que nos interesa:
+
+1. Construir un modelo 
+separado para $p(z_1, z_2,\ldots, z_k) = p(z)$
+(que puede ser difícil si tenemos muchas variables) a partir los datos
+2. Construir un modelo  $p(y|t, z)$ para simular la $y$ a partir
+de los datos.
+3. Ignoramos el resto de nuestra gráfica en este caso.
+
+Finalmente, si tenemos un modelo $p(y| t, z)$ podemos también
+investigar cómo se comporta $E[y|t_2,z] - E[y|t_1,z]$ para distintos
+combinaciones de valores de $Z$.
+
 
 **Nota 1**: Con este principio podemos resolver algunos problemas, pero
 no todos. Veremos que en algunos casos existen padres que no son observados,
@@ -413,6 +441,14 @@ Estamos calculando un estimador para cada valor de $T=t$, que es:
 $$m_u = (\beta_0 + \beta_2 t) + \beta_1 d = \gamma_0 + \gamma_1 d$$
 Esta es una de las maneras más simples de obtener el efecto de $d$ estratificando por,
 o controlando por $t$, *siempre y cuando los modelos lineales sean apropiados*.
+
+Nótese que en este último caso, tenemos que el efecto de $d$
+no depende de las covariables, de forma que no es necesario hacer
+el promedio sobre la conjunta, es decir, suponemos que
+el efecto causal es el mismo independientemente de los valores de 
+las variables de control. Sin embargo, este no siempre es el caso.
+
+
 
 ## Experimentos
 
@@ -497,9 +533,12 @@ Más adelante veremos más de diseño de experimentos, qué variables utilizar
 para mejorar su precisión, y su relación con nuestro análisis basado en DAGs causales.
 
 
+
+
 ## Simulación para estimar efectos causales
 
-La estrategia más general y conceptualmente simple para usar la idea de la fórmula
+La estrategia más general y conceptualmente simple (aunque técnicamente
+puede ser difícil por la multitud de modelos necesarios) para usar la idea de la fórmula
 de ajuste es utilizar simulación:
 
 ::: callout-note
@@ -530,7 +569,6 @@ En primer lugar, empezamos con el diagrama causal original, y establecemos
 nuestros modelos locales
 
 ```{r}
-#| message: false
 library(cmdstanr)
 mod_agua <- cmdstan_model("../src/agua-1.stan")
 print(mod_agua)
@@ -592,7 +630,7 @@ ggplot(aes(x=desabasto, y = media_unidades,
   geom_point() +
   geom_linerange()
 ```
-Esta gráfica es difícil de interpretar, porque puede haber correlación
+Esta gráfica puede ser difícil de interpretar, porque puede haber correlación
 entre los distintos estimadores que estamos presentando.
 
 Para comparar, lo mejor es hacer contrastes. Comparamos con la situación
@@ -699,9 +737,14 @@ Ahora veamos cómo calcular el efecto causal **total** de sexo sobre peso.
 *Podemos ver que no hay ninguna flecha que llegue a $S$, de modo que para el
 efecto total no es necesario hacer cirugía ni usar la fórmula de ajuste.* 
 
+::: callout-tip
+# Condicionando equivocadamente
+
 De hecho, en este ejemplo sería mala idea condicionar a la estatura $H$, pues cerramos
 un camino causal por el que $S$ influye en $W$, y al mismo tiempo abrimos un
 camino no causal que pasa por $U$.
+
+:::
 
 El análisis detallado de la gráfica es:
 
@@ -796,7 +839,7 @@ sims |> ggplot(aes(x = dif_male)) +
 Y obtenemos el mismo resultado con un modelo más simple. El modelo
 anterior lo usaremos después para explorar el concepto de *mediación*.
 
-# Bloqueando puertas traseras
+## Bloqueando puertas traseras
 
 En las partes anteriores vimos qué estratificando por los padres
 de la variable de tratamiento $X$ podíamos construir un estimador del
@@ -807,7 +850,8 @@ causales sean aproximadamente correctos).
 Sin embargo, esta aplicación de la fórmula de ajuste no funciona
 si existen padres que no fueron observados, y por tanto no podemos estratificar por ellos. El siguiente método (ajuste por "puerta trasera")
 nos da una técnica adicional que podemos usar dado ciertos tipos
-de estructura en nuestro modelo causal. Nótese que una vez más,
+de estructura en nuestro modelo causal, y presenta una
+mejoría sobre la fórmula de ajuste simple (veremos también por ejemplo, que a veces podemos usar menos variables que padres de la variable de interés). Nótese que una vez más,
 este criterio sólo depende de la gráfica causal $G$ asociada a nuestro
 modelo, y no los modelos locales que utilizemos para modelar la
 condicional de cada nodo.
@@ -818,7 +862,8 @@ condicional de cada nodo.
 Si tenemos dos variables $T$ y $Y$ en una gráfica $G$, un conjunto $Z$
 de variables satisface el **criterio de puerta trasera** relativo
 a $T$ y $Y$ cuando $Z$ bloquea cualquier camino entre $T$ y $Y$ que 
-tenga una arista que incida en $T$.
+tenga una arista que incida en $T$, y ninguna variable de $Z$ es 
+descendiente de $T$.
 
 En tal caso, podemos utilizar la fórmula de ajuste, pero en lugar de
 estratificar por los padres de $T$, estratificamos por las variables en $Z$
@@ -828,16 +873,19 @@ La idea es:
 
 1. Queremos bloquear todos los caminos no causales entre $T$ y $Y$.
 2. Queremos no perturbar todos los caminos dirigidos de $T$ a $Y$ (caminos causales).
-3. Queremos no crear caminos no causales al condicionar.
+3. No queremos activar caminos no causales al condicionar.
 
 Cumplimos 1 al estratificar por variables que bloquean los caminos
 que son causas de $T$, pues estos caminos no son causales y distorsionan
-la relación entre $T$ y $Y$. También nuestro criterio satisface 2, pues
-no intentamos bloquear caminos causales (todos ellos comienzan con $T\to$).
+la relación entre $T$ y $Y$. Al mismo tiempo, no bloqueamos caminos
+causales porque ningúna variable de $Z$ es descendiente de $T$,
+de modo que se satisface el criterio 2 (todos los caminos causales
+comienzan con $T\to$).
 Finalmente, nuestro criterio también implica que no condicionamos a 
-colisionadores, pues estos ocurren en caminos de la forma $X\to U_1 \cdots V_\gets Y$.
+colisionadores, pues estos ocurren en caminos de la forma $T\to U_1 \cdots V\gets Y$, y esto activa caminos entre $T$ y $Y$ 
+que inciden en $T$.
 
-### Ejemplo (Pearl)
+### Ejemplo (Pearl) {-}
 
 Consideramos primero este ejemplo simple, donde queremos
 evaluar la efectividad de un tratamiento en cierta enfermedad.
@@ -860,11 +908,14 @@ digraph {
   node [shape = circle]
     NSE
     Peso
+    U
   edge [minlen = 3]
     NSE -> Peso
     NSE -> Trata
     Trata -> Res
     Peso -> Res
+    U -> NSE
+    U -> Peso
 }
 ")
 
@@ -874,7 +925,7 @@ Observamos que no podemos directamente usar la fórmula de ajuste pues NSE no
 es una variable observada.
 
 En esta circunstancia no podríamos identificar el efecto causal, pues
-existe un camino abierto no causal. Quizá el tratamiento no es 
+existen un caminos abiertos no causales. Quizá el tratamiento no es 
 muy efectivo, y parece ser bueno pues fue aplicado a personas
 con menor peso que las que no recibieron el tratamiento, a través
 del efecto de NSE. Sin embargo, supón que tuviéramos disponible
@@ -891,18 +942,21 @@ digraph {
     Peso
   node [shape = circle]
     NSE
+    U
   edge [minlen = 3]
     NSE -> Peso
     NSE -> Trata
     Trata -> Res
     Peso -> Res
+    U -> NSE
+    U -> Peso
 }
 ")
 
 ```
 En este caso, todavía no podemos aplicar la fórmula original de ajuste
-pues no conocemos $NSE$. Sin embargo, podemos bloquear el camino
-no causal estratificando por Peso, y entonces podemos usar el
+pues no conocemos $NSE$. Sin embargo, podemos bloquear los caminos
+no causales estratificando por Peso, y entonces podemos usar el
 criterio de puerta trasera para identificar el efecto del tratamiento,
 aún cuando no tengamos NSE.
 
@@ -913,7 +967,7 @@ Primero consideramos un modelo generador:
 ```{r}
 simular_bd <- function(n = 10){
   nse <- sample(c(0, 1), n, replace = TRUE)
-  peso <- rnorm(n, 70 - 5 * nse, 12 + 2 * nse)
+  peso <- rnorm(n, 70 - 7 * nse, 12 + 2 * nse)
   trata <- rbinom(n, 1, 0.8 * nse + 0.2 * (1 - nse))
   p_trata <- inv_logit(1 * trata - 0.2 * (peso - 70))
   res <- rbinom(n, 1, p_trata)
@@ -922,10 +976,10 @@ simular_bd <- function(n = 10){
 datos_bd <- simular_bd(10000)
 head(datos_bd)
 ```
-Veamos qué sucede si cruzamos tratamiento con resultado (bueno):
+Veamos qué sucede si cruzamos tratamiento con resultado (es una muestra
+grande y el error de estimación no es importante):
 
 ```{r}
-set.seed(428)
 datos_bd |> 
   count(trata, res) |>
   group_by(trata) |> 
@@ -937,14 +991,14 @@ datos_bd |>
 Sabemos que esta diferencia en respuesta puede estar confundida
 por un camino no causal. El verdadero efecto casual podemos
 calcularlo en nuestras simulaciones como sigue a partir 
-de nuestro modelo:
+de nuestro modelo (igualmente, usamos una muestra muy grande):
 
 ```{r}
 simular_efecto <- function(n = 10, peso = NULL){
   # cómo es la población
   nse <- sample(c(0, 1), n, replace = TRUE)
   if(is.null(peso)){
-    peso <- rnorm(n, 70 - 5 * nse, 12 + 2 * nse)
+    peso <- rnorm(n, 70 - 7 * nse, 12 + 2 * nse)
   }
   # asignar al azar
   trata <- rbinom(n, 1, 0.5)
@@ -952,22 +1006,24 @@ simular_efecto <- function(n = 10, peso = NULL){
   res <- rbinom(n, 1, p_trata)
   tibble(nse, peso, trata, res)
 }
-sims_efecto <- simular_efecto(10000)
-sims_efecto |> 
+sims_efecto <- simular_efecto(20000)
+resumen <- sims_efecto |> 
   count(trata, res) |>
   group_by(trata) |> 
   mutate(p = n / sum(n)) |> 
   filter(res == 1) |> 
   ungroup() |> 
   mutate(dif = p - lag(p))
+dif_real <- resumen$dif[2]
+resumen
 ```
 La estimación del cruce simple es casi 50% más grande que
-el tamaño del efecto.
+el tamaño verdadero del efecto.
 
 Podemos también calcular el efecto para un peso particular:
 
 ```{r}
-sims_efecto <- simular_efecto(10000, peso = 70)
+sims_efecto <- simular_efecto(20000, peso = 70)
 res_70 <- sims_efecto |> 
   count(trata, res) |>
   group_by(trata) |> 
@@ -988,13 +1044,15 @@ podríamos calcular las diferencias para un peso particular,
 por ejemplo 70 kg (en lugar de modelar estaturas para producir
 una estimación de diferencia promedio).
 
+Usaremos una muestra de 2 mil personas:
+
 ```{r}
 mod_trata <- cmdstan_model("../src/trata-backdoor.stan")
 print(mod_trata)
 ```
 
 ```{r}
-set.seed(95)
+set.seed(915)
 datos_bd <- simular_bd(2000)
 datos_lista <- list(N = nrow(datos_bd),
   trata = datos_bd$trata, res = datos_bd$res,
@@ -1003,6 +1061,7 @@ ajuste <- mod_trata$sample(data = datos_lista, refresh = 1000)
 sims <- ajuste$draws( format = "df")
 resumen <- ajuste$summary(c( "dif_trata"))
 ```
+
 ```{r}
 resumen |> select(variable, mean, q5, q95)
 sims |> select(dif_trata) |> 
@@ -1015,6 +1074,36 @@ también calcular el efecto en distintos pesos (nuestro estimador
 es una curva), promediar estimando una distribución de pesos modelada, o tomar una distribución fija de pesos para modelar (cada una de
 estas estrategias tiene propósitos diferentes).
 
+Si queremos tener un efecto promedio, podemos modelar los pesos. Otra
+estrategia es promediar sobre los valores observados de la muestra. Nótese
+que esto ignora una parte de la incertidumbre proveniente de la muestra
+particular usada (aunque podríamos usar bootstrap para incluir esta incertidumbre
+adicional):
+
+```{r}
+mod_trata <- cmdstan_model("../src/trata-backdoor-promedio.stan")
+print(mod_trata)
+```
+
+```{r}
+datos_lista <- list(N = nrow(datos_bd),
+  trata = datos_bd$trata, res = datos_bd$res,
+  peso = datos_bd$peso)
+ajuste <- mod_trata$sample(data = datos_lista, refresh = 1000)
+sims <- ajuste$draws(c("dif_trata"), format = "df")
+```
+
+
+```{r}
+resumen <- ajuste$summary(c( "dif_trata"))
+resumen |> select(variable, mean, q5, q95)
+sims |> select(dif_trata) |> 
+  ggplot(aes(x = dif_trata)) + geom_histogram() +
+  geom_vline(xintercept = dif_real, colour = "red")
+```
+
+Y recuperamos nuevamente el efecto verdadero que mostramos arriba.
+
 ## Reglas del cálculo-do (opcional)
 
 Existen tres axiomas básicos del cálculo-do de las que se 
@@ -1022,53 +1111,90 @@ derivan los demás resultados, como veremos en el siguiente
 ejemplo del criterio de la puerta delantera. 
 
 
+Antes de verlas, un resumen rápido de las reglas es el siguiente: 
+
+- La regla 1 nos dice que las distribuciones
+asociadas a intervenciones satisfacen también la equivalencia
+de $d$-separación e independencia condicional (si condicionamos y $Z$ y $Y$ están $d$ separadas).
+
+- La regla 2 es el criterio de la puerta trasera.
+
+- La regla 3 expresa que si no hay caminos causales de $X$ a $Y$, entonces $p(y|do(x)) = p(y)$.
+
+::: callout-tip
+# Completitud (Shpitser, Pearl)
+Si un efecto causal es identificable (puede expresarse en términos de cantidades observacionales), entonces puede
+derivarse una estrategia de identificación a partir de las
+tres reglas del cálculo-do.
+:::
+
+
+Con más generalidad, abajo están estas reglas (donde condicionamos a más variables o hacemos más intervenciones, y afinamos las condiciones):
+
 Denotamos por $G_m$ la gráfica mutilada por $do(x)$, donde
 quitamos todas las aristas que entran en $X$. Los tres axiomas son:
 
 
 **Regla 1** Ignorar observaciones:
-Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$
+Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$,
 
 $$ p(y|do(x), z, w) = p(y|do(x), w)$$
-O en otras palabras, si $p_m$ es la conjunta para $G_m$
+O en otras palabras, si $p_m$ es la conjunta para $G_m$,
 
 $$p_m(y|x,z,w) = p_m(y|x, w)$$
 es cierto si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$
-(condicionalmente independientes).
+(condicionalmente independientes). Así que esta regla es independencia
+condicional dado $d$-separación, pero para la gráfica intervenida.
 
 
 **Regla 2** Usando observaciones como intervenciones:
 
-Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$ quitándole todas las aristas que salen de $Z$, entonces
+Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$ quitándole 
+todas las aristas que salen de $Z$, entonces
 
-$$ p_(y|do(x), do(z), w) = p(y|do(x), z, w)$$
+$$ p(y|do(x), do(z), w) = p(y|do(x), z, w)$$
 Esta es como el criterio de ajuste por puerta trasera,
 y reescribimos como:
 
 $$ p_m(y|do(z), x, w) = p_m(y|z, x, w)$$
-La intuición es: basta que no haya caminos activos
-entre $Y$ y $Z$ en $G_m$, excepto quizá caminos que 
-comienzan en $Z$, cuyo efecto no depende de cómo tomó
-su valor $Z$. En ese caso, condicionar y
-hacer la intervención nos da la misma distribución.
+Para que podamos sustituir $z$ en lugar de $do(z)$ requerimos
+que, dado $W$,  no haya caminos activos de puerta trasera de $Z$ a $Y$ en $G_m$.
+Por lo tanto, basta examinar la gráfica donde quitamos de $G_m$
+las aristas que salen de $Z$, que no pueden crear puertas traseras. Si $Y$ y $Z$ están
+$d$-separados por $W$ y $X$ en esta nueva gráfica, no hay caminos de puerta trasera y
+podemos sustituir $do(z)$ por $z$.
 
 
 **Regla 3** Ignorar intervenciones:
 
-Si $Y$ y $Z$ están $d$-separadas por $X$ y $W$ en la gráfica
-$G_m$ donde además quitamos cualquier arista a $Z$ si $Z$ no es antecesor de $W$ en $G_m$
+Si $Z$ y $Y$ están $d$-separadas por $X$ y $W$ en la gráfica
+$G_m$ donde además quitamos cualquier arista a $Z$ si $Z$ no es antecesor de $W$ en $G_m$.
 
 Entonces:
 
 $$ p(y|do(x), do(z), w) = p(y|do(x), w)$$
-Consideramos primero un caso más simple: ¿cuándo podemos hacer lo siguiente?
+Quitando el operador $do(x)$:
 
-$$p_m(y|do(z), x) = p_m(y|x)$$
-La respuesta es que basta que $Y$ y $Z$ estén $d$ separadas en $G_m$
-dado $X$, donde además quitamos todas las aristas que inciden en $Z$. En este caso, todas los caminos que conectan a $Y$ con $Z$,
-por la $d$ separación, tienen que estar bloqueados por $X$ o por
-un colisionador no condicionado, y por tanto manipular $Z$ no
-tiene efecto en la distribución de $Y$.
+$$p_m(y|do(z), x, w) = p_m(y|x, w)$$
+
+Consideramos dos casos: 
+
+Si $Z$ es antecesor de $W$, y $Y$ y $Z$ están $d$-separados en $G_m$,
+entonces condicionar por $W$, por $d$-separación tenemos:
+
+- Si hay rutas causales de $Z$ a $Y$, estas son bloqueadas por $W$.
+- No puede abrir ninguna ruta si hay colisión en $W$.
+
+Así que cualquier manipulación de $Z$ no tiene efecto en la distribución de $Y$.
+
+Si $Z$ no es antecesor de $W$, y $Y$ y $Z$ están $d$-separados en $G_m$ menos
+las aristas que llegan a $Z$, condicionar por $W$, por $d$-separación tenemos:
+
+- No puede haber rutas causales de $Z$ a $Y$ (pues ninguna de ellas llega a $Z$)
+- No puede abrir ninguna ruta por colisión en $W$ (pues $W$ tendría que ser descendiente de $Z$).
+
+Así que cualquier manipulación de $Z$ no tienen efecto en la distribución de $Y$
+
 
 
 
@@ -1131,7 +1257,7 @@ digraph {
 La idea es primero estimar el efecto de $F$ sobre $A$, y después
 estimar el efecto de $A$ sobre $C$. La "composición" de estos dos
 efectos, dado el diagrama, debe darnos el estimador correcto. 
-Primero consideramos el efecto de $F$ sobre $A$, y tenemos que
+Primero consideramos el efecto de $F$ sobre $A$, y tenemos que (regla 2)
 
 $$p(a|do(f)) = p(a|f),$$
 La igualdad se debe a que una vez que condicionamos a $F$ no hay
@@ -1142,9 +1268,12 @@ causal se bloquea cuando condicionamos a $A$, de forma
 que por la fórmula de ajuste:
 
 $$p(c|do(a)) = \int p(c|a, f') p(f')\, df'$$
-Ahora encadenamos estas dos ecuaciones:
+
+
+Ahora encadenamos estas dos ecuaciones: 
 
 $$p(c|do(f)) = \int p(c|do(a))p(a|f)\,da$$
+
 que equivale en simulación a: dado un valor de $F$, simulamos $A=a$ 
 con nuestro modelo ajustado con datos naturales. 
 Ahora intervenimos $A$ con el valor a que obtuvimos y simulamos $C$.
@@ -1167,8 +1296,7 @@ y está dado por la fórmula:
 $$p(c|do(f)) = \int \left [ \int p(c|a,f´)p(f´)\,df´ \right ] p(a|f)\,da$$
 :::
 
-Todas estas cantidades puede estimarse de los datos, y esta
-es la fórmula de puerta delantera. 
+Todas estas cantidades puede estimarse de los datos. 
 
 ### Ejemplo: proceso generador {-}
 
@@ -1236,7 +1364,7 @@ datos naturales, las personas existe una causa común entre no fumar
 y prevenir cáncer de pulmón. 
 
 
-### Ejemplo: proceso generador {-}
+### Ejemplo: estimación con puerta delantera {-}
 
 
 Veamos cómo sería la estimación si tuviéramos datos disponible, y
@@ -1294,7 +1422,8 @@ resumen_tbl <- sims_efecto_tbl |>
 
 ```{r}
 ggplot(resumen_tbl) + 
-  geom_linerange(aes(x= f, ymax = q95, ymin = q5)) + geom_point(aes(x = f, y = media)) +
+  geom_linerange(aes(x= f, ymax = q95, ymin = q5), colour = "red") + 
+  geom_point(aes(x = f, y = media), colour = "red") +
   geom_line(data = sims_1, aes(x = do_f, y = media_c)) +
   xlab("Nivel de tabaquismo") + ylab("Prop afectada")
 ```
@@ -1307,7 +1436,7 @@ por su nivel de traslape.
 Por ejemplo, si quisiéramos calcular contrastes con el nivel 2 de tabaquismo:
 
 ```{r}
-efecto_2 <- sims_efecto_tbl |> filter(f == 3) |> 
+efecto_2 <- sims_efecto_tbl |> filter(f == 2) |> 
   select(.draw, efecto_2 = media_c)
 comp_tbl <- left_join(sims_efecto_tbl, efecto_2) |> 
   mutate(dif_2 = media_c - efecto_2)
@@ -1326,4 +1455,312 @@ Es posible sin embargo intentar un modelo completo bayesiano, sin necesidad de r
 que es más difícil de ajustar: considera una variable latente $U$ no observada, y es necesario definir cómo puede
 ser su relación con sus descendientes. Es necesario más cuidado en definir 
 formas funcionales e iniciales apropiadas para que los muestreadores funcionen apropiadamente.
+
+## Mediación y datos de Berkeley
+
+Cuando existen distintas rutas causales entre una variable
+que intervenimos y un resultado, muchas veces es relevante intentar
+separar los efectos directos del tratamiento de aquellos que están
+mediados por otras variables.
+
+En general, entender separar efectos directos o mediados requiere
+más supuestos que entender efectos totales sobre todas las posibles rutas
+causales.
+
+### Ejemplo: Admisiones de Berkeley
+
+
+En 1973 se recolectaron datos agregados de solicitantes para estudiar en Berkeley para
+los 6 departamentos más grandes, clasificados por sexo del solicitante y
+si fue admitido o no. Los resultados se muestran a continuación:
+
+```{r}
+data("UCBAdmissions")
+adm_original <- UCBAdmissions |> as_tibble() |> 
+   pivot_wider(names_from = Admit, values_from = n) 
+adm_indiv <- UCBAdmissions |> as_tibble() |> 
+  mutate(Gender = ifelse(Gender=="Female", 2, 1)) |> 
+  mutate(Dept = factor(Dept) |> as.integer()) |> 
+  mutate(Admit = ifelse(Admit == "Admitted", 1, 0)) |> 
+  uncount(n)
+adm_indiv |> head() 
+```
+
+Comenzaremos construyendo nuestro modelo causal: 
+
+- Género es una causa con el departamento que seleccionan los aplicantes, en primer
+lugar porque ya sea por educación o otras razones distintos géneros prefieren distintas
+carreras
+- Los departamentos también son una causa de aceptación de aplicantes. Algunos
+departamentos tienen más aplicantes o menos capacidad, y los que deciden son diferentes personas.
+- Consideramos que Género también puede ser una causa directa de admisión, y puede haber favoritismo por algún género.
+
+Nuestro primer diagrama, *que criticaremos más adelante*, se ve cómo sigue:
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    G
+    D
+    A 
+  #node [shape = circle]
+  #  U
+  edge [minlen = 3]
+    G -> D
+    G -> A
+    D -> A
+{rank = same; G;A}
+}
+")
+
+```
+
+Bajo estos supuestos, podemos calcular el efecto total de género en admisiones:
+para esto es importante **no** condicionar a departamento. Nuestro modelo es
+el siguiente:
+
+```{r}
+mod_1_berkeley <- cmdstan_model("../src/berkeley-1.stan")
+```
+
+```{r}
+#| warning: false
+datos_lista <- list(N = nrow(adm_indiv), n_d = 6,
+  admit = adm_indiv$Admit, gender = adm_indiv$Gender,
+  dept = adm_indiv$Dept)
+ajuste <- mod_1_berkeley$sample(data = datos_lista, 
+          iter_warmup = 200, iter_sampling = 500,
+          refresh = 1000, parallel_chains = 4)
+resumen_mod <- ajuste$summary() |> select(variable, mean, q5, q95)
+resumen_mod
+```
+
+
+```{r}
+sims_contraste <- ajuste$draws("contraste_m_h", format = "df")
+ggplot(sims_contraste, aes(x = contraste_m_h)) +
+  geom_histogram()
+```
+
+
+Y nuestra conclusión aquí es que el efecto total de género sobre
+admisión favorece a los hombres, y la diferencia es entre 20 y 8 puntos
+porcentuales aproximadamente.
+
+Sin embargo, en este ejemplo vale la pena entender que estamos
+estimando el efecto de dos caminos causales (ver McElreath, Statistical Rethinking):
+
+- Posible discriminación directa general porque una aplicación está identificada como "mujer". Este es un efecto directo, lo que más propiamente llamaríamos discriminación de personas.
+- Posible discriminación estructural por las carreras que escogen las personas. En este caso, quizá por ejemplo los departamentos de ingeniería son más fáciles, pero tradicionalmente no se alienta a las mujeres escoger ese tipo de carreras. Este efecto está mediado por la selección de departamento.
+- El efecto total es el que experimentan las personas, por cualquiera
+de las dos razones de arriba.
+
+
+Cada una de estas razones son muy diferentes y llevan a distintas conclusiones
+acerca de los datos. Veremos ahora cómo, bajo el modelo que tenemos ahora,
+podemos intentar estimar el efecto directo de discriminación. En este
+caso, *necesitamos bloquear la variable departamento*, para ver sólo el efecto
+directo, y esto lo logramos estratificando por departamento.
+
+
+El modelo no cambia, pero simulamos diferente:
+
+```{r}
+mod_2_berkeley <- cmdstan_model("../src/berkeley-2.stan")
+```
+
+```{r}
+datos_lista <- list(N = nrow(adm_indiv), n_d = 6,
+  admit = adm_indiv$Admit, gender = adm_indiv$Gender,
+  dept = adm_indiv$Dept)
+ajuste <- mod_2_berkeley$sample(data = datos_lista, 
+          iter_warmup = 200, iter_sampling = 500,
+          refresh = 1000, parallel_chains = 4)
+resumen_mod <- ajuste$summary() |> select(variable, mean, q5, q95)
+resumen_mod
+```
+
+```{r}
+sims_contraste <- ajuste$draws("contraste_m_h", format = "df") |> 
+  pivot_longer(cols = contains("contraste")) |> 
+  separate(name, into = c("nombre", "dept"), sep = "[\\[\\]]", extra = "drop")
+ggplot(sims_contraste, aes(x = value, fill = dept)) +
+  geom_density(alpha = 0.5)
+```
+
+Donde vemos que los departamentos varían en la diferencia de aceptación
+de hombres y mujeres. Si resumimos con la marginal de los departamentos
+seleccionados, obtenemos:
+
+```{r}
+sims_contraste <- ajuste$draws("contraste_directo", format = "df")
+ggplot(sims_contraste, aes(x = contraste_directo)) +
+  geom_histogram()
+```
+
+El efecto directo no es conclusivo, y tiende a favorecer a mujeres cuando
+promediamos sobre la distribución de departamentos seleccionados.
+
+En algún momento de la discusión, este argumento fue mostrado para
+decir que no había discriminación en Berkeley específicamente orientado
+hacia las mujeres, aún cuando quedaba por investigar por qué
+el contraste de tasas de aceptación es tan diferente en cada departamento
+(puede haber muchas razones). Sin embargo, otros investigadores
+apuntaron al hecho de que la selección de departamentos y la tasa de aceptación 
+puede tener una causa común: por ejemplo, la habilidad general.
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    G
+    D
+    A 
+  node [shape = circle]
+    U
+  edge [minlen = 3]
+    G -> D
+    G -> A
+    D -> A
+    U -> D
+    U -> A
+{rank = same; G;A}
+{rank = same; U}
+}
+")
+
+```
+
+::: callout-tip
+# Mediación con variables confusoras
+
+Si existen variables confusoras entre la variable $D$ que media el efecto
+de otra variable y el resultado $A$, $D$ se convierte en un colisionador.
+Cuando condicionamos a $D$ para estimar el efecto directo (que es un **colisionador**), activamos
+una ruta no causal entre $G$ y $A$ que va a través de $U$. En este caso,
+el efecto directo no está identificado.
+
+:::
+
+Aunque podemos calcular el efecto total de género sobre admisión, no
+es posible extraer en este caso el efecto directo. Por ejemplo (McElreath),
+una hipótesis que se ha planteado es la siguiente:
+
+- Supongamos que existen departamentos que se sabe que discriminan o 
+tienen prácticas discriminatorias. Las personas que aplican a esos departamentos que son suceptibles a esta discriminación tienden a ser personas de mayor habilidad que el aplicante típico, pues sólo en ese caso están dispuestas
+a sufrir tal discriminación. Esto implica que también su tasa de aceptación
+sin discriminación sería más alta por su mayor habilidad, pero en los datos no lo vemos. 
+En este caso, puede haber discriminación directa que acaba enmascarada por esa autoselección.
+
+En este caso no tenemos la variable de habilidad, pero podríamos
+hacer análisis de sensibilidad. En el siguiente modelo, consideramos
+*hipotéticamente* qué pasaría si en el departamento 2 tuviera la imagen (justificada o no)
+de ser un ambiente discriminatorio para mujeres:
+
+
+```{r}
+mod_3_berkeley <- cmdstan_model("../src/berkeley-3.stan")
+print(mod_3_berkeley)
+```
+::: callout-tip
+# Variables latentes
+
+En este modelo, $u$ es una variable a nivel individuo. 
+No conocemos su valor pero
+influye en $D$ y $A$ directamente. Si sabemos algo de la naturaleza de 
+esta influencia, es posible extraer informacion acerca de los valores $u$
+de cada individuo.
+
+Desde el punto de vista bayesiano, los valores que toma esta variable
+son parámetros a estimar.
+
+:::
+
+Por ejemplo, si una mujer es aceptada a un departamento que 
+aparenta actividades descriminatorias, por las razones explicadas
+arriba podemos deducir que su nivel de habilidad es en general
+mayor que el aplicantes hombres, y eso puede explicar por qué
+aún cuando las tasas de aceptación el departamento sean similares,
+existe una componente de discriminación "estructural".
+
+En este ejercicio haremos un análisis de sensibilidad de nuestras
+hipótesis. Supondremos que los niveles de habilidad en general
+ayudan a entrar en cualquier departamente, pero que la probabilidad
+de que una mujer aplique a un departamento discriminatorio sólo
+es alta si su nivel de habilidad es alto (ver los variables 
+delta y eta en el siguiente modelo):
+
+
+
+```{r}
+#| warning: false
+datos_lista <- list(N = nrow(adm_indiv), n_d = 6,
+  admit = adm_indiv$Admit, gender = adm_indiv$Gender,
+  dept = adm_indiv$Dept)
+## incluimos coeficientes fijos para la relación de habilidad
+## con selección de departamente y adimisión
+datos_lista <- c(datos_lista,
+  #habilidad ayuda en todos los departamentos
+  list(delta = c(1, 1),
+  #pero los de habilidad alta intentan a aplicar al departamento 2.
+  eta = matrix(c(c(0, 0, 0, 0, 0, 0), c(0, 0, 0, 0, 3, 0)), nrow= 2, byrow = T))
+)
+ajuste_disc <- mod_3_berkeley$sample(data = datos_lista, 
+          iter_warmup = 300, iter_sampling = 1000,
+          refresh = 1000, parallel_chains = 4)
+resumen_disc_mod <- ajuste_disc$summary() |> select(variable, mean, q5, q95)
+resumen_disc_mod
+```
+
+
+```{r}
+sims_contraste_disc <- ajuste_disc$draws("contraste_m_h", format = "df") |> 
+  pivot_longer(cols = contains("contraste")) |> 
+  separate(name, into = c("nombre", "dept"), sep = "[\\[\\]]", extra = "drop")
+
+sims_2 <- sims_contraste_disc |> mutate(tipo = "Con habilidad (hipotético)") |> 
+  bind_rows(sims_contraste |> mutate(tipo = "Ingorando habilidad"))
+
+ggplot(sims_2, aes(x = value, fill = dept)) +
+  geom_density(alpha = 0.5) + facet_wrap(~ tipo, ncol = 1)
+```
+
+Notamos que los resultados para el "departamento discriminatorio"
+efectivamente indica un efecto directo más grande que favorece a hombres.
+Nótese como en este ejemplo el efecto de selección de departamento
+para mujeres es relativamente fuerte (alta habilidad
+tiende a ir a departamento 5), los efectos para el resto de los departamentos
+son contrarios: algunos se mueven a la derecha, es decir, parece haber
+má ventaja para mujeres. Esto es porque el departamento 5 absorbe a la
+mayoría de mujeres de habilidad alta, lo que implica que la habilidad promedio
+de mujeres en otros departamentos es más baja que la de los hombres.
+
+
+::: callout-note
+# Análisis de sensibilidad
+
+Si existe la posibilidad de variables confusoras, podemos hacer
+ejericicios de modelación/simulación para estimar qué tan fuertes
+tendría que ser la relación de la variable confusora para producir
+resultados que cambien nuestras conclusiones.
+
+:::
+
+
+### Ejercicio (Burks, Pearl)
+
+
+
+
+
+
+
+
+
+
 

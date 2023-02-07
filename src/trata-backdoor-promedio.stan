@@ -39,12 +39,17 @@ generated quantities {
   real dif_trata;
   real p_trata;
   real p_no_trata;
+  vector[N] probs;
 
-  real peso_sim = 70;
+  for(i in 1:N){
+    probs[i] = 1.0 / N;
+  }
+
   {
     array[2000] int res_trata;
     array[2000] int res_no_trata;
     for(k in 1:2000){
+      real peso_sim = peso[categorical_rng(probs)];
       res_trata[k] = bernoulli_rng(
         inv_logit(gamma_0 + gamma_1 * 1 +
               gamma_2 * (peso_sim - media_peso)));
@@ -56,4 +61,5 @@ generated quantities {
     p_no_trata = mean(res_no_trata);
   }
   dif_trata = p_trata - p_no_trata;
+
 }
