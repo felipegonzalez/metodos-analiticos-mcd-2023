@@ -1283,10 +1283,19 @@ $a$ y $f´$ (con una distribución construida a partir de datos).
 Requerimos en este caso construir y estimar la condicional
 $p(c|a, f)$ basado en los datos.
 
-En fórmula, esto se escribe como:
+En fórmula, en general, se escribe como:
 
 ::: callout-note 
 # Criterio de fuerta delantera (Pearl)
+Decimos que un conjunto de variables 
+$A$ satisface el criterio de puerta delantera en relación
+a las variables $F$ y $C$ cuando:
+
+1. $A$ intercepta todos las cadenas dirigidos de $F$ a $C$
+2. No hay ningún camino activo de puerta trasera de $F$ a $A$
+3. Todos los caminos de puerta trasera de $A$ a $C$ están bloqueados
+por $F$.
+
 
 Si $A$ satisface el criterio de puerta delantera en relación
 a $F$ y $C$, entonces el efecto causal de $F$ en $C$ es identificable
