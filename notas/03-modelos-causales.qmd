@@ -1017,8 +1017,7 @@ resumen <- sims_efecto |>
 dif_real <- resumen$dif[2]
 resumen
 ```
-La estimación del cruce simple es casi 50% más grande que
-el tamaño verdadero del efecto.
+La estimación ingenua del cruce simple es mucho más grande que el verdadero efecto.
 
 Podemos también calcular el efecto para un peso particular:
 
@@ -1596,8 +1595,8 @@ de hombres y mujeres. Si resumimos con la marginal de los departamentos
 seleccionados, obtenemos:
 
 ```{r}
-sims_contraste <- ajuste$draws("contraste_directo", format = "df")
-ggplot(sims_contraste, aes(x = contraste_directo)) +
+sims_contraste_d <- ajuste$draws("contraste_directo", format = "df")
+ggplot(sims_contraste_d, aes(x = contraste_directo)) +
   geom_histogram()
 ```
 
@@ -1708,7 +1707,7 @@ datos_lista <- c(datos_lista,
   #habilidad ayuda en todos los departamentos
   list(delta = c(1, 1),
   #pero los de habilidad alta intentan a aplicar al departamento 2.
-  eta = matrix(c(c(0, 0, 0, 0, 0, 0), c(0, 0, 0, 0, 3, 0)), nrow= 2, byrow = T))
+  eta = matrix(c(c(0, 0, 0, 0, 0, 0), c(0, 0, 0, 0, 2, 0)), nrow= 2, byrow = T))
 )
 ajuste_disc <- mod_3_berkeley$sample(data = datos_lista, 
           iter_warmup = 300, iter_sampling = 1000,
@@ -1752,12 +1751,40 @@ resultados que cambien nuestras conclusiones.
 :::
 
 
-### Ejercicio (Burks, Pearl)
+### Ejemplo (Burks, Pearl)
 
+Este ejemplo es mencionado por Pearl en The Book of Why. 
+En 1926 Burks recolectó datos sobre qué tanto podría esperarse
+que la inteligencia de padres se hereda a los hijos (medido según
+una prueba de IQ). Construyó un diagrama parecido al de abajo:
 
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape = circle]
+    U
+  node [shape=plaintext]
+  edge [minlen = 3]
+    IntPadres -> NSE
+    NSE -> IntHijos
+    U -> NSE
+    U -> IntHijos
+    IntPadres -> IntHijos
+{rank = same; U}
+}
+")
 
+```
 
-
+Como el NSE es del hogar (una medida general de estatus social), 
+se consideró en principio como una variable pre-tratamiento a la inteligencia
+de los niños por la
+que tradicionalmente se controlaba. Burks notó que hacer esto tenía como
+consecuencia cortar parte del efecto total de la inteligencia 
+sobre el la inteligencia de los hijos. Adicionalmente, condicionar
+a NSE abre un camino no causal entre Inteligencia de Padres e Hijos.
 
 
 
