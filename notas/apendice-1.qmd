@@ -1,0 +1,32 @@
+# Apéndice 1
+
+## Demostración de regla de puerta delantera:
+
+Esta es la demostración de Pearl del criterio de puerta delantera:
+
+Usanndo probabilidad total:
+
+$$p(c|do(f)) = \int p(c|do(f),t) p(t|do(f))\,dt$$
+
+Por la regla 2, $F$ bloquea caminos traseros a $C$, y también $F$ bloquea
+caminos traseros a $T$, así que 
+
+$$p(c|do(f)) = \int p(c|do(f),do(t)) p(t|f)\,dt$$
+
+Por la regla 3, $do(f)$ no tiene efecto si condicionamos a $T$:
+
+$$p(c|do(f)) = \int p(c|do(t)) p(t|f)\,dt$$
+
+Por probabilidad total:
+
+$$p(c|do(f)) = \int \left [ \int p(c|do(t),f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt$$
+
+Por la regla 2:
+
+$$p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt$$
+
+Y aplicando la regla 3:
+
+$$p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´) \, df´ \right ] p(t|f) \,dt$$
+
+
