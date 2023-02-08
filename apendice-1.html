@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Felipe González">
 
-<title>Métodos analíticos</title>
+<title>Métodos analíticos - Appendix A — Apéndice 1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,25 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 
@@ -50,7 +30,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-introduccion.html" rel="next">
+<link href="./99-referencias.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -80,6 +60,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -89,7 +70,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Métodos analíticos</h1>
+      <h1 class="quarto-secondary-nav-title">Appendix A — Apéndice 1</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -114,7 +95,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Temario y referencias</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -147,7 +128,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
   </div>
 </li>
       </ul>
@@ -161,13 +142,7 @@ div.csl-indent {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#temario-y-referencias" id="toc-temario-y-referencias" class="nav-link active" data-scroll-target="#temario-y-referencias">Temario y referencias</a>
-  <ul class="collapse">
-  <li><a href="#evaluación" id="toc-evaluación" class="nav-link" data-scroll-target="#evaluación">Evaluación</a></li>
-  <li><a href="#material" id="toc-material" class="nav-link" data-scroll-target="#material">Material</a></li>
-  <li><a href="#referencias-principales" id="toc-referencias-principales" class="nav-link" data-scroll-target="#referencias-principales">Referencias principales</a></li>
-  <li><a href="#otras-referencias" id="toc-otras-referencias" class="nav-link" data-scroll-target="#otras-referencias">Otras referencias</a></li>
-  </ul></li>
+  <li><a href="#demostración-de-regla-de-puerta-delantera" id="toc-demostración-de-regla-de-puerta-delantera" class="nav-link active" data-scroll-target="#demostración-de-regla-de-puerta-delantera"><span class="toc-section-number">A.1</span>  Demostración de regla de puerta delantera:</a></li>
   </ul>
 </nav>
     </div>
@@ -176,19 +151,13 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Métodos analíticos</h1>
+<h1 class="title d-none d-lg-block">Appendix A — Apéndice 1</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor/a</div>
-    <div class="quarto-title-meta-contents">
-             <p>Felipe González </p>
-          </div>
-  </div>
     
   
     
@@ -197,73 +166,23 @@ div.csl-indent {
 
 </header>
 
-<section id="temario-y-referencias" class="level1 unnumbered">
-<h1 class="unnumbered">Temario y referencias</h1>
-<p><strong>Todas las notas y material del curso estarán en este</strong> <a href="https://github.com/felipegonzalez/metodos-analiticos-mcd-2023">repositorio</a>.</p>
-<ul>
-<li>Parte 1: Inferencia causal
-<ul>
-<li>Introducción a inferencia causal</li>
-<li>Modelos probabilísticos gráficos</li>
-<li>Estimación de efectos causales</li>
-<li>Experimentos y controles</li>
-<li>Contrafactuales de Rubin</li>
-<li>Otros métodos de inferencia causal</li>
-</ul></li>
-<li>Parte 2: Análisis de series de tiempo y pronósticos
-<ul>
-<li>Descomposición de series de tiempo</li>
-<li>Ingeniería de entradas para datos de series de tiempo</li>
-<li>Métodos clásicos para pronósticos</li>
-<li>Modelo de espacio de estados</li>
-<li>Inferencia causal para series de tiempo</li>
-</ul></li>
-</ul>
-<section id="evaluación" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="evaluación">Evaluación</h3>
-<ul>
-<li>Tareas semanales (20%)</li>
-<li>Examen parcial (40% teórico)</li>
-<li>Un examen final (40% práctico)</li>
-</ul>
-</section>
-<section id="material" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="material">Material</h3>
-<p>Cada semestre las notas cambian, en algunas partes considerablemente. Las de este semestre están en <a href="https://github.com/felipegonzalez/metodos-analiticos-mcd-2023">este repositorio</a>, incluyendo ejemplos, ejercicios y tareas.</p>
-</section>
-<section id="referencias-principales" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="referencias-principales">Referencias principales</h3>
-<ul>
-<li>Parte 1
-<ul>
-<li><a href="https://xcelab.net/rm/statistical-rethinking/">Statistical Rethinking</a></li>
-<li><a href="https://www.wiley.com/en-us/Causal+Inference+in+Statistics:+A+Primer-p-9781119186847">Causal Inference in Statistics: a primer</a></li>
-<li><a href="https://www.cambridge.org/core/books/counterfactuals-and-causal-inference/5CC81E6DF63C5E5A8B88F79D45E1D1B7">Counterfactuals and Causal Inference: Methods and Principles for Social Research</a></li>
-</ul></li>
-<li>Parte 2:
-<ul>
-<li><a href="https://otexts.com/fpp3/">Forecasting: Principles and Practice</a></li>
-<li><a href="https://academic.oup.com/book/16563">Time Series Analysis by State Space Methods</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="otras-referencias" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="otras-referencias">Otras referencias</h3>
-<ul>
-<li><a href="http://www.springer.com/us/book/9780387310732">Pattern Recognition and Machine Learning</a>, <span class="citation" data-cites="Bishop">Bishop (<a href="99-referencias.html#ref-Bishop" role="doc-biblioref">2006</a>)</span></li>
-<li><a href="https://dl.acm.org/doi/10.5555/3238230">The Book of Why</a></li>
-<li><a href="https://www.cambridge.org/highereducation/books/data-analysis-using-regression-and-multilevel-hierarchical-models/32A29531C7FD730C3A68951A17C9D983#overview">Data Analysis Using Regression and Multilevel/Hierarchical Models</a></li>
-<li><a href="https://books.google.com.mx/books/about/An_Introduction_to_State_Space_Time_Seri.html?id=OCmljPYfgkUC&amp;redir_esc=y">An Introduction to State Space Time Series Analysis</a> ### Software: R y Rstudio {-}</li>
-</ul>
-<p>Para hacer las tareas y exámenes pueden usar cualquier lenguaje o flujo de trabajo que les convenga (R o Python, por ejemplo) - el único requisito esté basado en código y no point-and-click.</p>
+<section id="demostración-de-regla-de-puerta-delantera" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="demostración-de-regla-de-puerta-delantera"><span class="header-section-number">A.1</span> Demostración de regla de puerta delantera:</h2>
+<p>Esta es la demostración de Pearl del criterio de puerta delantera:</p>
+<p>Usanndo probabilidad total:</p>
+<p><span class="math display">\[p(c|do(f)) = \int p(c|do(f),t) p(t|do(f))\,dt\]</span></p>
+<p>Por la regla 2, <span class="math inline">\(F\)</span> bloquea caminos traseros a <span class="math inline">\(C\)</span>, y también <span class="math inline">\(F\)</span> bloquea caminos traseros a <span class="math inline">\(T\)</span>, así que</p>
+<p><span class="math display">\[p(c|do(f)) = \int p(c|do(f),do(t)) p(t|f)\,dt\]</span></p>
+<p>Por la regla 3, <span class="math inline">\(do(f)\)</span> no tiene efecto si condicionamos a <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[p(c|do(f)) = \int p(c|do(t)) p(t|f)\,dt\]</span></p>
+<p>Por probabilidad total:</p>
+<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|do(t),f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt\]</span></p>
+<p>Por la regla 2:</p>
+<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt\]</span></p>
+<p>Y aplicando la regla 3:</p>
+<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´) \, df´ \right ] p(t|f) \,dt\]</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-Bishop" class="csl-entry" role="doc-biblioentry">
-Bishop, Christopher M. 2006. <em>Pattern Recognition and Machine Learning (Information Science and Statistics)</em>. Secaucus, NJ, USA: Springer-Verlag New York, Inc.
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -402,11 +321,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./99-referencias.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Referencias</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-introduccion.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
