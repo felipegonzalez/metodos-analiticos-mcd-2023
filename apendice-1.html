@@ -168,19 +168,18 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="demostración-de-regla-de-puerta-delantera" class="level2" data-number="A.1">
 <h2 data-number="A.1" class="anchored" data-anchor-id="demostración-de-regla-de-puerta-delantera"><span class="header-section-number">A.1</span> Demostración de regla de puerta delantera:</h2>
-<p>Esta es la demostración de Pearl del criterio de puerta delantera:</p>
-<p>Usanndo probabilidad total:</p>
-<p><span class="math display">\[p(c|do(f)) = \int p(c|do(f),t) p(t|do(f))\,dt\]</span></p>
-<p>Por la regla 2, <span class="math inline">\(F\)</span> bloquea caminos traseros a <span class="math inline">\(C\)</span>, y también <span class="math inline">\(F\)</span> bloquea caminos traseros a <span class="math inline">\(T\)</span>, así que</p>
-<p><span class="math display">\[p(c|do(f)) = \int p(c|do(f),do(t)) p(t|f)\,dt\]</span></p>
-<p>Por la regla 3, <span class="math inline">\(do(f)\)</span> no tiene efecto si condicionamos a <span class="math inline">\(T\)</span>:</p>
-<p><span class="math display">\[p(c|do(f)) = \int p(c|do(t)) p(t|f)\,dt\]</span></p>
-<p>Por probabilidad total:</p>
-<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|do(t),f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt\]</span></p>
-<p>Por la regla 2:</p>
-<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt\]</span></p>
+<p>Esta es la demostración de Pearl (ver Book of Why) del criterio de puerta delantera:</p>
+<p>Usando probabilidad total:</p>
+<p><span class="math display">\[p(c|do(f)) = \int p(c|do(f),a) p(a|do(f))\,da\]</span></p>
+<p>Por la regla 2, como <span class="math inline">\(C\)</span> y <span class="math inline">\(A\)</span> están <span class="math inline">\(d\)</span>-separados dado <span class="math inline">\(F\)</span> (no hay puertas traseras entre <span class="math inline">\(T\)</span> y <span class="math inline">\(C\)</span>):</p>
+<p><span class="math display">\[p(c|do(f)) = \int p(c|do(f),do(a)) p(a|f)\,da\]</span> Por la regla 3, <span class="math inline">\(do(f)\)</span> no tiene efecto si condicionamos a <span class="math inline">\(A\)</span>:</p>
+<p><span class="math display">\[p(c|do(f)) = \int p(c|do(a)) p(a|f)\,da\]</span></p>
+<p>Ahora estratificamos por <span class="math inline">\(F\)</span>: or probabilidad total tenemos</p>
+<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|do(a),f´)p(f´|do(a)) \, df´ \right ] p(a|f) \,da\]</span></p>
+<p>Por la regla 2 (<span class="math inline">\(F\)</span> bloquea caminos de puerta trasera en <span class="math inline">\(A\)</span> a <span class="math inline">\(F\)</span>):</p>
+<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|a,f´)p(f´|do(a)) \, df´ \right ] p(a|f) \,da\]</span></p>
 <p>Y aplicando la regla 3:</p>
-<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´) \, df´ \right ] p(t|f) \,dt\]</span></p>
+<p><span class="math display">\[p(c|do(f)) = \int \left [ \int p(c|a,f´)p(f´) \, df´ \right ] p(a|f) \,da\]</span></p>
 
 
 </section>
