@@ -2,31 +2,31 @@
 
 ## Demostración de regla de puerta delantera:
 
-Esta es la demostración de Pearl del criterio de puerta delantera:
+Esta es la demostración de Pearl (ver Book of Why) del 
+criterio de puerta delantera:
 
-Usanndo probabilidad total:
+Usando probabilidad total:
 
-$$p(c|do(f)) = \int p(c|do(f),t) p(t|do(f))\,dt$$
+$$p(c|do(f)) = \int p(c|do(f),a) p(a|do(f))\,da$$
 
-Por la regla 2, $F$ bloquea caminos traseros a $C$, y también $F$ bloquea
-caminos traseros a $T$, así que 
+Por la regla 2, como $C$ y $A$ están $d$-separados dado $F$ (no hay
+puertas traseras entre $T$ y $C$):
 
-$$p(c|do(f)) = \int p(c|do(f),do(t)) p(t|f)\,dt$$
+$$p(c|do(f)) = \int p(c|do(f),do(a)) p(a|f)\,da$$
+Por la regla 3, $do(f)$ no tiene efecto si condicionamos a $A$:
 
-Por la regla 3, $do(f)$ no tiene efecto si condicionamos a $T$:
+$$p(c|do(f)) = \int p(c|do(a)) p(a|f)\,da$$
 
-$$p(c|do(f)) = \int p(c|do(t)) p(t|f)\,dt$$
+Ahora estratificamos por $F$: or probabilidad total tenemos
 
-Por probabilidad total:
+$$p(c|do(f)) = \int \left [ \int p(c|do(a),f´)p(f´|do(a)) \, df´ \right ] p(a|f) \,da$$
 
-$$p(c|do(f)) = \int \left [ \int p(c|do(t),f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt$$
+Por la regla 2 ($F$ bloquea caminos de puerta trasera en $A$ a $F$):
 
-Por la regla 2:
-
-$$p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´|do(t)) \, df´ \right ] p(t|f) \,dt$$
+$$p(c|do(f)) = \int \left [ \int p(c|a,f´)p(f´|do(a)) \, df´ \right ] p(a|f) \,da$$
 
 Y aplicando la regla 3:
 
-$$p(c|do(f)) = \int \left [ \int p(c|t,f´)p(f´) \, df´ \right ] p(t|f) \,dt$$
+$$p(c|do(f)) = \int \left [ \int p(c|a,f´)p(f´) \, df´ \right ] p(a|f) \,da$$
 
 
