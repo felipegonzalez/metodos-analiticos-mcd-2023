@@ -1114,9 +1114,11 @@ Antes de verlas, un resumen rápido de las reglas es el siguiente:
 
 - La regla 1 nos dice que las distribuciones
 asociadas a intervenciones satisfacen también la equivalencia
-de $d$-separación e independencia condicional (si condicionamos y $Z$ y $Y$ están $d$ separadas).
+de $d$-separación e independencia condicional: si $Y$ y $Z$ están
+$d$-separadas dado en la gráfica manipulada, entonces $p(y | do(x), z) = p(y|do(x))$.
 
-- La regla 2 es el criterio de la puerta trasera.
+- La regla 2 es el criterio de la puerta trasera: si condicionamos
+a variables $W$ que bloquean toda puerta trasera de $X$ a $Y$, podemos cambiar $do(x)$ por $x$: $p(y | do(x), w) = p(y | x, w)$.
 
 - La regla 3 expresa que si no hay caminos causales de $X$ a $Y$, entonces $p(y|do(x)) = p(y)$.
 
@@ -1145,55 +1147,18 @@ es cierto si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$
 (condicionalmente independientes). Así que esta regla es independencia
 condicional dado $d$-separación, pero para la gráfica intervenida.
 
-
 **Regla 2** Usando observaciones como intervenciones:
 
 Si $Y$ y $Z$ están $d$-separados por $X$ y $W$ en $G_m$ quitándole 
 todas las aristas que salen de $Z$, entonces
 
 $$ p(y|do(x), do(z), w) = p(y|do(x), z, w)$$
-Esta es como el criterio de ajuste por puerta trasera,
-y reescribimos como:
-
-$$ p_m(y|do(z), x, w) = p_m(y|z, x, w)$$
-Para que podamos sustituir $z$ en lugar de $do(z)$ requerimos
-que, dado $W$,  no haya caminos activos de puerta trasera de $Z$ a $Y$ en $G_m$.
-Por lo tanto, basta examinar la gráfica donde quitamos de $G_m$
-las aristas que salen de $Z$, que no pueden crear puertas traseras. Si $Y$ y $Z$ están
-$d$-separados por $W$ y $X$ en esta nueva gráfica, no hay caminos de puerta trasera y
-podemos sustituir $do(z)$ por $z$.
-
-
 **Regla 3** Ignorar intervenciones:
 
 Si $Z$ y $Y$ están $d$-separadas por $X$ y $W$ en la gráfica
-$G_m$ donde además quitamos cualquier arista a $Z$ si $Z$ no es antecesor de $W$ en $G_m$.
-
-Entonces:
+$G_m$ donde además quitamos cualquier arista a $Z$ si $Z$ no es antecesor de $W$ en $G_m$, entonces:
 
 $$ p(y|do(x), do(z), w) = p(y|do(x), w)$$
-Quitando el operador $do(x)$:
-
-$$p_m(y|do(z), x, w) = p_m(y|x, w)$$
-
-Consideramos dos casos: 
-
-Si $Z$ es antecesor de $W$, y $Y$ y $Z$ están $d$-separados en $G_m$,
-entonces condicionar por $W$, por $d$-separación tenemos:
-
-- Si hay rutas causales de $Z$ a $Y$, estas son bloqueadas por $W$.
-- No puede abrir ninguna ruta si hay colisión en $W$.
-
-Así que cualquier manipulación de $Z$ no tiene efecto en la distribución de $Y$.
-
-Si $Z$ no es antecesor de $W$, y $Y$ y $Z$ están $d$-separados en $G_m$ menos
-las aristas que llegan a $Z$, condicionar por $W$, por $d$-separación tenemos:
-
-- No puede haber rutas causales de $Z$ a $Y$ (pues ninguna de ellas llega a $Z$)
-- No puede abrir ninguna ruta por colisión en $W$ (pues $W$ tendría que ser descendiente de $Z$).
-
-Así que cualquier manipulación de $Z$ no tienen efecto en la distribución de $Y$
-
 
 
 
