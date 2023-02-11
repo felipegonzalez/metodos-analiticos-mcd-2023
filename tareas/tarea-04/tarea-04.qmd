@@ -1,0 +1,195 @@
+---
+title: "Tarea 4: ejercicio práctico"
+format: 
+  html:
+    embed-resources: true
+---
+
+```{r}
+library(tidyverse)
+library(broom)
+source("scripts.R")
+```
+
+
+## Antecedentes
+
+Una compañía decidió dar una promoción de 10% en comparas a algunos de sus
+clientes. Nuestro trabajo es entender cuál fue el impacto en ventas
+de nuestra promoción.
+
+- Nuestro criterio actual de ventas son las ventas de segundo semestre (v_2, antes de quitar el 10% de promoción)
+- La promoción de aplicó y comunicó a los clientes a finales del primer semestre.
+- Sabemos que el grupo de ventas decidió distribuir más promociones para los
+clientes de gasto alto en el primer semestre (v_1), aunque no sabemos exactamente
+cómo hicieron la distribución.
+
+## Equipo 1 de analistas
+
+El equipo 1 de analistas toma los siguientes datos de promoción y gasto de los clientes 
+en el segundo semestre (cuando estuvo activa la promoción):
+
+```{r}
+datos_1 |> select(promo, ventas_2) |> head()
+```
+
+
+```{r}
+res_1 <- lm(ventas_2 ~ promo, data = datos_1) |> tidy()
+estimaciones_95 <- 
+  tibble(inf = res_1$estimate[2] - 2 * res_1$std.error[2],
+         sup = res_1$estimate[2] + 2 * res_1$std.error[2],
+         equipo = "equipo_1")
+res_1
+```
+
+Su estimación es que las ventas aumentaron en promedio 354 +/- 22 debido 
+a la promoción.
+
+Incluso, el equipo 1 también hace una prueba-t para probar la igualdad
+de medias entre el grupo de promoción y el grupo sin promoción.
+
+```{r}
+t.test(ventas_2  ~  factor(promo), data = datos_analista_1)
+```
+
+
+**Pregunta 1** Explica por qué este primer equipo está equivocado
+en su método. Dibuja un DAG con la descripción de arriba 
+y considera si el coeficiente 
+de su modelo puede interpretarse de manera causal (como efecto de la promoción). Explica en palabras por qué su estimación está inflada
+con respecto al verdadero efecto de la promoción.
+
+```{r}
+library(DiagrammeR)
+grViz("
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=plaintext]
+    # aquí van los nodos
+  edge [minlen = 3]
+    # aquí van las aristas
+}
+")
+```
+
+
+## Equipo 2 de analistas
+
+
+Un segundo equipo de analistas
+nota que la distribución de la promoción se
+hizo según las ventas del semestre anterior, y decide entonces hacer
+el siguiente modelo, incluyendo las ventas del primer semestre:
+
+```{r}
+res_2 <- lm(ventas_2 ~ factor(promo) + ventas_1, 
+            data = datos_1) |> tidy()
+estimaciones_95 <- estimaciones_95 |> bind_rows(
+  tibble(inf = res_2$estimate[2] - 2 * res_2$std.error[2],
+         sup = res_2$estimate[2] + 2 * res_2$std.error[2],
+         equipo = "equipo_2"))
+res_2
+```
+
+Su estimación es que la promoción aumentó en promedio las ventas
+en alrededor de 96 pesos (+- 20)
+
+**Pregunta 2**: Explica por qué las dos estimaciones son distintas, y
+por qué la respuesta del segundo equipo es mejor que la del primer
+equipo (usando el DAG). 
+
+
+**Pregunta 3**: Supón que por razones administrativas, sólo puedes
+trabajar con los datos que usó el equipo de analistas 1. 
+¿Cómo explicarías 
+que no es posible identificar el efecto causal de la promoción solamente
+usando estos datos?
+
+## Equipo 3 de analistas
+
+Después de estos análisis, alguien nota que hay una variable
+adicional "status_oro" en la base de datos. Un nuevo equipo 3 decide usar
+esa variable, pues nota que su modelo tiene mejor resultados predictivos
+de las ventas del semestre 2:
+
+```{r}
+res_3 <- lm(ventas_2 ~ factor(promo) + ventas_1 + factor(status_oro), data = datos_1) |> tidy()
+estimaciones_95 <- estimaciones_95 |> bind_rows(
+  tibble(inf = res_3$estimate[2] - 2 * res_3$std.error[2],
+         sup = res_3$estimate[2] + 2 * res_3$std.error[2],
+         equipo = "equipo_3"))
+res_3
+```
+
+Su conclusión es que la promoción no funcionó (o quizá dañó las
+ventas). Argumentan que su modelo es más predictivo que la de los equipos 1 y 2, y que la promoción realmente no funcionó.
+
+**Pregunta 4**: Explica por qué su argumento de capacidad predictiva
+no es relevante cuando estamos buscando efectos causales.
+
+Decides investigar y descubres que el "status oro" es una idea
+reciente del equipo de ventas. Al final del segundo trimestre,
+les dieron "status oro" a todos los participantes de la promoción
+original, y además a todos aquellos que cuyas compras no hayan
+bajado en el segundo trimestre con respecto al primero.
+
+**Pregunta 5**: Completa tu DAG con status oro usando esta
+información. Explica por qué dada esta información
+es una mala idea controlar por status
+oro según tu diagrama, y por qué es más correcto usar el modelo
+del analista 2
+
+
+## El equipo 4 y su experimento
+
+**Pregunta 6** El equipo 4 desconfía de los tres modelos de arriba,
+pues no está seguro de la historia que el equipo de ventas le contó.
+Le pide a ventas hacer entonces un experimento: seleccionar al azar
+1000 clientes, y escoger al azar aproximadamente 500 para recibir la promoción. El equipo de ventas decide hacerle caso, y recolecta los
+siguientes datos:
+
+```{r}
+head(datos_analista_4)
+```
+
+**Pregunta 7** Haz un nuevo DAG que represente las variables anteriores
+para este nuevo proceso generador que propuso el equipo 4.
+
+El equipo 4 decide hacer una regresión incluyendo solamente
+el tratamiento:
+
+```{r}
+res_4 <- lm(ventas_2 ~ factor(promo), data = datos_analista_4) |> tidy()
+estimaciones_95 <- estimaciones_95 |> bind_rows(
+  tibble(inf = res_4$estimate[2] - 2 * res_4$std.error[2],
+         sup = res_4$estimate[2] + 2 * res_4$std.error[2],
+         equipo = "equipo_4"))
+res_4
+```
+
+**Pregunta 8** Explica por qué es correcto el análisis del equipo 4
+con estos nuevos datos experimentales.
+
+
+**Pregunta 9**: Compara las siguientes 4 estimaciones de los equipos
+y discute sus méritos o fallas:
+
+```{r}
+estimaciones_95
+ggplot(estimaciones_95, aes(x = equipo, ymin = inf, ymax = sup)) +
+  geom_linerange() + coord_flip()
+```
+
+**Pregunta 10**: Argumenta por qué el equipo 2 y el 4 obtienen
+resultados correctos usando modelos diferentes ¿Su proceso generador tiene el mismo DAG? 
+
+**Pregunta 11** Argumenta si es apropiado que el equipo 4 utilize en su modelo la variable de ventas del periodo 1 o no, e igualmente con la variable status oro. Explica usando el DAG del equipo 4.
+
+
+
+
+
+
+
+
