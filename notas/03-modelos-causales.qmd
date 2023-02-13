@@ -448,6 +448,12 @@ el promedio sobre la conjunta, es decir, suponemos que
 el efecto causal es el mismo independientemente de los valores de 
 las variables de control. Sin embargo, este no siempre es el caso.
 
+**Nota 3** Sin nuestro modelo $p(y|t,z)$ es lineal, y nos interesa calcular
+el efecto causal promedio de la variable $t$, no es necesario promediar por
+la conjunta de $p(z)$. Bajo estas condiciones, el efecto causal promedio está simplemente 
+por el coeficiente de $t$ en el modelo lineal. Sin embargo, si este no es el caso,
+entonces para estimar el efecto causal promedio es necesario promediar apropiadamente
+según la fórmula de ajuste.
 
 
 ## Experimentos
@@ -1130,6 +1136,11 @@ tres reglas del cálculo-do.
 :::
 
 
+**Nota**: esto no excluye que bajo ciertas hipótesis adicionales a las
+de nuestra gráfica causal (por ejemplo cómo se comportan las distribuciones particulares qeu componen el modelo), sea posible identificar efectos
+causales con otros medios que van más allá del cálculo-do.
+
+
 Con más generalidad, abajo están estas reglas (donde condicionamos a más variables o hacemos más intervenciones, y afinamos las condiciones):
 
 Denotamos por $G_m$ la gráfica mutilada por $do(x)$, donde
@@ -1725,7 +1736,7 @@ resultados que cambien nuestras conclusiones.
 :::
 
 
-### Ejemplo (Burks, Pearl)
+### Ejemplo (Burks, Pearl) {-}
 
 Este ejemplo es mencionado por Pearl en The Book of Why. 
 En 1926 Burks recolectó datos sobre qué tanto podría esperarse
@@ -1759,6 +1770,29 @@ que tradicionalmente se controlaba. Burks notó que hacer esto tenía como
 consecuencia cortar parte del efecto total de la inteligencia 
 sobre el la inteligencia de los hijos. Adicionalmente, condicionar
 a NSE abre un camino no causal entre Inteligencia de Padres e Hijos.
+
+## Controles buenos y malos
+
+En los análisis anteriores muchas veces buscamos construir modelos estadísticos
+$p(y|t, z)$, donde $z$ son variables por las que controlamos (o estratificamos)
+para obtener el efecto causal de $t$ sobre $y$ (es decir, estimar $p(y|t, z)$).
+
+Arriba mostramos (criterio de puerta trasera) que las variables $z$ deben
+bloquear puertas traseras al tratamiento, no bloquear efectos causales de $t$,
+y no activar caminos no causales.
+
+En @Pearl2022gb, Pearl et al. muestran diversos ejemplos de buenos y malos
+controles (variables para incluir en $z$). Estas ideas aplican tanto a 
+datos observacionales como experimentales.
+
+
+
+
+
+
+
+
+
 
 
 
