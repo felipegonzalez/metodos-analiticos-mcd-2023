@@ -1538,7 +1538,8 @@ Sin embargo, en este ejemplo vale la pena entender que estamos
 estimando el efecto de dos caminos causales (ver McElreath, Statistical Rethinking):
 
 - Posible discriminación directa general porque una aplicación está identificada como "mujer". Este es un efecto directo, lo que más propiamente llamaríamos discriminación de personas.
-- Posible discriminación estructural por las carreras que escogen las personas. En este caso, quizá por ejemplo los departamentos de ingeniería son más fáciles, pero tradicionalmente no se alienta a las mujeres escoger ese tipo de carreras. Este efecto está mediado por la selección de departamento.
+- Posible discriminación estructural por las carreras que escogen las personas. En este caso, quizá por ejemplo los departamentos de ingeniería son más fáciles de acceder, pero tradicionalmente 
+no se alienta a las mujeres escoger ese tipo de carreras. Este efecto está mediado por la selección de departamento.
 - El efecto total es el que experimentan las personas, por cualquiera
 de las dos razones de arriba.
 
@@ -1589,12 +1590,7 @@ El efecto directo no es conclusivo, y tiende a favorecer a mujeres cuando
 promediamos sobre la distribución de departamentos seleccionados.
 
 En algún momento de la discusión, este argumento fue mostrado para
-decir que no había discriminación en Berkeley específicamente orientado
-hacia las mujeres, aún cuando quedaba por investigar por qué
-el contraste de tasas de aceptación es tan diferente en cada departamento
-(puede haber muchas razones). Sin embargo, otros investigadores
-apuntaron al hecho de que la selección de departamentos y la tasa de aceptación 
-puede tener una causa común: por ejemplo, la habilidad general.
+decir que no había discriminación en Berkeley específicamente orientado hacia las mujeres, aún cuando quedaba por investigar por qué el contraste de tasas de aceptación es tan diferente en cada departamento (puede haber muchas razones). Sin embargo, otros investigadores apuntaron al hecho de que la selección de departamentos y la tasa de aceptación puede tener una causa común: por ejemplo, la habilidad general.
 
 ```{r}
 #| code-fold: true
@@ -1632,8 +1628,7 @@ el efecto directo no está identificado.
 :::
 
 Aunque podemos calcular el efecto total de género sobre admisión, no
-es posible extraer en este caso el efecto directo. Por ejemplo (McElreath),
-una hipótesis que se ha planteado es la siguiente:
+es posible extraer en este caso el efecto directo. Por ejemplo (McElreath), una hipótesis que se ha planteado es la siguiente:
 
 - Supongamos que existen departamentos que se sabe que discriminan o 
 tienen prácticas discriminatorias. Las personas que aplican a esos departamentos que son suceptibles a esta discriminación tienden a ser personas de mayor habilidad que el aplicante típico, pues sólo en ese caso están dispuestas
@@ -1644,7 +1639,7 @@ En este caso, puede haber discriminación directa que acaba enmascarada por esa 
 En este caso no tenemos la variable de habilidad, pero podríamos
 hacer análisis de sensibilidad. En el siguiente modelo, consideramos
 *hipotéticamente* qué pasaría si en el departamento 2 tuviera la imagen (justificada o no)
-de ser un ambiente discriminatorio para mujeres:
+de ser un ambiente discriminatorio:
 
 
 ```{r}
@@ -1670,11 +1665,11 @@ aparenta actividades descriminatorias, por las razones explicadas
 arriba podemos deducir que su nivel de habilidad es en general
 mayor que el aplicantes hombres, y eso puede explicar por qué
 aún cuando las tasas de aceptación el departamento sean similares,
-existe una componente de discriminación "estructural".
+existe una componente de discriminación.
 
 En este ejercicio haremos un análisis de sensibilidad de nuestras
 hipótesis. Supondremos que los niveles de habilidad en general
-ayudan a entrar en cualquier departamente, pero que la probabilidad
+ayudan a entrar en cualquier departamento, pero que la probabilidad
 de que una mujer aplique a un departamento discriminatorio sólo
 es alta si su nivel de habilidad es alto (ver los variables 
 delta y eta en el siguiente modelo):
@@ -1720,9 +1715,9 @@ Nótese como en este ejemplo el efecto de selección de departamento
 para mujeres es relativamente fuerte (alta habilidad
 tiende a ir a departamento 5), los efectos para el resto de los departamentos
 son contrarios: algunos se mueven a la derecha, es decir, parece haber
-má ventaja para mujeres. Esto es porque el departamento 5 absorbe a la
-mayoría de mujeres de habilidad alta, lo que implica que la habilidad promedio
-de mujeres en otros departamentos es más baja que la de los hombres.
+má ventaja para mujeres. Esto es porque el departamento 5 absorbe desproporcionadamente a mujeres de habilidad alta, lo que implica q
+ue la habilidad promedio de mujeres en otros departamentos es más baja 
+que la de los hombres.
 
 
 ::: callout-note
