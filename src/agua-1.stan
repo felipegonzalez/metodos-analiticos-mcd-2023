@@ -3,7 +3,7 @@ data {
   array[N] real t_maxima;
   array[N] real unidades;
   array[N] real desabasto_agua;
-  array[11] real desabasto_sim;
+  array[11] real desabasto_do;
 }
 
 transformed data {
@@ -67,9 +67,9 @@ generated quantities{
     for(k in 1:2000){
       // Extraemos una temperatura
       real t_sim = normal_rng(mu_t + 28, sigma_t);
-      // calculamos la media para la temperatura y desabasto
+      // calculamos la media dadas  temperatura y desabasto
       real media_unidades_sim = alpha_u +
-      beta_t * (t_sim - 28) + beta_d * desabasto_sim[i];
+      beta_t * (t_sim - 28) + beta_d * desabasto_do[i];
       // simulamos unidades
       unidades_sim_1[k] = normal_rng(10000 * media_unidades_sim,
         10000 * sigma_unidades);

@@ -456,87 +456,6 @@ entonces para estimar el efecto causal promedio es necesario promediar apropiada
 según la fórmula de ajuste.
 
 
-## Experimentos
-
-En los experimentos clásicos, intentamos obtener datos de un proceso generador  especial:
-
-- Asignamos un tratamiento $T$ **al azar**: el punto es que la asignación de tratamiento no esté relacionada con ninguna variable de interés en el proceso generador de datos "natural".
-- Como no hay aristas que entren a $T$, no es necesario llevar a cabo ninguna
-cirugía y ningún ajuste.
-- Cuando nosotros hacemos cirugía, estamos proponiendo un proceso generador
-que imita a un experimento, *siempre y cuando nuestros supuestos causales sean
-correctos*
-
-Por ejemplo, si queremos podemos asignar tratamiento de aspirina o no aspirina a una persona, lo hacemos por ejemplo viendo el dígito de unidades en su fecha
-de nacimiento. Aunque no tiramos ninguna moneda, este dígito no tiene
-ninguna relación con las maneras en que el tratamiento puede ayudar a reducir
-el dolor de cabeza.
-
-Entonces podríamos tener un diagrama como el que sigue, donde queremos 
-estimar el efecto causal de $T$ sobre $Y$:
-
-```{r}
-#| code-fold: true
-grViz("
-digraph {
-  graph [ranksep = 0.2, rankdir = LR]
-
-  node [shape=plaintext]
-  
-
-  edge [minlen = 3]
-   Dia -> T
-   T -> Y
-   X -> Z
-   W -> Z
-   Y -> W 
-   Y -> Z
-   A -> Y
-   T -> A
-   X -> W
-   T -> X
-   S -> Y
-#{ rank = same; A; D }
-
-}
-")
-```
-
-La variable $Dia$ que determina el tratamiento no tiene aristas en común
-con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún
-ajuste, no importa lo complicada que sea esta gráfica, y podemos usar
-simplemente $p(y|t)$. No hay necesidad de estratificar por ninguna variable.
-
-
-Por el contrario, si tenemos dados condicionados (por ejemplo por algún aspecto
-se la selección de muestra), o estratificamos sin cuidado por alguna de las otras variables,
-entonces podríamos agregar inducir asociaciones no causales en nuestra estimación.
-
-Eso quiere decir que para este propósito, podríamos simplemente 
-estimar $p(y|t)$ con un modelo simple. No es un modelo "mecanístico", ni nos
-sirve para aprender otras cosas, pero
-sabemos que da una estrategia de identificación para el efecto causal
-que nos interesa. Nótese también que puede haber variables sobre las que estratificamos que pueden producir más o menos variabilidad, aún cuando no se creen caminos no causales.
-
-Resumiendo:
-
-::: callout-note
-# Experimentos e inferencia causal
-
-- Los experimentos nos dan la garantía de que no haya aristas que incidan
-en el tratamiento que están conectadas con otras partes de la gráfica.
-- El análisis se simplifica pues basta con estimar el modelo "predictivo" $p(y|x)$: podemos ignorar el conocimiento experto en este sentido.
-- Sin embargo, en muchos experimentos podemos estratificar o controlar por algunas variables auxiliares para **mejorar la precisión** o subsanar **fallas** en el proceso
-de asignación del tratamiento (por ejemplo, datos perdidos). 
-- La decisión de controlar o estratificar por una variable sí depende de
-más aspectos de la estructura causal del problema, y es necesario entonces
-expandir más nuestro modelo para saber si es buena idea hacerlo.
-- También, saber más de la estructura causal nos puede ayudar a mejorar
-el **diseño** de nuestro experimento
-:::
-
-Más adelante veremos más de diseño de experimentos, qué variables utilizar
-para mejorar su precisión, y su relación con nuestro análisis basado en DAGs causales.
 
 
 
@@ -550,12 +469,14 @@ de ajuste es utilizar simulación:
 ::: callout-note
 # Fórmula de ajuste con simulación
 
-Para calcular efectos causales de $X$ en $Y$ , podemos simular según el proceso
+- Para calcular efectos causales de $X$ en $Y$ , podemos simular según el proceso
 generador de la gráfica mutilada donde quitamos todas las aristas que
 llegan a $X$. 
 En la práctica, esto implica fijar $X$, ignorar el proceso generador
 de $X$, y seguir el proceso generador
 original de nuestro modelo para el resto de los nodos.
+- Sin embargo, también es posible utilizar la fórmula formula de ajuste, y modelar
+sólo con las variables relevantes que aparecen en ella-
 
 :::
 
@@ -587,11 +508,11 @@ que es no es necesario preocuparnos por el ajuste de modelos locales).
 set.seed(128)
 sim_dias <- simular_t(250)
 N <- nrow(sim_dias)
-desabasto_sim <- seq(0, 1, 0.1)
+desabasto_do <- seq(0, 1, 0.1)
 datos_lista <- list(N = N, t_maxima = sim_dias$t_maxima,
                     unidades = sim_dias$unidades,
                     desabasto_agua = sim_dias$desabasto_agua,
-                    desabasto_sim = desabasto_sim)
+                    desabasto_do = desabasto_do)
 ajuste <- mod_agua$sample(data = datos_lista, refresh = 1000,
                           init = 0.1, step_size = 0.1)
 ```
@@ -622,7 +543,7 @@ sim_intervenciones <-
   pivot_longer(cols = contains("unidades_sim")) |> 
   separate(name, sep = "[\\[\\]]", into = c("variable", "indice"),
            convert = TRUE, extra = "drop") |> 
-  left_join(tibble(desabasto = desabasto_sim, indice = seq_along(desabasto_sim)))
+  left_join(tibble(desabasto = desabasto_do, indice = seq_along(desabasto_do)))
 ```
 
 
@@ -888,8 +809,7 @@ causales porque ningúna variable de $Z$ es descendiente de $T$,
 de modo que se satisface el criterio 2 (todos los caminos causales
 comienzan con $T\to$).
 Finalmente, nuestro criterio también implica que no condicionamos a 
-colisionadores, pues estos ocurren en caminos de la forma $T\to U_1 \cdots V\gets Y$, y esto activa caminos entre $T$ y $Y$ 
-que inciden en $T$.
+colisionadores, pues estos ocurren en caminos de la forma $T\to U_1 \cdots V\gets Y$, y esto activa un camino no causal entre $T$ y $Y$.
 
 ### Ejemplo (Pearl) {-}
 
@@ -1082,8 +1002,7 @@ estas estrategias tiene propósitos diferentes).
 Si queremos tener un efecto promedio, podemos modelar los pesos. Otra
 estrategia es promediar sobre los valores observados de la muestra. Nótese
 que esto ignora una parte de la incertidumbre proveniente de la muestra
-particular usada (aunque podríamos usar bootstrap para incluir esta incertidumbre
-adicional):
+particular usada.
 
 ```{r}
 mod_trata <- cmdstan_model("../src/trata-backdoor-promedio.stan")

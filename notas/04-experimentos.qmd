@@ -13,20 +13,85 @@ inv_logit <- \(x) 1 / (1 + exp(-x))
 
 En esta parte veremos qué nos aporta hacer explícitas los supuestos
 causales en el caso de experimentos, donde tenemos control sobre la asignación de tratamientos.
+En los experimentos clásicos, intentamos obtener datos de un proceso generador  especial:
 
-En primer lugar, como discutimos antes, al aleatorizar el 
-tratamiento cortamos necesariamente los caminos de puerta trasera al tratamiento que pueden producir sesgo en nuestras estimaciones causales. Discutimos que en este caso, independiente
-de la complejidad del fenómeno que nos interesa, 
-podemos simplemente considerar no ajustar por ninguna variable, e intentar estimar 
+- Asignamos un tratamiento $T$ **al azar**: el punto es que la asignación de tratamiento no esté relacionada con ninguna variable de interés en el proceso generador de datos "natural".
+- Como no hay aristas que entren a $T$, no es necesario llevar a cabo ninguna
+cirugía y ningún ajuste.
+- Cuando nosotros hacemos cirugía, estamos proponiendo un proceso generador
+que imita a un experimento, *siempre y cuando nuestros supuestos causales sean
+correctos*
 
-$$p(y|t)$$ 
+Por ejemplo, si queremos podemos asignar tratamiento de aspirina o no aspirina a una persona, lo hacemos por ejemplo viendo el dígito de unidades en su fecha
+de nacimiento. Aunque no tiramos ninguna moneda, este dígito no tiene
+ninguna relación con las maneras en que el tratamiento puede ayudar a reducir
+el dolor de cabeza.
 
-para el experimento de interés. Usualmente se usan modelos lineales para respuestas
-numéricas o regresión logística o de otro tipo cuando la respuestas es de distinto
-tipo (modelos lineales generalizados), pero la forma particular de 
-los modelos puede variar dependiendo del fenómeno de interés.
+Entonces podríamos tener un diagrama como el que sigue, donde queremos 
+estimar el efecto causal de $T$ sobre $Y$:
 
-A partir de nuestra estimación de esta condicional podemos resumir para obtener el efecto causal de interés. Por ejemplo, si el tratamiento toma valores $T=0$ o $T=1$, podemos considerar la diferencia de medias condicionales.
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+
+  node [shape=plaintext]
+  
+
+  edge [minlen = 3]
+   Dia -> T
+   T -> Y
+   X -> Z
+   W -> Z
+   Y -> W 
+   Y -> Z
+   A -> Y
+   T -> A
+   X -> W
+   T -> X
+   S -> Y
+#{ rank = same; A; D }
+
+}
+")
+```
+
+La variable $Dia$ que determina el tratamiento no tiene aristas en común
+con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún
+ajuste, no importa lo complicada que sea esta gráfica, y podemos usar
+simplemente $p(y|t)$. No hay necesidad de estratificar por ninguna variable.
+No es un modelo "mecanístico", ni nos
+sirve para aprender otras cosas, pero
+sabemos que da una estrategia de identificación para el efecto causal
+que nos interesa. A partir de nuestra estimación de esta condicional podemos resumir para obtener el efecto causal de interés. Por ejemplo, si el tratamiento toma valores $T=0$ o $T=1$, podemos considerar la diferencia de medias condicionales.
+
+Sin embargo, dependiendo de la gráfica
+
+- A veces es posible controlar por algunas variables para obtener estimaciones más
+precias
+- Aunque hay que hacer esto con cuidado, pues si estratificamos sin cuidado por alguna de las otras variables,
+entonces podríamos agregar inducir asociaciones no causales en nuestra estimación.
+
+Resumiendo:
+
+::: callout-note
+# Experimentos e inferencia causal
+
+- Los experimentos nos dan la garantía de que no haya aristas que incidan
+en el tratamiento que están conectadas con otras partes de la gráfica.
+- El análisis se simplifica pues basta con estimar el modelo "predictivo" $p(y|t)$: podemos 
+ignorar en parte el conocimiento experto en este sentido.
+- Sin embargo, en muchos experimentos podemos estratificar o controlar por algunas variables auxiliares para **mejorar la precisión** o subsanar **fallas** en el proceso
+de asignación del tratamiento (por ejemplo, datos perdidos). 
+- La decisión de controlar o estratificar por una variable sí depende de
+más aspectos de la estructura causal del problema, y es necesario entonces
+expandir más nuestro modelo para saber si es buena idea hacerlo.
+- También, saber más de la estructura causal nos puede ayudar a mejorar
+el **diseño** de nuestro experimento
+:::
+
+
 
 Consideraremos los diagramas de @Pearl2022gb que se refieren a una situación experimental.
 
