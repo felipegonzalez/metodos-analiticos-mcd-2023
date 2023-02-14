@@ -1,0 +1,348 @@
+# Experimentos y controles
+
+```{r}
+#| code-fold: true
+#| warning: false
+library(tidyverse)
+library(kableExtra)
+library(DiagrammeR)
+ggplot2::theme_set(ggplot2::theme_light())
+inv_logit <- \(x) 1 / (1 + exp(-x)) 
+
+```
+
+En esta parte veremos qué nos aporta hacer explícitas los supuestos
+causales en el caso de experimentos, donde tenemos control sobre la asignación de tratamientos.
+
+En primer lugar, como discutimos antes, al aleatorizar el 
+tratamiento cortamos necesariamente los caminos de puerta trasera al tratamiento que pueden producir sesgo en nuestras estimaciones causales. Discutimos que en este caso, independiente
+de la complejidad del fenómeno que nos interesa, 
+podemos simplemente considerar no ajustar por ninguna variable, e intentar estimar 
+
+$$p(y|t)$$ 
+
+para el experimento de interés. Usualmente se usan modelos lineales para respuestas
+numéricas o regresión logística o de otro tipo cuando la respuestas es de distinto
+tipo (modelos lineales generalizados), pero la forma particular de 
+los modelos puede variar dependiendo del fenómeno de interés.
+
+A partir de nuestra estimación de esta condicional podemos resumir para obtener el efecto causal de interés. Por ejemplo, si el tratamiento toma valores $T=0$ o $T=1$, podemos considerar la diferencia de medias condicionales.
+
+Consideraremos los diagramas de @Pearl2022gb que se refieren a una situación experimental.
+
+## Controles buenos o neutros
+
+Consideramos el siguiente diagrama: en este caso, $Z$ causa variación
+en $Y$. Controlar por $Y$ puede mejorar la precisión de nuestras estimaciones causales, sin abrir ningún camino no causal (modelo 8
+en @Pearl2022gb :
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  subgraph caso_1 {
+    node [shape=plaintext]
+    Z [fontcolor="red"]
+    edge [minlen = 3]
+    Z -> Y
+    T -> Y
+  }
+}
+', width = 250, height = 60)
+```
+
+
+### Ejemplo
+
+Queremos probar un tratamiento para reducir peso. Aleatorizaremos las personas
+al tratamiento (por ejemplo una medicina), y antes de comenzar el estudio
+registramos su peso inicial y estatura. Nuestro diagrama 
+es el siguiente, donde incluímos
+también el peso inicial que influye en el peso final después del tratamiento, y
+otras variables no observadas que influyen tanto en peso final como peso inicial
+(por ejemplo, si las personas estuvieron haciendo alguna dietas o no).  También medimos
+una cantidad, al final del experimento, que es bienestar general de la persona
+(o una calificación de su estado de salud general). Adicionalmente
+medimos una variable $C$ (cansancio), pues sabemos que esta medicina
+puede tener ese efecto. El cansancio puede afectar el peso final
+pues los niveles de actividad pueden cambiar. $B$ puede ser en este caso
+una medición de circunferencia de abdomen, por ejemplo. 
+
+```{r}
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir=LR]
+  node[shape=circle]
+      U
+      V
+  node [shape=plaintext]
+    T
+  edge [minlen = 3]
+   #G -> H
+   #H -> PI
+   T -> PF
+   #G -> PF
+   PI -> PF
+   U -> PI
+   U -> PF
+   V -> PF
+   T -> C -> PF
+   PF -> B
+}
+")
+```
+
+No hay ninguna variable confusora, y una estrategia de estimación es comparar
+$PF$ entre los grupo.
+
+```{r}
+sim_peso <- function(n){
+  T <- rbinom(n, 1, 0.5)
+  C <- rbinom(n, 1, 1/(1+exp(-(-2 + 4 * T))))
+  U <- rnorm(n, 10, 5)
+  G <- rbinom(n, 1, 0.5)
+  H <- rnorm(n, 170 - 10 * G, 20)
+  PI <- rnorm(n, -20 +  0.5 * H + U, 10)
+  PF <- rnorm(n, PI + U - 10 * T + 2 * C , 10)
+  #V <- PF - (PI + U - 10 * T + 2 * C)
+  B <- rbinom(n, 1, 1/(1 + exp((PF-60)/10)))
+  tibble(G, H, T, PI, PF, B, C)
+}
+set.seed(26)
+peso_tbl <- sim_peso(1200)
+peso_tbl
+```
+
+En aplicaciones realidad, no sabemos cuál es el efecto causal, pero
+en ejemplos simulados sí podemos calcularlo. 
+En este caso, hacemos la siguiente simulación para tener nuestra referencia:
+
+```{r}
+peso_sims_tbl <- sim_peso(100000)
+peso_sims_tbl |> group_by(T) |> 
+  summarise(peso_final_medio = mean(PF)) |> 
+  arrange(T) |> 
+  mutate(dif = peso_final_medio - lag(peso_final_medio))
+```
+
+
+
+
+
+Podemos hacer simplemente
+
+```{r}
+lm(PF ~ T, peso_tbl) |> broom::tidy()
+```
+y el coeficiente de $T$ sería una estimación del efecto causal promedio. Sin embargo,
+si condicionamos a $PI$ tampoco creamos ninguna ruta no causal entre $T$ y $PF$. Podemos
+hacer también
+
+```{r}
+lm(PF ~ T + PI, peso_tbl) |> broom::tidy()
+```
+Y notamos que nuestra estimación es más precisa. Esto es porque $PI$ absorbe una parte
+importante de la variación de PF. 
+Al incluir este control no cambiamos la cantidad que estamos
+estimando, pero sí el estimador particular, que en este caso tiene
+menos incertidumbre.
+
+::: callout-tip
+
+Nótese que
+no necesariamente podemos interpetar el coeficiente de $PI$ fácilmente, pues existen rutas no casuales activas entre $PF$ y $PI$. Como explicamos antes, 
+un modelo que se usa para identificar un efecto causal particular no implica
+que puedan interpretarse como causales otros coeficientes.
+
+:::
+
+
+
+
+## Malos controles: sobrecontrol
+
+En los siguientes diagramas, condicionar
+por $Z$ corta parte del efecto causal de $T$ sobre $Y$ (modelos 11 y 12 de 
+@Pearl2022gb):
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  subgraph caso_1 {
+    node [shape=plaintext]
+    Z [fontcolor="red"]
+    edge [minlen = 3]
+    T -> Z
+    Z -> Y
+    T -> Y
+  }
+  
+  subgraph caso_2 {
+    node [shape=plaintext]
+    Ya [label="Y"]
+    Ta [label="T"]
+    Za [label="Z"][fontcolor="red"]
+    edge [minlen = 3]
+    Ta -> M
+    M -> Ya
+    M -> Za
+    Ta -> Ya
+  }
+}
+', width = 250, height = 120)
+```
+
+
+
+
+
+
+
+
+```{r}
+lm(PF ~ T +  C, peso_tbl) |> broom::tidy()
+lm(PF ~ T +  PI + C, peso_tbl) |> broom::tidy()
+
+```
+Y vemos que nuestra estimación del efecto del tratamiento está sesgada, aparentando
+ser más efectiva de lo que es. La razón es que el camino que pasa por $C$ "daña"
+en lugar de ayudar. El efecto causal total toma en cuenta tanto beneficios
+como daños.
+
+
+## Malos controles: variables post-tratamiento
+
+Variables que son efectos de la variable respuesta que nos interesa
+son en general malos controles. Para entender eso, agregamos explícitamente
+nodos que usualmente no mostramos en nuestros diagramas (están ahí implícitamente),
+que son efectos sobre $Y$ que no tienen conexiones causales con otras partes del
+diagrama:
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  subgraph caso_1 {
+    node[shape= circle]
+    U_y
+    node [shape=plaintext]
+    Z [fontcolor="red"]
+    edge [minlen = 3]
+    Y -> Z
+    T -> Y  
+    U_y -> Y
+  }
+}
+', width = 250, height = 120)
+```
+
+Hemos añadido un nodo implícito (otros factores que afectan $Y$
+y no tienen relación con otras variables del sistema) para explicar qué 
+es lo que pasa cuando condicionamos a $Z$: como $Z$ es un descendiente 
+del colisionador en $Y$, se activa una ruta no causal entre $U_y$ y $T$,
+y estas dos cantidades aparecen como correlacionadas (es una correlación
+no causal). Esto en consecuencia modifica la correlación entre $T$ y $Y$.
+
+
+### Ejemplo {-}
+
+En nuestro ejemplo
+
+```{r}
+lm(PF ~ T +  B, peso_tbl) |> broom::tidy()
+```
+
+
+En la regresión el coeficiente de $T$ está contaminado por
+esa asociación que creamos al condicionar a un descendiente
+de un colisionador: este coeficiente "explica" otra variación del peso 
+final que no tiene qué ver con el tratamiento, en lugar de explicar solamente
+la variación por el tratamiento.
+
+Otra manera de entender esto es como sigue: si PF es muy similar a B, poner B en el modelo de regresión es mala idea, pues B captura 
+mucha variación de PF, y las demás variables parecen contribuir menos.
+
+## Control Malo: sesgo de colisionador
+ 
+
+Los modelo 16 y 17 ya los hemos examinado antes: cuando condicionamos
+a un colisionador activamos no causales que distorsionan la asociación.
+
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  subgraph caso_1 {
+    node [shape=plaintext]
+    Z [fontcolor="red"]
+    edge [minlen = 3]
+    T -> Z
+    Y -> Z
+    T -> Y
+  }
+  
+  subgraph caso_2 {
+    node [shape=circle]
+    U
+    node [shape=plaintext]
+    Ya [label="Y"]
+    Ta [label="T"]
+    Za [label="Z"][fontcolor="red"]
+    edge [minlen = 3]
+    U -> Za
+    U -> Ya
+    Ta -> Ya
+    Ta -> Za
+  {rank=same; Za; Ta}
+  }
+}
+', width = 250, height = 140)
+```
+
+
+### Ejemplo: la paradoja de peso de recién nacidos {-}
+
+Para ilustrar la primera de estas gráficas referimos al
+caso de la paradajo del peso bajo de los recién nacidos
+(@birthweight), [The Birth Weight “Paradox” Uncovered?](https://academic.oup.com/aje/article/164/11/1115/61454) 
+
+En 1991, se observó que bebés nacidos de madres fumadoras
+tenían tanto peso más bajo como más alta mortalidad. Sin 
+embargo, si excluíamos el análisis a bebés nacidos con 
+bajo peso, los bebés de fumadoras tenían menos mortalidad
+que los de no fumadoras. Aunque hubo algunas especulaciones si fumar "protegía"
+a niños de bajo peso, podemos explicar la aparición de
+esta correlación por la activación de una ruta no causal
+al condicionar a niños de bajo peso.
+
+En la gráfica de arriba, $T$ indica si la madre es fumadora o no, y $Y$ la mortalidad. $Z$ si el bebé 
+nació con bajo peso o no.
+
+ $U$ son posibles defectos de nacimiento 
+no observados, que causan peso bajo e incrementan el riesgo de muerte. Cuando observamos
+a mujeres fumadoras, tenemos una explicación para el
+peso bajo, lo cual hace más improbable que se trate
+de un defecto grave de nacimiento. En consecuencia, 
+el riesgo de muerte es más bajo.
+
+Esta es una asociación no causal creada por condicionar
+a un colisionador.
+
+
+
+
+
+
+
+
+
+
+
+
