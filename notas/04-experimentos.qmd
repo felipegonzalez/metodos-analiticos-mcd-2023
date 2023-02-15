@@ -8,7 +8,6 @@ library(kableExtra)
 library(DiagrammeR)
 ggplot2::theme_set(ggplot2::theme_light())
 inv_logit <- \(x) 1 / (1 + exp(-x)) 
-
 ```
 
 En esta parte veremos qué nos aporta hacer explícitas los supuestos
@@ -69,7 +68,7 @@ que nos interesa. A partir de nuestra estimación de esta condicional podemos re
 Sin embargo, dependiendo de la gráfica
 
 - A veces es posible controlar por algunas variables para obtener estimaciones más
-precias
+precisas.
 - Aunque hay que hacer esto con cuidado, pues si estratificamos sin cuidado por alguna de las otras variables,
 entonces podríamos agregar inducir asociaciones no causales en nuestra estimación.
 
@@ -98,8 +97,8 @@ Consideraremos los diagramas de @Pearl2022gb que se refieren a una situación ex
 ## Controles buenos o neutros
 
 Consideramos el siguiente diagrama: en este caso, $Z$ causa variación
-en $Y$. Controlar por $Y$ puede mejorar la precisión de nuestras estimaciones causales, sin abrir ningún camino no causal (modelo 8
-en @Pearl2022gb :
+en $Y$. Controlar por $Y$ puede mejorar la precisión de nuestras estimaciones causales, sin abrir ningún camino no causal (Modelo 8
+en @Pearl2022gb, [A Crash Course in Good and Bad Controls](https://ftp.cs.ucla.edu/pub/stat_ser/r493.pdf)) :
 
 ```{r}
 #| code-fold: true
@@ -160,7 +159,7 @@ digraph {
 ```
 
 No hay ninguna variable confusora, y una estrategia de estimación es comparar
-$PF$ entre los grupo.
+$PF$ entre los grupos.
 
 ```{r}
 sim_peso <- function(n){
@@ -399,11 +398,6 @@ el riesgo de muerte es más bajo.
 
 Esta es una asociación no causal creada por condicionar
 a un colisionador.
-
-
-
-
-
 
 
 

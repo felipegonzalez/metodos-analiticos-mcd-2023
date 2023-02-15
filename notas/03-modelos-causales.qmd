@@ -343,10 +343,12 @@ ggplot(simular_dias_c, aes(x = desabasto_agua, y = unidades)) +
 Podemos también resumir promediando:
 
 ```{r}
-simular_dias_c |> 
+efecto_verdadero_desabasto <- simular_dias_c |> 
   group_by(desabasto_agua) |> 
-  summarise(unidades_media = mean(unidades)) |> 
-ggplot(aes(x = desabasto_agua, y = unidades_media)) + 
+  summarise(media_unidades = mean(unidades)) |> 
+  rename(desabasto = desabasto_agua)
+ggplot(efecto_verdadero_desabasto,
+       aes(x = desabasto, y = media_unidades)) + 
   geom_point() + geom_smooth()
 ```
 
@@ -457,9 +459,6 @@ según la fórmula de ajuste.
 
 
 
-
-
-
 ## Simulación para estimar efectos causales
 
 La estrategia más general y conceptualmente simple (aunque técnicamente
@@ -552,15 +551,17 @@ sim_intervenciones |> group_by(desabasto) |>
   summarise(media_unidades = mean(value), 
             q5 = quantile(value, 0.05),
             q95 = quantile(value, 0.95)) |> 
-ggplot(aes(x=desabasto, y = media_unidades, 
-           ymin = q5, ymax = q95)) +
-  geom_point() +
-  geom_linerange()
+ggplot(aes(x=desabasto, y = media_unidades)) +
+  geom_point(colour = "red") +
+  geom_linerange(aes(ymin = q5, ymax = q95),colour = "red") +
+  geom_point(data = efecto_verdadero_desabasto)
 ```
 Esta gráfica puede ser difícil de interpretar, porque puede haber correlación
-entre los distintos estimadores que estamos presentando.
+entre los distintos estimadores que estamos presentando. Sin embargo, vemos
+cómo nuestra estimación (en rojo) está cercana a los valores teóricos.
 
-Para comparar, lo mejor es hacer contrastes. Comparamos con la situación
+Para comparar entre niveles del factor que manipulamos, 
+lo mejor es hacer contrastes. Comparamos con la situación
 de 0 desabasto, por ejemplo, y calculamos el incremento estimado:
 
 ```{r}
@@ -575,8 +576,8 @@ sim_intervenciones |> left_join(sim_nivel_0) |>
             q95 = quantile(dif, 0.95)) |> 
 ggplot(aes(x=desabasto, y = diferencia_media, 
            ymin = q5, ymax = q95)) +
-  geom_point() +
-  geom_linerange()
+  geom_point(colour = "red") +
+  geom_linerange(colour = "red")
 ```
 
 Claramente todos los estimadores están bien separados de 0. Diez puntos
@@ -800,16 +801,17 @@ La idea es:
 
 1. Queremos bloquear todos los caminos no causales entre $T$ y $Y$.
 2. Queremos no perturbar todos los caminos dirigidos de $T$ a $Y$ (caminos causales).
-3. No queremos activar caminos no causales al condicionar.
+3. No queremos activar caminos no causales entre $T$ y $Y$ al condicionar.
 
 Cumplimos 1 al estratificar por variables que bloquean los caminos
 que son causas de $T$, pues estos caminos no son causales y distorsionan
 la relación entre $T$ y $Y$. Al mismo tiempo, no bloqueamos caminos
 causales porque ningúna variable de $Z$ es descendiente de $T$,
 de modo que se satisface el criterio 2 (todos los caminos causales
-comienzan con $T\to$).
-Finalmente, nuestro criterio también implica que no condicionamos a 
-colisionadores, pues estos ocurren en caminos de la forma $T\to U_1 \cdots V\gets Y$, y esto activa un camino no causal entre $T$ y $Y$.
+comienzan con $T\to$). Finalmente, al excluir descendientes de $T$
+también implica que no condicionamos a 
+colisionadores del tipo $T\to \cdots \to Z_1\gets  Y$, pues 
+esto activa un camino no causal entre $T$ y $Y$ (se cumple 3). 
 
 ### Ejemplo (Pearl) {-}
 
@@ -1274,7 +1276,7 @@ Veamos cómo sería la estimación si tuviéramos datos disponible, y
 si es que podemos recuperar el efecto correcto dados los datos observados y la técnica de puerta delantera.
 
 Nótese que sólo necesitamos
-$p(c|a, f), p(a|f) y $p(f)$. Estos son modelos *estadístico* con el 
+$p(c|a, f), p(a|f)$ y $p(f)$. Estos son modelos estadísticos con el 
 que podemos identificar el efecto que nos interesa. Una vez que los estimemos,
 podemos usar simulación:
 
@@ -1695,7 +1697,8 @@ Arriba mostramos (criterio de puerta trasera) que las variables $z$ deben
 bloquear puertas traseras al tratamiento, no bloquear efectos causales de $t$,
 y no activar caminos no causales.
 
-En @Pearl2022gb, Pearl et al. muestran diversos ejemplos de buenos y malos
+En @Pearl2022gb, Pearl et al. [A Crash Course in Good and Bad Controls](https://ftp.cs.ucla.edu/pub/stat_ser/r493.pdf) muestran
+diversos ejemplos de buenos y malos
 controles (variables para incluir en $z$). Estas ideas aplican tanto a 
 datos observacionales como experimentales.
 
