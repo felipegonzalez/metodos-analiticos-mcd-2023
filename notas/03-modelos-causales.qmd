@@ -1429,6 +1429,7 @@ el siguiente:
 
 ```{r}
 mod_1_berkeley <- cmdstan_model("../src/berkeley-1.stan")
+print(mod_1_berkeley)
 ```
 
 ```{r}
@@ -1471,7 +1472,7 @@ podemos intentar estimar el efecto directo de discriminación. En este
 caso, *necesitamos bloquear la variable departamento*, para ver sólo el efecto
 directo, y esto lo logramos estratificando por departamento.
 
-
+Calcularemos ahora $p(a | do(g = 1, d = d))$ para cada departamento. 
 El modelo no cambia, pero simulamos diferente:
 
 ```{r}
@@ -1498,17 +1499,10 @@ ggplot(sims_contraste, aes(x = value, fill = dept)) +
 ```
 
 Donde vemos que los departamentos varían en la diferencia de aceptación
-de hombres y mujeres. Si resumimos con la marginal de los departamentos
-seleccionados, obtenemos:
+de hombres y mujeres. 
 
-```{r}
-sims_contraste_d <- ajuste$draws("contraste_directo", format = "df")
-ggplot(sims_contraste_d, aes(x = contraste_directo)) +
-  geom_histogram()
-```
-
-El efecto directo no es conclusivo, y tiende a favorecer a mujeres cuando
-promediamos sobre la distribución de departamentos seleccionados.
+El efecto directo (en este caso se llama *efecto directo controlado*) 
+no es conclusivo, aunque parece favorecer ligeramente a mujeres.
 
 En algún momento de la discusión, este argumento fue mostrado para
 decir que no había discriminación en Berkeley específicamente orientado hacia las mujeres, aún cuando quedaba por investigar por qué el contraste de tasas de aceptación es tan diferente en cada departamento (puede haber muchas razones). Sin embargo, otros investigadores apuntaron al hecho de que la selección de departamentos y la tasa de aceptación puede tener una causa común: por ejemplo, la habilidad general.
