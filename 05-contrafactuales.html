@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Métodos analíticos - 5&nbsp; Contrafactuales</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./99-referencias.html" rel="next">
+<link href="./04-experimentos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Métodos analíticos</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#efectos-causales-a-nivel-individuo." id="toc-efectos-causales-a-nivel-individuo." class="nav-link active" data-scroll-target="#efectos-causales-a-nivel-individuo."><span class="toc-section-number">5.1</span>  Efectos causales a nivel individuo.</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
+  <li><a href="#ejemplo-simple-rubin" id="toc-ejemplo-simple-rubin" class="nav-link" data-scroll-target="#ejemplo-simple-rubin">Ejemplo simple (Rubin)</a></li>
+  </ul></li>
+  <li><a href="#asignación-no-ignorable" id="toc-asignación-no-ignorable" class="nav-link" data-scroll-target="#asignación-no-ignorable"><span class="toc-section-number">5.2</span>  Asignación no ignorable</a></li>
+  <li><a href="#mediacion-con-contrafactuales" id="toc-mediacion-con-contrafactuales" class="nav-link" data-scroll-target="#mediacion-con-contrafactuales"><span class="toc-section-number">5.3</span>  Mediacion con contrafactuales</a>
+  <ul class="collapse">
+  <li><a href="#caso-donde-no-hay-variables-confusoras" id="toc-caso-donde-no-hay-variables-confusoras" class="nav-link" data-scroll-target="#caso-donde-no-hay-variables-confusoras"><span class="toc-section-number">5.3.1</span>  Caso donde no hay variables confusoras</a></li>
+  <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo</a></li>
+  <li><a href="#ejemplo-admisiones-de-berkeley" id="toc-ejemplo-admisiones-de-berkeley" class="nav-link" data-scroll-target="#ejemplo-admisiones-de-berkeley"><span class="toc-section-number">5.3.2</span>  Ejemplo (Admisiones de Berkeley)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>El punto de vista de contrafactuales ( o resultados potenciales), también llamado enfoque de Neyman-Rubin comienza abordando el problema de inferencia causal desde el punto de vista a nivel individual, en lugar de poblacional.</p>
+<p>Recordemos que anteriormente consideramos calcular cantidades como <span class="math inline">\(E(y|do(x))\)</span>. Este es un valor promedio sobre la población de interés. Ahora consideraremos unidades individuales que hemos observado. Podríamos preguntarnos, por ejemplo, dado que la persona <span class="math inline">\(i\)</span> recibió el tratamiento, y respondió con resultado <span class="math inline">\(y_i\)</span>, ¿qué hubiera pasado con esta persona si no la hubiéramos tratado? Esta es una pregunta distinta, pues tenemos información acerca del resultado de esta persona bajo condiciones del tratamiento y depende de características específicas de esa persona.</p>
+<p>Aunque seguiremos utilizando DAGs para expresar, transparentar y comunicar nuestros supuestos causales, el concepto de contrafactuales va más allá del cálculo-do.</p>
+<section id="efectos-causales-a-nivel-individuo." class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="efectos-causales-a-nivel-individuo."><span class="header-section-number">5.1</span> Efectos causales a nivel individuo.</h2>
+<p>Supongamos que nos interesa una respuesta <span class="math inline">\(Y\)</span> a un tratamiento <span class="math inline">\(T\)</span>. Por simplicidad, empezamos considerando que <span class="math inline">\(T\)</span> puede tomar los valores 0 o 1.</p>
+<p>En el modelo causal de Rubin, consideramos, para cada individuo de la población de interés, las dos cantidades:</p>
+<p><span class="math display">\[y_{i}^1, y_{i}^0,\]</span> que se definen la siguiente manera: Si <span class="math inline">\(y_i\)</span> es la respuesta observada para una unidad, entonces:</p>
+<ul>
+<li><span class="math inline">\(y_i = y_{i}^1\)</span> cuando <span class="math inline">\(t_i=1\)</span>, es decir, la unidad recibió el tratamiento, o</li>
+<li><span class="math inline">\(y_i = y_{i}^0\)</span> cuando <span class="math inline">\(t_i=0\)</span>, la unidad no recibió el tratamiento.</li>
+</ul>
+<p>Podemos escribir también como</p>
+<p><span class="math display">\[y_i = y_{i}^1 t_i + y_{i}^0 (1 - t_i)\]</span> El primer avance, entonces, es establecer que para cada unidad hay dos posibles <em>resultados potenciales</em>, pero nosotros solamente observamos uno: <span class="math inline">\(y_i\)</span>. Esta notación más específica nos permite definir:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Contrafactuales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Cuando observamos <span class="math inline">\(y_i=y_i^1\)</span>, decimos que su observación contrafactual es <span class="math inline">\(y_i^0\)</span>, es decir, qué hubiéramos observado si esta unidad no hubiera recibido el tratamiento.</li>
+<li>Cuando observamos <span class="math inline">\(y_i=y_i^0\)</span>, decimos que su observación contrafactual es <span class="math inline">\(Y_i^1\)</span>, es decir, qué hubiéramos observado si esta unidad hubiera recibido el tratamiento.</li>
+<li>En algunos casos, escribiremos como <span class="math inline">\(y_i^{obs}\)</span> la respuesta observada, y como <span class="math inline">\(y_i^{mis}\)</span> el contrafactual. Para cada unidad siempre hay una respuesta faltante.</li>
+</ul>
+</div>
+</div>
+<p><strong>Nota</strong>: En general, podemos definir <span class="math inline">\(y_i^t = y_i(t)\)</span> como el contrafactual para la unidad <span class="math inline">\(i\)</span> cuando recibe el tratamiento <span class="math inline">\(T=t\)</span>.</p>
+<section id="ejemplo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
+<p>Supongamos que nos interesa el tratamiento de tomar aspirina, y queremos ver su efecto en dolor de cabeza. En este caso tenemos un experimento donde el tratamiento se asignó al azar. Consideramos la intensidad del dolor (inicial y final) en una escala continua, con el dolor inicial estandarizado.-</p>
+<p>Entonces podríamos ver algo como lo que sigue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mecanismo_aspirina <span class="ot">&lt;-</span> <span class="cf">function</span>(dat_tbl){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># esta función contiene el mecanismo de funcionamiento</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># del tratamiento, en términos probabilísticos</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    res_tbl <span class="ot">&lt;-</span> dat_tbl <span class="sc">|&gt;</span>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">u =</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Y_1 =</span> <span class="fl">0.8</span> <span class="sc">*</span> intensidad <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> u) <span class="sc">|&gt;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Y_0 =</span> <span class="fl">0.8</span> <span class="sc">*</span> intensidad <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> u) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Y =</span> <span class="fu">ifelse</span>(T, Y_1, Y_0))  <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(T, Y, Y_1, Y_0, <span class="fu">everything</span>())</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    res_tbl</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1200</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13233</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ejemplo_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">.rows =</span> n) <span class="sc">|&gt;</span>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">intensidad =</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">T =</span> <span class="fu">rbernoulli</span>(n, <span class="fl">0.5</span>)) </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>resultados_1 <span class="ot">&lt;-</span> ejemplo_1 <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mecanismo_aspirina</span>() </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>obs_1 <span class="ot">&lt;-</span> resultados_1 <span class="sc">|&gt;</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y_1 =</span> <span class="fu">ifelse</span>(T, Y_1, <span class="cn">NA</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y_0 =</span> <span class="fu">ifelse</span>(T, <span class="cn">NA</span>, Y_0)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(T, intensidad, Y, Y_1, Y_0)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>obs_1 <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">|&gt;</span> kableExtra<span class="sc">::</span><span class="fu">kable_paper</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> T </th>
+   <th style="text-align:right;"> intensidad </th>
+   <th style="text-align:right;"> Y </th>
+   <th style="text-align:right;"> Y_1 </th>
+   <th style="text-align:right;"> Y_0 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> -0.903 </td>
+   <td style="text-align:right;"> -0.052 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> -0.052 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> 0.441 </td>
+   <td style="text-align:right;"> 1.710 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 1.710 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> -0.515 </td>
+   <td style="text-align:right;"> -1.953 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> -1.953 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:right;"> -0.640 </td>
+   <td style="text-align:right;"> -1.607 </td>
+   <td style="text-align:right;"> -1.607 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> -1.434 </td>
+   <td style="text-align:right;"> 2.745 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2.745 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:right;"> -0.730 </td>
+   <td style="text-align:right;"> -0.894 </td>
+   <td style="text-align:right;"> -0.894 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Nótese que nunca observamos al mismo tiempo <span class="math inline">\(y_i^1\)</span> y <span class="math inline">\(y_i^0\)</span>. Nuestros resultados completos se verían como:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>resultados_1 <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(T, intensidad, Y_1, Y_0) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">efecto_causal_ind =</span> (Y_1 <span class="sc">-</span> Y_0)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  T     intensidad    Y_1    Y_0 efecto_causal_ind
+  &lt;lgl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;
+1 FALSE     -0.903 -1.06  -0.052            -1.00 
+2 FALSE      0.441  0.192  1.71             -1.52 
+3 FALSE     -0.515 -1.30  -1.95              0.656
+4 TRUE      -0.64  -1.61  -2.89              1.28 
+5 FALSE     -1.43  -0.674  2.74             -3.42 
+6 TRUE      -0.73  -0.894  0.175            -1.07 </code></pre>
+</div>
+</div>
+<p>Podemos definir el efecto causal a nivel unidad de la siguiente forma, aunque esto no nos dice directamente cómo calcularlo con los datos observados:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>resultados_1 <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">efecto_causal_ind =</span> Y_1 <span class="sc">-</span> Y_0) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ATE =</span> <span class="fu">mean</span>(efecto_causal_ind), </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">ee =</span> <span class="fu">sd</span>(efecto_causal_ind)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+     ATE     ee
+   &lt;dbl&gt;  &lt;dbl&gt;
+1 -0.478 0.0431</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Efectos causales a nivel de unidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Definimos el efecto del tratamiento <span class="math inline">\(T\)</span> sobre el individuo <span class="math inline">\(i\)</span> como la cantidad:</p>
+<p><span class="math display">\[\delta_i = y_{i}^1 - y_{i}^0,\]</span> Aunque también podríamos definirlo como cambio porcentual, o cociente, por ejemplo</p>
+</div>
+</div>
+<p>Bajo este esquema, cantidades como el efecto promedio sobre la población pueden calcularse. Promediando sobre la población, escribiríamos</p>
+<p><span class="math display">\[\delta = \frac{1}{N}\sum_i \delta_i = \frac{1}{N}\sum_i y_{i}^1 - \frac{1}{N}\sum_i y_{i}^0\]</span> que también podemos escribir, si <span class="math inline">\(Y, Y_{}^1, Y_{}^0\)</span> indican los valores correspondientes a una persona tomada al azar de la población, como</p>
+<p><span class="math display">\[\delta = E[Y^1] - E[Y^0]\]</span> En términos de nuestra notación de la sección anterior, esto es lo mismo que</p>
+<p><span class="math display">\[\delta = E[Y|do(T=1)] - E[Y|do(T=0)].\]</span> y estos valores esperados son bajo la distribución <span class="math inline">\(p(y|do(t))\)</span>. Nótese sin embargo, que en cálculo-do siempre tratamos con las distribuciones poblacionales, y el enfoque de contrafactuales nos permite conectarlos con <em>efectos individuales</em>.</p>
+<p>Para que las definiciones de arriba tengan sentido y podamos trabajar con ellas de manera relativamente simple, es necesario hacer algunos supuestos. Los primeros se denominan <em>SUTVA</em>, o Stable Unit Treatment Value Assumption), ver (<span class="citation" data-cites="rubin2005">Rubin (<a href="99-referencias.html#ref-rubin2005" role="doc-biblioref">2005</a>)</span>):</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+SUTVA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El supuesto de valores estables de tratamientos de las unidades consiste en:</p>
+<ul>
+<li>Los resultados potenciales <span class="math inline">\(y_{i}^1, y_{i}^0\)</span> no son afectados por el tratamiento que recibe la unidad, o ninguna otra unidad.</li>
+<li>Los resultados potenciales <span class="math inline">\(y_{i}^1, y_{i}^0\)</span> no dependen de cómo se asignó el tratamiento.</li>
+</ul>
+</div>
+</div>
+<p>En otro caso, es difícil establecer que significado tienen los contrafactuales. Este supuesto muchas veces es apropiado, excepto cuando hay interacciones importantes entre las unidades. Por ejemplo: Un cambio en una plataforma para compartir documentos para una unidad A puede tener efectos en las <span class="math inline">\(Y\)</span>’s correspondientes a unidades que comparten documentos con A. Otro ejemplo es si consideramos una enfermedad contagiosa: la intervención sobre una unidad puede tener efecto sobre los resultados potenciales de otra persona cercana. En esos casos, es necesario considerar distintos tipos de unidades (por ejempo, intervenciones a nivel red de contactos, escuelas, etc.), o utilizar modelos más complejos.</p>
+<p>Con estos conceptos, Rubin (<span class="citation" data-cites="rubin2005">Rubin (<a href="99-referencias.html#ref-rubin2005" role="doc-biblioref">2005</a>)</span>) llama al modelo <span class="math inline">\(p(x, y^1, y^0)\)</span> el modelo “científico”, mientras que el modelo de asignación es <span class="math inline">\(p(t|x, y^0, y^1)\)</span>, separando claramente la “ciencia” del mecanismo de asignación del tratamiento, que puede ser un experimento aleatorio, una asignación basada en políticas, autoselección de las personas, etc.</p>
+<ul>
+<li>Nótese que en general, la asignación del tratamiento puede depender de los dos valores potenciales (por ejemplo, las personas que deciden tomar algún tratamiento son justamente aquellas para las que <span class="math inline">\(Y^0\)</span> es similar a <span class="math inline">\(Y_1\)</span>).</li>
+</ul>
+<p>Igual que en el marco de modelos causales estructurales (DAGs), generalmente es necesario hacer supuestos considerables acerca de estos dos modelos.</p>
+<p>En cuanto al proceso de asignación del tratamiento, Rubin introduce el concepto de ignorabilidad:</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Ingorabilidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si <span class="math inline">\(P(t|x, y^0, y^1) = P(t|x)\)</span>, es decir, los resultados no influyen en la asignación de tratamiento dadas las covariables <span class="math inline">\(x\)</span>, decimos que el mecanismo de asignación es <strong>ignorable</strong>.</p>
+<p>En este caso, es posible simular contrafactuales usando la distribución <span class="math inline">\(P(y^{mis}| x, y^{obs})\)</span> que se deduce del modelo “científico” bajo ignorabilidad.</p>
+</div>
+</div>
+</section>
+<section id="ejemplo-simple-rubin" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-simple-rubin">Ejemplo simple (Rubin)</h3>
+<p>En nuestro ejemplo de aspirinas, consideramos por ejemplo que <span class="math inline">\(x\)</span> es la intensidad del dolor inicial. Establecemos el modelo <span class="math display">\[y^0_i = \alpha_0 + \alpha x+ \sigma_1 u_i^0\]</span> y <span class="math display">\[y^1_i = \alpha_0 + \alpha x + \beta + \sigma_2 u_i^1\]</span> Y podríamos suponer que <span class="math inline">\((u_i^0, u_i^1)\)</span> tienen una distribución normal bivariada estándar con media en 0. Aunque podemos estimar las varianzas, no es posible estimar la correlación, y tendríamos que ponerla en algún valor consistente con el conocimiento experto (por ejemplo, los casos extremos son <span class="math inline">\(\rho = 1\)</span> o <span class="math inline">\(\rho = 0\)</span>). Supondremos en este ejemplo que <span class="math inline">\(\rho = 1\)</span> (ver <span class="citation" data-cites="imbens_rubin_2015">Imbens y Rubin (<a href="99-referencias.html#ref-imbens_rubin_2015" role="doc-biblioref">2015</a>)</span> por ejemplo para más casos).</p>
+<p>Como el tratamiento es ignorable (este es un experimento), entonces para simular <span class="math inline">\(y_i^{mis}\)</span> hacemos los siguiente:</p>
+<ul>
+<li>Denotamos por <span class="math inline">\(\theta\)</span> a los parámetros <span class="math inline">\(\alpha_0,\alpha, \beta,\sigma_1,\sigma_2,\rho\)</span>.</li>
+<li>Obtenemos la posterior de los parámetros <span class="math inline">\(\theta\)</span> dada los datos <span class="math inline">\((x_i, y_i^{obs}, t_i)\)</span>.</li>
+<li>Simulamos un conjunto de parámetros <span class="math inline">\(\theta\)</span> de esta posterior.</li>
+<li>Con parámetros fijos, simulamos la observación contrafactual.</li>
+<li>Calculamos el resumen de interés a partir de la diferencia de observado y contrafactual.</li>
+</ul>
+<p>Y ahora, con todos los pares posibles de observación y contrafactual, calculamos el resumen del efecto causal que nos interese (por ejemplo, media de la diferencia).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is cmdstanr version 0.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- CmdStanR documentation and vignettes: mc-stan.org/cmdstanr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- CmdStan path: /home/runner/.cmdstan/cmdstan-2.31.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- CmdStan version: 2.31.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod_aspirina <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/contrafactual-simple.stan"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_aspirina)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+data {
+  int&lt;lower=0&gt; N;
+  array[N] real y_obs;
+  vector[N] intensidad;
+  vector[N] t;
+}
+
+// The parameters accepted by the model. Our model
+// accepts two parameters 'mu' and 'sigma'.
+parameters {
+  real alpha;
+  real alpha_0;
+  real beta;
+  array[2] real&lt;lower=0&gt; sigma;
+}
+
+transformed parameters{
+  array[N] real media;
+  array[N] real u_obs;
+
+  for(i in 1:N){
+    media[i] = alpha_0 + alpha * intensidad[i] + beta * t[i];
+    u_obs[i] = y_obs[i] - media[i];
+  }
+
+}
+
+model {
+  for(i in 1:N){
+    if(t[i] == 1){
+      y_obs[i] ~ normal(media[i], sigma[1]);
+    }
+    else {
+      y_obs[i] ~ normal(media[i], sigma[2]);
+    }
+  }
+  alpha_0 ~ normal(0, 1);
+  alpha ~ normal(0, 1);
+  beta ~ normal(0, 1);
+  sigma ~ normal(0, 1);
+}
+
+generated quantities{
+  array[N] real y_mis;
+  array[N] real efecto_trata_ind;
+  real efecto_trata;
+
+  for(i in 1:N){
+    // simular contrafactual
+    if(t[i] == 1){
+      y_mis[i] = alpha_0 + alpha * intensidad[i] + beta * 0 +
+        u_obs[i] * sigma[2] / sigma[1];
+      efecto_trata_ind[i] = y_obs[i]  - y_mis[i];
+    } else {
+      y_mis[i] = alpha_0 + alpha * intensidad[i] + beta * 1 +
+        u_obs[i] * sigma[1] / sigma[2];
+      efecto_trata_ind[i] = y_mis[i] - y_obs[i];
+    }
+  }
+  efecto_trata = mean(efecto_trata_ind);
+}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_aspirina<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(obs_1), </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">as.numeric</span>(obs_1<span class="sc">$</span>T),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">intensidad =</span> obs_1<span class="sc">$</span>intensidad, <span class="at">y_obs =</span> obs_1<span class="sc">$</span>Y), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">init =</span> <span class="fl">0.1</span>, <span class="at">step_size =</span> <span class="fl">0.1</span>, <span class="at">refresh =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 sequential chains...
+
+Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 6.6 seconds.
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 6.3 seconds.
+Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 5.9 seconds.
+Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 6.7 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 6.4 seconds.
+Total execution time: 25.8 seconds.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"sigma"</span>, <span class="st">"alpha_0"</span>, <span class="st">"alpha"</span>, <span class="st">"beta"</span>, <span class="st">"efecto_trata"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  variable       mean  median     sd    mad      q5    q95  rhat ess_b…¹ ess_t…²
+  &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 sigma[1]     0.510   0.510  0.0149 0.0146  0.485   0.535  1.00   3189.   2593.
+2 sigma[2]     1.94    1.94   0.0542 0.0530  1.85    2.03   1.00   3348.   2228.
+3 alpha_0      0.0368  0.0382 0.0777 0.0769 -0.0903  0.163  1.00   2124.   2347.
+4 alpha        0.794   0.794  0.0204 0.0197  0.760   0.827  1.00   3380.   2356.
+5 beta        -0.562  -0.562  0.0805 0.0810 -0.696  -0.426  1.00   2169.   2313.
+6 efecto_tra… -0.563  -0.563  0.0701 0.0701 -0.680  -0.448  1.00   2733.   3252.
+# … with abbreviated variable names ¹​ess_bulk, ²​ess_tail</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Modelos e Ignorabilidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>La ignorabilidad de asignación del tratamiento es un supuesto complejo. Las DAGs ayudan en el sentido de que transparentan las razones por las que asumimos ignorabilidad (por ejemplo, el criterio de puerta trasera).</li>
+<li>La construcción del modelo que Rubin llama “ciencia” puede ser asistido y quizá más claramente explicado con DAGs.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="asignación-no-ignorable" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="asignación-no-ignorable"><span class="header-section-number">5.2</span> Asignación no ignorable</h2>
+<p>El concepto de contrafactual también nos permite entender por otro camino por qué la comparación simple de grupos no se deben a efectos causales.</p>
+<p>Supongamos primero que el tratamiento se asignó al azar. Si este es el caso, nótese que entonces</p>
+<p><span class="math display">\[
+\begin{align}
+\delta_{ing} &amp; =  E[Y|T=1] - E[Y|T=0] \\
+&amp; = E[Y^1|T=1] - E[Y^0|T=0] \\
+&amp; = E[Y^1] - E[Y^0] = ATE = \delta
+\end{align}
+\]</span> pues por definición <span class="math inline">\(T\)</span> es independiente de <span class="math inline">\(Y, Y^1, Y_0\)</span> (ignorabilidad). El lado izquierdo lo podemos estimar como es usual:</p>
+<p><span class="math display">\[\delta_{ing} = \frac{1}{n_1} \sum_{t_i = 1} y_i - \frac{1}{n_0} \sum_{t_i = 0} y_i\]</span></p>
+<p>que llamamos <strong>el estimador ingenuo</strong> del efecto causal <span class="math inline">\(\delta\)</span>. Esto ya lo sabíamos del cálculo-<span class="math inline">\(do\)</span>, pues la independencia de <span class="math inline">\(T\)</span> y <span class="math inline">\(Y,Y_1,Y_0\)</span> puede deducirse del hecho de que no hay puertas traseras activas al tratamiento <span class="math inline">\(T\)</span> con la respuesta <span class="math inline">\(Y\)</span>, pues <span class="math inline">\(T\)</span> no depende de ninguna otra variable de nuestra gráfica.</p>
+<p>Si embargo, en general <strong>la ecuación de arriba no necesariamente se cumple cuando el tratamiento no se asigna al azar</strong>. En este caso podemos por ejemplo escribir:</p>
+<p><span class="math display">\[\delta_{ing} =  (E[Y^1|Y=1] - E[Y^0|Y=1]) + (E[Y^0|T=1] - E[Y^0|T=0]) \]</span> <span class="math display">\[\delta_{ing} =  ATT + (E[Y^0|T=1] - E[Y^0|T=0]) \]</span></p>
+<ul>
+<li><strong>ATT</strong>: el primer término es el efecto causal del tratamiento sobre los tratados (ATT).</li>
+<li><strong>Sesgo de selección</strong>: el segundo término compara el grupo de tratados con el de no tratados <em>en ausencia de ningún tratamiento</em>. Esto quiere decir que si los grupos muy diferentes, el estimador ingenuo puede depender más de cómo son diferentes los grupos de tratados que los de los no tratados que del efecto casual del tratamiento.</li>
+<li>Nótese que sin más supuestos, ninguna de las dos cantidades de la derecha pueden calcularse directamente, pues dependen de situaciones contrafactuales.</li>
+</ul>
+<p>Por ejemplo, podríamos comparar las personas que beben alcohol moderadamente (tratamiento) con aquellos que no beben alcohol. Quizá observamos que la salud de los que beben alcohol moderadamente es mejor que los que no beben alcohol. Sin embargo, no podemos concluir que beber alcohol moderadamente ayuda en la salud. La razón puede estar en que las personas que padecen enfermedades de distintos tipos evitan el alcohol, y en ese caso el término de la derecha <span class="math inline">\(E[Y^0|T=1] - E[Y^0|Y=0]\)</span> fuera muy grande, lo cual haría nuestro estimador ingenuo <span class="math inline">\(\delta_{ing}\)</span> podría ser muy grande, aún cuando <span class="math inline">\(E[Y^1|Y=1] - E[Y^0|Y=1]\)</span> fuera cercano a cero si <span class="math inline">\(Y=1\)</span> es beber moderadamente.</p>
+<p><strong>Ejercicio</strong>: describe esta situación mediante un DAG.</p>
+<p>Igualmente, podemos escribir</p>
+<p><span class="math display">\[\delta_{ing} =  (E[Y^1|T=0] - E[Y^0|T=0]) + (E[Y^1|T=1] - E[Y^1|T=0])  \]</span> <span class="math display">\[\delta_{ing} =  ATU + (E[Y^1|T=1] - E[Y^1|T=0])  \]</span></p>
+<ul>
+<li><strong>ATU</strong>: el primer término es el efecto causal del tratamiento sobre los no tratados.</li>
+<li><strong>Sesgo de selección</strong>: el segundo término compara el grupo de tratados con el de no tratados <em>con tratamiento</em>. Esto quiere decir que si los grupos muy diferentes, el estimador ingenuo puede depender más de cómo son responden de manera diferente los grupos de tratados que los de los no tratados que del efecto casual del tratamiento.</li>
+</ul>
+<p>Combinando estas dos, si <span class="math inline">\(\pi\)</span> es la proporción de tratados,</p>
+<p><span class="math display">\[
+\begin{align*}
+\delta_{ing} &amp; = ATE \\
+&amp; + \pi (E[Y^0|T=1] - E[Y^0|T=0])\\
+&amp; + (1-\pi)(E[Y^1|T=1] - E[Y^1|T=0])
+\end{align*}
+\]</span></p>
+<p>Que podemos reescribir como</p>
+<p><span class="math display">\[
+\begin{align*}
+\delta_{ing} &amp; = ATE \\
+&amp; +  (E[Y^0|T=1] - E[Y^0|T=0])\\
+&amp; + (1-\pi)(E[Y^1 -Y^0|T=1] - E[Y^1-Y^0|T=0])
+\end{align*}
+\]</span></p>
+<p>Y el estimador ingenuo es diferente del efecto causal promedio (ATE) por:</p>
+<ul>
+<li>Sesgo base: las unidades tratadas comienzan peor o mejor que las no tratadas</li>
+<li>Sesgo de tratamiento diferencial: las unidades que se seleccionan para ser tratadas son más o menos propensas a tener mejoras o desmejoras.</li>
+</ul>
+<p>Por ejemplo, supongamos que estamos comparando el efecto de la educación en la abilidad mental de personas adultas, y el tratamiento es ir a la universidad. Entonces, si comparamos habilidad mental de personas que van a la universidad vs los que no van a la universidad, tenemos dos posibles fuentes de confusión:</p>
+<ul>
+<li>Para empezar, los que van a la universidad tenían más habilidad que los que no fueron (efecto base)</li>
+<li>En segundo lugar, aquellos que tienen más habilidad se benefician más con la educación universitaria que aquellos que no (efecto diferencial de tratamiento).</li>
+<li>En este caso, la comparación ingenua estimaría considerablemente el efecto promedio del tratamiento.</li>
+</ul>
+<p>Desde le punto de vista del DAG, este sesgo aparece pues no hemos bloqueado una puerta trasera <span class="math inline">\(HabilidadFinal \gets HabilidadInicial \to Universidad\)</span>. Una vez que estratificamos por Habilidad Inicial, este sesgo desaparece.</p>
+<p>Una ventaja de esta aproximación de contrafactuales es que términos como <span class="math inline">\(ATT\)</span> son fácilmente accesibles. Esta última cantidad, sin embargo, no podemos definirla exclusivamente desde el punto de vista el cálculo-do, pues tenemos que considerar cuál es el efecto del tratamiento de universidad sólo para aquellos que naturalmente hubieran asistido a la universidad.</p>
+</section>
+<section id="mediacion-con-contrafactuales" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="mediacion-con-contrafactuales"><span class="header-section-number">5.3</span> Mediacion con contrafactuales</h2>
+<p>Usando el concepto de contrafactuales es posible hacer una mejor definición de efectos directos e indirectos (<span class="citation" data-cites="pearl2016causal">Pearl, Glymour, y Jewell (<a href="99-referencias.html#ref-pearl2016causal" role="doc-biblioref">2016</a>)</span>). Consideramos el diagrama:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir = LR]</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=circle]</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">  T -&gt; Y</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">  T -&gt; M</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">  M -&gt; Y</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">#{ rank = same; A; D }</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-70706e9d20b656b52d06" style="width:100%;height:162px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-70706e9d20b656b52d06">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=circle]\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n  T -> Y\n  T -> M\n  M -> Y\n#{ rank = same; A; D }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>En primer lugar tenemos los primeros dos conceptos que revisamos en el ejemplo de admisiones de Berkeley:</p>
+<ol type="1">
+<li>El <strong>efecto total</strong>,</li>
+</ol>
+<p><span class="math display">\[ATE= E[Y^1 - Y^0] = E[Y|do(T=1)] - E[Y|do(T=0)] \]</span></p>
+<ol start="2" type="1">
+<li>El <strong>efecto total controlado</strong></li>
+</ol>
+<p><span class="math display">\[CDE(m) = E[Y|do(T=1, M=m)] - E[Y|do(T=0, M=m)]\]</span> que vimos en el ejemplo de Berkeley de la sección anterior. Depende de en qué fijamos el valor de <span class="math inline">\(M\)</span>, sin fijarnos en el valor que toma <span class="math inline">\(T\)</span>.</p>
+<ol start="3" type="1">
+<li>El <strong>efecto natural directo</strong>:</li>
+</ol>
+<p><span class="math display">\[NDE = E[Y^{1,M_0} - Y^{0,M_0}]\]</span> En este caso, <span class="math inline">\(Y^{1,M_0}\)</span> quiere decir: qué valor tomaría <span class="math inline">\(Y\)</span> si <span class="math inline">\(T=1\)</span>, y tomamos la distibución de <span class="math inline">\(M_0\)</span> como si <span class="math inline">\(T=0\)</span>.</p>
+<p>Esta cantidad mide el incremento en <span class="math inline">\(Y\)</span> cuando cambiamos el tratamiento de 0 a 1, mientras que la variable medidadora toma el valor que hubiera tomado antes del cambio (es decir, bajo <span class="math inline">\(T=0\)</span>). Por ejemplo: vemos el estado de aceptación de una mujer, dado que selecciona departamento como si fuera un hombre y contrastamos el estado de aceptación de un hombre como normalmente selecciona departamento. De esta manera bloqueamos el efecto del tratamiento en la selección de departamento.</p>
+<ol start="4" type="1">
+<li>El <strong>efecto natural indirecto</strong> :</li>
+</ol>
+<p><span class="math display">\[NIE = E[Y^{0,M_1} - Y^{0,M_0} ]\]</span> En este caso, mantenemos <span class="math inline">\(T=0\)</span>, pero observamos qué pasaría si <span class="math inline">\(M\)</span> se escoge bajo <span class="math inline">\(T=1\)</span> o bajo <span class="math inline">\(T=0\)</span>. Captura la porción del efecto que se explica sólo por la mediación (quitando la capacidad de que <span class="math inline">\(T\)</span> afecte a <span class="math inline">\(Y\)</span>). En términos del ejemplo de Berkeley, fijamos <span class="math inline">\(t=0\)</span> (hombre), y comparamos que pasaría si seleccionara departamento como una mujer vs.&nbsp;como normalmente lo haría.</p>
+<section id="caso-donde-no-hay-variables-confusoras" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="caso-donde-no-hay-variables-confusoras"><span class="header-section-number">5.3.1</span> Caso donde no hay variables confusoras</h3>
+<p>En el caso donde no hay variables confusoras (ver el diagrama de arriba), el efecto natural directo está identificado por:</p>
+<p><span class="math display">\[NDE = \int (E[Y|T=1, M = m]- E[Y|T=0, M = m] )p(m|t=0)dm \]</span> Cada integral la podemos estimar simulando y promediando. Por ejemplo, para la primer integral, simulamos <span class="math inline">\(M=m\)</span> dado que <span class="math inline">\(T=0\)</span>, y luego simulamos <span class="math inline">\(Y\)</span> dado <span class="math inline">\(T=1\)</span> y <span class="math inline">\(M=m\)</span> con la <span class="math inline">\(m\)</span> que obtuvimos en le paso anterior. Igualmente para la segunda integral.</p>
+<p>El efecto indirecto es:</p>
+<p><span class="math display">\[NIE = \int E[y|T=0, M = m]p(m|t=1)dm - \int E[y|T=0, M = m]p(m|t=0)dm\]</span> Que igualmente podemos calcular simulando.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Excepto para modelos lineales sin interacciones, no es cierto que la suma del efecto directo más el indirecto es el efecto total.</p>
+</div>
+</div>
+<p>Esto se debe a interacciones que puede haber entre el tratamiento y la variable mediadora. Tomando un caso extremo, podemos pensar en una medicina que tienen un efecto total positivo sobre algún resultado. Existe una variable mediadora (por ejemplo, baja el colesterol). Sin embargo, si el colesterol no es bajo, otros efectos de la medicina no pueden darse, de modo que <span class="math inline">\(Y^{1, M_0} = Y^{0, M_0}\)</span> (el efecto natural directo es 0). Por otra parte, el efecto de sólo bajar el colesterol (sin tomar la medicina) no tiene un efecto considerable <span class="math inline">\(Y^{0,M_1} \approx Y^{0,M_0}\)</span>.</p>
+<p>En el caso lineal es más simple: si <span class="math inline">\(M = a+bT\)</span> y <span class="math inline">\(Y = c + dM + eT\)</span>, entonces el efecto natural directo es <span class="math inline">\(NDE = (c+ da + e) - (c + da) = e\)</span> el efecto natural indirecto es <span class="math inline">\(NIE = (c + d(a+b)) - (c + da) = bd\)</span>, y el efecto total es <span class="math inline">\(ATE = (c+ d(a+b) + e) - (c + da) = bd +e\)</span>.</p>
+</section>
+<section id="ejemplo-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-1">Ejemplo</h3>
+<p>Este ejemplo es de <span class="citation" data-cites="pearl2016causal">Pearl, Glymour, y Jewell (<a href="99-referencias.html#ref-pearl2016causal" role="doc-biblioref">2016</a>)</span>. Un tratamiento impulsa a alumnos a hacer la tarea, y queremos calcular el efecto del tratamiento en la probabilidad de aprobar el curso. También nos interesa si es que el aumento en la tarea es la razón de este efecto, independientemente del programa de entrenamiento.</p>
+<p>Las distribuciones observadas son</p>
+<p>_</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tabla_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">tarea =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">prob_exito =</span> <span class="fu">c</span>(<span class="fl">0.80</span>, <span class="fl">0.40</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tabla_1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+      t tarea prob_exito
+  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1     1     1        0.8
+2     1     0        0.4
+3     0     1        0.3
+4     0     0        0.2</code></pre>
+</div>
+</div>
+<p>Y tenemos para el nodo de tarea, el tratamiento incrementa la probabilidad de hacer tarea considerablemente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tabla_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">prob_tarea =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.75</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>tabla_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+      t prob_tarea
+  &lt;dbl&gt;      &lt;dbl&gt;
+1     0       0.4 
+2     1       0.75</code></pre>
+</div>
+</div>
+<p>Aunque es posible hacer todos los cálculos de manera analítica, en este ejemplo calcularemos con simulación. El efecto total es</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sim_total <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tratados</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no tratados</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># contraste</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(sim_exito_trata <span class="sc">-</span> sim_exito_sin_trata)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">sim_total</span>()</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.45831</code></pre>
+</div>
+</div>
+<p>El efecto natural directo es</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sim_nde <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea sin tratamiento</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito con tarea anterior, suponiendo tratamiento</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito con tarea anterior, sin tratamiento</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_trata)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  parte_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="sc">-</span> parte_2</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>nde <span class="ot">&lt;-</span> <span class="fu">sim_nde</span>()</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>nde</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.31849</code></pre>
+</div>
+</div>
+<p>Y el efecto natural indirecto es:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sim_nie <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea con tratamiento</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito sin tratamiento</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea sin tratamiento</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  sim_tarea<span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito sin tratamiento</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  parte_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculamos la diferencia entre las dos medias</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="sc">-</span> parte_2</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>nie <span class="ot">&lt;-</span> <span class="fu">sim_nie</span>()</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>nie</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03153</code></pre>
+</div>
+</div>
+<p>Tenemos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.45831</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> nde<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3050773</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>nie<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06879623</code></pre>
+</div>
+</div>
+<ul>
+<li>El programa incrementa en 46 puntos porcentuales la tasa de éxito</li>
+<li>30% de este incremento se debe a la capacidad del programa de estimular esfuerzos en la tarea.</li>
+<li>Pero sólo 8% de este incremento se puede explicar por un incremento en tareas por sí solas sin el beneficio del programa.</li>
+</ul>
+<p>Nuestra conclusión es que incidir solamente en la variable <span class="math inline">\(Tarea\)</span>, quizá de una manera más barata, y a niveles similares a los de este programa, no tendría un resultado cercano en efectividad.</p>
+</section>
+<section id="ejemplo-admisiones-de-berkeley" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="ejemplo-admisiones-de-berkeley"><span class="header-section-number">5.3.2</span> Ejemplo (Admisiones de Berkeley)</h3>
+<p>En el ejemplo Berkeley, suponiendo siguiente diagrama, calcularemos los efectos naturales directos e indirectos:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">    G</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">    D</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">    A </span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="st">  #node [shape = circle]</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="st">  #  U</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="st">    G -&gt; D</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="st">    G -&gt; A</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="st">    D -&gt; A</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; G;A}</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-fe979bbeb3856bebf235" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fe979bbeb3856bebf235">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"UCBAdmissions"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>adm_original <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Admit, <span class="at">values_from =</span> n) </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>adm_indiv <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">ifelse</span>(Gender<span class="sc">==</span><span class="st">"Female"</span>, <span class="dv">2</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Dept =</span> <span class="fu">factor</span>(Dept) <span class="sc">|&gt;</span> <span class="fu">as.integer</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Admit =</span> <span class="fu">ifelse</span>(Admit <span class="sc">==</span> <span class="st">"Admitted"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uncount</span>(n) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Dept <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>adm_indiv <span class="sc">|&gt;</span> <span class="fu">head</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Admit Gender  Dept
+  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+1     1      1     1
+2     1      1     1
+3     1      1     1
+4     1      1     1
+5     1      1     1
+6     1      1     1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mod_efectos_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-efectos-naturales.stan"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_efectos_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; n_d;
+  array[N] int admit;
+  array[N] int gender;
+  array[N] int dept;
+}
+transformed data {
+  array[N] int gender_ind;
+
+  for(i in 1:N){
+    gender_ind[i] = 0;
+    if(gender[i] == 2) {
+      gender_ind[i] = 1;
+    }
+  }
+}
+
+parameters {
+  real beta_0;
+  array[2] vector[n_d] beta;
+  matrix[2, n_d] alpha;
+}
+
+
+model {
+  for(i in 1:N){
+    admit[i] ~ bernoulli_logit(alpha[gender[i], dept[i]]);
+    dept[i] ~ categorical_logit(beta[gender[i]]);
+  }
+  gender_ind ~ bernoulli_logit(beta_0);
+  beta_0 ~ normal(0, 0.5);
+  for(i in 1:2){
+    beta[i] ~ normal(0, 1);
+    alpha[i] ~ normal(0, 1);
+  }
+}
+
+generated quantities{
+  real efecto_nat_dir;
+  real efecto_nat_ind;
+  real efecto_total;
+  real prop_mediador;
+  {
+    array[2000] real admit_sim_2;
+    array[2000] real admit_sim_1;
+    // calcular efecto natural directo
+    array[2000] int k;
+
+    for(j in 1:2000){
+      // extraer una elección de departamento de hombres:
+      k[j] = categorical_logit_rng(beta[1]);
+      // extraer admisión al departamento si es mujer
+      admit_sim_2[j] = bernoulli_logit_rng(alpha[2, k[j]]);
+      // extraer admisión al departamento si es hombre
+      admit_sim_1[j] = bernoulli_logit_rng(alpha[1, k[j]]);
+    }
+    efecto_nat_dir = mean(admit_sim_2) - mean(admit_sim_1);
+  }
+  {
+    array[2000] real admit_sim_2;
+    array[2000] real admit_sim_1;
+    array[2000] int k_1;
+    array[2000] int k_2;
+    // calcular efecto natural indirecto
+    //array[n_d] real dif;
+    //array[n_d] real mean_resp;
+    //for(k in 1:n_d){
+    //  dif[k] = inv_logit(beta[2, k]) - inv_logit(beta[1, k]);
+    for(j in 1:2000){
+
+      // escoger depto bajo tratamiento
+      k_1[j] = categorical_logit_rng(beta[2]);
+      // simular admisión sin tratamiento
+      admit_sim_2[j] = bernoulli_logit_rng(alpha[1, k_1[j]]);
+      // escoger depto sin tratamiento
+      k_2[j] = categorical_logit_rng(beta[1]);
+      // simular admisión con tratamiento
+      admit_sim_1[j] = bernoulli_logit_rng(alpha[1, k_2[j]]);
+
+     }
+    //  mean_resp[k] = mean(admit_sim_2);
+      efecto_nat_ind = mean(admit_sim_2) - mean(admit_sim_1);
+    }
+
+    //efecto_nat_ind = sum(to_vector(mean_resp) .* to_vector(dif));
+    {
+    array[2000] real admit_sim_2;
+    array[2000] real admit_sim_1;
+    array[2000] int k_1;
+    array[2000] int k_2;
+    // calcular efecto total
+    for(j in 1:2000){
+      // extraer una elección de departamento para mujeres
+      k_1[j] = categorical_logit_rng(beta[2]);
+      admit_sim_2[j] = bernoulli_logit_rng(alpha[2, k_1[j]]);
+      // extraer una elección de departamento para hombres
+      k_2[j] = categorical_logit_rng(beta[1]);
+      admit_sim_1[j] = bernoulli_logit_rng(alpha[1, k_2[j]]);
+    }
+    efecto_total = mean(admit_sim_2) - mean(admit_sim_1);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(adm_indiv), <span class="at">n_d =</span> <span class="dv">4</span>,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">admit =</span> adm_indiv<span class="sc">$</span>Admit, <span class="at">gender =</span> adm_indiv<span class="sc">$</span>Gender,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> adm_indiv<span class="sc">$</span>Dept)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_efectos_berkeley<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">iter_warmup =</span> <span class="dv">300</span>, <span class="at">iter_sampling =</span> <span class="dv">1000</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">parallel_chains =</span> <span class="dv">4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 parallel chains...
+
+Chain 1 Iteration:    1 / 1300 [  0%]  (Warmup) 
+Chain 2 Iteration:    1 / 1300 [  0%]  (Warmup) 
+Chain 3 Iteration:    1 / 1300 [  0%]  (Warmup) 
+Chain 4 Iteration:    1 / 1300 [  0%]  (Warmup) 
+Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
+Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
+Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
+Chain 3 Iteration:  301 / 1300 [ 23%]  (Sampling) 
+Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 1 finished in 157.9 seconds.
+Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 2 finished in 159.0 seconds.
+Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 4 finished in 159.1 seconds.
+Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 3 finished in 160.4 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 159.1 seconds.
+Total execution time: 160.5 seconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, mean, q5, q95)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  variable          mean      q5    q95
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+1 efecto_nat_dir  0.0789  0.0245  0.132
+2 efecto_nat_ind -0.140  -0.172  -0.106
+3 efecto_total   -0.130  -0.171  -0.089</code></pre>
+</div>
+</div>
+<p>En este caso, el efecto total (que favorece al género 1) puede explicarse principalmente, mediante el efecto natural indirecto (la selección de departamento), y el efecto directo natural favorece al género 2. <strong>Nótese que esto supone que no hay variables confusoras entre departamento y admisión</strong>. Como vimos en la sección anterior, esto no es necesariamente cierto.</p>
+<p><strong>Ejercicio</strong>: bajo este modelo y considerando los efectos que acabamos de estimar, ¿ayudaría en algo hacer que las aplicaciones fueran “ciegas”, en el sentido de quitar nombres o otras maneras de editar las aplicaciones para que no se pueda saber el género del aplicante (si fuera posible)?</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Identificación de NDE y NIE
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los efectos naturales directos e indirectos nos siempre son identificables, aún cuando algunos casos pueden resolverse estratificando por algunas variables. Para más detalles, ver 4.5 en <span class="citation" data-cites="pearl2016causal">Pearl, Glymour, y Jewell (<a href="99-referencias.html#ref-pearl2016causal" role="doc-biblioref">2016</a>)</span>.</p>
+<p>Por ejemplo, en el caso de un experimento (<span class="math inline">\(T\)</span> no tiene padres), entonces es suficiente identificar estos efectos si enocntramos un conjunto <span class="math inline">\(W\)</span> de variables observadas que no sean descendientes de <span class="math inline">\(T\)</span> y que bloqueen los caminos de puerta trasera de <span class="math inline">\(M\)</span> a <span class="math inline">\(Y\)</span> (sin contar <span class="math inline">\(T\to M\)</span> y <span class="math inline">\(T\to Y\)</span>).</p>
+</div>
+</div>
+<ul>
+<li>Por ejemplo, en nuestro diagrama de Berkeley donde existía el confusor <span class="math inline">\(D\gets U\to A\)</span>, no es posible identificar estos efectos directos e indirectos, pues no podemos bloquear el camino de puerta trasera entre mediador <span class="math inline">\(D\)</span> y la respuesta <span class="math inline">\(A\)</span> que pasa por <span class="math inline">\(U\)</span>.</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-imbens_rubin_2015" class="csl-entry" role="doc-biblioentry">
+Imbens, Guido W., y Donald B. Rubin. 2015. <em>Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction</em>. Cambridge University Press. <a href="https://doi.org/10.1017/CBO9781139025751">https://doi.org/10.1017/CBO9781139025751</a>.
+</div>
+<div id="ref-pearl2016causal" class="csl-entry" role="doc-biblioentry">
+Pearl, J., M. Glymour, y N. P. Jewell. 2016. <em>Causal Inference in Statistics: A Primer</em>. Wiley. <a href="https://books.google.com.mx/books?id=L3G-CgAAQBAJ">https://books.google.com.mx/books?id=L3G-CgAAQBAJ</a>.
+</div>
+<div id="ref-rubin2005" class="csl-entry" role="doc-biblioentry">
+Rubin, Donald B. 2005. <span>«Causal Inference Using Potential Outcomes»</span>. <em>Journal of the American Statistical Association</em> 100 (469): 322-31. <a href="https://doi.org/10.1198/016214504000001880">https://doi.org/10.1198/016214504000001880</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-experimentos.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./99-referencias.html" class="pagination-link">
+        <span class="nav-page-text">Referencias</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
