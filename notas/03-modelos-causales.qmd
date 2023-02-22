@@ -769,10 +769,10 @@ anterior lo usaremos después para explorar el concepto de *mediación*.
 
 ## Bloqueando puertas traseras
 
-En las partes anteriores vimos qué estratificando por los padres
-de la variable de tratamiento $X$ podíamos construir un estimador del
+En las partes anteriores vimos que estratificando por los padres
+de la variable de tratamiento $X$ podemos construir un estimador del
 efecto de $X$ sobre otra variable $Y$, pasando de una distribución 
-observacional a una conceptualmente experimental (dado que nos supuestos
+observacional a una conceptualmente experimental (dado que los supuestos
 causales sean aproximadamente correctos).
 
 Sin embargo, esta aplicación de la fórmula de ajuste no funciona
