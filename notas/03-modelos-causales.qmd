@@ -64,7 +64,7 @@ a las variables de interés (muchas veces omitimos estas variables que solo afec
 variable de interés), pero que no tienen efecto sobre otras variables del diagrama.
 
 No interesa contestar la pregunta: ¿qué tanto influyen las ventas de agua embotellada en la actividad de los mosquitos? 
-Del diagrama, sabemos que no hay ningún camino causal de $Z$ a $T$, por 
+Del diagrama, sabemos que no hay ningún camino causal de $Z$ a $A$, por 
 lo que nuestra respuesta debería ser igual a 0. 
 
 Sin embargo, sabemos que estas
