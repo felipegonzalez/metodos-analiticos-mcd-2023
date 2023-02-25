@@ -1,0 +1,258 @@
+---
+title: "Ejemplo: Fertilidad en Bangladesh"
+format: html
+editor: visual
+---
+
+## Popuesta de estructura de modelo causal
+
+Estos ejercicio es tomado de Statistical Rethinking (McElreath). 
+
+```{r}
+library(tidyverse)
+library(DiagrammeR)
+library(cmdstanr)
+```
+
+
+```{r}
+bangladesh_tbl <- read_delim("./datos/bangladesh.csv")
+```
+
+En este ejemplo consideramos una encuesta de fertilidad en
+Bangladesh en 1988.
+
+```{r}
+names(bangladesh_tbl)
+nrow(bangladesh_tbl)
+```
+
+Estos datos están a nivel individuo. Las variables son 
+
+1. Distrito de Bangladesh donde vive la persona (D)
+2. Uso de métodos de anticoncepción (Ac)
+3. Número de hijos vivos (H)
+4. Edad centrada en media (Edad)
+5. Indicadora de población urbano (vs rural) (Ur)
+
+Nos interesa principalmente como resultado el uso de anticonceptivos. 
+Veremos cómo construir un 
+primer diagrama causal para explicar nuestros supuestos acerca de estos datos.
+
+En primer lugar, dibujamos los efectos que nos interesa describir. Por ejemplo, 
+edad y número de hijos vivos, o distrito urbano, los cuales todos
+influyen en el uso de anticonceptivos:
+
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+    node [shape=plaintext]
+    D
+    edge [minlen = 3]
+    Edad -> Ac
+    Ur -> Ac
+    H -> Ac
+    D -> Ac
+}')
+```
+
+Ahora consideramos distrito. Distintos distritos tienen más o menos poblaciones
+urbanas, y distintas costumbres, así que también lo consideramos causa
+de uso de anticonceptivos, número de hijos y urbanización (pero no
+edad, que no tiene causas). Variables de agrupación de personas u observaciones
+como "distrito" típicamente actúan sobre varias variables de nuestro sistema,
+pues los distintos grupos tienen distintas características:
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+    node [shape=plaintext]
+    D
+    edge [minlen = 3]
+    D -> Ac
+    D -> Ur
+    D -> H
+    Edad -> Ac
+    Ur -> Ac
+    H -> Ac
+}')
+```
+
+Ahora consideremos relaciones causales adicionales:
+
+- Claramente, edad es causa de número de hijos (edades más grandes tienen 
+posibilidades de tener más hijos).
+- Es posible que urbanización también tenga un efecto directo sobre el número
+de hijos que cada mujer tiene.
+
+Así que nos quedamos con el diagrama:
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+    node [shape=plaintext]
+    D
+    edge [minlen = 3]
+    D -> Ac
+    D -> Ur
+    D -> H
+    Edad -> Ac
+    Ur -> Ac
+    Ur -> H
+    H -> Ac
+    Edad -> H
+}')
+```
+
+Este es un primer enfoque. Podemos también pensar en variables no medidas:
+por ejemplo, puede haber causas comunes que van a número de hijos y uso de anticonceptivos
+(efecto de la familia: quizá hay algunas que prefieren tener más hijos y usan menos
+anticonceptivos, y otras al contrario). Discutiremos esto más adelante
+
+Consideremos ahora una primera pregunta:
+
+- ¿Cómo afecta el estado de urbanización al uso de anticonceptivos? 
+
+**Pregunta 1**. ¿Qué puertas traseras hay del tratamiento (Ur) al resultado Ac?
+¿Es posible bloquearlas? ¿Qué modelo necesitamos estimar para identificar el
+efecto total de Ur sobre Ac según el criterio de puerta trasera?
+
+**Pregunta 2**: ¿Cuáles son las rutas causales de Ur a Ac según nuestro diagrama? 
+(tip: hay dos). Intenta explicar con razones cómo podrían funcionar esas
+rutas.
+
+## Modelo inicial
+
+De tus respuestas de las preguntas anteriores se debe deducir que es necesario
+condicionar a distrito, y eso implica que construiremos un modelo para uso de anticonceptivos
+en término de distrito y  (fórmula de puerta trasera).
+
+
+La variable $Ac$ es 0 o 1, así que usaremos una regresión logística.
+En este caso, utilizaremos un modelo jerárquico, pues el número de personas
+por distrito en la encuesta tiene mucha variación. Este tipo de modelos ya los has
+visto o los verás en Modelación Bayesiana / Modelos lineales generalizados, y no
+es el punto importante de este ejercicio. **Si te confunde el código del modelo
+puedes pensar provisionalmente que ajustamos un modelo distinto para cada distrito**.
+
+**Pregunta 3** (opcional, si ya viste modelos jerárquicos): 
+Calcula cuántas mujeres hay en cada distrito para esta encuesta.
+Explica por qué no utilizar un modelo jerárquico para los parámetros a nivel distrito
+no es buena idea (la alternativa es modelar por separado cada parámetro a nivel de 
+distrito, como "efectos fijos").
+
+
+```{r}
+mod_ur <- cmdstan_model("bangladesh-1.stan")
+print(mod_ur)
+```
+Corremos el modelo:
+
+```{r}
+# distritos están numerados
+d <- max(bangladesh_tbl$district)
+N <- nrow(bangladesh_tbl)
+data_lista <- list(N = N, d = d,
+  y = bangladesh_tbl$use.contraception,
+  distrito = bangladesh_tbl$district,
+  ur = bangladesh_tbl$urban)
+ajuste_1 <- mod_ur$sample(data = data_lista, init = 0.1, step_size = 0.1,
+                          chains = 3)
+```
+
+```{r}
+ajuste_1$summary(c("alpha_media", "sigma_alpha", "beta_media", "sigma_beta"))
+```
+
+
+
+**Ojo**: 1) es necesario hacer diagnósticos del modelo para checar que el ajuste
+es apropiado. En este ejemplo, no veremos esto. 2) Usualmente, es mejor
+modelar de manera multivariada los coeficientes alpha y beta. 3) beta_media puede
+interpretarse como el efecto promedio de urbanización sobre uso de anticonceptivos
+(en escala logit)
+
+
+**Pregunta 3.5**: explica la parte de *generated quantities* del modelo. ¿Qué
+estamos haciendo en esa parte?
+
+```{r}
+props_uso_tbl <- ajuste_1$draws("prop_uso_dif", format = "df") |> 
+  pivot_longer(cols = contains("prop_uso"), names_to = "variable", values_to = "prop") |> 
+  separate(col = variable, into = c("v", "distrito"), 
+           sep = "[\\[\\]\\,]", extra = "drop", convert = TRUE) |> 
+  group_by(distrito) |> 
+  summarise(prop_media = mean(prop), q5 = quantile(prop, 0.05),
+            q95 = quantile(prop, 0.95))
+```
+
+Podemos ver todas nuestras estimaciones para cada distrito y diferencia
+entre rural y urbano:
+
+```{r}
+ggplot(props_uso_tbl, 
+  aes(x = distrito, y = prop_media)) +
+  geom_point() + geom_linerange(aes(ymin = q5, ymax = q95)) +
+  geom_hline(yintercept = 0, colour = "red")
+```
+
+
+**Pregunta 4**: ¿cuál es tu conclusión acerca del efecto causal de urbanización
+sobre el uso de anticonceptivos? Nota: podríamos resumir este efecto ponderando
+las estimaciones de cada distrito por su población de mujeres, por ejemplo.
+
+**Pregunta 5**: explica por qué para calcular el efecto total causal de urbanización
+*no* debemos controlar por número de hijos (usa el diagrama de arriba).
+
+**Pregunta 6**: Supón que quisieras calcular el efecto directo de Ur sobre Ac.
+¿Sobre qué variables habría que condicionar adicionalmente para lograr esto? (usa nuestro
+diagrama causal) ¿Por qué no es suficiente condicionar sólo a número de hijos y
+distrito? 
+
+
+
+**Pregunta 7**: Supongamos que en la crítica de nuestro DAG, consideramos incluir
+el efecto de tipo de familia (no observado) sobre Anticonceptivos y número de hijos, y 
+tenemos el diagrama de abajo. ¿Cambiaría en algo tu aproximación a la estimación
+del efecto de urbanización sobre uso de anticonceptivos?
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+    node [shape= circle]
+    Fam
+    node [shape=plaintext]
+    edge [minlen = 3]
+    D -> Ac
+    D -> Ur
+    D -> H
+    Edad -> Ac
+    Ur -> Ac
+    Ur -> H
+    H -> Ac
+    Edad -> H
+    Fam -> H
+    Fam -> Ac
+{rank=same; Edad; Ur}
+{rank=same; D; Ac}
+}')
+```
+**Pregunta 8**: Bajo este nuevo diagrama, ¿cuál es la dificultad que encontramos
+si quisiéramos identificar el efecto directo de urbanización sobre uso 
+de anticonceptivos?
+
+
+
+
+
+
+
