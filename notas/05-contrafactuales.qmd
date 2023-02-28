@@ -1,6 +1,6 @@
 # Contrafactuales
 
-El punto de vista de contrafactuales ( o resultados potenciales), también
+El punto de vista de contrafactuales (o resultados potenciales), también
 llamado enfoque de Neyman-Rubin comienza abordando el problema de inferencia
 causal desde el punto de vista a nivel individual, en lugar de poblacional.
 
@@ -172,7 +172,7 @@ que recibe la unidad, o ninguna otra unidad.
 
 :::
 
-En otro caso, es difícil establecer que significado tienen los contrafactuales.
+En otro caso, es difícil establecer qué significado tienen los contrafactuales.
 Este supuesto muchas veces es apropiado, excepto cuando hay interacciones importantes
 entre las unidades. Por ejemplo: Un cambio en una plataforma para 
 compartir documentos para una unidad A puede tener
@@ -184,7 +184,8 @@ a nivel red de contactos, escuelas, etc.), o utilizar modelos más complejos.
 
 
 Con estos conceptos, Rubin (@rubin2005) 
-llama al modelo $p(x, y^1, y^0)$ el modelo "científico", 
+llama al modelo $p(x, y^1, y^0)$ el modelo "científico" (este modelo
+es construido por conocimiento experto) 
 mientras que el modelo de asignación es $p(t|x, y^0, y^1)$, separando claramente
 la "ciencia" del mecanismo de asignación del tratamiento, que puede ser un
 experimento aleatorio, una asignación basada en políticas, autoselección de las personas,
@@ -195,7 +196,7 @@ valores potenciales (por ejemplo, las personas que deciden tomar algún tratamie
 son justamente aquellas para las que $Y^0$ es similar a $Y_1$).
 
 Igual que en el marco de modelos causales estructurales (DAGs),
-generalmente es necesario hacer supuestos considerables acerca de estos dos modelos.
+ es necesario hacer supuestos considerables acerca de estos dos modelos.
 
 En cuanto al proceso de asignación del tratamiento, Rubin introduce el concepto de
 ignorabilidad: 
@@ -215,7 +216,7 @@ ignorabilidad.
 ### Ejemplo simple (Rubin) {-}
 
 En nuestro ejemplo de aspirinas, consideramos por ejemplo que $x$ es la intensidad
-del dolor inicial. Establecemos el modelo
+del dolor inicial. Establecemos el modelo "científico":
 $$y^0_i = \alpha_0 + \alpha x+ \sigma_1 u_i^0$$
 y 
 $$y^1_i = \alpha_0 + \alpha x + \beta + \sigma_2 u_i^1$$
@@ -271,7 +272,7 @@ quizá más claramente explicado con DAGs.
 ## Asignación no ignorable
 
 El concepto de contrafactual también nos permite entender por otro camino por
-qué la comparación simple de grupos no se deben a efectos causales.
+qué la comparación simple de grupos no resulta necesariamente en efectos causales.
 
 Supongamos primero que el tratamiento se asignó al azar. Si este
 es el caso, nótese que entonces
