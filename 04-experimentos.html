@@ -321,8 +321,8 @@ div.csl-indent {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-a14e70fdd6a4a19caa5c" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a14e70fdd6a4a19caa5c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n   Dia -> T\n   T -> Y\n   X -> Z\n   W -> Z\n   Y -> W \n   Y -> Z\n   A -> Y\n   T -> A\n   X -> W\n   T -> X\n   S -> Y\n#{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-af91221224d95807b949" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af91221224d95807b949">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n   Dia -> T\n   T -> Y\n   X -> Z\n   W -> Z\n   Y -> W \n   Y -> Z\n   A -> Y\n   T -> A\n   X -> W\n   T -> X\n   S -> Y\n#{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>La variable <span class="math inline">\(Dia\)</span> que determina el tratamiento no tiene aristas en común con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún ajuste, no importa lo complicada que sea esta gráfica, y podemos usar simplemente <span class="math inline">\(p(y|t)\)</span>. No hay necesidad de estratificar por ninguna variable. No es un modelo “mecanístico”, ni nos sirve para aprender otras cosas, pero sabemos que da una estrategia de identificación para el efecto causal que nos interesa. A partir de nuestra estimación de esta condicional podemos resumir para obtener el efecto causal de interés. Por ejemplo, si el tratamiento toma valores <span class="math inline">\(T=0\)</span> o <span class="math inline">\(T=1\)</span>, podemos considerar la diferencia de medias condicionales.</p>
@@ -372,8 +372,8 @@ Experimentos e inferencia causal
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">60</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-19b4f818201fcab27797" style="width:100%;height:156px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-19b4f818201fcab27797">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Z -> Y\n    T -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-88a30d7c390e317374fa" style="width:100%;height:156px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-88a30d7c390e317374fa">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Z -> Y\n    T -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="ejemplo" class="level3" data-number="4.1.1">
@@ -405,8 +405,8 @@ Experimentos e inferencia causal
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-f865f8cee555bfa82a58" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f865f8cee555bfa82a58">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node[shape=circle]\n      U\n      V\n  node [shape=plaintext]\n    T\n  edge [minlen = 3]\n   #G -> H\n   #H -> PI\n   T -> PF\n   #G -> PF\n   PI -> PF\n   U -> PI\n   U -> PF\n   V -> PF\n   T -> C -> PF\n   PF -> B\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a6e4bcf485ffb0c4d90c" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a6e4bcf485ffb0c4d90c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node[shape=circle]\n      U\n      V\n  node [shape=plaintext]\n    T\n  edge [minlen = 3]\n   #G -> H\n   #H -> PI\n   T -> PF\n   #G -> PF\n   PI -> PF\n   U -> PI\n   U -> PF\n   V -> PF\n   T -> C -> PF\n   PF -> B\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>No hay ninguna variable confusora, y una estrategia de estimación es comparar <span class="math inline">\(PF\)</span> entre los grupos.</p>
@@ -414,13 +414,13 @@ Experimentos e inferencia causal
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sim_peso <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  T <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  C <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> T))))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  G <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  H <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">170</span> <span class="sc">-</span> <span class="dv">10</span> <span class="sc">*</span> G, <span class="dv">20</span>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  PI <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="sc">-</span><span class="dv">20</span> <span class="sc">+</span>  <span class="fl">0.5</span> <span class="sc">*</span> H <span class="sc">+</span> U, <span class="dv">10</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  PF <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, PI <span class="sc">+</span> U <span class="sc">-</span> <span class="dv">10</span> <span class="sc">*</span> T <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> C , <span class="dv">10</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  PF <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, PI <span class="sc">+</span> U <span class="sc">-</span> <span class="dv">20</span> <span class="sc">*</span> T <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> C , <span class="dv">5</span>)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#V &lt;- PF - (PI + U - 10 * T + 2 * C)</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>((PF<span class="dv">-60</span>)<span class="sc">/</span><span class="dv">10</span>)))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(PF<span class="dv">-50</span>)<span class="sc">/</span><span class="dv">7</span>)))</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(G, H, T, PI, PF, B, C)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">26</span>)</span>
@@ -430,16 +430,16 @@ Experimentos e inferencia causal
 <pre><code># A tibble: 1,200 × 7
        G     H     T    PI    PF     B     C
    &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
- 1     1  186.     0  83.4 105.      0     1
- 2     0  173.     0  73.4 101.      0     0
- 3     1  180.     1  77.4  79.2     1     1
- 4     1  159.     1  66.3  70.6     1     0
- 5     1  135.     0  46.0  59.5     1     0
- 6     0  194.     0  84.5 102.      0     0
- 7     0  152.     1  55.9  49.0     0     1
- 8     1  189.     1  82.4  59.6     1     1
- 9     1  136.     0  51.6  64.0     1     0
-10     1  168.     1  77.4  66.8     1     1
+ 1     1  186.     0  73.4  80.9     1     1
+ 2     0  173.     0  63.4  72.2     1     0
+ 3     1  180.     1  67.4  52.6     0     1
+ 4     1  159.     1  56.3  39.2     0     0
+ 5     1  135.     0  36.0  36.6     0     0
+ 6     0  194.     0  74.5  77.9     1     0
+ 7     0  152.     1  45.9  25.4     0     1
+ 8     1  189.     1  72.4  44.1     0     1
+ 9     1  136.     0  41.6  43.9     1     0
+10     1  168.     1  67.4  43.8     1     1
 # … with 1,190 more rows</code></pre>
 </div>
 </div>
@@ -454,8 +454,8 @@ Experimentos e inferencia causal
 <pre><code># A tibble: 2 × 3
       T peso_final_medio   dif
   &lt;int&gt;            &lt;dbl&gt; &lt;dbl&gt;
-1     0             82.6 NA   
-2     1             74.1 -8.50</code></pre>
+1     0             62.7  NA  
+2     1             45.0 -17.8</code></pre>
 </div>
 </div>
 <p>Podemos hacer simplemente</p>
@@ -465,8 +465,8 @@ Experimentos e inferencia causal
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)    81.8      0.820     99.8  0       
-2 T              -8.41     1.17      -7.21 1.02e-12</code></pre>
+1 (Intercept)     62.1     0.742      83.7 0       
+2 T              -17.5     1.06      -16.6 7.05e-56</code></pre>
 </div>
 </div>
 <p>y el coeficiente de <span class="math inline">\(T\)</span> sería una estimación del efecto causal promedio. Sin embargo, si condicionamos a <span class="math inline">\(PI\)</span> tampoco creamos ninguna ruta no causal entre <span class="math inline">\(T\)</span> y <span class="math inline">\(PF\)</span>. Podemos hacer también</p>
@@ -474,11 +474,11 @@ Experimentos e inferencia causal
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(PF <span class="sc">~</span> T <span class="sc">+</span> PI, peso_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
-  term        estimate std.error statistic  p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)     2.17    1.52        1.43 1.54e- 1
-2 T              -8.52    0.624     -13.6  1.59e-39
-3 PI              1.10    0.0202     54.7  0       </code></pre>
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    -6.11    0.836      -7.31 4.91e- 13
+2 T             -17.7     0.393     -45.0  2.72e-259
+3 PI              1.10    0.0127     86.5  0        </code></pre>
 </div>
 </div>
 <p>Y notamos que nuestra estimación es más precisa. Esto es porque <span class="math inline">\(PI\)</span> absorbe una parte importante de la variación de PF. Al incluir este control no cambiamos la cantidad que estamos estimando, pero sí el estimador particular, que en este caso tiene menos incertidumbre.</p>
@@ -530,36 +530,36 @@ Tip
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">120</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-08336fe63929f4f17621" style="width:100%;height:312px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-08336fe63929f4f17621">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Z -> Y\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    Ta -> M\n    M -> Ya\n    M -> Za\n    Ta -> Ya\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5c6a0b91649486a14eea" style="width:100%;height:312px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5c6a0b91649486a14eea">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Z -> Y\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    Ta -> M\n    M -> Ya\n    M -> Za\n    Ta -> Ya\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(PF <span class="sc">~</span> T <span class="sc">+</span>  C, peso_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
-  term        estimate std.error statistic      p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-1 (Intercept)    81.5      0.848     96.1  0           
-2 T             -10.2      1.81      -5.65 0.0000000200
-3 C               2.39     1.81       1.32 0.188       </code></pre>
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)    61.7      0.767     80.5  0       
+2 T             -20.1      1.64     -12.2  1.53e-32
+3 C               3.29     1.64       2.01 4.52e- 2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(PF <span class="sc">~</span> T <span class="sc">+</span>  PI <span class="sc">+</span> C, peso_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
-  term        estimate std.error statistic  p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)     1.83    1.52        1.20 2.29e- 1
-2 T             -10.6     0.967     -10.9  1.72e-26
-3 PI              1.10    0.0201     54.8  0       
-4 C               2.65    0.967       2.74 6.20e- 3</code></pre>
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    -6.56    0.828      -7.92 5.31e- 15
+2 T             -20.4     0.601     -33.9  7.44e-177
+3 PI              1.10    0.0125     87.7  0        
+4 C               3.55    0.601       5.90 4.77e-  9</code></pre>
 </div>
 </div>
 <p>Y vemos que nuestra estimación del efecto del tratamiento está sesgada, aparentando ser más efectiva de lo que es. La razón es que el camino que pasa por <span class="math inline">\(C\)</span> “daña” en lugar de ayudar. El efecto causal total toma en cuenta tanto beneficios como daños.</p>
 </section>
 <section id="malos-controles-variables-post-tratamiento" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="malos-controles-variables-post-tratamiento"><span class="header-section-number">4.3</span> Malos controles: variables post-tratamiento</h2>
-<p>Variables que son efectos de la variable respuesta que nos interesa son en general malos controles. Para entender eso, agregamos explícitamente nodos que usualmente no mostramos en nuestros diagramas (están ahí implícitamente), que son efectos sobre <span class="math inline">\(Y\)</span> que no tienen conexiones causales con otras partes del diagrama:</p>
+<p>Variables que son efectos de la variable respuesta que nos interesa son en general malos controles. Es un caso particular de cómo se produce sesgo <strong>casos-control</strong> (por ejemplo, cuando seleccionamos individuos para observar dependiendo de una variable post-tratamiento). Para entender eso, agregamos explícitamente nodos que usualmente no mostramos en nuestros diagramas (están ahí implícitamente), que son efectos sobre <span class="math inline">\(Y\)</span> que no tienen conexiones causales con otras partes del diagrama:</p>
 <div class="cell">
 <details>
 <summary>Código</summary>
@@ -580,27 +580,44 @@ Tip
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">120</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-76ffae17fb6179a137c3" style="width:100%;height:312px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-76ffae17fb6179a137c3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node[shape= circle]\n    U_y\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Y -> Z\n    T -> Y  \n    U_y -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-65730ee3ea6b8233eab4" style="width:100%;height:312px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-65730ee3ea6b8233eab4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node[shape= circle]\n    U_y\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Y -> Z\n    T -> Y  \n    U_y -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Hemos añadido un nodo implícito (otros factores que afectan <span class="math inline">\(Y\)</span> y no tienen relación con otras variables del sistema) para explicar qué es lo que pasa cuando condicionamos a <span class="math inline">\(Z\)</span>: como <span class="math inline">\(Z\)</span> es un descendiente del colisionador en <span class="math inline">\(Y\)</span>, se activa una ruta no causal entre <span class="math inline">\(U_y\)</span> y <span class="math inline">\(T\)</span>, y estas dos cantidades aparecen como correlacionadas (es una correlación no causal). Esto en consecuencia modifica la correlación entre <span class="math inline">\(T\)</span> y <span class="math inline">\(Y\)</span>.</p>
 <section id="ejemplo-1" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-1">Ejemplo</h3>
-<p>En nuestro ejemplo</p>
+<p>En nuestro ejemplo, podemos comparar las pendientes condicionando o no a la variable <span class="math inline">\(B\)</span>: vemos que dentro de cada grupo de <span class="math inline">\(B\)</span>, la pendiente es más chica que la que sugiere el efecto del tratamiento:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(PF <span class="sc">~</span> T <span class="sc">+</span>  B, peso_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(peso_tbl, <span class="fu">aes</span>(<span class="at">x =</span> T, <span class="at">y =</span> PF, <span class="at">colour =</span> <span class="fu">factor</span>(B))) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">formula =</span> <span class="st">"y~ 1+x"</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="04-experimentos_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Como vemos, la pendiente en cada grupo de <span class="math inline">\(B\)</span> es más baja que la que obtendríamos si no condicionáramos a <span class="math inline">\(B\)</span>. Podemos explicarlo así, bajo el supuesto de que el tratamiento tiene algún efecto:</p>
+<ul>
+<li><strong>En el grupo <span class="math inline">\(B=0\)</span></strong>: tiende a haber gente de peso más bajo. Para los que <strong>no</strong> recibieron el tratamiento, esto quiere decir que otros factores externos <span class="math inline">\(U_y\)</span> fueron los explican por qué que cayeran en un nivel bajo (tienen <span class="math inline">\(U_y\)</span> bajas. Por otro lado, el peso bajo de los que recibieron el tratamiento se debe también al tratamiento, por lo tanto, este grupo tiene <span class="math inline">\(U_y\)</span> parecidas más parecidas a la población. Esto implica que estamos comparando grupos distintos de personas, y negamos ventajas de la aleatorización.</li>
+<li><strong>En el grupo <span class="math inline">\(B=1\)</span></strong>: el argumento es similar. Aquí tiene a haber gente de peso más alto. Para los que recibieron tratamiento, esto implica que tienden a tener <span class="math inline">\(U_y\)</span>’s más altas que la población. Para el grupo que no recibió el tratamiento, sus <span class="math inline">\(U_y\)</span> son más parecidas a la población.</li>
+</ul>
+<p>En ambos casos, estamos negando ventajas de aleatorización. En una regresión, <span class="math inline">\(B\)</span> absorbe entonces parte de la variación que en realidad le corresponde al tratamiento:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(PF <span class="sc">~</span> T <span class="sc">+</span>  B, peso_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
-  term        estimate std.error statistic  p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)    87.4      0.728    120.   0       
-2 T              -6.66     0.979     -6.80 1.62e-11
-3 B             -25.6      1.13     -22.8  1.60e-95</code></pre>
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)     45.1     0.812      55.6 0        
+2 T              -10.6     0.841     -12.6 4.80e- 34
+3 B               24.8     0.845      29.3 1.34e-142</code></pre>
 </div>
 </div>
 <p>En la regresión el coeficiente de <span class="math inline">\(T\)</span> está contaminado por esa asociación que creamos al condicionar a un descendiente de un colisionador: este coeficiente “explica” otra variación del peso final que no tiene qué ver con el tratamiento, en lugar de explicar solamente la variación por el tratamiento.</p>
-<p>Otra manera de entender esto es como sigue: si PF es muy similar a B, poner B en el modelo de regresión es mala idea, pues B captura mucha variación de PF, y las demás variables parecen contribuir menos.</p>
 </section>
 </section>
 <section id="control-malo-sesgo-de-colisionador" class="level2" data-number="4.4">
@@ -609,38 +626,38 @@ Tip
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">'</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir = LR]</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph caso_1 {</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="st">    node [shape=plaintext]</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Z [fontcolor="red"]</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="st">    edge [minlen = 3]</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Z</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Y -&gt; Z</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph caso_2 {</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="st">    node [shape=circle]</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="st">    node [shape=plaintext]</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="st">    Ya [label="Y"]</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="st">    Ta [label="T"]</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="st">    Za [label="Z"][fontcolor="red"]</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="st">    edge [minlen = 3]</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="st">    U -&gt; Za</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="st">    U -&gt; Ya</span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="st">    Ta -&gt; Ya</span></span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="st">    Ta -&gt; Za</span></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="st">  {rank=same; Za; Ta}</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">140</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">'</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir = LR]</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph caso_1 {</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">    node [shape=plaintext]</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Z [fontcolor="red"]</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">    edge [minlen = 3]</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Z</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Y -&gt; Z</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph caso_2 {</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="st">    node [shape=circle]</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st">    node [shape=plaintext]</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="st">    Ya [label="Y"]</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="st">    Ta [label="T"]</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="st">    Za [label="Z"][fontcolor="red"]</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="st">    edge [minlen = 3]</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="st">    U -&gt; Za</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="st">    U -&gt; Ya</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="st">    Ta -&gt; Ya</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="st">    Ta -&gt; Za</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="st">  {rank=same; Za; Ta}</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">140</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-04f237bf675dc100afd4" style="width:100%;height:364px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-04f237bf675dc100afd4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Y -> Z\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=circle]\n    U\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    U -> Za\n    U -> Ya\n    Ta -> Ya\n    Ta -> Za\n  {rank=same; Za; Ta}\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-caf2bd25c0456e8d390e" style="width:100%;height:364px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-caf2bd25c0456e8d390e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Y -> Z\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=circle]\n    U\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    U -> Za\n    U -> Ya\n    Ta -> Ya\n    Ta -> Za\n  {rank=same; Za; Ta}\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="ejemplo-la-paradoja-de-peso-de-recién-nacidos" class="level3 unnumbered">
