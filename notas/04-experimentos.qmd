@@ -165,13 +165,13 @@ $PF$ entre los grupos.
 sim_peso <- function(n){
   T <- rbinom(n, 1, 0.5)
   C <- rbinom(n, 1, 1/(1+exp(-(-2 + 4 * T))))
-  U <- rnorm(n, 10, 5)
+  U <- rnorm(n, 0, 5)
   G <- rbinom(n, 1, 0.5)
   H <- rnorm(n, 170 - 10 * G, 20)
   PI <- rnorm(n, -20 +  0.5 * H + U, 10)
-  PF <- rnorm(n, PI + U - 10 * T + 2 * C , 10)
+  PF <- rnorm(n, PI + U - 20 * T + 3 * C , 5)
   #V <- PF - (PI + U - 10 * T + 2 * C)
-  B <- rbinom(n, 1, 1/(1 + exp((PF-60)/10)))
+  B <- rbinom(n, 1, 1/(1 + exp(-(PF-50)/7)))
   tibble(G, H, T, PI, PF, B, C)
 }
 set.seed(26)
@@ -281,7 +281,9 @@ como daños.
 ## Malos controles: variables post-tratamiento
 
 Variables que son efectos de la variable respuesta que nos interesa
-son en general malos controles. Para entender eso, agregamos explícitamente
+son en general malos controles. Es un caso particular de cómo se produce sesgo
+**casos-control** (por ejemplo, cuando seleccionamos individuos para observar dependiendo
+de una variable post-tratamiento). Para entender eso, agregamos explícitamente
 nodos que usualmente no mostramos en nuestros diagramas (están ahí implícitamente),
 que son efectos sobre $Y$ que no tienen conexiones causales con otras partes del
 diagrama:
@@ -315,12 +317,40 @@ no causal). Esto en consecuencia modifica la correlación entre $T$ y $Y$.
 
 ### Ejemplo {-}
 
-En nuestro ejemplo
+En nuestro ejemplo, podemos comparar las pendientes condicionando
+o no a la variable $B$: vemos que dentro de cada grupo de $B$, la
+pendiente es más chica que la que sugiere el efecto del tratamiento:
+
+```{r}
+ggplot(peso_tbl, aes(x = T, y = PF, colour = factor(B))) +
+  geom_jitter() + 
+   geom_smooth(method = "lm") +
+  geom_smooth(formula = "y~ 1+x", method = "lm", colour = "red")
+```
+
+Como vemos, la pendiente en cada grupo de $B$ es más baja que 
+la que obtendríamos si no condicionáramos a $B$. Podemos explicarlo así,
+bajo el supuesto de que el tratamiento tiene algún efecto:
+
+- **En el grupo $B=0$**: tiende a haber gente de peso más bajo. Para los
+que **no** recibieron el tratamiento, esto quiere decir que otros factores
+externos $U_y$ fueron los explican por qué que cayeran en un nivel bajo (tienen
+$U_y$ bajas. Por otro lado, el peso bajo de los que recibieron el tratamiento se debe
+también al tratamiento, por lo tanto, este grupo tiene $U_y$ parecidas más parecidas
+a la población. Esto implica que estamos comparando grupos distintos de personas,
+y negamos ventajas de la aleatorización.
+- **En el grupo $B=1$**: el argumento es similar. Aquí tiene a haber
+gente de peso más alto. Para los que recibieron tratamiento, esto
+implica que tienden a tener $U_y$'s más altas que la población. Para el
+grupo que no recibió el tratamiento, sus $U_y$ son más parecidas a la población.
+
+En ambos casos, estamos negando ventajas de aleatorización. En una regresión,
+$B$ absorbe entonces parte de la variación que en realidad le corresponde al tratamiento:
+
 
 ```{r}
 lm(PF ~ T +  B, peso_tbl) |> broom::tidy()
 ```
-
 
 En la regresión el coeficiente de $T$ está contaminado por
 esa asociación que creamos al condicionar a un descendiente
@@ -328,8 +358,6 @@ de un colisionador: este coeficiente "explica" otra variación del peso
 final que no tiene qué ver con el tratamiento, en lugar de explicar solamente
 la variación por el tratamiento.
 
-Otra manera de entender esto es como sigue: si PF es muy similar a B, poner B en el modelo de regresión es mala idea, pues B captura 
-mucha variación de PF, y las demás variables parecen contribuir menos.
 
 ## Control Malo: sesgo de colisionador
  
