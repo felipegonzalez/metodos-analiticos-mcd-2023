@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Métodos analíticos - 6&nbsp; Otros métodos para inferencia causal</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./99-referencias.html" rel="next">
+<link href="./05-contrafactuales.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Métodos analíticos</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#intro-variables-instrumentales" id="toc-intro-variables-instrumentales" class="nav-link active" data-scroll-target="#intro-variables-instrumentales"><span class="toc-section-number">6.1</span>  Intro: Variables instrumentales</a></li>
+  <li><a href="#variables-instrumentales" id="toc-variables-instrumentales" class="nav-link" data-scroll-target="#variables-instrumentales"><span class="toc-section-number">6.2</span>  Variables instrumentales</a></li>
+  <li><a href="#estimación-con-variables-instrumentales" id="toc-estimación-con-variables-instrumentales" class="nav-link" data-scroll-target="#estimación-con-variables-instrumentales"><span class="toc-section-number">6.3</span>  Estimación con variables instrumentales</a></li>
+  <li><a href="#regresión-discontinua" id="toc-regresión-discontinua" class="nav-link" data-scroll-target="#regresión-discontinua"><span class="toc-section-number">6.4</span>  Regresión discontinua</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-simulado" id="toc-ejemplo-simulado" class="nav-link" data-scroll-target="#ejemplo-simulado">Ejemplo simulado</a></li>
+  <li><a href="#ejemplo-parte-2" id="toc-ejemplo-parte-2" class="nav-link" data-scroll-target="#ejemplo-parte-2">Ejemplo: parte 2</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En esta última parte veremos dos métodos que se basan en características particulares del supuesto proceso generador de datos o diagrama causal, que los hacen en algunos aspectos similares a conducir un experimento aleatorizado.</p>
+<p>Estos métodos requieren supuestos fuertes, no son de aplicabilidad general, pero es menos crítico construir un diagrama causal apropiado.</p>
+<section id="intro-variables-instrumentales" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="intro-variables-instrumentales"><span class="header-section-number">6.1</span> Intro: Variables instrumentales</h2>
+<p>En el siglo XIX John Snow tenía la teoría de que algo en la calidad del suministro de agua estaba relacionado con la aparición de casos de cólera en Londres (que entonces era una epidemia).</p>
+<p>Reconoció que tenía el problema de variables no observadas que abren puertas traseras: la calidad de agua que toman las personas (o por ejemplo en zonas de la ciudad) es diferente: en zonas más pobres en general la calidad del agua es mala, y también hay más muertes de cólera en lugares pobres.</p>
+<p>Otra variable de confusión podía ser el entonces llamado “miasma”: cosas malas en el aire que contaminan el agua y a las personas.</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">    MiasmaPobreza</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">    PurezaAgua -&gt; Colera</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">    MiasmaPobreza -&gt; Colera</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">    MiasmaPobreza -&gt; PurezaAgua</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">  {rank = same; PurezaAgua; Colera}</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-fd12ea859554f2b3fc6e" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fd12ea859554f2b3fc6e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Dado este diagrama, como hemos discutido, no podemos identificar el efecto causal de la calidad de suministro de agua en las muertes o infecciones de cólera: podría ser la “miasma” que contamina el agua y enferma a las personas (correlación no causal), por ejemplo, y no hay relación causal entre tomar agua contaminada y cólera.</p>
+<p>John Snow, sin embargo, que no creía en la teoría del miasma, investigó con detalle de dónde provenía el agua que tomaban en varias casas a lo largo de toda la ciudad. Lo que descubrió, en sus palabras es que:</p>
+<ul>
+<li>En grandes partes de Londres, los suministros de agua de distintas compañías están organizados de forma compleja. Los tubos de cada compañía van por todas las calles de todas las zonas.</li>
+<li>La decisión de qué compañía suministraba a cada casa generalmente se había tomado hace mucho, y los habitantes generalmente no lo decidían ni sabían que compañía de agua les correspondía.</li>
+<li>Había casas muy cercanas, unas con una compañía y otras con otra.</li>
+</ul>
+<p>Si las distintas compañías de agua tiene distintos niveles de calidad de agua, podriamos expandir nuestro DAG a:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Miasma</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Comp -&gt; PurezaAgua -&gt; Colera</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">    Miasma -&gt; PurezaAgua</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">    Miasma -&gt; Colera</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">  {rank = same; Comp; PurezaAgua; Colera}</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-83889b35b416194f15dd" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-83889b35b416194f15dd">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Tenemos entonces:</p>
+<ul>
+<li>La compañía que suministra a cada casa o zona es causa de la pureza de agua en cada casa.</li>
+<li>No puede haber aristas directas entre compañía y cólera: el único efecto de compañía en cólera puede ser a través del agua que suministra.</li>
+<li>No puede haber una arista de Pobreza a Compañía, por la observación de Snow: la decisión de qué compañía suministraba a qué casa se había tomado mucho antes, y no tenía relación con pobreza, miasma actual ni cólera (que no existía cuando se tomaron esas decisiones)</li>
+</ul>
+<p>La conclusión de Snow es que desde el punto de vista de cólera y el sistema que nos interesa, la compañía de agua se comporta como si fuera asignada al azar: no hay ninguna variable relevente al problema que incida en qué compañía abastece a cada casa o zona. Como observó asociación entre compañía de agua y Cólera, concluyó correctamente que esto implicaba que la pureza del agua tenía un efecto causal en la propagación del cólera.</p>
+<p>La idea de Snow entonces podemas :</p>
+<ul>
+<li>Por la gráfica, la asociación entre Compañía y Cólera es causal (no hay confusoras para Compañía y Cólera).</li>
+<li>Si esta relación existe, entonces por los supuestos, la Pureza de Agua tiene un efecto causal sobre Cólera.</li>
+</ul>
+<p>La tabla de Snow, tomada de <span class="citation" data-cites="Freedmanshoe">(<a href="99-referencias.html#ref-Freedmanshoe" role="doc-biblioref"><strong>Freedmanshoe?</strong></a>)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">comp =</span> <span class="fu">c</span>(<span class="st">"Southwark+Vauxhall"</span>, <span class="st">"Lambeth"</span>, <span class="st">"Resto"</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">casas =</span> <span class="fu">c</span>(<span class="dv">40046</span>, <span class="dv">26107</span>, <span class="dv">256423</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">muertes_colera =</span> <span class="fu">c</span>(<span class="dv">1263</span>, <span class="dv">98</span>, <span class="dv">1422</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">tasa_muertes_10milcasas =</span> <span class="fu">c</span>(<span class="dv">315</span>, <span class="dv">37</span>, <span class="dv">59</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">|&gt;</span> <span class="fu">kable_paper</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> comp </th>
+   <th style="text-align:right;"> casas </th>
+   <th style="text-align:right;"> muertes_colera </th>
+   <th style="text-align:right;"> tasa_muertes_10milcasas </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Southwark+Vauxhall </td>
+   <td style="text-align:right;"> 40046 </td>
+   <td style="text-align:right;"> 1263 </td>
+   <td style="text-align:right;"> 315 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lambeth </td>
+   <td style="text-align:right;"> 26107 </td>
+   <td style="text-align:right;"> 98 </td>
+   <td style="text-align:right;"> 37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Resto </td>
+   <td style="text-align:right;"> 256423 </td>
+   <td style="text-align:right;"> 1422 </td>
+   <td style="text-align:right;"> 59 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Esta diferencia grande muestra que la razón de la aparición de cólera tenía que ver con el agua que consumían las personas, considerando los supuestos de arriba. Para llegar a la conclusión de Snow, es necesario que se cumpla la estructura causal del diagrama de arriba.</p>
+</section>
+<section id="variables-instrumentales" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="variables-instrumentales"><span class="header-section-number">6.2</span> Variables instrumentales</h2>
+<p>El diagrama básico que define una variable instrumental con el propósito de identificar el efecto causal de <span class="math inline">\(T\)</span> sobre <span class="math inline">\(Y\)</span> es el siguiente:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Z -&gt; T -&gt; Y</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">    U-&gt; T</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">    U-&gt; Y</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">  {rank = same; Z;T; Y}</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width=</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">70</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-0ac8d674764b197798ba" style="width:100%;height:227px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0ac8d674764b197798ba">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Variables instrumentales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Decimos que <span class="math inline">\(Z\)</span> es una variable instrumental para estimar el efecto causal de <span class="math inline">\(T\)</span> sobre <span class="math inline">\(Y\)</span> cuando:</p>
+<ul>
+<li><span class="math inline">\(Z\)</span> es una variable que influye en la asignación del tratamiento.</li>
+<li><span class="math inline">\(Z\)</span> está <span class="math inline">\(d\)</span>-separada de <span class="math inline">\(U\)</span>.</li>
+<li><span class="math inline">\(Z\)</span> sólo influye en <span class="math inline">\(Y\)</span> a través de <span class="math inline">\(T\)</span> (restricción de exclusión)</li>
+</ul>
+</div>
+</div>
+<ul>
+<li>Generalmente las últimas dos de estas hipótesis tienen que postularse basadas en conocimiento experto, ya que no es posible checarlas con datos.</li>
+<li>Con estrategias de condicionamiento es posible encontrar instrumentos potenciales en gráficas más complejas.</li>
+<li>Esta estrategia funciona con modelos lineales. En general, la interpretación de los estimadores de variables instrumentales son más propiamente estimadores de un tipo de efecto causal: la estimación</li>
+</ul>
+</section>
+<section id="estimación-con-variables-instrumentales" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="estimación-con-variables-instrumentales"><span class="header-section-number">6.3</span> Estimación con variables instrumentales</h2>
+<p>La estimación de efectos causales con variables instrumentales depende de supuestos adicionales a los del cálculo-do, y su utilidad depende de qué tan fuerte es el instrumento (qué tan correlacionado está con el tratamiento).</p>
+<p>Veremos un ejemplo simulado, y cómo construir un estimador estadístico en el caso lineal para estimar el efecto causal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sim_colera <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># se selecciona al azar la compañía</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  contaminacion_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="dv">0</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># confusor</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># confusor afecta a pureza y muertes</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  pureza <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, contaminacion_comp[comp] <span class="sc">+</span>  <span class="dv">2</span> <span class="sc">*</span> u, <span class="dv">1</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  colera <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">3</span> <span class="sc">*</span> pureza <span class="sc">+</span>  <span class="dv">2</span> <span class="sc">*</span> u, <span class="dv">1</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(comp, pureza, colera) </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">800</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">sim_colera</span>(<span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+   comp pureza colera
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     3 -0.569  -3.73
+2     3  2.89   10.3 
+3     2  3.59    9.26
+4     2  4.59   12.4 
+5     4 -0.744  -2.88
+6     4 -4.23  -17.9 </code></pre>
+</div>
+</div>
+<p>Podríamos construir un modelo generativo modelando una variable latente <span class="math inline">\(U\)</span>. Si embargo, es más simple definir un modelo estadístico como sigue: - Las variables pureza son normales bivariadas con alguna correlación - La media de Pureza depende la compañía (modelo de primera etapa) - La media de Cólera depende de la pureza (modelo de segunda etapa)</p>
+<p>Nótese que un modelo que ignora la variable confusora nos da la respuesta incorrecta (el efecto de pureza está inflado)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(colera<span class="sc">~</span> pureza, datos_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)   -0.739    0.0702     -10.5 1.27e-24
+2 pureza         3.38     0.0184     184.  0       </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(colera <span class="sc">~</span> pureza <span class="sc">+</span> <span class="fu">factor</span>(comp), datos_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  term          estimate std.error statistic   p.value
+  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    -4.02      0.137    -29.4   6.92e-137
+2 pureza          3.80      0.0187   203.    0        
+3 factor(comp)2   0.0447    0.139      0.322 7.47e-  1
+4 factor(comp)3   3.77      0.162     23.2   7.99e- 96
+5 factor(comp)4   3.92      0.164     23.9   4.03e-100
+6 factor(comp)5   4.14      0.166     24.9   5.35e-107</code></pre>
+</div>
+</div>
+<p>Y agregar la variable compañía empeora la situación. La razón es que al condicionar a pureza, abrimos un nuevo camino no causal entre compañía y la respuesta, y esta es capturada por esos coeficientes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is cmdstanr version 0.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- CmdStanR documentation and vignettes: mc-stan.org/cmdstanr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- CmdStan path: /home/runner/.cmdstan/cmdstan-2.31.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- CmdStan version: 2.31.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mod_colera <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/iv-ejemplo.stan"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_colera)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data {
+  int&lt;lower=0&gt; N;
+  array[N] int compania;
+  vector[N] colera;
+  vector[N] pureza;
+}
+
+transformed data {
+    array[N] vector[2] py;
+    for(i in 1:N){
+      py[i][1] = pureza[i];
+      py[i][2] = colera[i];
+    }
+}
+
+parameters {
+  vector[6] alpha;
+  real alpha_0;
+  real beta_0;
+  real beta_1;
+  corr_matrix[2] Omega;
+  vector&lt;lower=0&gt;[2] sigma;
+}
+
+transformed parameters{
+  array[N] vector[2] media;
+  cov_matrix[2] S;
+
+  for(i in 1:N){
+    media[i][2] = beta_0 + beta_1 * pureza[i];
+    media[i][1] = alpha_0 + alpha[compania[i]];
+  }
+
+  S = quad_form_diag(Omega, sigma);
+}
+
+model {
+  py ~ multi_normal(media, S);
+  Omega ~ lkj_corr(2);
+  sigma ~ normal(0, 10);
+  alpha_0 ~ normal(0, 1);
+  beta_0 ~ normal(0, 1);
+  beta_1 ~ normal(0, 1);
+  alpha ~ normal(0, 300);
+}
+
+generated quantities{
+
+}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_colera<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(datos_tbl), </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">compania =</span> datos_tbl<span class="sc">$</span>comp,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">colera =</span> datos_tbl<span class="sc">$</span>colera,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">pureza =</span> datos_tbl<span class="sc">$</span>pureza),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">init =</span> <span class="fl">0.01</span>, <span class="at">step_size =</span> <span class="fl">0.01</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">parallel_chains =</span> <span class="dv">4</span>, <span class="at">iter_warmup =</span> <span class="dv">500</span>, <span class="at">iter_sampling =</span> <span class="dv">1000</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 parallel chains...
+
+Chain 1 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 2 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 3 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: iv_ejemplo_model_namespace::log_prob: S is not symmetric. S[1,2] = 7.046e+07, but S[2,1] = 7.046e+07 (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 27, column 2 to column 18)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 4 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 Exception: iv_ejemplo_model_namespace::log_prob: S is not symmetric. S[1,2] = 7.01348e+07, but S[2,1] = 7.01348e+07 (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 27, column 2 to column 18)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 4 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 1 Iteration:  100 / 1500 [  6%]  (Warmup) 
+Chain 3 Iteration:  100 / 1500 [  6%]  (Warmup) 
+Chain 2 Iteration:  100 / 1500 [  6%]  (Warmup) 
+Chain 4 Iteration:  100 / 1500 [  6%]  (Warmup) 
+Chain 2 Iteration:  200 / 1500 [ 13%]  (Warmup) 
+Chain 3 Iteration:  200 / 1500 [ 13%]  (Warmup) 
+Chain 1 Iteration:  200 / 1500 [ 13%]  (Warmup) 
+Chain 4 Iteration:  200 / 1500 [ 13%]  (Warmup) 
+Chain 1 Iteration:  300 / 1500 [ 20%]  (Warmup) 
+Chain 3 Iteration:  300 / 1500 [ 20%]  (Warmup) 
+Chain 2 Iteration:  300 / 1500 [ 20%]  (Warmup) 
+Chain 4 Iteration:  300 / 1500 [ 20%]  (Warmup) 
+Chain 3 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 2 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 3 Iteration:  500 / 1500 [ 33%]  (Warmup) 
+Chain 3 Iteration:  501 / 1500 [ 33%]  (Sampling) 
+Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 1 Iteration:  500 / 1500 [ 33%]  (Warmup) 
+Chain 1 Iteration:  501 / 1500 [ 33%]  (Sampling) 
+Chain 2 Iteration:  500 / 1500 [ 33%]  (Warmup) 
+Chain 2 Iteration:  501 / 1500 [ 33%]  (Sampling) 
+Chain 3 Iteration:  600 / 1500 [ 40%]  (Sampling) 
+Chain 4 Iteration:  500 / 1500 [ 33%]  (Warmup) 
+Chain 4 Iteration:  501 / 1500 [ 33%]  (Sampling) 
+Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
+Chain 2 Iteration:  600 / 1500 [ 40%]  (Sampling) 
+Chain 4 Iteration:  600 / 1500 [ 40%]  (Sampling) 
+Chain 3 Iteration:  800 / 1500 [ 53%]  (Sampling) 
+Chain 1 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 2 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 3 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 4 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 2 Iteration:  800 / 1500 [ 53%]  (Sampling) 
+Chain 3 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
+Chain 1 Iteration:  800 / 1500 [ 53%]  (Sampling) 
+Chain 4 Iteration:  800 / 1500 [ 53%]  (Sampling) 
+Chain 3 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 2 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 1 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 4 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 2 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
+Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
+Chain 3 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 4 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
+Chain 2 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 3 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
+Chain 1 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 3 finished in 79.7 seconds.
+Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 4 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 1 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 4 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 2 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 1 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 2 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
+Chain 4 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 1 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
+Chain 2 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 4 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
+Chain 2 finished in 94.3 seconds.
+Chain 1 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 1 finished in 95.2 seconds.
+Chain 4 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 4 finished in 97.3 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 91.6 seconds.
+Total execution time: 97.5 seconds.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"alpha"</span>, <span class="st">"beta_0"</span>, <span class="st">"beta_1"</span>, <span class="st">"sigma"</span>, <span class="st">"Omega"</span>)) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 4
+   variable      mean        q5     q95
+   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 alpha[1]    4.94      3.27     6.52 
+ 2 alpha[2]    4.87      3.21     6.47 
+ 3 alpha[3]    0.235    -1.41     1.83 
+ 4 alpha[4]    0.191    -1.45     1.80 
+ 5 alpha[5]   -0.0716   -1.70     1.50 
+ 6 alpha[6]   -1.04   -497.     509.   
+ 7 beta_0      0.0620   -0.0972   0.219
+ 8 beta_1      2.98      2.92     3.03 
+ 9 sigma[1]    2.29      2.21     2.38 
+10 sigma[2]    2.31      2.19     2.44 
+11 Omega[1,1]  1         1        1    
+12 Omega[2,1]  0.811     0.785    0.835
+13 Omega[1,2]  0.811     0.785    0.835
+14 Omega[2,2]  1         1        1    </code></pre>
+</div>
+</div>
+<p>Nótese que recuperamos el coeficiente correcto (<span class="math inline">\(\beta_1\)</span>).</p>
+<p><strong>Notas</strong>:</p>
+<ul>
+<li>En estos modelos, muchas veces es crucial la información a priori. Iniciales no informativas pueden dar resultados malos (dificultades numéricas, poca precisión y sesgo).</li>
+<li>Fuera del ámbito bayesiano se utilizan métodos como mínimos cuadrados en 2 etapas. Sin supuestos lineales, hay más supuestos que se tienen que cumplir para que este enfoque funcione (ver <span class="citation" data-cites="morgan2015">Morgan y Winship (<a href="99-referencias.html#ref-morgan2015" role="doc-biblioref">2015</a>)</span>), por ejemplo, ¿qué se identifica en el caso de efecto heterogéneo sobre los individuos?</li>
+<li>El enfoque de contrafactuales esclarece cómo funciona este método.</li>
+</ul>
+<p>Ejemplos clásicos de potenciales instrumentos son:</p>
+<ul>
+<li>Temporada en la que nace una persona (construye por ejemplo un diagrama para educación, salario en el futuro y mes en el que nació una persona), y por qué variables instrumentales podrían ayudar a identificar el efecto causal de educación en salario futuro.</li>
+<li>Distancia a algún servicio: el uso de un servicio varía con la distancia para accederlo (por ejemplo, ¿cómo saber si un centro comunitario en una población mejora el bienestar del que lo usan?)</li>
+<li>Loterías reales para determinar cuál es el efecto de recibir una cantidad grande de dinero sobre bienestar o ahorros futuros, etc.</li>
+</ul>
+<p>Puedes encontrar más ejemplos en <span class="citation" data-cites="morgan2005">(<a href="99-referencias.html#ref-morgan2005" role="doc-biblioref"><strong>morgan2005?</strong></a>)</span> y <a href="https://mixtape.scunning.com/07-instrumental_variables">aquí</a>.</p>
+</section>
+<section id="regresión-discontinua" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="regresión-discontinua"><span class="header-section-number">6.4</span> Regresión discontinua</h2>
+<p>Muchas veces, la decisión de aplicar un tratamiento o no depende de un límite administrativo en una variable dada. Por ejemplo, para poder subirse a algunas atracciones de feria, hay un límite de estatura que hay que pasar.</p>
+<p>Supongamos que quisiéramos saber si una atracción particular de feria produce malestar en niños al salir del parque.<br>
+En primer lugar, comparar simplemente los niños que se subieron a esa atracción o no es probablemente la estrategia incorrecta, pues existen varias variables confusoras posibles (edad, aversión a juegos que asustan, etc.)</p>
+<p>Nuestro diagrama es como sigue:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Estatura  </span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; T</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; Y</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; U}</span></span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-a945b6543d0328c220a5" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a945b6543d0328c220a5">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Estatura  \n     U -> Y\n     \n    Estatura -> T\n    Estatura -> Y\n    T -> Y\n{rank = same; T; Y}\n{rank = same; U}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Nuestro primer supuesto es entonces que hay una variable observable que determina la aplicación del tratamiento. Sin embargo, no podemos bloquear Estatura</p>
+<p>Sin embargo, si suponemos que el tratamiento se asigna de la siguiente forma:</p>
+<ul>
+<li>Si <span class="math inline">\(Estatura &gt; 1.20\)</span> entonces <span class="math inline">\(T=1\)</span></li>
+<li>Si <span class="math inline">\(Estatura &lt; 1.20\)</span> entonces <span class="math inline">\(T=0\)</span>,</li>
+</ul>
+<p>es posible restringir el análisis a un intervalo muy chico alrededor del punto de corte 1.20, y para fines prácticos el diagrama se convierte en:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura120 -&gt; T</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-6f83acd239239a136151" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f83acd239239a136151">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; T; Y}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>En este caso, el grupo Estatura120 suponemos que son aquellos que miden entre 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación de la estatura en este grupo es mínimo (pues efectivamente tiene muy poca variación de Estatura), incluyendo el hecho de que todas las variables menos el tratamiento cambian continuamente con la estatura.</p>
+<ul>
+<li>La idea es comparar en Estatrua120 aquellos que recibieron el tratamiento con los que no lo recibieron.</li>
+</ul>
+<p>En la práctica, usualmente un grupo suficientemente angosto produciría un tamaño de muestra chico y sería difícil estimar el efecto del tratamiento (no tendríamos precisión). Así que recurrimos a modelos simples de la forma</p>
+<p><span class="math display">\[p(y|x)\]</span> que tienen la particularidad de que permiten un cambio discontinuo en la distribución en el punto de corte <span class="math inline">\(x = x_0\)</span>. En realidad, son dos modelos: uno del lado izquierdo y otro del lado derecho, aunque es posible que comparan parámetros.</p>
+<section id="ejemplo-simulado" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-simulado">Ejemplo simulado</h3>
+<p>Supongamos existe un programa de becas para permanecer en la escuela que se les da a niños de 9 o más años cumplidos. Nos interesa ver cuál es la asistencia escolar en el año siguiente al programa. Veamos un ejemplo simulado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>inv_logit <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>x))</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>simular_des <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>){</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  edad <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">5</span>, <span class="dv">12</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(edad <span class="sc">&gt;=</span> <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.6</span>)</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  asistencia_dias <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="sc">*</span> <span class="fu">inv_logit</span>(<span class="dv">3</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span> (edad <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> t <span class="sc">+</span> u)</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(edad, t, asistencia_dias)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">simular_des</span>(<span class="dv">1000</span>)</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Podríamos ajustar dos modelos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> t))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Si nuestros modelos son apropiados, podemos estimar el efecto causal a los 9 años: el programa incrementa la asistencia en un promedio de larededor de 25 días de 200 posibles. Para hacer inferencia apropiadamente, podemos ajustar modelos como veremos más adelante.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Regresión discontinua
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El supuesto básico de identificación para regresión discontinua se puede expresar con contrafactuales:</p>
+<ul>
+<li>Tanto <span class="math inline">\(p(Y_i^1|X=x)\)</span> como <span class="math inline">\(p(Y_i^0|X=x)\)</span> varían continuamente el punto de corte <span class="math inline">\(x=x_0\)</span></li>
+</ul>
+</div>
+</div>
+<p>Esto quiere decir que si vemos un salto en el punto de corte del tratamiento, este se debe al tratamiento, y no a cómo son <span class="math inline">\(p(Y_i^0|X=x)\)</span> y <span class="math inline">\(p(Y_i^1|X=x)\)</span>.</p>
+<p>En particular, para el efecto promedio:</p>
+<p><span class="math display">\[E[Y^1 - Y^0|X=x_0] = E[Y^1|X=x_0] - E[Y^1|X=x_0]\]</span> es igual a</p>
+<p><span class="math display">\[\lim_{x\to x_0^+} E[Y^1|X=x_0] - \lim_{x\to x_0^-} E[Y^0|X=x_0]\]</span> Pero después de <span class="math inline">\(x_0\)</span> todas las unidades tienen el tratamiento, y antes ninguna, de modo que esto equivale a</p>
+<p><span class="math display">\[\lim_{x\to x_0^+} E[Y|X=x_0] - \lim_{x\to x_0^-} E[Y|X=x_0]\]</span> y estas dos cantidades están identificadas. Solamente usamos el supuesto de continuidad y del punto de corte para el tratamiento. Nótese que este supuesto se puede violar cuando unidades de un lado del corte son diferentes a las del otro lado, lo cual sucede por ejemplo cuando es un corte genérico que afecta muchas cosas o cuando de alguna manera la variable del corte es manipulable por los individuos:</p>
+<ul>
+<li>Hay otras cosas que suceden el punto de corte, por ejemplo: es difícil usar mayoria de edad como punto de corte, porque varias cosas suceden cuando alguien cumple 18 años (puede votar, puede ser que tome decisiones alrededor de esos momentos, puede comprar alcohol, etc).</li>
+<li>Hay maneras de manipular la variable con la que se hace el punto de corte (por ejemplo, si mi hijo nace en septiembre reporto en el acta que nació en agosto por fines escolares).</li>
+</ul>
+<p>Una manera usual de checar estos supuestos es considerar otras variables (que varían continuamente con la variable que usa para el corte), y que no deberían ser afectadas por el tratamiento, y verificar que no hay discontinuidades en el punto de corte de interés.</p>
+<p>Puedes ver más <a href="https://mixtape.scunning.com/06-regression_discontinuity#challenges-to-identification">aquí</a></p>
+</section>
+<section id="ejemplo-parte-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-parte-2">Ejemplo: parte 2</h3>
+<p>Arriba hicimos un ajuste con curvas <em>loess</em>. Lo más apropiado es construir modelos y así facilitar la inferencia del tamaño del efecto.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>modelo_disc <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/reg-discontinua.stan"</span>)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(modelo_disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data {
+  int N;
+  int n_base;
+  vector[N] y;
+  vector[N] x;
+  vector[N] trata;
+  matrix[n_base, N] B;
+}
+
+parameters {
+  row_vector[n_base] a_raw;
+  real a0;
+  real delta;
+  real&lt;lower=0&gt; sigma;
+  real&lt;lower=0&gt; tau;
+}
+
+transformed parameters {
+  row_vector[n_base] a;
+  vector[N] y_media;
+  a = a_raw * tau;
+  y_media = a0 * x + to_vector(a * B) + trata * delta;
+}
+
+model {
+  a_raw ~ normal(0, 1);
+  tau ~ normal(0, 1);
+  sigma ~ normal(0, 10);
+  delta ~ normal(0, 10);
+  y ~ normal(y_media, sigma);
+}
+
+generated quantities {
+
+}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>edad </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">bs</span>(x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>asistencia_dias</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>trata <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>t</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">length</span>(x), <span class="at">n_base =</span> <span class="fu">nrow</span>(B), <span class="at">B =</span> B,</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> y, <span class="at">x =</span> x, <span class="at">trata =</span> trata)</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> modelo_disc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">parallel_chains =</span> <span class="dv">4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 parallel chains...
+
+Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 1 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 12.1 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 12.4 seconds.
+Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 12.5 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 12.7 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 12.4 seconds.
+Total execution time: 12.9 seconds.</code></pre>
+</div>
+</div>
+<p>Nuestro resumen del efecto local en 9 años es el siguiente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="st">"delta"</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  variable  mean    q5   q95
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 delta     22.9  17.9  27.7</code></pre>
+</div>
+</div>
+<p>Finalmente, vemos cómo ajusta el modelo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>y_media_tbl <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="st">"y_media"</span>, <span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"y_media"</span>), <span class="at">names_to =</span> <span class="st">"variable"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(variable, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"indice"</span>), <span class="at">sep =</span> <span class="st">"[</span><span class="sc">\\</span><span class="st">[</span><span class="sc">\\</span><span class="st">]]"</span>, </span>
+<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">extra =</span> <span class="st">"drop"</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Dropping 'draws_df' class as required metadata was removed.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">tibble</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">edad=</span> x))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "indice"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>res_y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> <span class="fu">group_by</span>(indice, edad) <span class="sc">|&gt;</span> </span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(value))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'indice'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_y_media_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> media), <span class="at">colour =</span> <span class="st">"red"</span>,</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> datos_tbl, <span class="fu">aes</span>(<span class="at">y =</span> asistencia_dias), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-morgan2015" class="csl-entry" role="doc-biblioentry">
+Morgan, S. L., y C. Winship. 2015. <em>Counterfactuals and Causal Inference</em>. Analytical Methods for Social Research. Cambridge University Press. <a href="https://books.google.com.mx/books?id=Q6YaBQAAQBAJ">https://books.google.com.mx/books?id=Q6YaBQAAQBAJ</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-contrafactuales.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./99-referencias.html" class="pagination-link">
+        <span class="nav-page-text">Referencias</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

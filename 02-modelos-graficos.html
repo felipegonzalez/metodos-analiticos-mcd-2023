@@ -215,6 +215,11 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
   </div>
 </li>
@@ -547,7 +552,7 @@ Chain 4 finished in 0.0 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 0.0 seconds.
-Total execution time: 0.7 seconds.</code></pre>
+Total execution time: 0.6 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"h"</span>, <span class="st">"w"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"h"</span>, <span class="st">"w"</span>))</span>
@@ -1159,25 +1164,25 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 0.1 seconds.
+Chain 1 finished in 0.0 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 0.1 seconds.
+Chain 2 finished in 0.0 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 0.1 seconds.
+Chain 3 finished in 0.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 0.1 seconds.
+Chain 4 finished in 0.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 0.1 seconds.
+Mean chain execution time: 0.0 seconds.
 Total execution time: 0.5 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"p"</span>, <span class="st">"sens"</span>, <span class="st">"esp"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span>
@@ -1912,7 +1917,7 @@ Chain 1 Iteration:    1 / 1400 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 1400 [ 71%]  (Warmup) 
 Chain 1 Iteration: 1001 / 1400 [ 71%]  (Sampling) 
 Chain 1 Iteration: 1400 / 1400 [100%]  (Sampling) 
-Chain 1 finished in 0.1 seconds.
+Chain 1 finished in 0.0 seconds.
 Chain 2 Iteration:    1 / 1400 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 1400 [ 71%]  (Warmup) 
 Chain 2 Iteration: 1001 / 1400 [ 71%]  (Sampling) 

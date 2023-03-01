@@ -112,7 +112,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./99-referencias.html" rel="next">
+<link href="./06-exp-naturales.html" rel="next">
 <link href="./04-experimentos.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -215,6 +215,11 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
   </div>
 </li>
@@ -277,7 +282,7 @@ div.csl-indent {
 
 </header>
 
-<p>El punto de vista de contrafactuales ( o resultados potenciales), también llamado enfoque de Neyman-Rubin comienza abordando el problema de inferencia causal desde el punto de vista a nivel individual, en lugar de poblacional.</p>
+<p>El punto de vista de contrafactuales (o resultados potenciales), también llamado enfoque de Neyman-Rubin comienza abordando el problema de inferencia causal desde el punto de vista a nivel individual, en lugar de poblacional.</p>
 <p>Recordemos que anteriormente consideramos calcular cantidades como <span class="math inline">\(E(y|do(x))\)</span>. Este es un valor promedio sobre la población de interés. Ahora consideraremos unidades individuales que hemos observado. Podríamos preguntarnos, por ejemplo, dado que la persona <span class="math inline">\(i\)</span> recibió el tratamiento, y respondió con resultado <span class="math inline">\(y_i\)</span>, ¿qué hubiera pasado con esta persona si no la hubiéramos tratado? Esta es una pregunta distinta, pues tenemos información acerca del resultado de esta persona bajo condiciones del tratamiento y depende de características específicas de esa persona.</p>
 <p>Aunque seguiremos utilizando DAGs para expresar, transparentar y comunicar nuestros supuestos causales, el concepto de contrafactuales va más allá del cálculo-do.</p>
 <section id="efectos-causales-a-nivel-individuo." class="level2" data-number="5.1">
@@ -472,12 +477,12 @@ SUTVA
 </ul>
 </div>
 </div>
-<p>En otro caso, es difícil establecer que significado tienen los contrafactuales. Este supuesto muchas veces es apropiado, excepto cuando hay interacciones importantes entre las unidades. Por ejemplo: Un cambio en una plataforma para compartir documentos para una unidad A puede tener efectos en las <span class="math inline">\(Y\)</span>’s correspondientes a unidades que comparten documentos con A. Otro ejemplo es si consideramos una enfermedad contagiosa: la intervención sobre una unidad puede tener efecto sobre los resultados potenciales de otra persona cercana. En esos casos, es necesario considerar distintos tipos de unidades (por ejempo, intervenciones a nivel red de contactos, escuelas, etc.), o utilizar modelos más complejos.</p>
-<p>Con estos conceptos, Rubin (<span class="citation" data-cites="rubin2005">Rubin (<a href="99-referencias.html#ref-rubin2005" role="doc-biblioref">2005</a>)</span>) llama al modelo <span class="math inline">\(p(x, y^1, y^0)\)</span> el modelo “científico”, mientras que el modelo de asignación es <span class="math inline">\(p(t|x, y^0, y^1)\)</span>, separando claramente la “ciencia” del mecanismo de asignación del tratamiento, que puede ser un experimento aleatorio, una asignación basada en políticas, autoselección de las personas, etc.</p>
+<p>En otro caso, es difícil establecer qué significado tienen los contrafactuales. Este supuesto muchas veces es apropiado, excepto cuando hay interacciones importantes entre las unidades. Por ejemplo: Un cambio en una plataforma para compartir documentos para una unidad A puede tener efectos en las <span class="math inline">\(Y\)</span>’s correspondientes a unidades que comparten documentos con A. Otro ejemplo es si consideramos una enfermedad contagiosa: la intervención sobre una unidad puede tener efecto sobre los resultados potenciales de otra persona cercana. En esos casos, es necesario considerar distintos tipos de unidades (por ejempo, intervenciones a nivel red de contactos, escuelas, etc.), o utilizar modelos más complejos.</p>
+<p>Con estos conceptos, Rubin (<span class="citation" data-cites="rubin2005">Rubin (<a href="99-referencias.html#ref-rubin2005" role="doc-biblioref">2005</a>)</span>) llama al modelo <span class="math inline">\(p(x, y^1, y^0)\)</span> el modelo “científico” (este modelo es construido por conocimiento experto) mientras que el modelo de asignación es <span class="math inline">\(p(t|x, y^0, y^1)\)</span>, separando claramente la “ciencia” del mecanismo de asignación del tratamiento, que puede ser un experimento aleatorio, una asignación basada en políticas, autoselección de las personas, etc.</p>
 <ul>
 <li>Nótese que en general, la asignación del tratamiento puede depender de los dos valores potenciales (por ejemplo, las personas que deciden tomar algún tratamiento son justamente aquellas para las que <span class="math inline">\(Y^0\)</span> es similar a <span class="math inline">\(Y_1\)</span>).</li>
 </ul>
-<p>Igual que en el marco de modelos causales estructurales (DAGs), generalmente es necesario hacer supuestos considerables acerca de estos dos modelos.</p>
+<p>Igual que en el marco de modelos causales estructurales (DAGs), es necesario hacer supuestos considerables acerca de estos dos modelos.</p>
 <p>En cuanto al proceso de asignación del tratamiento, Rubin introduce el concepto de ignorabilidad:</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -496,7 +501,7 @@ Ingorabilidad
 </section>
 <section id="ejemplo-simple-rubin" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-simple-rubin">Ejemplo simple (Rubin)</h3>
-<p>En nuestro ejemplo de aspirinas, consideramos por ejemplo que <span class="math inline">\(x\)</span> es la intensidad del dolor inicial. Establecemos el modelo <span class="math display">\[y^0_i = \alpha_0 + \alpha x+ \sigma_1 u_i^0\]</span> y <span class="math display">\[y^1_i = \alpha_0 + \alpha x + \beta + \sigma_2 u_i^1\]</span> Y podríamos suponer que <span class="math inline">\((u_i^0, u_i^1)\)</span> tienen una distribución normal bivariada estándar con media en 0. Aunque podemos estimar las varianzas, no es posible estimar la correlación, y tendríamos que ponerla en algún valor consistente con el conocimiento experto (por ejemplo, los casos extremos son <span class="math inline">\(\rho = 1\)</span> o <span class="math inline">\(\rho = 0\)</span>). Supondremos en este ejemplo que <span class="math inline">\(\rho = 1\)</span> (ver <span class="citation" data-cites="imbens_rubin_2015">Imbens y Rubin (<a href="99-referencias.html#ref-imbens_rubin_2015" role="doc-biblioref">2015</a>)</span> por ejemplo para más casos).</p>
+<p>En nuestro ejemplo de aspirinas, consideramos por ejemplo que <span class="math inline">\(x\)</span> es la intensidad del dolor inicial. Establecemos el modelo “científico”: <span class="math display">\[y^0_i = \alpha_0 + \alpha x+ \sigma_1 u_i^0\]</span> y <span class="math display">\[y^1_i = \alpha_0 + \alpha x + \beta + \sigma_2 u_i^1\]</span> Y podríamos suponer que <span class="math inline">\((u_i^0, u_i^1)\)</span> tienen una distribución normal bivariada estándar con media en 0. Aunque podemos estimar las varianzas, no es posible estimar la correlación, y tendríamos que ponerla en algún valor consistente con el conocimiento experto (por ejemplo, los casos extremos son <span class="math inline">\(\rho = 1\)</span> o <span class="math inline">\(\rho = 0\)</span>). Supondremos en este ejemplo que <span class="math inline">\(\rho = 1\)</span> (ver <span class="citation" data-cites="imbens_rubin_2015">Imbens y Rubin (<a href="99-referencias.html#ref-imbens_rubin_2015" role="doc-biblioref">2015</a>)</span> por ejemplo para más casos).</p>
 <p>Como el tratamiento es ignorable (este es un experimento), entonces para simular <span class="math inline">\(y_i^{mis}\)</span> hacemos los siguiente:</p>
 <ul>
 <li>Denotamos por <span class="math inline">\(\theta\)</span> a los parámetros <span class="math inline">\(\alpha_0,\alpha, \beta,\sigma_1,\sigma_2,\rho\)</span>.</li>
@@ -599,26 +604,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 7.9 seconds.
+Chain 1 finished in 6.6 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 7.4 seconds.
+Chain 2 finished in 6.2 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 7.1 seconds.
+Chain 3 finished in 5.9 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 8.0 seconds.
+Chain 4 finished in 6.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 7.6 seconds.
-Total execution time: 30.6 seconds.</code></pre>
+Mean chain execution time: 6.4 seconds.
+Total execution time: 25.7 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -656,7 +661,7 @@ Modelos e Ignorabilidad
 </section>
 <section id="asignación-no-ignorable" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="asignación-no-ignorable"><span class="header-section-number">5.2</span> Asignación no ignorable</h2>
-<p>El concepto de contrafactual también nos permite entender por otro camino por qué la comparación simple de grupos no se deben a efectos causales.</p>
+<p>El concepto de contrafactual también nos permite entender por otro camino por qué la comparación simple de grupos no resulta necesariamente en efectos causales.</p>
 <p>Supongamos primero que el tratamiento se asignó al azar. Si este es el caso, nótese que entonces</p>
 <p><span class="math display">\[
 \begin{align}
@@ -1068,18 +1073,18 @@ Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration:  301 / 1300 [ 23%]  (Sampling) 
-Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 189.8 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 190.6 seconds.
-Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 191.6 seconds.
+Chain 4 finished in 159.4 seconds.
 Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 191.8 seconds.
+Chain 2 finished in 159.7 seconds.
+Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 3 finished in 159.9 seconds.
+Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 1 finished in 161.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 191.0 seconds.
-Total execution time: 192.0 seconds.</code></pre>
+Mean chain execution time: 160.2 seconds.
+Total execution time: 161.7 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
@@ -1270,8 +1275,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./99-referencias.html" class="pagination-link">
-        <span class="nav-page-text">Referencias</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./06-exp-naturales.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
