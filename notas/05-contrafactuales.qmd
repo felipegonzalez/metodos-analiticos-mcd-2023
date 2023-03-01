@@ -417,7 +417,7 @@ de admisiones de Berkeley:
 
 $$ATE= E[Y^1 - Y^0] = E[Y|do(T=1)] - E[Y|do(T=0)] $$
 
-2. El **efecto total controlado**
+2. El **efecto directo controlado**
 
 $$CDE(m) = E[Y|do(T=1, M=m)] - E[Y|do(T=0, M=m)]$$
 que vimos en el ejemplo de Berkeley de la sección anterior. Depende de en qué fijamos
@@ -478,9 +478,13 @@ colesterol (sin tomar la medicina) no tiene un efecto considerable
 $Y^{0,M_1} \approx Y^{0,M_0}$. 
 
 
-En el caso lineal es más simple:  si $M = a+bT$ y $Y = c + dM + eT$, entonces
-el efecto natural directo es $NDE = (c+ da + e) - (c + da) = e$ el efecto natural indirecto
-es $NIE = (c + d(a+b)) - (c + da) = bd$, y el efecto total es $ATE = (c+ d(a+b) + e) - (c + da) = bd +e$.
+En el caso lineal sin interacciones es más simple:  si $M = a+bT$ y $Y = c + dM + eT$, 
+entonces
+el efecto natural directo es 
+$$NDE = (c+ da + e) - (c + da) = e,$$ el efecto natural indirecto
+es 
+$$NIE = (c + d(a+b)) - (c + da) = bd$$, y el efecto total es 
+$$ATE = (c+ d(a+b) + e) - (c + da) = bd +e.$$
 
 
 
@@ -513,6 +517,7 @@ Aunque es posible hacer todos los cálculos de manera analítica, en este
 ejemplo calcularemos con simulación. El efecto total es
 
 ```{r}
+set.seed(101)
 sim_total <- function(n =100000){
   # tratados
   sim_tarea <- rbinom(n, 1, 0.75)
@@ -578,7 +583,7 @@ nie/ate
 - El programa incrementa en 46 puntos porcentuales la tasa de éxito
 - 30% de este incremento se debe a la capacidad del programa de estimular esfuerzos
 en la tarea.
-- Pero sólo 8% de este incremento se puede explicar por un incremento en tareas por sí
+- Pero alrededor 8% de este incremento se puede explicar por un incremento en tareas por sí
 solas sin el beneficio del programa.
 
 Nuestra conclusión es que incidir solamente en la variable $Tarea$, quizá de una

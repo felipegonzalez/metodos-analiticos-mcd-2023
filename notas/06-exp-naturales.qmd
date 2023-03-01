@@ -113,7 +113,7 @@ La idea de Snow entonces podemas :
 - Por la gráfica, la asociación entre Compañía y Cólera es causal (no hay confusoras para Compañía y Cólera).
 - Si esta relación existe, entonces por los supuestos, la Pureza de Agua tiene un efecto causal sobre Cólera.
 
-La tabla de Snow, tomada de @Freedmanshoe: 
+La tabla de Snow, tomada de @freedmanshoe: 
 
 ```{r}
 tibble(comp = c("Southwark+Vauxhall", "Lambeth", "Resto"),
@@ -180,6 +180,21 @@ depende de supuestos adicionales a los del cálculo-do, y su utilidad depende de
 qué tan fuerte es el instrumento (qué tan correlacionado está con el
 tratamiento).
 
+Primero, hacemos una discusión para ver cómo esto puede funcionar. Lo más importante
+es notar que
+el efecto de $Z$ sobre $Y$ y el de $Z$ sobre $T$ son identificables y podemos calcularlos.
+El que nos interesa el efecto de $T$ sobre $Y$. Supongamos que todos los modelos son 
+lineales:
+
+- Supongamos que cuando $Z$ aumenta una unidad,
+$T$ aumenta en $a$ unidades, 
+- Supongamos que cuando $T$ aumenta 1 unidad  $Y$ aumenta $b$ unidades (este es el efecto causal que queremos calcular).
+- Esto quiere decir que cuando $Z$ aumenta una unidad, $Y$ aumenta $c = ab$ unidades.
+- El efecto causal de $T$ sobre $Y$ se puede calcular dividiendo $c/a$ (que es igual a $b$), y estas dos cantidades están identificadas
+
+Nótese que si $a=0$, o es muy chico, este argumento no funciona ($Z$ es un instrumento débil). 
+
+
 Veremos un ejemplo simulado, y cómo construir un estimador
 estadístico en el caso lineal para estimar el efecto causal. 
 
@@ -208,12 +223,17 @@ datos_tbl |> head()
 Podríamos construir un modelo generativo modelando una variable latente
 $U$. Si embargo, es más simple definir un modelo estadístico como 
 sigue:
-- Las variables pureza son normales bivariadas con alguna correlación
+
+- Las variables pureza son normales bivariadas con alguna correlación (producida por el confusor U).
 - La media de Pureza depende la compañía (modelo de primera etapa)
 - La media de Cólera depende de la pureza (modelo de segunda etapa)
 
-Nótese que un modelo que ignora la variable confusora nos da la respuesta
-incorrecta (el efecto de pureza está inflado)
+Con un modelo así podemos resolver el problema de estimar el efecto
+causal la variable instrumental.
+
+Sin embargo, modelos de regresión simples no nos dan la respuesta correcta. Por
+ejemplo, sabemos que esta regresión es incorrecta (por el confusor):
+
 
 ```{r}
 lm(colera~ pureza, datos_tbl) |> broom::tidy()
@@ -221,6 +241,7 @@ lm(colera~ pureza, datos_tbl) |> broom::tidy()
 ```{r}
 lm(colera ~ pureza + factor(comp), datos_tbl) |> broom::tidy()
 ```
+
 Y agregar la variable compañía empeora la situación. La razón es que al
 condicionar a pureza, abrimos un nuevo camino no causal entre compañía y
 la respuesta, y esta es capturada por esos coeficientes.
@@ -232,6 +253,8 @@ print(mod_colera)
 ```
 
 ```{r}
+#| message: false
+#| warning: false
 ajuste <- mod_colera$sample(
   data = list(N = nrow(datos_tbl), 
                 compania = datos_tbl$comp,
@@ -254,7 +277,7 @@ Nótese que recuperamos el coeficiente correcto ($\beta_1$).
 no informativas pueden dar resultados malos 
 (dificultades numéricas, poca precisión y sesgo).
 - Fuera del ámbito bayesiano se utilizan métodos como mínimos cuadrados en 2 etapas.
-Sin supuestos lineales, hay más supuestos que se tienen que cumplir para
+- Sin supuestos lineales, hay más supuestos que se tienen que cumplir para
 que este enfoque funcione (ver @morgan2015), por ejemplo, ¿qué se identifica
 en el caso de efecto heterogéneo sobre los individuos?
 - El enfoque de contrafactuales esclarece cómo funciona este método.
@@ -273,7 +296,7 @@ grande de dinero sobre bienestar o ahorros futuros, etc.
 
 
 
-Puedes encontrar más ejemplos en @morgan2005 y [aquí](https://mixtape.scunning.com/07-instrumental_variables).
+Puedes encontrar más ejemplos en @morgan2015 y [aquí](https://mixtape.scunning.com/07-instrumental_variables).
 
 
 ## Regresión discontinua
@@ -458,6 +481,8 @@ Arriba hicimos un ajuste con curvas *loess*. Lo más apropiado es construir
 modelos y así facilitar la inferencia del tamaño del efecto.
 
 ```{r}
+#| message: false
+#| warning: false
 library(cmdstanr)
 library(splines)
 
@@ -465,6 +490,8 @@ modelo_disc <- cmdstan_model("../src/reg-discontinua.stan")
 print(modelo_disc)
 ```
 ```{r}
+#| message: false
+#| warning: false
 x <- datos_tbl$edad 
 B <- t(bs(x, degree = 3, intercept = TRUE)) 
 y <- datos_tbl$asistencia_dias
