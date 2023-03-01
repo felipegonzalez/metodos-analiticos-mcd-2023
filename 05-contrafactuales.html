@@ -604,7 +604,7 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 6.6 seconds.
+Chain 1 finished in 6.5 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
@@ -614,16 +614,16 @@ Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 5.9 seconds.
+Chain 3 finished in 6.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 6.7 seconds.
+Chain 4 finished in 6.8 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 6.4 seconds.
-Total execution time: 25.7 seconds.</code></pre>
+Total execution time: 25.9 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -749,7 +749,7 @@ Modelos e Ignorabilidad
 </ol>
 <p><span class="math display">\[ATE= E[Y^1 - Y^0] = E[Y|do(T=1)] - E[Y|do(T=0)] \]</span></p>
 <ol start="2" type="1">
-<li>El <strong>efecto total controlado</strong></li>
+<li>El <strong>efecto directo controlado</strong></li>
 </ol>
 <p><span class="math display">\[CDE(m) = E[Y|do(T=1, M=m)] - E[Y|do(T=0, M=m)]\]</span> que vimos en el ejemplo de Berkeley de la sección anterior. Depende de en qué fijamos el valor de <span class="math inline">\(M\)</span>, sin fijarnos en el valor que toma <span class="math inline">\(T\)</span>.</p>
 <ol start="3" type="1">
@@ -781,7 +781,7 @@ Tip
 </div>
 </div>
 <p>Esto se debe a interacciones que puede haber entre el tratamiento y la variable mediadora. Tomando un caso extremo, podemos pensar en una medicina que tienen un efecto total positivo sobre algún resultado. Existe una variable mediadora (por ejemplo, baja el colesterol). Sin embargo, si el colesterol no es bajo, otros efectos de la medicina no pueden darse, de modo que <span class="math inline">\(Y^{1, M_0} = Y^{0, M_0}\)</span> (el efecto natural directo es 0). Por otra parte, el efecto de sólo bajar el colesterol (sin tomar la medicina) no tiene un efecto considerable <span class="math inline">\(Y^{0,M_1} \approx Y^{0,M_0}\)</span>.</p>
-<p>En el caso lineal es más simple: si <span class="math inline">\(M = a+bT\)</span> y <span class="math inline">\(Y = c + dM + eT\)</span>, entonces el efecto natural directo es <span class="math inline">\(NDE = (c+ da + e) - (c + da) = e\)</span> el efecto natural indirecto es <span class="math inline">\(NIE = (c + d(a+b)) - (c + da) = bd\)</span>, y el efecto total es <span class="math inline">\(ATE = (c+ d(a+b) + e) - (c + da) = bd +e\)</span>.</p>
+<p>En el caso lineal sin interacciones es más simple: si <span class="math inline">\(M = a+bT\)</span> y <span class="math inline">\(Y = c + dM + eT\)</span>, entonces el efecto natural directo es <span class="math display">\[NDE = (c+ da + e) - (c + da) = e,\]</span> el efecto natural indirecto es <span class="math display">\[NIE = (c + d(a+b)) - (c + da) = bd\]</span>, y el efecto total es <span class="math display">\[ATE = (c+ d(a+b) + e) - (c + da) = bd +e.\]</span></p>
 </section>
 <section id="ejemplo-1" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-1">Ejemplo</h3>
@@ -815,20 +815,21 @@ Tip
 </div>
 <p>Aunque es posible hacer todos los cálculos de manera analítica, en este ejemplo calcularemos con simulación. El efecto total es</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sim_total <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tratados</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no tratados</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># contraste</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(sim_exito_trata <span class="sc">-</span> sim_exito_sin_trata)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">sim_total</span>()</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sim_total <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tratados</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no tratados</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># contraste</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(sim_exito_trata <span class="sc">-</span> sim_exito_sin_trata)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">sim_total</span>()</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.45831</code></pre>
+<pre><code>[1] 0.4591</code></pre>
 </div>
 </div>
 <p>El efecto natural directo es</p>
@@ -847,7 +848,7 @@ Tip
 <span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>nde <span class="ot">&lt;-</span> <span class="fu">sim_nde</span>()</span>
 <span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>nde</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.31849</code></pre>
+<pre><code>[1] 0.32065</code></pre>
 </div>
 </div>
 <p>Y el efecto natural indirecto es:</p>
@@ -870,28 +871,28 @@ Tip
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>nie <span class="ot">&lt;-</span> <span class="fu">sim_nie</span>()</span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>nie</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.03153</code></pre>
+<pre><code>[1] 0.03589</code></pre>
 </div>
 </div>
 <p>Tenemos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.45831</code></pre>
+<pre><code>[1] 0.4591</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> nde<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3050773</code></pre>
+<pre><code>[1] 0.3015683</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>nie<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.06879623</code></pre>
+<pre><code>[1] 0.07817469</code></pre>
 </div>
 </div>
 <ul>
 <li>El programa incrementa en 46 puntos porcentuales la tasa de éxito</li>
 <li>30% de este incremento se debe a la capacidad del programa de estimular esfuerzos en la tarea.</li>
-<li>Pero sólo 8% de este incremento se puede explicar por un incremento en tareas por sí solas sin el beneficio del programa.</li>
+<li>Pero alrededor 8% de este incremento se puede explicar por un incremento en tareas por sí solas sin el beneficio del programa.</li>
 </ul>
 <p>Nuestra conclusión es que incidir solamente en la variable <span class="math inline">\(Tarea\)</span>, quizá de una manera más barata, y a niveles similares a los de este programa, no tendría un resultado cercano en efectividad.</p>
 </section>
@@ -1069,22 +1070,22 @@ Chain 1 Iteration:    1 / 1300 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 1300 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 1300 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 1300 [  0%]  (Warmup) 
-Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
-Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
-Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration:  301 / 1300 [ 23%]  (Sampling) 
-Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 159.4 seconds.
-Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 159.7 seconds.
+Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
+Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
+Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 159.9 seconds.
+Chain 3 finished in 149.3 seconds.
+Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 2 finished in 162.5 seconds.
+Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 4 finished in 162.9 seconds.
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 161.7 seconds.
+Chain 1 finished in 165.1 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 160.2 seconds.
-Total execution time: 161.7 seconds.</code></pre>
+Mean chain execution time: 160.0 seconds.
+Total execution time: 165.2 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
@@ -1094,9 +1095,9 @@ Total execution time: 161.7 seconds.</code></pre>
 <pre><code># A tibble: 3 × 4
   variable          mean      q5    q95
   &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-1 efecto_nat_dir  0.0789  0.0245  0.132
-2 efecto_nat_ind -0.140  -0.172  -0.106
-3 efecto_total   -0.130  -0.171  -0.089</code></pre>
+1 efecto_nat_dir  0.0792  0.0245  0.132
+2 efecto_nat_ind -0.139  -0.173  -0.105
+3 efecto_total   -0.129  -0.168  -0.09 </code></pre>
 </div>
 </div>
 <p>En este caso, el efecto total (que favorece al género 1) puede explicarse principalmente, mediante el efecto natural indirecto (la selección de departamento), y el efecto directo natural favorece al género 2. <strong>Nótese que esto supone que no hay variables confusoras entre departamento y admisión</strong>. Como vimos en la sección anterior, esto no es necesariamente cierto.</p>

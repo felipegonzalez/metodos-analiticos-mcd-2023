@@ -310,8 +310,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-fd12ea859554f2b3fc6e" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fd12ea859554f2b3fc6e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6353acb5cdd3b4db3230" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6353acb5cdd3b4db3230">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Dado este diagrama, como hemos discutido, no podemos identificar el efecto causal de la calidad de suministro de agua en las muertes o infecciones de cólera: podría ser la “miasma” que contamina el agua y enferma a las personas (correlación no causal), por ejemplo, y no hay relación causal entre tomar agua contaminada y cólera.</p>
@@ -342,8 +342,8 @@ div.csl-indent {
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-83889b35b416194f15dd" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-83889b35b416194f15dd">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a098d8e85203094b177d" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a098d8e85203094b177d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Tenemos entonces:</p>
@@ -358,7 +358,7 @@ div.csl-indent {
 <li>Por la gráfica, la asociación entre Compañía y Cólera es causal (no hay confusoras para Compañía y Cólera).</li>
 <li>Si esta relación existe, entonces por los supuestos, la Pureza de Agua tiene un efecto causal sobre Cólera.</li>
 </ul>
-<p>La tabla de Snow, tomada de <span class="citation" data-cites="Freedmanshoe">(<a href="99-referencias.html#ref-Freedmanshoe" role="doc-biblioref"><strong>Freedmanshoe?</strong></a>)</span>:</p>
+<p>La tabla de Snow, tomada de <span class="citation" data-cites="freedmanshoe">Freedman (<a href="99-referencias.html#ref-freedmanshoe" role="doc-biblioref">1991</a>)</span>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">comp =</span> <span class="fu">c</span>(<span class="st">"Southwark+Vauxhall"</span>, <span class="st">"Lambeth"</span>, <span class="st">"Resto"</span>),</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">casas =</span> <span class="fu">c</span>(<span class="dv">40046</span>, <span class="dv">26107</span>, <span class="dv">256423</span>),</span>
@@ -425,8 +425,8 @@ div.csl-indent {
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width=</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">70</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-0ac8d674764b197798ba" style="width:100%;height:227px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ac8d674764b197798ba">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8ca6b95240d3ea8ea18e" style="width:100%;height:227px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8ca6b95240d3ea8ea18e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -456,6 +456,14 @@ Variables instrumentales
 <section id="estimación-con-variables-instrumentales" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="estimación-con-variables-instrumentales"><span class="header-section-number">6.3</span> Estimación con variables instrumentales</h2>
 <p>La estimación de efectos causales con variables instrumentales depende de supuestos adicionales a los del cálculo-do, y su utilidad depende de qué tan fuerte es el instrumento (qué tan correlacionado está con el tratamiento).</p>
+<p>Primero, hacemos una discusión para ver cómo esto puede funcionar. Lo más importante es notar que el efecto de <span class="math inline">\(Z\)</span> sobre <span class="math inline">\(Y\)</span> y el de <span class="math inline">\(Z\)</span> sobre <span class="math inline">\(T\)</span> son identificables y podemos calcularlos. El que nos interesa el efecto de <span class="math inline">\(T\)</span> sobre <span class="math inline">\(Y\)</span>. Supongamos que todos los modelos son lineales:</p>
+<ul>
+<li>Supongamos que cuando <span class="math inline">\(Z\)</span> aumenta una unidad, <span class="math inline">\(T\)</span> aumenta en <span class="math inline">\(a\)</span> unidades,</li>
+<li>Supongamos que cuando <span class="math inline">\(T\)</span> aumenta 1 unidad <span class="math inline">\(Y\)</span> aumenta <span class="math inline">\(b\)</span> unidades (este es el efecto causal que queremos calcular).</li>
+<li>Esto quiere decir que cuando <span class="math inline">\(Z\)</span> aumenta una unidad, <span class="math inline">\(Y\)</span> aumenta <span class="math inline">\(c = ab\)</span> unidades.</li>
+<li>El efecto causal de <span class="math inline">\(T\)</span> sobre <span class="math inline">\(Y\)</span> se puede calcular dividiendo <span class="math inline">\(c/a\)</span> (que es igual a <span class="math inline">\(b\)</span>), y estas dos cantidades están identificadas</li>
+</ul>
+<p>Nótese que si <span class="math inline">\(a=0\)</span>, o es muy chico, este argumento no funciona (<span class="math inline">\(Z\)</span> es un instrumento débil).</p>
 <p>Veremos un ejemplo simulado, y cómo construir un estimador estadístico en el caso lineal para estimar el efecto causal.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sim_colera <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
@@ -486,8 +494,14 @@ Variables instrumentales
 6     4 -4.23  -17.9 </code></pre>
 </div>
 </div>
-<p>Podríamos construir un modelo generativo modelando una variable latente <span class="math inline">\(U\)</span>. Si embargo, es más simple definir un modelo estadístico como sigue: - Las variables pureza son normales bivariadas con alguna correlación - La media de Pureza depende la compañía (modelo de primera etapa) - La media de Cólera depende de la pureza (modelo de segunda etapa)</p>
-<p>Nótese que un modelo que ignora la variable confusora nos da la respuesta incorrecta (el efecto de pureza está inflado)</p>
+<p>Podríamos construir un modelo generativo modelando una variable latente <span class="math inline">\(U\)</span>. Si embargo, es más simple definir un modelo estadístico como sigue:</p>
+<ul>
+<li>Las variables pureza son normales bivariadas con alguna correlación (producida por el confusor U).</li>
+<li>La media de Pureza depende la compañía (modelo de primera etapa)</li>
+<li>La media de Cólera depende de la pureza (modelo de segunda etapa)</li>
+</ul>
+<p>Con un modelo así podemos resolver el problema de estimar el efecto causal la variable instrumental.</p>
+<p>Sin embargo, modelos de regresión simples no nos dan la respuesta correcta. Por ejemplo, sabemos que esta regresión es incorrecta (por el confusor):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(colera<span class="sc">~</span> pureza, datos_tbl) <span class="sc">|&gt;</span> broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -593,109 +607,11 @@ generated quantities{
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 parallel chains...
 
-Chain 1 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 2 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 3 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: iv_ejemplo_model_namespace::log_prob: S is not symmetric. S[1,2] = 7.046e+07, but S[2,1] = 7.046e+07 (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 27, column 2 to column 18)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 4 Iteration:    1 / 1500 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Exception: multi_normal_lpdf: LDLT_Factor of covariance parameter is not positive definite.  last conditional variance is -nan. (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 38, column 2 to column 30)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Exception: iv_ejemplo_model_namespace::log_prob: S is not symmetric. S[1,2] = 7.01348e+07, but S[2,1] = 7.01348e+07 (in '/tmp/Rtmp9erNjE/model-239645d8c9b8.stan', line 27, column 2 to column 18)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 1 Iteration:  100 / 1500 [  6%]  (Warmup) 
+Chain 1 Iteration:    1 / 1500 [  0%]  (Warmup) 
+Chain 2 Iteration:    1 / 1500 [  0%]  (Warmup) 
+Chain 3 Iteration:    1 / 1500 [  0%]  (Warmup) 
+Chain 4 Iteration:    1 / 1500 [  0%]  (Warmup) 
+Chain 1 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 3 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 2 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 4 Iteration:  100 / 1500 [  6%]  (Warmup) 
@@ -710,9 +626,9 @@ Chain 4 Iteration:  300 / 1500 [ 20%]  (Warmup)
 Chain 3 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 2 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 3 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 3 Iteration:  501 / 1500 [ 33%]  (Sampling) 
-Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 1 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 1 Iteration:  501 / 1500 [ 33%]  (Sampling) 
 Chain 2 Iteration:  500 / 1500 [ 33%]  (Warmup) 
@@ -721,8 +637,8 @@ Chain 3 Iteration:  600 / 1500 [ 40%]  (Sampling)
 Chain 4 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 4 Iteration:  501 / 1500 [ 33%]  (Sampling) 
 Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
-Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 2 Iteration:  600 / 1500 [ 40%]  (Sampling) 
+Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 4 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 3 Iteration:  800 / 1500 [ 53%]  (Sampling) 
 Chain 1 Iteration:  700 / 1500 [ 46%]  (Sampling) 
@@ -739,16 +655,16 @@ Chain 1 Iteration:  900 / 1500 [ 60%]  (Sampling)
 Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 4 Iteration:  900 / 1500 [ 60%]  (Sampling) 
 Chain 2 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 4 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 2 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 3 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 1 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 3 finished in 79.7 seconds.
-Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 3 finished in 79.9 seconds.
 Chain 4 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 4 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 2 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
@@ -757,20 +673,20 @@ Chain 2 Iteration: 1400 / 1500 [ 93%]  (Sampling)
 Chain 4 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 1 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 2 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 2 finished in 93.4 seconds.
 Chain 4 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
-Chain 2 finished in 94.3 seconds.
 Chain 1 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 1 finished in 95.2 seconds.
+Chain 1 finished in 95.7 seconds.
 Chain 4 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 4 finished in 97.3 seconds.
+Chain 4 finished in 97.5 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 91.6 seconds.
-Total execution time: 97.5 seconds.</code></pre>
+Total execution time: 97.6 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"alpha"</span>, <span class="st">"beta_0"</span>, <span class="st">"beta_1"</span>, <span class="st">"sigma"</span>, <span class="st">"Omega"</span>)) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"alpha"</span>, <span class="st">"beta_0"</span>, <span class="st">"beta_1"</span>, <span class="st">"sigma"</span>, <span class="st">"Omega"</span>)) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 4
    variable      mean        q5     q95
@@ -795,7 +711,8 @@ Total execution time: 97.5 seconds.</code></pre>
 <p><strong>Notas</strong>:</p>
 <ul>
 <li>En estos modelos, muchas veces es crucial la información a priori. Iniciales no informativas pueden dar resultados malos (dificultades numéricas, poca precisión y sesgo).</li>
-<li>Fuera del ámbito bayesiano se utilizan métodos como mínimos cuadrados en 2 etapas. Sin supuestos lineales, hay más supuestos que se tienen que cumplir para que este enfoque funcione (ver <span class="citation" data-cites="morgan2015">Morgan y Winship (<a href="99-referencias.html#ref-morgan2015" role="doc-biblioref">2015</a>)</span>), por ejemplo, ¿qué se identifica en el caso de efecto heterogéneo sobre los individuos?</li>
+<li>Fuera del ámbito bayesiano se utilizan métodos como mínimos cuadrados en 2 etapas.</li>
+<li>Sin supuestos lineales, hay más supuestos que se tienen que cumplir para que este enfoque funcione (ver <span class="citation" data-cites="morgan2015">Morgan y Winship (<a href="99-referencias.html#ref-morgan2015" role="doc-biblioref">2015</a>)</span>), por ejemplo, ¿qué se identifica en el caso de efecto heterogéneo sobre los individuos?</li>
 <li>El enfoque de contrafactuales esclarece cómo funciona este método.</li>
 </ul>
 <p>Ejemplos clásicos de potenciales instrumentos son:</p>
@@ -804,7 +721,7 @@ Total execution time: 97.5 seconds.</code></pre>
 <li>Distancia a algún servicio: el uso de un servicio varía con la distancia para accederlo (por ejemplo, ¿cómo saber si un centro comunitario en una población mejora el bienestar del que lo usan?)</li>
 <li>Loterías reales para determinar cuál es el efecto de recibir una cantidad grande de dinero sobre bienestar o ahorros futuros, etc.</li>
 </ul>
-<p>Puedes encontrar más ejemplos en <span class="citation" data-cites="morgan2005">(<a href="99-referencias.html#ref-morgan2005" role="doc-biblioref"><strong>morgan2005?</strong></a>)</span> y <a href="https://mixtape.scunning.com/07-instrumental_variables">aquí</a>.</p>
+<p>Puedes encontrar más ejemplos en <span class="citation" data-cites="morgan2015">Morgan y Winship (<a href="99-referencias.html#ref-morgan2015" role="doc-biblioref">2015</a>)</span> y <a href="https://mixtape.scunning.com/07-instrumental_variables">aquí</a>.</p>
 </section>
 <section id="regresión-discontinua" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="regresión-discontinua"><span class="header-section-number">6.4</span> Regresión discontinua</h2>
@@ -815,30 +732,30 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Estatura  </span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; T</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; Y</span></span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; U}</span></span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Estatura  </span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; T</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; Y</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; U}</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-a945b6543d0328c220a5" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a945b6543d0328c220a5">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Estatura  \n     U -> Y\n     \n    Estatura -> T\n    Estatura -> Y\n    T -> Y\n{rank = same; T; Y}\n{rank = same; U}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2794ee7841a9ae0dae88" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2794ee7841a9ae0dae88">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Estatura  \n     U -> Y\n     \n    Estatura -> T\n    Estatura -> Y\n    T -> Y\n{rank = same; T; Y}\n{rank = same; U}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Nuestro primer supuesto es entonces que hay una variable observable que determina la aplicación del tratamiento. Sin embargo, no podemos bloquear Estatura</p>
@@ -851,27 +768,27 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura120 -&gt; T</span></span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura120 -&gt; T</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-6f83acd239239a136151" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6f83acd239239a136151">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; T; Y}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f712f0c8075a6974a31d" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f712f0c8075a6974a31d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; T; Y}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, el grupo Estatura120 suponemos que son aquellos que miden entre 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación de la estatura en este grupo es mínimo (pues efectivamente tiene muy poca variación de Estatura), incluyendo el hecho de que todas las variables menos el tratamiento cambian continuamente con la estatura.</p>
@@ -884,28 +801,28 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-simulado">Ejemplo simulado</h3>
 <p>Supongamos existe un programa de becas para permanecer en la escuela que se les da a niños de 9 o más años cumplidos. Nos interesa ver cuál es la asistencia escolar en el año siguiente al programa. Veamos un ejemplo simulado:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>inv_logit <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>x))</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>simular_des <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>){</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  edad <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">5</span>, <span class="dv">12</span>)</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(edad <span class="sc">&gt;=</span> <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.6</span>)</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  asistencia_dias <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="sc">*</span> <span class="fu">inv_logit</span>(<span class="dv">3</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span> (edad <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> t <span class="sc">+</span> u)</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(edad, t, asistencia_dias)</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">simular_des</span>(<span class="dv">1000</span>)</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>inv_logit <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>x))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>simular_des <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>){</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  edad <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">5</span>, <span class="dv">12</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(edad <span class="sc">&gt;=</span> <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.6</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  asistencia_dias <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="sc">*</span> <span class="fu">inv_logit</span>(<span class="dv">3</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span> (edad <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> t <span class="sc">+</span> u)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(edad, t, asistencia_dias)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">simular_des</span>(<span class="dv">1000</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Podríamos ajustar dos modelos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> t))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> t))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -946,11 +863,11 @@ Regresión discontinua
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-parte-2">Ejemplo: parte 2</h3>
 <p>Arriba hicimos un ajuste con curvas <em>loess</em>. Lo más apropiado es construir modelos y así facilitar la inferencia del tamaño del efecto.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>modelo_disc <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/reg-discontinua.stan"</span>)</span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(modelo_disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>modelo_disc <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/reg-discontinua.stan"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(modelo_disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>data {
   int N;
@@ -990,221 +907,20 @@ generated quantities {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>edad </span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">bs</span>(x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)) </span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>asistencia_dias</span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>trata <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>t</span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">length</span>(x), <span class="at">n_base =</span> <span class="fu">nrow</span>(B), <span class="at">B =</span> B,</span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> y, <span class="at">x =</span> x, <span class="at">trata =</span> trata)</span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> modelo_disc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">parallel_chains =</span> <span class="dv">4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>edad </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">bs</span>(x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>asistencia_dias</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>trata <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>t</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">length</span>(x), <span class="at">n_base =</span> <span class="fu">nrow</span>(B), <span class="at">B =</span> B,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> y, <span class="at">x =</span> x, <span class="at">trata =</span> trata)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> modelo_disc<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, <span class="at">parallel_chains =</span> <span class="dv">4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 parallel chains...
 
-Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 2 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp9erNjE/model-23962fd8b4be.stan', line 30, column 2 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
@@ -1217,8 +933,8 @@ Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup)
 Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
@@ -1227,19 +943,19 @@ Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup)
 Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
@@ -1258,8 +974,8 @@ Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling)
 Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
@@ -1287,21 +1003,21 @@ Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling)
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 4 finished in 12.1 seconds.
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 12.4 seconds.
 Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 1 finished in 12.6 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 12.5 seconds.
+Chain 2 finished in 12.6 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 12.7 seconds.
+Chain 3 finished in 12.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 12.4 seconds.
+Mean chain execution time: 12.5 seconds.
 Total execution time: 12.9 seconds.</code></pre>
 </div>
 </div>
 <p>Nuestro resumen del efecto local en 9 años es el siguiente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="st">"delta"</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="st">"delta"</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   variable  mean    q5   q95
@@ -1311,29 +1027,29 @@ Total execution time: 12.9 seconds.</code></pre>
 </div>
 <p>Finalmente, vemos cómo ajusta el modelo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>y_media_tbl <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="st">"y_media"</span>, <span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"y_media"</span>), <span class="at">names_to =</span> <span class="st">"variable"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(variable, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"indice"</span>), <span class="at">sep =</span> <span class="st">"[</span><span class="sc">\\</span><span class="st">[</span><span class="sc">\\</span><span class="st">]]"</span>, </span>
-<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">extra =</span> <span class="st">"drop"</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>y_media_tbl <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="st">"y_media"</span>, <span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"y_media"</span>), <span class="at">names_to =</span> <span class="st">"variable"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(variable, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"indice"</span>), <span class="at">sep =</span> <span class="st">"[</span><span class="sc">\\</span><span class="st">[</span><span class="sc">\\</span><span class="st">]]"</span>, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">extra =</span> <span class="st">"drop"</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Dropping 'draws_df' class as required metadata was removed.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">tibble</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">edad=</span> x))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">tibble</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">edad=</span> x))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "indice"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>res_y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> <span class="fu">group_by</span>(indice, edad) <span class="sc">|&gt;</span> </span>
-<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(value))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>res_y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> <span class="fu">group_by</span>(indice, edad) <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(value))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'indice'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_y_media_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> media), <span class="at">colour =</span> <span class="st">"red"</span>,</span>
-<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> datos_tbl, <span class="fu">aes</span>(<span class="at">y =</span> asistencia_dias), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_y_media_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> media), <span class="at">colour =</span> <span class="st">"red"</span>,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> datos_tbl, <span class="fu">aes</span>(<span class="at">y =</span> asistencia_dias), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
@@ -1345,6 +1061,9 @@ Total execution time: 12.9 seconds.</code></pre>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-freedmanshoe" class="csl-entry" role="doc-biblioentry">
+Freedman, David A. 1991. <span>«Statistical Models and Shoe Leather»</span>. <em>Sociological Methodology</em> 21: 291-313. <a href="http://www.jstor.org/stable/270939">http://www.jstor.org/stable/270939</a>.
+</div>
 <div id="ref-morgan2015" class="csl-entry" role="doc-biblioentry">
 Morgan, S. L., y C. Winship. 2015. <em>Counterfactuals and Causal Inference</em>. Analytical Methods for Social Research. Cambridge University Press. <a href="https://books.google.com.mx/books?id=Q6YaBQAAQBAJ">https://books.google.com.mx/books?id=Q6YaBQAAQBAJ</a>.
 </div>
