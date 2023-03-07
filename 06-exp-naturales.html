@@ -254,6 +254,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#ejemplo-simulado" id="toc-ejemplo-simulado" class="nav-link" data-scroll-target="#ejemplo-simulado">Ejemplo simulado</a></li>
   <li><a href="#ejemplo-parte-2" id="toc-ejemplo-parte-2" class="nav-link" data-scroll-target="#ejemplo-parte-2">Ejemplo: parte 2</a></li>
+  <li><a href="#ejemplo-edad-mínima-de-consumo-de-alcohol" id="toc-ejemplo-edad-mínima-de-consumo-de-alcohol" class="nav-link" data-scroll-target="#ejemplo-edad-mínima-de-consumo-de-alcohol">Ejemplo: edad mínima de consumo de alcohol</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -310,8 +311,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-745990d2b04f848c4a7b" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-745990d2b04f848c4a7b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-53bc9b85486d85b31f54" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-53bc9b85486d85b31f54">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Dado este diagrama, como hemos discutido, no podemos identificar el efecto causal de la calidad de suministro de agua en las muertes o infecciones de cólera: podría ser la “miasma” que contamina el agua y enferma a las personas (correlación no causal), por ejemplo, y no hay relación causal entre tomar agua contaminada y cólera.</p>
@@ -342,8 +343,8 @@ div.csl-indent {
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-b67d7bb2056193b6f316" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b67d7bb2056193b6f316">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b2d3363b052e199c1306" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b2d3363b052e199c1306">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Tenemos entonces:</p>
@@ -425,8 +426,8 @@ div.csl-indent {
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width=</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">70</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-6df7faad817f4cc2cb88" style="width:100%;height:227px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6df7faad817f4cc2cb88">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2c0f49478ae3d35cd6ee" style="width:100%;height:227px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2c0f49478ae3d35cd6ee">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -615,16 +616,16 @@ Chain 1 Iteration:  100 / 1500 [  6%]  (Warmup)
 Chain 3 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 2 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 4 Iteration:  100 / 1500 [  6%]  (Warmup) 
+Chain 3 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 2 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 1 Iteration:  200 / 1500 [ 13%]  (Warmup) 
-Chain 3 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 4 Iteration:  200 / 1500 [ 13%]  (Warmup) 
-Chain 1 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 3 Iteration:  300 / 1500 [ 20%]  (Warmup) 
+Chain 1 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 2 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 4 Iteration:  300 / 1500 [ 20%]  (Warmup) 
-Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 3 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 2 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 3 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 3 Iteration:  501 / 1500 [ 33%]  (Sampling) 
@@ -636,13 +637,13 @@ Chain 2 Iteration:  501 / 1500 [ 33%]  (Sampling)
 Chain 3 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 4 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 4 Iteration:  501 / 1500 [ 33%]  (Sampling) 
+Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 2 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
-Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 4 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 3 Iteration:  800 / 1500 [ 53%]  (Sampling) 
-Chain 1 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 2 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 1 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 3 Iteration:  900 / 1500 [ 60%]  (Sampling) 
 Chain 4 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 2 Iteration:  800 / 1500 [ 53%]  (Sampling) 
@@ -655,19 +656,19 @@ Chain 1 Iteration:  900 / 1500 [ 60%]  (Sampling)
 Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 4 Iteration:  900 / 1500 [ 60%]  (Sampling) 
 Chain 2 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 4 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 2 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 3 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 1 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 3 finished in 75.5 seconds.
-Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 3 finished in 75.1 seconds.
 Chain 4 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
-Chain 2 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 4 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 2 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 1 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 2 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 4 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
@@ -681,7 +682,7 @@ Chain 4 Iteration: 1500 / 1500 [100%]  (Sampling)
 Chain 4 finished in 91.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 86.3 seconds.
+Mean chain execution time: 86.2 seconds.
 Total execution time: 91.2 seconds.</code></pre>
 </div>
 </div>
@@ -754,12 +755,11 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-4da2697b611e0b569358" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4da2697b611e0b569358">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Estatura  \n     U -> Y\n     \n    Estatura -> T\n    Estatura -> Y\n    T -> Y\n{rank = same; T; Y}\n{rank = same; U}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e1ab2df87f98eb8cbc3b" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e1ab2df87f98eb8cbc3b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Estatura  \n     U -> Y\n     \n    Estatura -> T\n    Estatura -> Y\n    T -> Y\n{rank = same; T; Y}\n{rank = same; U}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<p>Nuestro primer supuesto es entonces que hay una variable observable que determina la aplicación del tratamiento. Sin embargo, no podemos bloquear Estatura</p>
-<p>Sin embargo, si suponemos que el tratamiento se asigna de la siguiente forma:</p>
+<p>Nuestro primer supuesto es entonces que hay una variable observable que determina la aplicación del tratamiento, y que se asigna de la siguiente forma:</p>
 <ul>
 <li>Si <span class="math inline">\(Estatura &gt; 1.20\)</span> entonces <span class="math inline">\(T=1\)</span></li>
 <li>Si <span class="math inline">\(Estatura &lt; 1.20\)</span> entonces <span class="math inline">\(T=0\)</span>,</li>
@@ -787,8 +787,8 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-483cb65416f6fb58f058" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-483cb65416f6fb58f058">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; T; Y}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e8bb2376bf2159c6b4c4" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e8bb2376bf2159c6b4c4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; T; Y}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, el grupo Estatura120 suponemos que son aquellos que miden entre 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación de la estatura en este grupo es mínimo (pues efectivamente tiene muy poca variación de Estatura), incluyendo el hecho de que todas las variables menos el tratamiento cambian continuamente con la estatura.</p>
@@ -851,7 +851,7 @@ Regresión discontinua
 <p>En particular, para el efecto promedio:</p>
 <p><span class="math display">\[E[Y^1 - Y^0|X=x_0] = E[Y^1|X=x_0] - E[Y^1|X=x_0]\]</span> es igual a</p>
 <p><span class="math display">\[\lim_{x\to x_0^+} E[Y^1|X=x_0] - \lim_{x\to x_0^-} E[Y^0|X=x_0]\]</span> Pero después de <span class="math inline">\(x_0\)</span> todas las unidades tienen el tratamiento, y antes ninguna, de modo que esto equivale a</p>
-<p><span class="math display">\[\lim_{x\to x_0^+} E[Y|X=x_0] - \lim_{x\to x_0^-} E[Y|X=x_0]\]</span> y estas dos cantidades están identificadas. Solamente usamos el supuesto de continuidad y del punto de corte para el tratamiento. Nótese que este supuesto se puede violar cuando unidades de un lado del corte son diferentes a las del otro lado, lo cual sucede por ejemplo cuando es un corte genérico que afecta muchas cosas o cuando de alguna manera la variable del corte es manipulable por los individuos:</p>
+<p><span class="math display">\[\lim_{x\to x_0^+} E[Y|X=x] - \lim_{x\to x_0^-} E[Y|X=x]\]</span> y estas dos cantidades están identificadas. Solamente usamos el supuesto de continuidad y del punto de corte para el tratamiento. Nótese que este supuesto se puede violar cuando unidades de un lado del corte son diferentes a las del otro lado, lo cual sucede por ejemplo cuando es un corte genérico que afecta muchas cosas o cuando de alguna manera la variable del corte es manipulable por los individuos:</p>
 <ul>
 <li>Hay otras cosas que suceden el punto de corte, por ejemplo: es difícil usar mayoria de edad como punto de corte, porque varias cosas suceden cuando alguien cumple 18 años (puede votar, puede ser que tome decisiones alrededor de esos momentos, puede comprar alcohol, etc).</li>
 <li>Hay maneras de manipular la variable con la que se hace el punto de corte (por ejemplo, si mi hijo nace en septiembre reporto en el acta que nació en agosto por fines escolares).</li>
@@ -933,8 +933,8 @@ Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup)
 Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
@@ -946,44 +946,44 @@ Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup)
 Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
@@ -995,16 +995,16 @@ Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling)
 Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 12.1 seconds.
+Chain 4 finished in 12.0 seconds.
+Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 12.4 seconds.
 Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 1 finished in 12.6 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 2 finished in 12.6 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
@@ -1012,7 +1012,7 @@ Chain 3 finished in 12.8 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 12.5 seconds.
-Total execution time: 12.8 seconds.</code></pre>
+Total execution time: 13.0 seconds.</code></pre>
 </div>
 </div>
 <p>Nuestro resumen del efecto local en 9 años es el siguiente:</p>
@@ -1058,6 +1058,45 @@ Total execution time: 12.8 seconds.</code></pre>
 <p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p><strong>Notas</strong>:</p>
+<ol type="1">
+<li>Igual que en experimentos, puede tener sentido controlar por otras variables(“buenos controles”) para mejorar la precisión del análisis.</li>
+<li>Esto es especialmente cierto cuando la variable <span class="math inline">\(x\)</span> en la regresión discontinua no determina de manera muy fuerte la respuesta <span class="math inline">\(y\)</span> (datos ruidosos)</li>
+<li>Es necesario tener cuidado con la forma funcional que se utiliza en los modelos (ver <a href="https://statmodeling.stat.columbia.edu/2019/06/25/another-regression-discontinuity-disaster-and/">esta liga</a>, donde muestran por ejemplo este análisis que es incorrecto:</li>
+</ol>
+<p><img src="figuras/gelman-rdd.png" class="img-fluid"></p>
+<p>En general, usar polinomios de orden alto es mala idea, pues la forma general de los datos lejos de la discontinuidad puede influir fuertemente la diferencia que observamos cerca de la discontinuidad.</p>
+</section>
+<section id="ejemplo-edad-mínima-de-consumo-de-alcohol" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-edad-mínima-de-consumo-de-alcohol">Ejemplo: edad mínima de consumo de alcohol</h3>
+<p>Consideramos datos de <a href="https://www.aeaweb.org/articles?id=10.1257/app.1.1.164">The Effect of Alcohol Consumption on Mortality: Regression Discontinuity Evidence from the Minimum Drinking Age</a></p>
+<p>En este caso, queremos ver el efecto causal de permitir legalmente tomar alcohol sobre la mortalidad de jóvenes. La regla administrativa en este caso es que a partir de los 21 años es legal que consuman alcohol.</p>
+<p>En este ejemplo particular, los datos se agruparon en cubetas por rangos de edad de 2 meses de edad. Esto no es necesario (podríamos utilizar los datos desagregados y un modelo logístico, por ejemplo).</p>
+<p>Veamos dos ejemplos particulares, muertes en vehículos, suicidios y homicidios:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>mlda_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datos/mlda.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(agecell,  over21, all, homicide, suicide, mva, drugs, external, externalother) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">c</span>(all<span class="sc">:</span>externalother), <span class="at">names_to =</span> <span class="st">"tipo"</span>, <span class="at">values_to =</span> <span class="st">"mortalidad"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tipo <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"mva"</span>, <span class="st">"suicide"</span>, <span class="st">"homicide"</span>))</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mlda_tbl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  agecell over21 tipo     mortalidad
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+1    19.1      0 homicide       16.3
+2    19.1      0 suicide        11.2
+3    19.1      0 mva            35.8
+4    19.2      0 homicide       16.9
+5    19.2      0 suicide        12.2
+6    19.2      0 mva            35.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mlda_tbl, <span class="fu">aes</span>(<span class="at">x =</span> agecell, <span class="at">y =</span> mortalidad, <span class="at">group =</span> over21)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="dv">1</span>, <span class="at">formula =</span> <span class="st">"y ~ x"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>tipo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><em>Ejercicio</em>: construye modelos de stan para estos datos, como en el ejemplo anterior.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
