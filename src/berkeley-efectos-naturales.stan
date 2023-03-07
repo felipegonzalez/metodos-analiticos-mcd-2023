@@ -46,7 +46,6 @@ generated quantities{
     array[2000] real admit_sim_1;
     // calcular efecto natural directo
     array[2000] int k;
-
     for(j in 1:2000){
       // extraer una elección de departamento de hombres:
       k[j] = categorical_logit_rng(beta[1]);
@@ -63,12 +62,7 @@ generated quantities{
     array[2000] int k_1;
     array[2000] int k_2;
     // calcular efecto natural indirecto
-    //array[n_d] real dif;
-    //array[n_d] real mean_resp;
-    //for(k in 1:n_d){
-    //  dif[k] = inv_logit(beta[2, k]) - inv_logit(beta[1, k]);
     for(j in 1:2000){
-
       // escoger depto bajo tratamiento
       k_1[j] = categorical_logit_rng(beta[2]);
       // simular admisión sin tratamiento
@@ -79,11 +73,9 @@ generated quantities{
       admit_sim_1[j] = bernoulli_logit_rng(alpha[1, k_2[j]]);
 
      }
-    //  mean_resp[k] = mean(admit_sim_2);
       efecto_nat_ind = mean(admit_sim_2) - mean(admit_sim_1);
     }
 
-    //efecto_nat_ind = sum(to_vector(mean_resp) .* to_vector(dif));
     {
     array[2000] real admit_sim_2;
     array[2000] real admit_sim_1;

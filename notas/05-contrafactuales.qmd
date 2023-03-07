@@ -94,8 +94,8 @@ mecanismo_aspirina <- function(dat_tbl){
 
 
 ```{r}
-n <- 1200
-set.seed(13233)
+n <- 1600
+set.seed(134233)
 ejemplo_1 <- tibble(.rows = n) |>  
     mutate(intensidad = rnorm(n, 0, 1)) |> 
     mutate(T = rbernoulli(n, 0.5)) 
@@ -227,7 +227,7 @@ que ponerla en algún valor consistente con el conocimiento experto (por ejemplo
 los casos extremos son $\rho = 1$ o $\rho = 0$). Supondremos en este ejemplo
 que $\rho = 1$ (ver @imbens_rubin_2015 por ejemplo para más casos).
 
-Como el tratamiento es ignorable (este es un experimento), entonces para simular $y_i^{mis}$ hacemos los siguiente:
+Como la asignación del tratamiento es ignorable (este es un experimento), entonces para simular $y_i^{mis}$ hacemos los siguiente:
 
 - Denotamos por $\theta$ a los parámetros $\alpha_0,\alpha, \beta,\sigma_1,\sigma_2,\rho$.
 - Obtenemos la posterior de los parámetros $\theta$ dada los datos $(x_i, y_i^{obs}, t_i)$.
@@ -252,7 +252,8 @@ ajuste <- mod_aspirina$sample(data = list(N = nrow(obs_1),
 ```
 
 ```{r}
-ajuste$summary(c("sigma", "alpha_0", "alpha", "beta", "efecto_trata"))
+ajuste$summary(c("sigma", "alpha_0", "alpha", "beta", "efecto_trata")) |> 
+  select(c("variable", "mean", "q5", "q95"))
 ```
 
 
@@ -284,17 +285,18 @@ $$
 & = E[Y^1] - E[Y^0] = ATE = \delta
 \end{align}
 $$
-pues por definición $T$ es independiente de $Y, Y^1, Y_0$ (ignorabilidad). El lado izquierdo
+pues por definición $T$ es independiente de $Y^1, Y_0$ (ignorabilidad). El lado izquierdo
 lo podemos estimar como es usual:
 
 $$\delta_{ing} = \frac{1}{n_1} \sum_{t_i = 1} y_i - \frac{1}{n_0} \sum_{t_i = 0} y_i$$
 
 que llamamos **el estimador ingenuo** del efecto causal $\delta$. Esto ya lo sabíamos
-del cálculo-$do$, pues la independencia de $T$ y $Y,Y_1,Y_0$ puede deducirse
+del cálculo-$do$, pues la independencia de $T$ y $Y_1,Y_0$ puede deducirse
 del hecho de que no hay puertas traseras activas al tratamiento $T$ con la respuesta $Y$, pues $T$ no depende de ninguna otra variable de nuestra gráfica.
 
 Si embargo, en general **la ecuación de arriba no necesariamente se cumple cuando
-el tratamiento no se asigna al azar**. En este caso podemos por ejemplo escribir:
+el tratamiento no se asigna al azar**. En este caso podemos por ejemplo escribir
+(sumando y restand los términos centrales):
 
 
 $$\delta_{ing} =  (E[Y^1|Y=1] - E[Y^0|Y=1]) + (E[Y^0|T=1] - E[Y^0|T=0]) $$
@@ -316,9 +318,10 @@ que beben alcohol moderadamente es mejor que los que no beben alcohol. Sin embar
 no podemos concluir que beber alcohol moderadamente ayuda en la salud. La razón
 puede estar en que las personas que padecen enfermedades de distintos tipos
 evitan el alcohol, y en ese caso el término de la derecha 
-$E[Y^0|T=1] - E[Y^0|Y=0]$ fuera muy grande, lo cual haría nuestro estimador 
-ingenuo $\delta_{ing}$ podría ser muy grande, aún cuando $E[Y^1|Y=1] - E[Y^0|Y=1]$ fuera cercano a cero
-si $Y=1$ es beber moderadamente.
+$E[Y^0|T=1] - E[Y^0|Y=0]$ podría ser grande (mejor salud de los que deciden
+tomar alcohol $T=1$ sin tratamiento $Y^0$), lo cual haría nuestro estimador 
+ingenuo $\delta_{ing}$  grande, aún cuando el efecto
+$E[Y^1|T=1] - E[Y^0|T=1]$ fuera cercano a cero.
 
 **Ejercicio**: describe esta situación mediante un DAG.
 
@@ -331,7 +334,7 @@ $$\delta_{ing} =  ATU + (E[Y^1|T=1] - E[Y^1|T=0])  $$
 - **ATU**: el primer término es el efecto causal del tratamiento sobre los no tratados. 
 - **Sesgo de selección**: el segundo término compara el grupo de tratados con el de no tratados
 *con tratamiento*. Esto quiere decir que si los grupos muy diferentes,
-el estimador ingenuo puede depender más de cómo son responden de manera diferente 
+el estimador ingenuo puede depender más de cómo responden de manera diferente 
 los grupos de tratados que los de los no tratados que del efecto casual del tratamiento.
 
 Combinando estas dos, si $\pi$ es la proporción de tratados,
@@ -356,7 +359,7 @@ $$
 
 Y el estimador ingenuo es diferente del efecto causal promedio (ATE) por:
 
-- Sesgo base: las unidades tratadas comienzan peor o mejor que las no tratadas
+- Sesgo base: las unidades tratadas tienen distinto $Y^0$ que los no tratados
 - Sesgo de tratamiento diferencial: las unidades que se seleccionan para ser tratadas
 son más o menos propensas a tener mejoras o desmejoras.
 
@@ -423,6 +426,8 @@ $$CDE(m) = E[Y|do(T=1, M=m)] - E[Y|do(T=0, M=m)]$$
 que vimos en el ejemplo de Berkeley de la sección anterior. Depende de en qué fijamos
 el valor de $M$, sin fijarnos en el valor que toma $T$.
 
+Adicionalmente, usando el lenguaje de contrafactuales, podemos definir:
+
 3. El **efecto natural directo**:
 
 $$NDE = E[Y^{1,M_0} - Y^{0,M_0}]$$
@@ -457,7 +462,7 @@ para la primer integral, simulamos $M=m$ dado que $T=0$, y luego simulamos $Y$ d
 $T=1$ y $M=m$ con la $m$ que obtuvimos en le paso anterior. Igualmente para
 la segunda integral.
 
-El efecto indirecto es:
+El efecto indirecto también está identificado y es:
 
 $$NIE = \int E[y|T=0, M = m]p(m|t=1)dm - \int E[y|T=0, M = m]p(m|t=0)dm$$
 Que igualmente podemos calcular simulando. 
@@ -475,7 +480,8 @@ el colesterol). Sin embargo, si el colesterol no es bajo,
 otros efectos de la medicina no pueden darse, de modo que $Y^{1, M_0} = Y^{0, M_0}$ 
 (el efecto natural directo es 0). Por otra parte, el efecto de sólo bajar el
 colesterol (sin tomar la medicina) no tiene un efecto considerable 
-$Y^{0,M_1} \approx Y^{0,M_0}$. 
+$Y^{0,M_1} \approx Y^{0,M_0}$.  Estos dos efectos son chicos, aunque el efecto
+causal total $Y^{1, M_1} = Y^{0, M_0}$ puede ser grande.
 
 
 En el caso lineal sin interacciones es más simple:  si $M = a+bT$ y $Y = c + dM + eT$, 
@@ -496,9 +502,11 @@ Este ejemplo es de @pearl2016causal.
 Un tratamiento impulsa a alumnos a hacer la tarea, y queremos calcular el efecto
 del tratamiento en la probabilidad de aprobar el curso. También nos interesa si es
 que el aumento en la tarea es la razón de este efecto, 
-independientemente del programa de entrenamiento.
+independientemente del programa de entrenamiento. Supondremos que hemos
+estimado los parámetros de nuestro modelo (en este caso son sólo proporciones pues
+todas las variables son discretas).
 
-Las distribuciones observadas son
+Las distribuciones estimadas de datos observados son
 
 _
 ```{r}
@@ -575,15 +583,18 @@ nie
 Tenemos:
 
 ```{r}
+# Efecto total 
 ate
+# Efecto indirecto comparado con ATE:
 1 - nde/ate
+# Efecto indirecto comparado con ATE:
 nie/ate
 ```
 
 - El programa incrementa en 46 puntos porcentuales la tasa de éxito
 - 30% de este incremento se debe a la capacidad del programa de estimular esfuerzos
 en la tarea.
-- Pero alrededor 8% de este incremento se puede explicar por un incremento en tareas por sí
+- Pero sólo alrededor 8% de este incremento se puede explicar por un incremento en tareas por sí
 solas sin el beneficio del programa.
 
 Nuestra conclusión es que incidir solamente en la variable $Tarea$, quizá de una
