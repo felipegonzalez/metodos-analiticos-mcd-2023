@@ -25,7 +25,8 @@ aparición de casos de cólera en Londres (que entonces era una epidemia).
 
 Reconoció que tenía el problema de variables no observadas
 que abren puertas traseras: la calidad de agua que toman
-las personas (o por ejemplo en zonas de la ciudad) es diferente: en zonas más pobres en general la calidad del
+las personas (o por ejemplo en zonas de la ciudad) es diferente: 
+en zonas más pobres en general la calidad del
 agua es mala, y también hay más muertes de cólera en lugares pobres. 
 
 Otra variable de confusión podía ser el entonces llamado "miasma": cosas malas 
@@ -339,10 +340,7 @@ digraph {
 ```
 
 Nuestro primer supuesto es entonces que hay una variable observable
-que determina la aplicación del tratamiento. Sin embargo, no podemos bloquear
-Estatura
-
-Sin embargo, si suponemos que el tratamiento se asigna de la siguiente forma:
+que determina la aplicación del tratamiento, y que se asigna de la siguiente forma:
 
 - Si $Estatura > 1.20$ entonces $T=1$
 - Si $Estatura < 1.20$ entonces $T=0$,
@@ -450,7 +448,7 @@ $$\lim_{x\to x_0^+} E[Y^1|X=x_0] - \lim_{x\to x_0^-} E[Y^0|X=x_0]$$
 Pero después de $x_0$ todas las unidades tienen el tratamiento, y antes
 ninguna, de modo que esto equivale a
 
-$$\lim_{x\to x_0^+} E[Y|X=x_0] - \lim_{x\to x_0^-} E[Y|X=x_0]$$
+$$\lim_{x\to x_0^+} E[Y|X=x] - \lim_{x\to x_0^-} E[Y|X=x]$$
 y estas dos cantidades están identificadas. Solamente usamos el supuesto
 de continuidad y del punto de corte para el tratamiento. Nótese
 que este supuesto se puede violar cuando unidades de un lado
@@ -529,11 +527,53 @@ ggplot(res_y_media_tbl, aes(x = edad)) + geom_line(aes(y = media), colour = "red
 
 
 
+**Notas**:
+
+1. Igual que en experimentos, puede tener sentido controlar por otras
+variables("buenos controles") para mejorar la precisión del análisis.
+2. Esto es especialmente cierto cuando la variable $x$ en la regresión discontinua
+no determina de manera muy fuerte la respuesta $y$ (datos ruidosos)
+3. Es necesario tener cuidado con la forma funcional que se utiliza en 
+los modelos (ver [esta liga](https://statmodeling.stat.columbia.edu/2019/06/25/another-regression-discontinuity-disaster-and/), donde muestran por ejemplo este análisis 
+que es incorrecto:
 
 
+![](figuras/gelman-rdd.png)
+
+En general, usar polinomios de orden alto es mala idea, pues la forma general
+de los datos lejos de la discontinuidad puede influir fuertemente la diferencia
+que observamos cerca de la discontinuidad.
 
 
+### Ejemplo: edad mínima de consumo de alcohol {-}
 
+Consideramos datos de  [The Effect of Alcohol Consumption on Mortality: Regression Discontinuity Evidence from the Minimum Drinking Age](https://www.aeaweb.org/articles?id=10.1257/app.1.1.164)
+
+En este caso, queremos ver el efecto causal de permitir legalmente 
+tomar alcohol sobre la mortalidad de jóvenes. La regla administrativa en este caso
+es que a partir de los 21 años es legal que consuman alcohol. 
+
+En este ejemplo particular, los datos se agruparon en cubetas por rangos de edad 
+de 2 meses de edad. Esto no es necesario (podríamos utilizar los datos desagregados
+y un modelo logístico, por ejemplo).
+
+Veamos
+dos ejemplos particulares, muertes en vehículos, suicidios y homicidios:
+
+```{r}
+#| message: false
+#| warning: false
+mlda_tbl <- read_csv("../datos/mlda.csv") |> 
+  select(agecell,  over21, all, homicide, suicide, mva, drugs, external, externalother) |> 
+  pivot_longer(cols=c(all:externalother), names_to = "tipo", values_to = "mortalidad") |> 
+  filter(tipo %in% c("mva", "suicide", "homicide"))
+head(mlda_tbl)
+ggplot(mlda_tbl, aes(x = agecell, y = mortalidad, group = over21)) + geom_point() +
+  geom_smooth(method = "loess", span = 1, formula = "y ~ x") + facet_wrap(~tipo)
+```
+
+*Ejercicio*: construye modelos de stan para estos datos, 
+como en el ejemplo anterior.
 
 
 
