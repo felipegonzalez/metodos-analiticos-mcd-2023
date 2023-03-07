@@ -338,8 +338,8 @@ Contrafactuales
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1200</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13233</span>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1600</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">134233</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ejemplo_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">.rows =</span> n) <span class="sc">|&gt;</span>  </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">intensidad =</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">T =</span> <span class="fu">rbernoulli</span>(n, <span class="fl">0.5</span>)) </span>
@@ -365,45 +365,45 @@ Contrafactuales
 <tbody>
   <tr>
    <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> -0.903 </td>
-   <td style="text-align:right;"> -0.052 </td>
+   <td style="text-align:right;"> 0.757 </td>
+   <td style="text-align:right;"> -0.313 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> -0.052 </td>
+   <td style="text-align:right;"> -0.313 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> 0.441 </td>
-   <td style="text-align:right;"> 1.710 </td>
+   <td style="text-align:right;"> -1.348 </td>
+   <td style="text-align:right;"> -1.226 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1.710 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> -0.515 </td>
-   <td style="text-align:right;"> -1.953 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> -1.953 </td>
+   <td style="text-align:right;"> -1.226 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:right;"> -0.640 </td>
-   <td style="text-align:right;"> -1.607 </td>
-   <td style="text-align:right;"> -1.607 </td>
+   <td style="text-align:right;"> 0.328 </td>
+   <td style="text-align:right;"> 0.833 </td>
+   <td style="text-align:right;"> 0.833 </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
    <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> -1.434 </td>
-   <td style="text-align:right;"> 2.745 </td>
+   <td style="text-align:right;"> 0.408 </td>
+   <td style="text-align:right;"> -1.105 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 2.745 </td>
+   <td style="text-align:right;"> -1.105 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:right;"> -0.730 </td>
-   <td style="text-align:right;"> -0.894 </td>
-   <td style="text-align:right;"> -0.894 </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> -0.971 </td>
+   <td style="text-align:right;"> 2.588 </td>
    <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2.588 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> -0.175 </td>
+   <td style="text-align:right;"> 0.721 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0.721 </td>
   </tr>
 </tbody>
 </table>
@@ -420,12 +420,12 @@ Contrafactuales
 <pre><code># A tibble: 6 × 5
   T     intensidad    Y_1    Y_0 efecto_causal_ind
   &lt;lgl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;
-1 FALSE     -0.903 -1.06  -0.052            -1.00 
-2 FALSE      0.441  0.192  1.71             -1.52 
-3 FALSE     -0.515 -1.30  -1.95              0.656
-4 TRUE      -0.64  -1.61  -2.89              1.28 
-5 FALSE     -1.43  -0.674  2.74             -3.42 
-6 TRUE      -0.73  -0.894  0.175            -1.07 </code></pre>
+1 FALSE      0.757 -0.124 -0.313             0.189
+2 FALSE     -1.35  -1.62  -1.23             -0.39 
+3 TRUE       0.328  0.833  4.54             -3.71 
+4 FALSE      0.408 -0.531 -1.10              0.574
+5 FALSE     -0.971 -0.436  2.59             -3.02 
+6 FALSE     -0.175 -0.425  0.721            -1.15 </code></pre>
 </div>
 </div>
 <p>Podemos definir el efecto causal a nivel unidad de la siguiente forma, aunque esto no nos dice directamente cómo calcularlo con los datos observados:</p>
@@ -438,7 +438,7 @@ Contrafactuales
 <pre><code># A tibble: 1 × 2
      ATE     ee
    &lt;dbl&gt;  &lt;dbl&gt;
-1 -0.478 0.0431</code></pre>
+1 -0.522 0.0377</code></pre>
 </div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -502,7 +502,7 @@ Ingorabilidad
 <section id="ejemplo-simple-rubin" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-simple-rubin">Ejemplo simple (Rubin)</h3>
 <p>En nuestro ejemplo de aspirinas, consideramos por ejemplo que <span class="math inline">\(x\)</span> es la intensidad del dolor inicial. Establecemos el modelo “científico”: <span class="math display">\[y^0_i = \alpha_0 + \alpha x+ \sigma_1 u_i^0\]</span> y <span class="math display">\[y^1_i = \alpha_0 + \alpha x + \beta + \sigma_2 u_i^1\]</span> Y podríamos suponer que <span class="math inline">\((u_i^0, u_i^1)\)</span> tienen una distribución normal bivariada estándar con media en 0. Aunque podemos estimar las varianzas, no es posible estimar la correlación, y tendríamos que ponerla en algún valor consistente con el conocimiento experto (por ejemplo, los casos extremos son <span class="math inline">\(\rho = 1\)</span> o <span class="math inline">\(\rho = 0\)</span>). Supondremos en este ejemplo que <span class="math inline">\(\rho = 1\)</span> (ver <span class="citation" data-cites="imbens_rubin_2015">Imbens y Rubin (<a href="99-referencias.html#ref-imbens_rubin_2015" role="doc-biblioref">2015</a>)</span> por ejemplo para más casos).</p>
-<p>Como el tratamiento es ignorable (este es un experimento), entonces para simular <span class="math inline">\(y_i^{mis}\)</span> hacemos los siguiente:</p>
+<p>Como la asignación del tratamiento es ignorable (este es un experimento), entonces para simular <span class="math inline">\(y_i^{mis}\)</span> hacemos los siguiente:</p>
 <ul>
 <li>Denotamos por <span class="math inline">\(\theta\)</span> a los parámetros <span class="math inline">\(\alpha_0,\alpha, \beta,\sigma_1,\sigma_2,\rho\)</span>.</li>
 <li>Obtenemos la posterior de los parámetros <span class="math inline">\(\theta\)</span> dada los datos <span class="math inline">\((x_i, y_i^{obs}, t_i)\)</span>.</li>
@@ -604,41 +604,41 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 6.5 seconds.
+Chain 1 finished in 9.2 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 6.2 seconds.
+Chain 2 finished in 8.7 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 6.0 seconds.
+Chain 3 finished in 7.8 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 6.8 seconds.
+Chain 4 finished in 7.6 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 6.4 seconds.
-Total execution time: 25.9 seconds.</code></pre>
+Mean chain execution time: 8.3 seconds.
+Total execution time: 33.7 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"sigma"</span>, <span class="st">"alpha_0"</span>, <span class="st">"alpha"</span>, <span class="st">"beta"</span>, <span class="st">"efecto_trata"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"sigma"</span>, <span class="st">"alpha_0"</span>, <span class="st">"alpha"</span>, <span class="st">"beta"</span>, <span class="st">"efecto_trata"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"mean"</span>, <span class="st">"q5"</span>, <span class="st">"q95"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 10
-  variable       mean  median     sd    mad      q5    q95  rhat ess_b…¹ ess_t…²
-  &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1 sigma[1]     0.510   0.510  0.0149 0.0146  0.485   0.535  1.00   3189.   2593.
-2 sigma[2]     1.94    1.94   0.0542 0.0530  1.85    2.03   1.00   3348.   2228.
-3 alpha_0      0.0368  0.0382 0.0777 0.0769 -0.0903  0.163  1.00   2124.   2347.
-4 alpha        0.794   0.794  0.0204 0.0197  0.760   0.827  1.00   3380.   2356.
-5 beta        -0.562  -0.562  0.0805 0.0810 -0.696  -0.426  1.00   2169.   2313.
-6 efecto_tra… -0.563  -0.563  0.0701 0.0701 -0.680  -0.448  1.00   2733.   3252.
-# … with abbreviated variable names ¹​ess_bulk, ²​ess_tail</code></pre>
+<pre><code># A tibble: 6 × 4
+  variable         mean     q5    q95
+  &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 sigma[1]      0.507    0.486  0.529
+2 sigma[2]      1.99     1.91   2.08 
+3 alpha_0      -0.00452 -0.121  0.109
+4 alpha         0.809    0.782  0.836
+5 beta         -0.481   -0.600 -0.359
+6 efecto_trata -0.483   -0.584 -0.380</code></pre>
 </div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -669,23 +669,23 @@ Modelos e Ignorabilidad
 &amp; = E[Y^1|T=1] - E[Y^0|T=0] \\
 &amp; = E[Y^1] - E[Y^0] = ATE = \delta
 \end{align}
-\]</span> pues por definición <span class="math inline">\(T\)</span> es independiente de <span class="math inline">\(Y, Y^1, Y_0\)</span> (ignorabilidad). El lado izquierdo lo podemos estimar como es usual:</p>
+\]</span> pues por definición <span class="math inline">\(T\)</span> es independiente de <span class="math inline">\(Y^1, Y_0\)</span> (ignorabilidad). El lado izquierdo lo podemos estimar como es usual:</p>
 <p><span class="math display">\[\delta_{ing} = \frac{1}{n_1} \sum_{t_i = 1} y_i - \frac{1}{n_0} \sum_{t_i = 0} y_i\]</span></p>
-<p>que llamamos <strong>el estimador ingenuo</strong> del efecto causal <span class="math inline">\(\delta\)</span>. Esto ya lo sabíamos del cálculo-<span class="math inline">\(do\)</span>, pues la independencia de <span class="math inline">\(T\)</span> y <span class="math inline">\(Y,Y_1,Y_0\)</span> puede deducirse del hecho de que no hay puertas traseras activas al tratamiento <span class="math inline">\(T\)</span> con la respuesta <span class="math inline">\(Y\)</span>, pues <span class="math inline">\(T\)</span> no depende de ninguna otra variable de nuestra gráfica.</p>
-<p>Si embargo, en general <strong>la ecuación de arriba no necesariamente se cumple cuando el tratamiento no se asigna al azar</strong>. En este caso podemos por ejemplo escribir:</p>
+<p>que llamamos <strong>el estimador ingenuo</strong> del efecto causal <span class="math inline">\(\delta\)</span>. Esto ya lo sabíamos del cálculo-<span class="math inline">\(do\)</span>, pues la independencia de <span class="math inline">\(T\)</span> y <span class="math inline">\(Y_1,Y_0\)</span> puede deducirse del hecho de que no hay puertas traseras activas al tratamiento <span class="math inline">\(T\)</span> con la respuesta <span class="math inline">\(Y\)</span>, pues <span class="math inline">\(T\)</span> no depende de ninguna otra variable de nuestra gráfica.</p>
+<p>Si embargo, en general <strong>la ecuación de arriba no necesariamente se cumple cuando el tratamiento no se asigna al azar</strong>. En este caso podemos por ejemplo escribir (sumando y restand los términos centrales):</p>
 <p><span class="math display">\[\delta_{ing} =  (E[Y^1|Y=1] - E[Y^0|Y=1]) + (E[Y^0|T=1] - E[Y^0|T=0]) \]</span> <span class="math display">\[\delta_{ing} =  ATT + (E[Y^0|T=1] - E[Y^0|T=0]) \]</span></p>
 <ul>
 <li><strong>ATT</strong>: el primer término es el efecto causal del tratamiento sobre los tratados (ATT).</li>
 <li><strong>Sesgo de selección</strong>: el segundo término compara el grupo de tratados con el de no tratados <em>en ausencia de ningún tratamiento</em>. Esto quiere decir que si los grupos muy diferentes, el estimador ingenuo puede depender más de cómo son diferentes los grupos de tratados que los de los no tratados que del efecto casual del tratamiento.</li>
 <li>Nótese que sin más supuestos, ninguna de las dos cantidades de la derecha pueden calcularse directamente, pues dependen de situaciones contrafactuales.</li>
 </ul>
-<p>Por ejemplo, podríamos comparar las personas que beben alcohol moderadamente (tratamiento) con aquellos que no beben alcohol. Quizá observamos que la salud de los que beben alcohol moderadamente es mejor que los que no beben alcohol. Sin embargo, no podemos concluir que beber alcohol moderadamente ayuda en la salud. La razón puede estar en que las personas que padecen enfermedades de distintos tipos evitan el alcohol, y en ese caso el término de la derecha <span class="math inline">\(E[Y^0|T=1] - E[Y^0|Y=0]\)</span> fuera muy grande, lo cual haría nuestro estimador ingenuo <span class="math inline">\(\delta_{ing}\)</span> podría ser muy grande, aún cuando <span class="math inline">\(E[Y^1|Y=1] - E[Y^0|Y=1]\)</span> fuera cercano a cero si <span class="math inline">\(Y=1\)</span> es beber moderadamente.</p>
+<p>Por ejemplo, podríamos comparar las personas que beben alcohol moderadamente (tratamiento) con aquellos que no beben alcohol. Quizá observamos que la salud de los que beben alcohol moderadamente es mejor que los que no beben alcohol. Sin embargo, no podemos concluir que beber alcohol moderadamente ayuda en la salud. La razón puede estar en que las personas que padecen enfermedades de distintos tipos evitan el alcohol, y en ese caso el término de la derecha <span class="math inline">\(E[Y^0|T=1] - E[Y^0|Y=0]\)</span> podría ser grande (mejor salud de los que deciden tomar alcohol <span class="math inline">\(T=1\)</span> sin tratamiento <span class="math inline">\(Y^0\)</span>), lo cual haría nuestro estimador ingenuo <span class="math inline">\(\delta_{ing}\)</span> grande, aún cuando el efecto <span class="math inline">\(E[Y^1|T=1] - E[Y^0|T=1]\)</span> fuera cercano a cero.</p>
 <p><strong>Ejercicio</strong>: describe esta situación mediante un DAG.</p>
 <p>Igualmente, podemos escribir</p>
 <p><span class="math display">\[\delta_{ing} =  (E[Y^1|T=0] - E[Y^0|T=0]) + (E[Y^1|T=1] - E[Y^1|T=0])  \]</span> <span class="math display">\[\delta_{ing} =  ATU + (E[Y^1|T=1] - E[Y^1|T=0])  \]</span></p>
 <ul>
 <li><strong>ATU</strong>: el primer término es el efecto causal del tratamiento sobre los no tratados.</li>
-<li><strong>Sesgo de selección</strong>: el segundo término compara el grupo de tratados con el de no tratados <em>con tratamiento</em>. Esto quiere decir que si los grupos muy diferentes, el estimador ingenuo puede depender más de cómo son responden de manera diferente los grupos de tratados que los de los no tratados que del efecto casual del tratamiento.</li>
+<li><strong>Sesgo de selección</strong>: el segundo término compara el grupo de tratados con el de no tratados <em>con tratamiento</em>. Esto quiere decir que si los grupos muy diferentes, el estimador ingenuo puede depender más de cómo responden de manera diferente los grupos de tratados que los de los no tratados que del efecto casual del tratamiento.</li>
 </ul>
 <p>Combinando estas dos, si <span class="math inline">\(\pi\)</span> es la proporción de tratados,</p>
 <p><span class="math display">\[
@@ -705,7 +705,7 @@ Modelos e Ignorabilidad
 \]</span></p>
 <p>Y el estimador ingenuo es diferente del efecto causal promedio (ATE) por:</p>
 <ul>
-<li>Sesgo base: las unidades tratadas comienzan peor o mejor que las no tratadas</li>
+<li>Sesgo base: las unidades tratadas tienen distinto <span class="math inline">\(Y^0\)</span> que los no tratados</li>
 <li>Sesgo de tratamiento diferencial: las unidades que se seleccionan para ser tratadas son más o menos propensas a tener mejoras o desmejoras.</li>
 </ul>
 <p>Por ejemplo, supongamos que estamos comparando el efecto de la educación en la abilidad mental de personas adultas, y el tratamiento es ir a la universidad. Entonces, si comparamos habilidad mental de personas que van a la universidad vs los que no van a la universidad, tenemos dos posibles fuentes de confusión:</p>
@@ -739,8 +739,8 @@ Modelos e Ignorabilidad
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-70706e9d20b656b52d06" style="width:100%;height:162px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-70706e9d20b656b52d06">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=circle]\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n  T -> Y\n  T -> M\n  M -> Y\n#{ rank = same; A; D }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-89d05eae0e09a13fbb4e" style="width:100%;height:162px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-89d05eae0e09a13fbb4e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=circle]\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n  T -> Y\n  T -> M\n  M -> Y\n#{ rank = same; A; D }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En primer lugar tenemos los primeros dos conceptos que revisamos en el ejemplo de admisiones de Berkeley:</p>
@@ -752,6 +752,7 @@ Modelos e Ignorabilidad
 <li>El <strong>efecto directo controlado</strong></li>
 </ol>
 <p><span class="math display">\[CDE(m) = E[Y|do(T=1, M=m)] - E[Y|do(T=0, M=m)]\]</span> que vimos en el ejemplo de Berkeley de la sección anterior. Depende de en qué fijamos el valor de <span class="math inline">\(M\)</span>, sin fijarnos en el valor que toma <span class="math inline">\(T\)</span>.</p>
+<p>Adicionalmente, usando el lenguaje de contrafactuales, podemos definir:</p>
 <ol start="3" type="1">
 <li>El <strong>efecto natural directo</strong>:</li>
 </ol>
@@ -765,7 +766,7 @@ Modelos e Ignorabilidad
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="caso-donde-no-hay-variables-confusoras"><span class="header-section-number">5.3.1</span> Caso donde no hay variables confusoras</h3>
 <p>En el caso donde no hay variables confusoras (ver el diagrama de arriba), el efecto natural directo está identificado por:</p>
 <p><span class="math display">\[NDE = \int (E[Y|T=1, M = m]- E[Y|T=0, M = m] )p(m|t=0)dm \]</span> Cada integral la podemos estimar simulando y promediando. Por ejemplo, para la primer integral, simulamos <span class="math inline">\(M=m\)</span> dado que <span class="math inline">\(T=0\)</span>, y luego simulamos <span class="math inline">\(Y\)</span> dado <span class="math inline">\(T=1\)</span> y <span class="math inline">\(M=m\)</span> con la <span class="math inline">\(m\)</span> que obtuvimos en le paso anterior. Igualmente para la segunda integral.</p>
-<p>El efecto indirecto es:</p>
+<p>El efecto indirecto también está identificado y es:</p>
 <p><span class="math display">\[NIE = \int E[y|T=0, M = m]p(m|t=1)dm - \int E[y|T=0, M = m]p(m|t=0)dm\]</span> Que igualmente podemos calcular simulando.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -780,13 +781,13 @@ Tip
 <p>Excepto para modelos lineales sin interacciones, no es cierto que la suma del efecto directo más el indirecto es el efecto total.</p>
 </div>
 </div>
-<p>Esto se debe a interacciones que puede haber entre el tratamiento y la variable mediadora. Tomando un caso extremo, podemos pensar en una medicina que tienen un efecto total positivo sobre algún resultado. Existe una variable mediadora (por ejemplo, baja el colesterol). Sin embargo, si el colesterol no es bajo, otros efectos de la medicina no pueden darse, de modo que <span class="math inline">\(Y^{1, M_0} = Y^{0, M_0}\)</span> (el efecto natural directo es 0). Por otra parte, el efecto de sólo bajar el colesterol (sin tomar la medicina) no tiene un efecto considerable <span class="math inline">\(Y^{0,M_1} \approx Y^{0,M_0}\)</span>.</p>
+<p>Esto se debe a interacciones que puede haber entre el tratamiento y la variable mediadora. Tomando un caso extremo, podemos pensar en una medicina que tienen un efecto total positivo sobre algún resultado. Existe una variable mediadora (por ejemplo, baja el colesterol). Sin embargo, si el colesterol no es bajo, otros efectos de la medicina no pueden darse, de modo que <span class="math inline">\(Y^{1, M_0} = Y^{0, M_0}\)</span> (el efecto natural directo es 0). Por otra parte, el efecto de sólo bajar el colesterol (sin tomar la medicina) no tiene un efecto considerable <span class="math inline">\(Y^{0,M_1} \approx Y^{0,M_0}\)</span>. Estos dos efectos son chicos, aunque el efecto causal total <span class="math inline">\(Y^{1, M_1} = Y^{0, M_0}\)</span> puede ser grande.</p>
 <p>En el caso lineal sin interacciones es más simple: si <span class="math inline">\(M = a+bT\)</span> y <span class="math inline">\(Y = c + dM + eT\)</span>, entonces el efecto natural directo es <span class="math display">\[NDE = (c+ da + e) - (c + da) = e,\]</span> el efecto natural indirecto es <span class="math display">\[NIE = (c + d(a+b)) - (c + da) = bd\]</span>, y el efecto total es <span class="math display">\[ATE = (c+ d(a+b) + e) - (c + da) = bd +e.\]</span></p>
 </section>
 <section id="ejemplo-1" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-1">Ejemplo</h3>
-<p>Este ejemplo es de <span class="citation" data-cites="pearl2016causal">Pearl, Glymour, y Jewell (<a href="99-referencias.html#ref-pearl2016causal" role="doc-biblioref">2016</a>)</span>. Un tratamiento impulsa a alumnos a hacer la tarea, y queremos calcular el efecto del tratamiento en la probabilidad de aprobar el curso. También nos interesa si es que el aumento en la tarea es la razón de este efecto, independientemente del programa de entrenamiento.</p>
-<p>Las distribuciones observadas son</p>
+<p>Este ejemplo es de <span class="citation" data-cites="pearl2016causal">Pearl, Glymour, y Jewell (<a href="99-referencias.html#ref-pearl2016causal" role="doc-biblioref">2016</a>)</span>. Un tratamiento impulsa a alumnos a hacer la tarea, y queremos calcular el efecto del tratamiento en la probabilidad de aprobar el curso. También nos interesa si es que el aumento en la tarea es la razón de este efecto, independientemente del programa de entrenamiento. Supondremos que hemos estimado los parámetros de nuestro modelo (en este caso son sólo proporciones pues todas las variables son discretas).</p>
+<p>Las distribuciones estimadas de datos observados son</p>
 <p>_</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tabla_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">tarea =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">prob_exito =</span> <span class="fu">c</span>(<span class="fl">0.80</span>, <span class="fl">0.40</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span>))</span>
@@ -876,15 +877,18 @@ Tip
 </div>
 <p>Tenemos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto total </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4591</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> nde<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto indirecto comparado con ATE:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> nde<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3015683</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>nie<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto indirecto comparado con ATE:</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nie<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.07817469</code></pre>
 </div>
@@ -892,7 +896,7 @@ Tip
 <ul>
 <li>El programa incrementa en 46 puntos porcentuales la tasa de éxito</li>
 <li>30% de este incremento se debe a la capacidad del programa de estimular esfuerzos en la tarea.</li>
-<li>Pero alrededor 8% de este incremento se puede explicar por un incremento en tareas por sí solas sin el beneficio del programa.</li>
+<li>Pero sólo alrededor 8% de este incremento se puede explicar por un incremento en tareas por sí solas sin el beneficio del programa.</li>
 </ul>
 <p>Nuestra conclusión es que incidir solamente en la variable <span class="math inline">\(Tarea\)</span>, quizá de una manera más barata, y a niveles similares a los de este programa, no tendría un resultado cercano en efectividad.</p>
 </section>
@@ -920,8 +924,8 @@ Tip
 <span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-fe979bbeb3856bebf235" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fe979bbeb3856bebf235">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f9a0c636bb5a8a643938" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f9a0c636bb5a8a643938">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -998,7 +1002,6 @@ generated quantities{
     array[2000] real admit_sim_1;
     // calcular efecto natural directo
     array[2000] int k;
-
     for(j in 1:2000){
       // extraer una elección de departamento de hombres:
       k[j] = categorical_logit_rng(beta[1]);
@@ -1015,12 +1018,7 @@ generated quantities{
     array[2000] int k_1;
     array[2000] int k_2;
     // calcular efecto natural indirecto
-    //array[n_d] real dif;
-    //array[n_d] real mean_resp;
-    //for(k in 1:n_d){
-    //  dif[k] = inv_logit(beta[2, k]) - inv_logit(beta[1, k]);
     for(j in 1:2000){
-
       // escoger depto bajo tratamiento
       k_1[j] = categorical_logit_rng(beta[2]);
       // simular admisión sin tratamiento
@@ -1031,11 +1029,9 @@ generated quantities{
       admit_sim_1[j] = bernoulli_logit_rng(alpha[1, k_2[j]]);
 
      }
-    //  mean_resp[k] = mean(admit_sim_2);
       efecto_nat_ind = mean(admit_sim_2) - mean(admit_sim_1);
     }
 
-    //efecto_nat_ind = sum(to_vector(mean_resp) .* to_vector(dif));
     {
     array[2000] real admit_sim_2;
     array[2000] real admit_sim_1;
@@ -1075,17 +1071,17 @@ Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 149.3 seconds.
+Chain 3 finished in 160.4 seconds.
 Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 162.5 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 162.9 seconds.
+Chain 2 finished in 171.8 seconds.
+Chain 4 finished in 171.7 seconds.
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 165.1 seconds.
+Chain 1 finished in 176.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 160.0 seconds.
-Total execution time: 165.2 seconds.</code></pre>
+Mean chain execution time: 170.1 seconds.
+Total execution time: 176.5 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
