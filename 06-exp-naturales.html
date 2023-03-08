@@ -311,8 +311,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-53bc9b85486d85b31f54" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-53bc9b85486d85b31f54">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c4a58bd4a52fcfffeabf" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c4a58bd4a52fcfffeabf">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Dado este diagrama, como hemos discutido, no podemos identificar el efecto causal de la calidad de suministro de agua en las muertes o infecciones de cólera: podría ser la “miasma” que contamina el agua y enferma a las personas (correlación no causal), por ejemplo, y no hay relación causal entre tomar agua contaminada y cólera.</p>
@@ -343,8 +343,8 @@ div.csl-indent {
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-b2d3363b052e199c1306" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b2d3363b052e199c1306">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-07e7431e6ce7af757fcc" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-07e7431e6ce7af757fcc">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Tenemos entonces:</p>
@@ -426,8 +426,8 @@ div.csl-indent {
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width=</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">70</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-2c0f49478ae3d35cd6ee" style="width:100%;height:227px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2c0f49478ae3d35cd6ee">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bf299b85b98563c77392" style="width:100%;height:227px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf299b85b98563c77392">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -616,20 +616,20 @@ Chain 1 Iteration:  100 / 1500 [  6%]  (Warmup)
 Chain 3 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 2 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 4 Iteration:  100 / 1500 [  6%]  (Warmup) 
-Chain 3 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 2 Iteration:  200 / 1500 [ 13%]  (Warmup) 
+Chain 3 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 1 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 4 Iteration:  200 / 1500 [ 13%]  (Warmup) 
-Chain 3 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 1 Iteration:  300 / 1500 [ 20%]  (Warmup) 
+Chain 3 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 2 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 4 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 3 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 2 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 3 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 3 Iteration:  501 / 1500 [ 33%]  (Sampling) 
-Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 1 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 1 Iteration:  501 / 1500 [ 33%]  (Sampling) 
 Chain 2 Iteration:  500 / 1500 [ 33%]  (Warmup) 
@@ -637,8 +637,8 @@ Chain 2 Iteration:  501 / 1500 [ 33%]  (Sampling)
 Chain 3 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 4 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 4 Iteration:  501 / 1500 [ 33%]  (Sampling) 
-Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 2 Iteration:  600 / 1500 [ 40%]  (Sampling) 
+Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 4 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 3 Iteration:  800 / 1500 [ 53%]  (Sampling) 
@@ -650,11 +650,11 @@ Chain 2 Iteration:  800 / 1500 [ 53%]  (Sampling)
 Chain 3 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 1 Iteration:  800 / 1500 [ 53%]  (Sampling) 
 Chain 4 Iteration:  800 / 1500 [ 53%]  (Sampling) 
-Chain 3 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 2 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 1 Iteration:  900 / 1500 [ 60%]  (Sampling) 
-Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 4 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 2 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
@@ -662,28 +662,28 @@ Chain 4 Iteration: 1000 / 1500 [ 66%]  (Sampling)
 Chain 2 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 3 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 1 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
-Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 3 finished in 75.1 seconds.
 Chain 4 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
+Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 3 finished in 107.2 seconds.
 Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 4 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 2 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 1 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
-Chain 2 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 4 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 2 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 1 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
-Chain 2 Iteration: 1500 / 1500 [100%]  (Sampling) 
 Chain 4 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
-Chain 2 finished in 88.1 seconds.
+Chain 2 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 2 finished in 125.4 seconds.
 Chain 1 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 1 finished in 90.4 seconds.
+Chain 1 finished in 128.5 seconds.
 Chain 4 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 4 finished in 91.0 seconds.
+Chain 4 finished in 129.3 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 86.2 seconds.
-Total execution time: 91.2 seconds.</code></pre>
+Mean chain execution time: 122.6 seconds.
+Total execution time: 129.5 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -726,51 +726,51 @@ Total execution time: 91.2 seconds.</code></pre>
 </section>
 <section id="regresión-discontinua" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="regresión-discontinua"><span class="header-section-number">6.4</span> Regresión discontinua</h2>
-<p>Muchas veces, la decisión de aplicar un tratamiento o no depende de un límite administrativo en una variable dada. Por ejemplo, para poder subirse a algunas atracciones de feria, hay un límite de estatura que hay que pasar.</p>
-<p>Supongamos que quisiéramos saber si una atracción particular de feria produce malestar en niños al salir del parque.<br>
-En primer lugar, comparar simplemente los niños que se subieron a esa atracción o no es probablemente la estrategia incorrecta, pues existen varias variables confusoras posibles (edad, aversión a juegos que asustan, etc.)</p>
+<p>Muchas veces, la decisión de aplicar un tratamiento o no depende de un límite administrativo en una variable dada. Por ejemplo, supongamos que quisiéramos saber si una atracción particular de feria produce malestar en niños al salir del parque.</p>
+<p>Todos los niños de una escuela se forman para subirse a la atracción. Si al director de la escuela le interesara hacer un experimento, podría seleccionar al azar a algunos niños para subirse y otros no. Sin embargo, el director de la escuela nota que hay un límite de estatura que hay que pasar para poder subirse al juego.</p>
+<p>Tienen la idea entonces de que esto presenta un experimento natural: entre todos los niños que están cerca de 1.20 de estatura, quién se sube o no prácticamente depende del azar.</p>
 <p>Nuestro diagrama es como sigue:</p>
 <div class="cell">
 <details>
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir=LR]</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">    #V</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Estatura  </span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">     U -&gt; Y</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">     #V -&gt; Estatura</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">     #V -&gt; Y</span></span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; T</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; Y</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; U}</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura -&gt; Y</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; U; T}</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = min;  Estatura}</span></span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">200</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e1ab2df87f98eb8cbc3b" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e1ab2df87f98eb8cbc3b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Estatura  \n     U -> Y\n     \n    Estatura -> T\n    Estatura -> Y\n    T -> Y\n{rank = same; T; Y}\n{rank = same; U}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1596838982ac643ebd5f" style="width:100%;height:650px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1596838982ac643ebd5f">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node [shape = circle]\n    U\n    #V\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Y\n     #V -> Estatura\n     #V -> Y\n    Estatura -> T\n    T -> Y\n    Estatura -> Y\n{rank = same; U; T}\n{rank = min;  Estatura}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<p>Nuestro primer supuesto es entonces que hay una variable observable que determina la aplicación del tratamiento, y que se asigna de la siguiente forma:</p>
+<p>Como vimos, hay una variable observable (la estatura) que determina la aplicación del tratamiento, y que se asigna de la siguiente forma:</p>
 <ul>
-<li>Si <span class="math inline">\(Estatura &gt; 1.20\)</span> entonces <span class="math inline">\(T=1\)</span></li>
+<li>Si <span class="math inline">\(Estatura &gt;= 1.20\)</span> entonces <span class="math inline">\(T=1\)</span></li>
 <li>Si <span class="math inline">\(Estatura &lt; 1.20\)</span> entonces <span class="math inline">\(T=0\)</span>,</li>
 </ul>
-<p>es posible restringir el análisis a un intervalo muy chico alrededor del punto de corte 1.20, y para fines prácticos el diagrama se convierte en:</p>
+<p>entonces es posible restringir el análisis a un intervalo muy chico alrededor del punto de corte 1.20, y para fines prácticos el diagrama se convierte en:</p>
 <div class="cell">
 <details>
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir=LR]</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle]</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">    U</span></span>
@@ -781,22 +781,24 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="st">     </span></span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">    Estatura120 -&gt; T</span></span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; Y</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; T; Y}</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; U; Y}</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = min; T; Estatura120}</span></span>
 <span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>,<span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">200</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e8bb2376bf2159c6b4c4" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8bb2376bf2159c6b4c4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; T; Y}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-912054192a442fcdfbf1" style="width:100%;height:650px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-912054192a442fcdfbf1">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; U; Y}\n{rank = min; T; Estatura120}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<p>En este caso, el grupo Estatura120 suponemos que son aquellos que miden entre 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación de la estatura en este grupo es mínimo (pues efectivamente tiene muy poca variación de Estatura), incluyendo el hecho de que todas las variables menos el tratamiento cambian continuamente con la estatura.</p>
+<p>En este caso, el grupo Estatura120 son aquellos que miden entre 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación de la estatura en este grupo es mínimo.</p>
+<p>La idea es comparar en el grupo Estatura120 aquellos que recibieron el tratamiento con los que no lo recibieron, y la razón es:</p>
 <ul>
-<li>La idea es comparar en Estatrua120 aquellos que recibieron el tratamiento con los que no lo recibieron.</li>
+<li>Caminos no causales a través de Estatura están prácticamente bloqueados, pues prácticamente estamos condicionando a un valor de Estatura fijo.</li>
+<li>Por la regla administrativa, no existen otras variables no observadas que influyan en la asignación de tratamiento <span class="math inline">\(T\)</span> (no hay puertas traseras).</li>
 </ul>
 <p>En la práctica, usualmente un grupo suficientemente angosto produciría un tamaño de muestra chico y sería difícil estimar el efecto del tratamiento (no tendríamos precisión). Así que recurrimos a modelos simples de la forma</p>
-<p><span class="math display">\[p(y|x)\]</span> que tienen la particularidad de que permiten un cambio discontinuo en la distribución en el punto de corte <span class="math inline">\(x = x_0\)</span>. En realidad, son dos modelos: uno del lado izquierdo y otro del lado derecho, aunque es posible que comparan parámetros.</p>
+<p><span class="math display">\[p(y|x)\]</span> que tienen la particularidad de que permiten un cambio discontinuo en la distribución en el punto de corte <span class="math inline">\(x = x_0\)</span>. Se puede tratar de dos modelos: uno del lado izquierdo y otro del lado derecho, aunque es posible que compartir parámetros.</p>
 <section id="ejemplo-simulado" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo-simulado">Ejemplo simulado</h3>
 <p>Supongamos existe un programa de becas para permanecer en la escuela que se les da a niños de 9 o más años cumplidos. Nos interesa ver cuál es la asistencia escolar en el año siguiente al programa. Veamos un ejemplo simulado:</p>
@@ -809,10 +811,11 @@ En primer lugar, comparar simplemente los niños que se subieron a esa atracció
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  asistencia_dias <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="sc">*</span> <span class="fu">inv_logit</span>(<span class="dv">3</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span> (edad <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> t <span class="sc">+</span> u)</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(edad, t, asistencia_dias)</span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">simular_des</span>(<span class="dv">1000</span>)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">simular_des</span>(<span class="dv">500</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> asistencia_dias)) <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">9</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="06-exp-naturales_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -843,15 +846,16 @@ Regresión discontinua
 <div class="callout-body-container callout-body">
 <p>El supuesto básico de identificación para regresión discontinua se puede expresar con contrafactuales:</p>
 <ul>
-<li>Tanto <span class="math inline">\(p(Y_i^1|X=x)\)</span> como <span class="math inline">\(p(Y_i^0|X=x)\)</span> varían continuamente el punto de corte <span class="math inline">\(x=x_0\)</span></li>
+<li>Tanto <span class="math inline">\(p(Y_i^1|X=x)\)</span> como <span class="math inline">\(p(Y_i^0|X=x)\)</span> varían continuamente en el punto de corte <span class="math inline">\(x=x_0\)</span></li>
+<li>El único criterio de aplicación del tratamiento es estar en <span class="math inline">\(X\)</span> por arriba o abajo de <span class="math inline">\(x_0\)</span>.</li>
 </ul>
 </div>
 </div>
 <p>Esto quiere decir que si vemos un salto en el punto de corte del tratamiento, este se debe al tratamiento, y no a cómo son <span class="math inline">\(p(Y_i^0|X=x)\)</span> y <span class="math inline">\(p(Y_i^1|X=x)\)</span>.</p>
 <p>En particular, para el efecto promedio:</p>
 <p><span class="math display">\[E[Y^1 - Y^0|X=x_0] = E[Y^1|X=x_0] - E[Y^1|X=x_0]\]</span> es igual a</p>
-<p><span class="math display">\[\lim_{x\to x_0^+} E[Y^1|X=x_0] - \lim_{x\to x_0^-} E[Y^0|X=x_0]\]</span> Pero después de <span class="math inline">\(x_0\)</span> todas las unidades tienen el tratamiento, y antes ninguna, de modo que esto equivale a</p>
-<p><span class="math display">\[\lim_{x\to x_0^+} E[Y|X=x] - \lim_{x\to x_0^-} E[Y|X=x]\]</span> y estas dos cantidades están identificadas. Solamente usamos el supuesto de continuidad y del punto de corte para el tratamiento. Nótese que este supuesto se puede violar cuando unidades de un lado del corte son diferentes a las del otro lado, lo cual sucede por ejemplo cuando es un corte genérico que afecta muchas cosas o cuando de alguna manera la variable del corte es manipulable por los individuos:</p>
+<p><span class="math display">\[\lim_{x\to x_0^+} E[Y^1|X=x_0] - \lim_{x\to x_0^-} E[Y^0|X=x_0]\]</span> Después de <span class="math inline">\(x_0\)</span> todas las unidades tienen el tratamiento, y antes ninguna, de modo que esto equivale a</p>
+<p><span class="math display">\[\lim_{x\to x_0^+} E[Y|X=x, T = 1] - \lim_{x\to x_0^-} E[Y|X=x, T = 0]\]</span> y estas dos cantidades están identificadas. Solamente usamos el supuesto de continuidad y del punto de corte para el tratamiento. Nótese que este supuesto se puede violar cuando unidades de un lado del corte son diferentes a las del otro lado, lo cual sucede por ejemplo cuando es un corte genérico que afecta muchas cosas o cuando de alguna manera la variable del corte es manipulable por los individuos:</p>
 <ul>
 <li>Hay otras cosas que suceden el punto de corte, por ejemplo: es difícil usar mayoria de edad como punto de corte, porque varias cosas suceden cuando alguien cumple 18 años (puede votar, puede ser que tome decisiones alrededor de esos momentos, puede comprar alcohol, etc).</li>
 <li>Hay maneras de manipular la variable con la que se hace el punto de corte (por ejemplo, si mi hijo nace en septiembre reporto en el acta que nació en agosto por fines escolares).</li>
@@ -908,7 +912,7 @@ generated quantities {
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>edad </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">bs</span>(x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">ns</span>(x, <span class="at">knots =</span> <span class="dv">6</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)) </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>asistencia_dias</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>trata <span class="ot">&lt;-</span> datos_tbl<span class="sc">$</span>t</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">length</span>(x), <span class="at">n_base =</span> <span class="fu">nrow</span>(B), <span class="at">B =</span> B,</span>
@@ -921,98 +925,98 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
-Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
-Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
 Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
 Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
 Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 12.0 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 3 finished in 7.5 seconds.
 Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 1 finished in 12.6 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 7.9 seconds.
+Chain 4 finished in 7.7 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 12.6 seconds.
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 12.8 seconds.
+Chain 2 finished in 7.9 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 12.5 seconds.
-Total execution time: 13.0 seconds.</code></pre>
+Mean chain execution time: 7.7 seconds.
+Total execution time: 8.0 seconds.</code></pre>
 </div>
 </div>
 <p>Nuestro resumen del efecto local en 9 años es el siguiente:</p>
@@ -1022,7 +1026,7 @@ Total execution time: 13.0 seconds.</code></pre>
 <pre><code># A tibble: 1 × 4
   variable  mean    q5   q95
   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 delta     22.9  17.9  27.7</code></pre>
+1 delta     19.4  12.6  26.0</code></pre>
 </div>
 </div>
 <p>Finalmente, vemos cómo ajusta el modelo:</p>
@@ -1042,14 +1046,17 @@ Total execution time: 13.0 seconds.</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>res_y_media_tbl <span class="ot">&lt;-</span> y_media_tbl <span class="sc">|&gt;</span> <span class="fu">group_by</span>(indice, edad) <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(value))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(value), <span class="at">q5 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.05</span>),</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">q95 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.95</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'indice'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_y_media_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> media), <span class="at">colour =</span> <span class="st">"red"</span>,</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> datos_tbl, <span class="fu">aes</span>(<span class="at">y =</span> asistencia_dias), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_y_media_tbl, <span class="fu">aes</span>(<span class="at">x =</span> edad)) <span class="sc">+</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> media), <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> q5), <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> q95), <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> datos_tbl, <span class="fu">aes</span>(<span class="at">y =</span> asistencia_dias), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
@@ -1075,20 +1082,21 @@ Total execution time: 13.0 seconds.</code></pre>
 <p>Veamos dos ejemplos particulares, muertes en vehículos, suicidios y homicidios:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>mlda_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datos/mlda.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(agecell,  over21, all, homicide, suicide, mva, drugs, external, externalother) <span class="sc">|&gt;</span> </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">c</span>(all<span class="sc">:</span>externalother), <span class="at">names_to =</span> <span class="st">"tipo"</span>, <span class="at">values_to =</span> <span class="st">"mortalidad"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tipo <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"mva"</span>, <span class="st">"suicide"</span>, <span class="st">"homicide"</span>))</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mlda_tbl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(agecell,  over21, all, homicide, suicide, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">vehicle accidents</span><span class="st">`</span> <span class="ot">=</span> mva, drugs, external, externalother) <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">c</span>(all<span class="sc">:</span>externalother), <span class="at">names_to =</span> <span class="st">"tipo"</span>, <span class="at">values_to =</span> <span class="st">"mortalidad"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tipo <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"vehicle accidents"</span>, <span class="st">"suicide"</span>, <span class="st">"homicide"</span>))</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mlda_tbl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
-  agecell over21 tipo     mortalidad
-    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
-1    19.1      0 homicide       16.3
-2    19.1      0 suicide        11.2
-3    19.1      0 mva            35.8
-4    19.2      0 homicide       16.9
-5    19.2      0 suicide        12.2
-6    19.2      0 mva            35.6</code></pre>
+  agecell over21 tipo              mortalidad
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+1    19.1      0 homicide                16.3
+2    19.1      0 suicide                 11.2
+3    19.1      0 vehicle accidents       35.8
+4    19.2      0 homicide                16.9
+5    19.2      0 suicide                 12.2
+6    19.2      0 vehicle accidents       35.6</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mlda_tbl, <span class="fu">aes</span>(<span class="at">x =</span> agecell, <span class="at">y =</span> mortalidad, <span class="at">group =</span> over21)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="dv">1</span>, <span class="at">formula =</span> <span class="st">"y ~ x"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>tipo)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
