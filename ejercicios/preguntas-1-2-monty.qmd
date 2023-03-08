@@ -1,0 +1,114 @@
+---
+title: "Problema de Monty Hall"
+format: html
+
+---
+
+Después de ver las respuestas de las preguntas 1 y 2 del examen creo que hubo
+una confusión genuina por cómo fue planteado el problema.
+
+La mejor manera es la siguiente:
+
+Si $S$ es la puerta escogida al azar, y **el premio se pone en una puerta al azar**
+$P$, entonces el diagrama claramente ninguna de las dos variables influye
+en ninguna de las otras dos:
+
+```{r}
+library(tidyverse)
+library(DiagrammeR)
+library(broom)
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+  S
+  P
+  edge [minlen = 3]
+}
+", width = 200)
+
+```
+
+Ahora, si $M$ es la puerta vacía que abre el conductor (que sabe donde está el premio),
+entonces el diagrama es:
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+  S
+  P
+  edge [minlen = 3]
+  S -> M
+  P -> M
+}
+", width = 200)
+
+```
+
+De modo que al condicionar $M$ (la puerta que abre el conductor),
+$S$ y $P$ están asociadas. 
+
+
+
+
+
+
+
+## Simulación
+
+
+```{r}
+simular_monty <- function(n){
+  seleccion <- sample(1:3, n, replace = TRUE)
+  premio <- sample(1:3, n, replace = TRUE)
+  # las candidatas no tienen premio o no fueron seleccionadas
+  puertas_candidatas <- map2(seleccion, premio,  ~ setdiff(c(1,2,3), c(.x, .y)))
+  m <- map_dbl(puertas_candidatas, ~ .x[sample.int(length(.x), 1)])
+  tibble(seleccion, premio,  m)
+}
+set.seed(818)
+sims_tbl <- simular_monty(50000)
+```
+
+Si condicionamos a $m$, tenemos:
+```{r}
+sims_tbl |> filter(m == 1) |> 
+  group_by(seleccion, premio, m) |>
+  count(seleccion, premio, m) |> 
+  group_by(seleccion) |> 
+  mutate(prop = n / sum(n)) |> 
+  filter()
+```
+
+Entonces selección y premio tiene están asociadas: la probabilidad es más alta cuando
+escogemos la otra puerta que no seleccionamos.
+
+## Nodo Ganar
+
+Notemos que si incluímos el nodo "Ganar" que puede ser 0 o 1, entonces
+depende de la estrategia, pero podemos escribir:
+
+```{r}
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+  S
+  P
+  edge [minlen = 3]
+  S -> M
+  P -> M
+  S -> G
+  M-> G
+}
+", width = 200)
+
+```
+
+**El argumento del colisionador sigue funcionando**, pero tiene sentido
+que dependiendo de la estrategia, $G$ depende de $M$ y de $S$.
+
+

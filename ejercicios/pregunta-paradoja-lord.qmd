@@ -1,0 +1,74 @@
+---
+title: "Paradoja de Lord"
+format: html
+editor: visual
+---
+
+Tenemos el diagrama
+
+```{r}
+library(tidyverse)
+library(DiagrammeR)
+library(broom)
+#| code-fold: true
+grViz("
+digraph {
+  graph [ranksep = 0.2, rankdir = LR]
+  node [shape=plaintext]
+  W_I
+  D
+  S
+  W_F
+  edge [minlen = 3]
+  W_I -> S
+  W_I -> W_F
+  S -> W_F
+  W_I -> D
+  W_F -> D
+}
+")
+
+```
+
+
+Ahora simulamos un ejemplo para ver las distintas respuestas de los
+estadísticos, poniendo un efecto del tratamiento igual a 5:
+
+```{r}
+simular_esc_1 <- function(n = 1, efecto = 0){
+  W_I <- rnorm(n, 60, 10)
+  P <- 1 / (1 + exp(-(W_I-60)/6))
+  seleccion <- rbinom(n, 1, P)          
+  W_F <- rnorm(n,  1.2 * W_I + efecto * seleccion, 4)
+  D <- W_F - W_I
+  tibble(W_I, W_F, D, seleccion)
+}
+
+set.seed(54189)
+datos_tbl <- simular_esc_1(1500, efecto = 5)
+
+ggplot(datos_tbl, aes(x = W_I, y = W_F, colour = seleccion)) +
+  geom_point() + geom_abline()
+
+```
+
+Las estrategias de los dos estadísticos son:
+
+```{r}
+analisis_1 <- function(datos_tbl){
+   lm(D ~ seleccion, datos_tbl) |> tidy() |> select(term, estimate, std.error)
+}
+analisis_2 <- function(datos_tbl){
+  lm(W_F ~ W_I + seleccion, datos_tbl) |> tidy() |> select(term, estimate, std.error)
+}
+```
+
+
+
+```{r}
+analisis_1(datos_tbl)
+analisis_2(datos_tbl)
+
+```
+Y vemos que el estadístico 1 sobreestima el efecto, mientras que
+el estadístico 2 está en lo correcto.
