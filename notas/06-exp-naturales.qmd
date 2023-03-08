@@ -303,14 +303,19 @@ Puedes encontrar más ejemplos en @morgan2015 y [aquí](https://mixtape.scunning
 ## Regresión discontinua
 
 Muchas veces, la decisión de aplicar un tratamiento o no depende de un
-límite administrativo en una variable dada. Por ejemplo, para poder subirse
-a algunas atracciones de feria, hay un límite de estatura que hay que pasar.
-
-Supongamos que quisiéramos saber si una atracción particular de feria produce malestar
+límite administrativo en una variable dada. Por ejemplo, supongamos que 
+quisiéramos saber si una atracción particular de feria produce malestar
 en niños al salir del parque.  
-En primer lugar, comparar simplemente los niños que se subieron a esa
-atracción o no es probablemente la estrategia incorrecta, pues existen varias 
-variables confusoras posibles (edad, aversión a juegos que asustan, etc.)
+
+Todos los niños de una escuela se forman para subirse a la atracción.
+Si al director de la escuela le interesara hacer un experimento, podría
+seleccionar al azar a algunos niños para subirse y otros no. Sin embargo,
+el director de la escuela nota que hay un límite de estatura que hay que pasar
+para poder subirse al juego.
+
+Tienen la idea entonces de que esto presenta un experimento natural: entre
+todos los niños que están cerca de 1.20 de estatura, quién se sube o no
+prácticamente depende del azar.
 
 Nuestro diagrama es como sigue:
 
@@ -318,34 +323,34 @@ Nuestro diagrama es como sigue:
 #| code-fold: true
 grViz("
 digraph {
-  graph [ranksep = 0.2]
- 
+  graph [ranksep = 0.2, rankdir=LR]
   node [shape = circle]
     U
+    #V
   node [shape=plaintext]
     Estatura
   edge [minlen = 3]
-     U -> Estatura  
      U -> Y
-     
+     #V -> Estatura
+     #V -> Y
     Estatura -> T
-    Estatura -> Y
     T -> Y
-{rank = same; T; Y}
-{rank = same; U}
+    Estatura -> Y
+{rank = same; U; T}
+{rank = min;  Estatura}
 
 }
-")
+", width = 200, height = 200)
 
 ```
 
-Nuestro primer supuesto es entonces que hay una variable observable
+Como vimos, hay una variable observable (la estatura)
 que determina la aplicación del tratamiento, y que se asigna de la siguiente forma:
 
-- Si $Estatura > 1.20$ entonces $T=1$
+- Si $Estatura >= 1.20$ entonces $T=1$
 - Si $Estatura < 1.20$ entonces $T=0$,
 
-es posible restringir el análisis a un intervalo muy chico alrededor del
+entonces es posible restringir el análisis a un intervalo muy chico alrededor del
 punto de corte 1.20, y para fines prácticos el diagrama se convierte en:
 
 
@@ -353,7 +358,7 @@ punto de corte 1.20, y para fines prácticos el diagrama se convierte en:
 #| code-fold: true
 grViz("
 digraph {
-  graph [ranksep = 0.2]
+  graph [ranksep = 0.2, rankdir=LR]
  
   node [shape = circle]
     U
@@ -364,21 +369,26 @@ digraph {
      
     Estatura120 -> T
     T -> Y
-{rank = same; T; Y}
-
+{rank = same; U; Y}
+{rank = min; T; Estatura120}
 }
-")
+",width = 200, height = 200)
 
 ```
 
-En este caso, el grupo Estatura120 suponemos que son aquellos que miden entre
+En este caso, el grupo Estatura120 son aquellos que miden entre
 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación
-de la estatura en este grupo es mínimo (pues efectivamente tiene muy poca variación
-de Estatura), incluyendo el hecho de que todas las variables menos el tratamiento
-cambian continuamente con la estatura.
+de la estatura en este grupo es mínimo.
 
-- La idea es comparar en Estatrua120 aquellos que recibieron el tratamiento
-con los que no lo recibieron. 
+La idea es comparar en el grupo Estatura120 aquellos que recibieron el tratamiento
+con los que no lo recibieron, y la razón es:
+
+- Caminos no causales a través de Estatura están
+prácticamente bloqueados, pues prácticamente estamos condicionando a un valor de Estatura fijo.
+- Por la regla administrativa, no existen otras variables no observadas que
+influyan en la asignación de tratamiento 
+$T$ (no hay puertas traseras).
+
 
 En la práctica, usualmente un grupo suficientemente angosto produciría un tamaño de muestra
 chico y sería difícil estimar el efecto del tratamiento (no tendríamos precisión).
@@ -386,8 +396,8 @@ Así que recurrimos a modelos simples de la forma
 
 $$p(y|x)$$
 que tienen la particularidad de que permiten un cambio discontinuo en la
-distribución en el punto de corte $x = x_0$. En realidad, son dos modelos:
-uno del lado izquierdo y otro del lado derecho, aunque es posible que comparan
+distribución en el punto de corte $x = x_0$. Se puede tratar de dos modelos:
+uno del lado izquierdo y otro del lado derecho, aunque es posible que compartir
 parámetros.
 
 ### Ejemplo simulado {-}
@@ -406,7 +416,8 @@ simular_des <- function(n = 100){
   asistencia_dias <- 200 * inv_logit(3 - 0.6* (edad - 5) + 1 * t + u)
   tibble(edad, t, asistencia_dias)
 }
-datos_tbl <- simular_des(1000)
+set.seed(8)
+datos_tbl <- simular_des(500)
 ggplot(datos_tbl, aes(x = edad, y = asistencia_dias)) +
   geom_point() +
   geom_vline(xintercept = 9, colour = "red")
@@ -431,8 +442,10 @@ como veremos más adelante.
 El supuesto básico de identificación para 
 regresión discontinua se puede expresar con contrafactuales:
 
-- Tanto $p(Y_i^1|X=x)$ como $p(Y_i^0|X=x)$ varían continuamente el punto
+- Tanto $p(Y_i^1|X=x)$ como $p(Y_i^0|X=x)$ varían continuamente en el punto
 de corte $x=x_0$ 
+- El único criterio de aplicación del tratamiento es estar en $X$ por arriba
+o abajo de $x_0$.
 
 :::
 
@@ -445,10 +458,10 @@ $$E[Y^1 - Y^0|X=x_0] = E[Y^1|X=x_0] - E[Y^1|X=x_0]$$
 es igual a
 
 $$\lim_{x\to x_0^+} E[Y^1|X=x_0] - \lim_{x\to x_0^-} E[Y^0|X=x_0]$$
-Pero después de $x_0$ todas las unidades tienen el tratamiento, y antes
+Después de $x_0$ todas las unidades tienen el tratamiento, y antes
 ninguna, de modo que esto equivale a
 
-$$\lim_{x\to x_0^+} E[Y|X=x] - \lim_{x\to x_0^-} E[Y|X=x]$$
+$$\lim_{x\to x_0^+} E[Y|X=x, T = 1] - \lim_{x\to x_0^-} E[Y|X=x, T = 0]$$
 y estas dos cantidades están identificadas. Solamente usamos el supuesto
 de continuidad y del punto de corte para el tratamiento. Nótese
 que este supuesto se puede violar cuando unidades de un lado
@@ -491,7 +504,7 @@ print(modelo_disc)
 #| message: false
 #| warning: false
 x <- datos_tbl$edad 
-B <- t(bs(x, degree = 3, intercept = TRUE)) 
+B <- t(ns(x, knots = 6, intercept = TRUE)) 
 y <- datos_tbl$asistencia_dias
 trata <- datos_tbl$t
 datos_lista <- list(N = length(x), n_base = nrow(B), B = B,
@@ -519,9 +532,12 @@ y_media_tbl <- y_media_tbl |>
 
 ```{r}
 res_y_media_tbl <- y_media_tbl |> group_by(indice, edad) |> 
-  summarise(media = mean(value))
-ggplot(res_y_media_tbl, aes(x = edad)) + geom_line(aes(y = media), colour = "red",
-                                                   size = 2) +
+  summarise(media = mean(value), q5 = quantile(value, 0.05),
+            q95 = quantile(value, 0.95))
+ggplot(res_y_media_tbl, aes(x = edad)) + 
+  geom_line(aes(y = media), colour = "red", size = 2) +
+  geom_line(aes(y = q5), colour = "red") +
+  geom_line(aes(y = q95), colour = "red") + 
   geom_point(data = datos_tbl, aes(y = asistencia_dias), alpha = 0.2)
 ```
 
@@ -564,9 +580,10 @@ dos ejemplos particulares, muertes en vehículos, suicidios y homicidios:
 #| message: false
 #| warning: false
 mlda_tbl <- read_csv("../datos/mlda.csv") |> 
-  select(agecell,  over21, all, homicide, suicide, mva, drugs, external, externalother) |> 
+  select(agecell,  over21, all, homicide, suicide, 
+         `vehicle accidents` = mva, drugs, external, externalother) |> 
   pivot_longer(cols=c(all:externalother), names_to = "tipo", values_to = "mortalidad") |> 
-  filter(tipo %in% c("mva", "suicide", "homicide"))
+  filter(tipo %in% c("vehicle accidents", "suicide", "homicide"))
 head(mlda_tbl)
 ggplot(mlda_tbl, aes(x = agecell, y = mortalidad, group = over21)) + geom_point() +
   geom_smooth(method = "loess", span = 1, formula = "y ~ x") + facet_wrap(~tipo)
