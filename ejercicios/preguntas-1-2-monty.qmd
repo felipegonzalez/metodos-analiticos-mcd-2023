@@ -103,6 +103,7 @@ digraph {
   P -> M
   S -> G
   M-> G
+  P -> G
 }
 ", width = 200)
 
