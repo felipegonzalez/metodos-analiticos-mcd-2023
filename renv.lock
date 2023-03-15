@@ -17,6 +17,26 @@
       "Hash": "4e348572ffcaa2fb1e610e7a941f6f3a",
       "Requirements": []
     },
+    "Boom": {
+      "Package": "Boom",
+      "Version": "0.9.11",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7fa29ff40c163792a889acb013d03960",
+      "Requirements": [
+        "MASS"
+      ]
+    },
+    "BoomSpikeSlab": {
+      "Package": "BoomSpikeSlab",
+      "Version": "1.2.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "339b88d04461ec1d953f64fc17d0c624",
+      "Requirements": [
+        "Boom"
+      ]
+    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.3.9003",
@@ -277,6 +297,19 @@
         "memoise",
         "rlang",
         "sass"
+      ]
+    },
+    "bsts": {
+      "Package": "bsts",
+      "Version": "0.9.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "27042d59301a826c0604e404d0136fe6",
+      "Requirements": [
+        "Boom",
+        "BoomSpikeSlab",
+        "xts",
+        "zoo"
       ]
     },
     "cachem": {
@@ -555,6 +588,23 @@
       "Hash": "9171b012a55a1ef53f1442b1d798a3b4",
       "Requirements": []
     },
+    "fable": {
+      "Package": "fable",
+      "Version": "0.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b130f6761c5852266313582c08b8a4ee",
+      "Requirements": [
+        "Rcpp",
+        "distributional",
+        "dplyr",
+        "fabletools",
+        "rlang",
+        "tibble",
+        "tidyr",
+        "tsibble"
+      ]
+    },
     "fabletools": {
       "Package": "fabletools",
       "Version": "0.3.2",
@@ -690,6 +740,30 @@
         "mclust",
         "prabclus",
         "robustbase"
+      ]
+    },
+    "fpp3": {
+      "Package": "fpp3",
+      "Version": "0.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5d8af03fcd8a2f4efa16898206df1b1a",
+      "Requirements": [
+        "cli",
+        "crayon",
+        "dplyr",
+        "fable",
+        "fabletools",
+        "feasts",
+        "ggplot2",
+        "lubridate",
+        "magrittr",
+        "purrr",
+        "rstudioapi",
+        "tibble",
+        "tidyr",
+        "tsibble",
+        "tsibbledata"
       ]
     },
     "fracdiff": {
@@ -1879,6 +1953,18 @@
         "rlang",
         "tibble",
         "tidyselect",
+        "vctrs"
+      ]
+    },
+    "tsibbledata": {
+      "Package": "tsibbledata",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6b53c37a18049320fb08478aef6310c2",
+      "Requirements": [
+        "rappdirs",
+        "tsibble",
         "vctrs"
       ]
     },

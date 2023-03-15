@@ -12,6 +12,8 @@ book:
     - 04-experimentos.qmd
     - 05-contrafactuales.qmd
     - 06-exp-naturales.qmd
+    - 07-intro-series.qmd
+    - 08-modelos-1.qmd
     - 99-referencias.qmd
   appendices:
     - apendice-1.qmd
