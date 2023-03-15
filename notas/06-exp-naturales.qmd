@@ -168,9 +168,10 @@ causal de $T$ sobre $Y$ cuando:
 - Generalmente las últimas dos de estas hipótesis tienen que postularse
 basadas en conocimiento experto, ya que no es posible checarlas con datos.
 - Con estrategias de condicionamiento es posible encontrar instrumentos potenciales en gráficas más complejas.
-- Esta estrategia funciona con modelos lineales. En general, la interpretación
-de los estimadores de variables instrumentales son más propiamente
-estimadores de un tipo de efecto causal: la estimación 
+- Esta estrategia funciona con modelos lineales. Más generalmente, pero
+bajo ciertos supuestos, los estimadores de variables instrumentales son más propiamente
+estimadores de un cierto tipo de efecto causal (por ejemplo, para tratamientos 
+binarios, el efecto causal sobre los *compliers*, ver @morgan2015).
 
 
 

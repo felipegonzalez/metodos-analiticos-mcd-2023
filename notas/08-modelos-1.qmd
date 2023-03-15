@@ -1,0 +1,308 @@
+# Modelos de espacio de estados
+
+```{r}
+#| code-fold: true
+#| warning: false
+library(tidyverse)
+library(kableExtra)
+library(DiagrammeR)
+locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
+library(lubridate)
+library(fpp3)
+ggplot2::theme_set(ggplot2::theme_light())
+```
+
+En esta parte veremos una introducción a los modelos bayesianos dinámicos de espacio
+de estados. Estos modelos engloban otros enfoques (ARIMA, suavizamiento exponencial)
+como casos particulares, y nos permite: 
+
+- Modelar la estructura de una serie de tiempo de forma modular.
+- Mayor flexibilidad en cuanto a las estructuras que podemos usar, y cómo usar
+información acerca de la dinámica de la serie de tiempo (incluyendo aspectos de modelos ARIMA).
+- Una forma estándar de tratar con valores faltantes, series irregulares, o varias observaciones contemporáneas.
+- Una forma estándar de producir pronósticos puntuales, en intervalos, o por distribuciones.
+- Una forma estándar de permitir que el modelo se adapte en el tiempo a cambios
+estructurales (por ejemplo, cmabios de patrones de estacionalidad, efectos diferentes
+de covariables, etc.)
+
+Aunque en muchos procesos tiene sentido considerar que la observación $y_t$ es
+una función causal de observaciones pasadas, más generalmente podemos pensar
+que existen *estados* que determinan el proceso generador de la serie. El estado
+en el que se encuentra una proceso en un determinado momento puede tener varias
+componentes, algunas estándar como nivel actual o periodo de estacionalidad,
+pero también otras menos estándar, como niveles de otras variables.
+
+## Modelo de nivel local
+
+En primer lugar, consideraremos modelar la tendencia-ciclo de series con
+el enfoque de espacio de estados. En primer lugar, tenemos una **ecuación
+de observación**, que está dada por
+
+$$y_t = \textrm{nivel}_t + \epsilon_t,$$
+donde las $\epsilon_t \sim N(0,\sigma_\epsilon)$ independientes. Es decir, dado el nivel, las
+observaciones $y_t$ son independientes. Adicionalmente tenemos una **ecuación de
+transición de estados**, que en este caso es simplemente:
+
+$$\textrm{nivel}_t = \textrm{nivel}_{t-1} + \eta_t$$
+donde $\eta_t \sim N(0,\sigma_\eta)$ independientes.
+
+Podemos hacer un diagrama como sigue para esta situación:
+
+```{r}
+#| code-fold: true
+grViz('
+digraph {
+  graph [ranksep = 0.2]
+  node [shape=circle]
+    nt
+    nt1
+    nt2
+    ntm1
+    etm1
+    et
+    et1
+    et2
+  node [shape=plaintext]
+    #    Y1 [label = <Y<SUB>1</SUB>>]
+    dots [label = "..."]
+    Ytm1 [label = <Y<SUB>t-1</SUB>>]
+    Yt [label = <Y<SUB>t</SUB>>]
+    Yt1 [label = <Y<SUB>t+1</SUB>>]
+    Yt2 [label = <Y<SUB>t+2</SUB>>]
+    etm1 [label = <e<SUB>t-1</SUB>>]
+    et [label = <  e<SUB>t. </SUB>>]
+    et1 [label = <e<SUB>t+1</SUB>>]
+    et2 [label = <e<SUB>t+2</SUB>>]
+        ntm1 [label = <n<SUB>t-1</SUB>>]
+    nt [label = <  n<SUB>t  </SUB>>]
+    nt1 [label = <n<SUB>t+1</SUB>>]
+    nt2 [label = <n<SUB>t+2</SUB>>]
+  edge [minlen = 3]
+   #Y1 -> dots
+   #dots -> Ytm1
+   #Ytm1 -> Yt
+   #Yt -> Yt1
+   #Yt1 -> Yt2
+   ntm1 -> Ytm1
+   ntm1 -> nt
+   nt1 -> Yt1
+   nt -> Yt
+   nt2 -> Yt2
+   nt -> nt1
+   nt1 -> nt2
+   #e1 -> Y1
+   etm1 -> Ytm1
+   et -> Yt
+   et1 -> Yt1
+   et2 -> Yt2
+{rank=same;  Ytm1; Yt; Yt1; Yt2}
+{rank=max; ntm1; nt; nt1; nt2}
+{rank=min; etm1; et; et1; et2}
+
+
+}
+', width = 300, height = 150)
+```
+
+Nótese que en esta gráfica, las $y_t$ no son independientes: están correlacionadas
+a través de caminos abiertos que pasan por el estado, que en este caso
+es el nivel de la serie.
+
+::: callout-note
+# Modelos de espacio de estados
+
+Los modelos de espacio de estados para serie de tiempo consisten en
+dos ecuaciones. Si $y_t$ son los datos observados y $\theta_t$ son
+los parámetros que describen el estado, tenemos la ecuación de observación
+$$y_t = f(\theta_t, \epsilon_t)$$
+Es decir, cómo se relaciona el estado con las observaciones, y una
+ecuación de evolución del estado:
+$$\theta_t = g(\theta_{t-1}, \eta_t)$$
+En los modelos dinámicos lineales (DLM), $f$ y $g$ son funciones lineales.
+
+:::
+
+**Nota**: más adelante veremos detalles de este planteamiento, en particular
+para los DLMs, y por qué
+aún cuando haya dependencias de más largo plazo en estado siempre es
+posible escribir nuestros modelos de esta forma.
+
+
+Para completar este modelo, es necesario:
+
+1. Poner una distribución previa al estado inicial $p(\textrm{nivel}_1)$
+2. Poner distribuciones previas al tamaño del ruido de la medición $p(\sigma_\epsilon)$ y
+a la evolución del nivel $p(\sigma_\eta)$.
+
+Usualmente consideramos que el nivel debe tener movimientos relativamente suaves,
+de manera que $p(\sigma_\eta)$ debe estar adecuadamente concentrada cerca de 0.
+
+## Ejemplo: nivel del río Nilo
+
+Empezamos con un ejemplo clásico y simple, que consiste en medidas anuales del
+nivel del río Nilo. 
+
+Usaremos *Stan* para ver los detalles de la implementación del modelo
+de nivel local:
+
+```{r}
+library(cmdstanr)
+source("../R/limpiar_draws.R")
+modelo_nivel <- cmdstan_model("../src/series-de-tiempo/modelo-nivel-local.stan")
+print(modelo_nivel)
+```
+
+
+```{r}
+sims <- modelo_nivel$sample(
+  data = list(y = Nile, N = length(Nile),  s_obs = 200, q = 0.5, n_h = 4),
+  parallel_chains = 4, refresh = 1000, init = 0.1, step_size = 0.1,
+  adapt_delta = 0.99)
+```
+
+Mostramos primero nuestra estimación de las desviaciones estándar
+para el nivel y para la observación:
+
+```{r}
+sims$summary(c("sigma_obs", "sigma_nivel"))
+```
+
+Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.
+
+```{r}
+sims_nivel_tbl <- sims$draws(c("mu"), format = "df") |> 
+  limpiar_draws(c("mu")) 
+media_tbl <- sims_nivel_tbl |>  
+  group_by(variable, t) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95))
+```
+
+
+```{r}
+ggplot(sims_nivel_tbl |> filter(variable == "mu")) + 
+  geom_line(aes(x = t, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.1, colour = "red") +
+  geom_line(data = media_tbl, aes(x = t, y = media), colour = "red") +
+  geom_point(data = tibble(y = Nile), aes(x = 1:length(Nile), y = Nile))
+```
+
+En esta gráfica:
+
+- La línea roja es el valor esperado del nivel (que originalmente no es observado).
+- La nube roja muestra varias simulaciones del nivel. Con esto entendemos cuánta incertidumbre tenemos acerca de la verdadera posición del nivel en cada momento.
+- Nótese que la nube roja no tiene por qué cubrir los valores observados de la
+serie, pues la ecuación de observación tiene incertidumbre adicional.
+- Extendimos la estimación del estado para cuatro años adicionales. Nota cómo
+conforme avanza el tiempo perdemos certidumbre acerca de dónde se encontrará el nivel.
+- Nuestro modelo tiene 100 observaciones y 100 + 2 + 1 parámetros: el estado
+incial del nivel, las dos desviaciones estándar de modelos de observación y de
+estado, y los 100 niveles no observados.
+
+
+
+Podemos hacer chequeos predictivos posteriores simulando distintas
+series a partir de los parámetros ajustados, y viendo si la estructura difiere
+mucho de 
+
+```{r}
+obs_rep_tbl <- sims$draws(c("y_rep"), format = "df") |> 
+  limpiar_draws(c("y_rep")) 
+resumen_tbl <- obs_rep_tbl |> 
+  filter(.draw <= 10) #|> 
+  #group_by(variable, t, indice, .draw) |> 
+  #summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+  #          q95 = quantile(valores, 0.95))
+```
+```{r}
+resumen_tbl <- resumen_tbl |> 
+  bind_rows(tibble(t = 1:length(Nile), valores = Nile, .draw = 11))
+ggplot(resumen_tbl, aes(x = t, y = valores)) + geom_line() +
+  facet_wrap(~ .draw)
+```
+Como es usual, cualquier resumen relevante puede usarse para hacer
+chequeos predictivos posteriores, por ejemplo, las gráficas de acutocorrelación
+de datos simulados (una caja tiene los verdaderos datos observados):
+
+```{r}
+resumen_tbl |> as_tsibble(index = t, key = .draw) |> 
+  filter(.draw > 5, t <= 100) |> 
+  ACF(valores) |> autoplot()
+```
+
+::: callout-note
+# Diagnósticos para nivel local
+
+- Es posible hacer chequeos posteriores predictivos como con cualquier modelo
+bayesiano generativo.
+- Veremos más adelante un diagnóstico importante que por ahora excluímos: la 
+verificación de que las predicciones un paso hacia adelante cumplen ciertas
+propiedades. Una de las más importantes es que no tengan autocorrelación
+
+:::
+
+Finalmente, podemos ver cómo se ven **pronósticos** bajo este modelo. En este
+caso, en la parte de cantidades generadas incluímos el código relevante. Nuestro
+pronóstico podríamos graficarlo como sigue (con intervalos de 90%, por ejemplo):
+
+```{r}
+#| message: false
+pronosticos_tbl <- sims$draws(c("y_f"), format = "df") |> 
+  limpiar_draws(c("y_f")) |> 
+  group_by(variable, t) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95)) |> 
+  mutate(t = t + length(Nile))
+ggplot(sims_nivel_tbl |> filter(variable == "mu")) + 
+  geom_line(aes(x = t, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.1, colour = "red") +
+  geom_line(data = media_tbl, aes(x = t, y = media), colour = "red") +
+  geom_point(data = tibble(y = Nile), aes(x = 1:length(Nile), y = Nile)) +
+  geom_ribbon(data = pronosticos_tbl, aes(x = t, y = media, ymin = q5,
+                                         ymax = q95), alpha = 0.1) +
+  geom_point(data = pronosticos_tbl, aes(x = t, y = media))
+```
+
+### Ejemplo de desajuste {-}
+
+Supongamos que en nuestro ejemplo no utilizáramos nivel dinámico,
+sino constante.
+
+```{r}
+sims_desajuste <- modelo_nivel$sample(
+  data = list(y = Nile, N = length(Nile),  s_obs = 200, q = 0.00001, n_h = 4),
+  parallel_chains = 4, refresh = 1000, init = 0.1, step_size = 0.1,
+  adapt_delta = 0.99)
+```
+
+Repetimos nuestros chequeos posteriores predictivos:
+
+```{r}
+obs_rep_tbl <- sims_desajuste$draws(c("y_rep"), format = "df") |> 
+  limpiar_draws(c("y_rep")) 
+resumen_tbl <- obs_rep_tbl |> 
+  filter(.draw <= 10) #|> 
+  #group_by(variable, t, indice, .draw) |> 
+  #summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+  #          q95 = quantile(valores, 0.95))
+```
+```{r}
+resumen_tbl <- resumen_tbl |> 
+  bind_rows(tibble(t = 1:length(Nile), valores = Nile, .draw = 11))
+ggplot(resumen_tbl, aes(x = t, y = valores)) + geom_line() +
+  facet_wrap(~ .draw)
+```
+
+```{r}
+resumen_tbl |> as_tsibble(index = t, key = .draw) |> 
+  filter(.draw > 7, t <= 100) |> 
+  ACF(valores) |> autoplot()
+```
+En todas estas gráficas podemos identificar claramente donde están los
+datos. Nuestro modelo de nivel constante (no dinámico) no ajusta a estos datos simples.
+
+
+
+
+
+
