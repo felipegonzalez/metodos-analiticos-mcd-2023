@@ -345,8 +345,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e15b10e7456f548a7982" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e15b10e7456f548a7982">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-15193a67a32123266ead" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-15193a67a32123266ead">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>donde <span class="math inline">\(T\)</span> es la temperatura, <span class="math inline">\(A\)</span> son las unidades de agua embotellada vendida y <span class="math inline">\(Z\)</span> es la actividad de los mosquitos (medido con muestreo, por ejemplo). Mostramos también otras variables causales que pueden afectar a las variables de interés (muchas veces omitimos estas variables que solo afectan a una variable de interés), pero que no tienen efecto sobre otras variables del diagrama.</p>
@@ -400,8 +400,8 @@ div.csl-indent {
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-372976b1366ac2630954" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-372976b1366ac2630954">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cce83a35efba0464c599" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cce83a35efba0464c599">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En esta nueva gráfica, <span class="math inline">\(A\)</span> y <span class="math inline">\(Z\)</span> son independientes, que es la respuesta correcta. Como cambiamos la gráfica, su proceso generador es diferente al original de los datos observados. Sin embargo, en este ejemplo puedes ver por qué es claro que el cambio que hicimos (manipular <span class="math inline">\(A\)</span> en lugar de que esté determinado por su proceso generador original) no cambia el modelo de <span class="math inline">\(Z\)</span>, de manera que podemos simular de nuestro nuevo proceso generador donde manipulamos <span class="math inline">\(A\)</span>:</p>
@@ -498,8 +498,8 @@ div.csl-indent {
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-12b484d0734239c1b653" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-12b484d0734239c1b653">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-007140532b74a84e7272" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-007140532b74a84e7272">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -545,8 +545,8 @@ div.csl-indent {
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-013174b00aeb5b8e339f" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-013174b00aeb5b8e339f">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5fc56d2392358a7d817c" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5fc56d2392358a7d817c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Ahora queremos calcular <span class="math inline">\(p(a|do(d)) = p_m(a|d)\)</span> en función de los datos. Siguiendo el mismo argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o condicionar a <span class="math inline">\(T\)</span> para poder usar nuestro proceso generador de observaciones, y obtenemos:</p>
@@ -830,26 +830,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 5.1 seconds.
+Chain 1 finished in 5.7 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 5.2 seconds.
+Chain 2 finished in 5.8 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 5.2 seconds.
+Chain 3 finished in 5.8 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 5.3 seconds.
+Chain 4 finished in 5.9 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 5.2 seconds.
-Total execution time: 21.0 seconds.</code></pre>
+Mean chain execution time: 5.8 seconds.
+Total execution time: 23.4 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1000,8 +1000,8 @@ dbl (4): height, weight, age, male
 <span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-df73b25586b3e54d2411" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-df73b25586b3e54d2411">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c580ff72ee3c9d5711db" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c580ff72ee3c9d5711db">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ul>
@@ -1150,26 +1150,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 2.8 seconds.
+Chain 1 finished in 2.5 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 2.5 seconds.
+Chain 2 finished in 2.2 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.7 seconds.
+Chain 3 finished in 2.3 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 2.6 seconds.
+Chain 4 finished in 2.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.7 seconds.
-Total execution time: 11.0 seconds.</code></pre>
+Mean chain execution time: 2.3 seconds.
+Total execution time: 9.6 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
@@ -1277,26 +1277,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 1.7 seconds.
+Chain 1 finished in 1.4 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 1.7 seconds.
+Chain 2 finished in 1.4 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 1.7 seconds.
+Chain 3 finished in 1.4 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 1.7 seconds.
+Chain 4 finished in 1.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 1.7 seconds.
-Total execution time: 7.4 seconds.</code></pre>
+Mean chain execution time: 1.4 seconds.
+Total execution time: 5.8 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
@@ -1371,8 +1371,8 @@ Ajuste de puerta trasera (Pearl)
 <span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-4d5bd43779b473b33336" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4d5bd43779b473b33336">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n  node [shape = circle]\n    NSE\n    Peso\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-09e92627e95ac0c92ff4" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-09e92627e95ac0c92ff4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n  node [shape = circle]\n    NSE\n    Peso\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Observamos que no podemos directamente usar la fórmula de ajuste pues NSE no es una variable observada.</p>
@@ -1401,8 +1401,8 @@ Ajuste de puerta trasera (Pearl)
 <span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-4922802e659e1a51f97b" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4922802e659e1a51f97b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n    Peso\n  node [shape = circle]\n    NSE\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f1f6b0d7fcfc9618c955" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f1f6b0d7fcfc9618c955">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n    Peso\n  node [shape = circle]\n    NSE\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, todavía no podemos aplicar la fórmula original de ajuste pues no conocemos <span class="math inline">\(NSE\)</span>. Sin embargo, podemos bloquear los caminos no causales estratificando por Peso, y entonces podemos usar el criterio de puerta trasera para identificar el efecto del tratamiento, aún cuando no tengamos NSE.</p>
@@ -1594,7 +1594,7 @@ Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.6 seconds.
+Chain 3 finished in 2.7 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
@@ -1602,8 +1602,8 @@ Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 4 finished in 2.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.6 seconds.
-Total execution time: 10.9 seconds.</code></pre>
+Mean chain execution time: 2.7 seconds.
+Total execution time: 11.0 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_trata"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1714,26 +1714,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 14.3 seconds.
+Chain 1 finished in 15.2 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 14.7 seconds.
+Chain 2 finished in 15.5 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 14.9 seconds.
+Chain 3 finished in 15.5 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 14.8 seconds.
+Chain 4 finished in 15.5 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 14.7 seconds.
-Total execution time: 59.1 seconds.</code></pre>
+Mean chain execution time: 15.4 seconds.
+Total execution time: 62.0 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"dif_trata"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1819,8 +1819,8 @@ Completitud (Shpitser, Pearl)
 <span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-df85b20b71614aabb2d3" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-df85b20b71614aabb2d3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> C\n{rank= same; C; F}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3fea7417f02050b6f929" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3fea7417f02050b6f929">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> C\n{rank= same; C; F}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, el efecto de fumar (<span class="math inline">\(F\)</span>) sobre cáncer (<span class="math inline">\(C\)</span>) no es identificable pues no podemos condicionar a la variable de Genotipo (<span class="math inline">\(U\)</span>). Supongamos que tenemos una medida adicional, que es la cantidad de depósitos de alquitrán den los pulmones de los pacientes. Este es es afectado por <span class="math inline">\(F\)</span>, y a su vez, el alquitrán incrementa la probabilidad de cáncer:</p>
@@ -1846,8 +1846,8 @@ Completitud (Shpitser, Pearl)
 <span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-0dd38211757ad871fafa" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0dd38211757ad871fafa">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n    A\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> A\n    A -> C\n{rank= same; C; F; A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-352afe3871f035d23466" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-352afe3871f035d23466">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n    A\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> A\n    A -> C\n{rank= same; C; F; A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>La idea es primero estimar el efecto de <span class="math inline">\(F\)</span> sobre <span class="math inline">\(A\)</span>, y después estimar el efecto de <span class="math inline">\(A\)</span> sobre <span class="math inline">\(C\)</span>. La “composición” de estos dos efectos, dado el diagrama, debe darnos el estimador correcto. Primero consideramos el efecto de <span class="math inline">\(F\)</span> sobre <span class="math inline">\(A\)</span>, y tenemos que (regla 2)</p>
@@ -2058,17 +2058,17 @@ Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 75.6 seconds.
+Chain 4 finished in 79.9 seconds.
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 78.0 seconds.
+Chain 1 finished in 81.6 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 78.4 seconds.
+Chain 2 finished in 82.1 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 79.2 seconds.
+Chain 3 finished in 83.3 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 77.8 seconds.
-Total execution time: 79.4 seconds.</code></pre>
+Mean chain execution time: 81.7 seconds.
+Total execution time: 83.4 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2174,8 +2174,8 @@ Total execution time: 79.4 seconds.</code></pre>
 <span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-58fd319708b647206523" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-58fd319708b647206523">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c52c67fdaf0126d06eb0" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c52c67fdaf0126d06eb0">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Bajo estos supuestos, podemos calcular el efecto total de género en admisiones: para esto es importante <strong>no</strong> condicionar a departamento. Nuestro modelo es el siguiente:</p>
@@ -2264,22 +2264,22 @@ Chain 1 Iteration:   1 / 700 [  0%]  (Warmup)
 Chain 2 Iteration:   1 / 700 [  0%]  (Warmup) 
 Chain 3 Iteration:   1 / 700 [  0%]  (Warmup) 
 Chain 4 Iteration:   1 / 700 [  0%]  (Warmup) 
-Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 4 Iteration: 201 / 700 [ 28%]  (Sampling) 
+Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 1 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 2 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 4 finished in 131.2 seconds.
+Chain 4 finished in 132.6 seconds.
 Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 3 finished in 135.0 seconds.
+Chain 3 finished in 138.2 seconds.
 Chain 1 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 1 finished in 137.8 seconds.
+Chain 1 finished in 140.4 seconds.
 Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 2 finished in 138.4 seconds.
+Chain 2 finished in 141.3 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 135.6 seconds.
-Total execution time: 138.5 seconds.</code></pre>
+Mean chain execution time: 138.1 seconds.
+Total execution time: 141.5 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2342,17 +2342,17 @@ Chain 2 Iteration: 201 / 700 [ 28%]  (Sampling)
 Chain 4 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 1 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 1 finished in 132.4 seconds.
-Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 3 finished in 140.5 seconds.
-Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 4 finished in 141.0 seconds.
+Chain 1 finished in 135.1 seconds.
 Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 2 finished in 141.5 seconds.
+Chain 2 finished in 143.9 seconds.
+Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
+Chain 4 finished in 144.8 seconds.
+Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
+Chain 3 finished in 145.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 138.9 seconds.
-Total execution time: 141.6 seconds.</code></pre>
+Mean chain execution time: 142.3 seconds.
+Total execution time: 145.5 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2413,8 +2413,8 @@ Total execution time: 141.6 seconds.</code></pre>
 <span id="cb130-19"><a href="#cb130-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-7cb0cc45ebf240f5c6d7" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7cb0cc45ebf240f5c6d7">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n    U -> D\n    U -> A\n{rank = same; G;A}\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-34e9a8d377a6972acd4b" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-34e9a8d377a6972acd4b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n    U -> D\n    U -> A\n{rank = same; G;A}\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -2556,17 +2556,17 @@ Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 3 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 645.8 seconds.
-Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 649.0 seconds.
+Chain 1 finished in 551.6 seconds.
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 651.4 seconds.
+Chain 3 finished in 555.8 seconds.
+Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 4 finished in 557.0 seconds.
 Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 655.3 seconds.
+Chain 2 finished in 561.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 650.4 seconds.
-Total execution time: 655.4 seconds.</code></pre>
+Mean chain execution time: 556.5 seconds.
+Total execution time: 561.6 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>resumen_disc_mod <span class="ot">&lt;-</span> ajuste_disc<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>resumen_disc_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2641,8 +2641,8 @@ Análisis de sensibilidad
 <span id="cb140-15"><a href="#cb140-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-3b5bd7a20fe93ee6ca60" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3b5bd7a20fe93ee6ca60">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape = circle]\n    U\n  node [shape=plaintext]\n  edge [minlen = 3]\n    IntPadres -> NSE\n    NSE -> IntHijos\n    U -> NSE\n    U -> IntHijos\n    IntPadres -> IntHijos\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2fda418d254588164826" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2fda418d254588164826">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape = circle]\n    U\n  node [shape=plaintext]\n  edge [minlen = 3]\n    IntPadres -> NSE\n    NSE -> IntHijos\n    U -> NSE\n    U -> IntHijos\n    IntPadres -> IntHijos\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Como el NSE es del hogar (una medida general de estatus social), se consideró en principio como una variable pre-tratamiento a la inteligencia de los niños por la que tradicionalmente se controlaba. Burks notó que hacer esto tenía como consecuencia cortar parte del efecto total de la inteligencia sobre el la inteligencia de los hijos. Adicionalmente, condicionar a NSE abre un camino no causal entre Inteligencia de Padres e Hijos.</p>

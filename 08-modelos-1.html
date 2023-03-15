@@ -347,8 +347,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">300</span>, <span class="at">height =</span> <span class="dv">150</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-5789e26770e86c808cfe" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5789e26770e86c808cfe">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=circle]\n    nt\n    nt1\n    nt2\n    ntm1\n    etm1\n    et\n    et1\n    et2\n  node [shape=plaintext]\n    #    Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <  e<SUB>t. <\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n        ntm1 [label = <n<SUB>t-1<\/SUB>>]\n    nt [label = <  n<SUB>t  <\/SUB>>]\n    nt1 [label = <n<SUB>t+1<\/SUB>>]\n    nt2 [label = <n<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   #Y1 -> dots\n   #dots -> Ytm1\n   #Ytm1 -> Yt\n   #Yt -> Yt1\n   #Yt1 -> Yt2\n   ntm1 -> Ytm1\n   ntm1 -> nt\n   nt1 -> Yt1\n   nt -> Yt\n   nt2 -> Yt2\n   nt -> nt1\n   nt1 -> nt2\n   #e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same;  Ytm1; Yt; Yt1; Yt2}\n{rank=max; ntm1; nt; nt1; nt2}\n{rank=min; etm1; et; et1; et2}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4bf53b7180b139802028" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4bf53b7180b139802028">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=circle]\n    nt\n    nt1\n    nt2\n    ntm1\n    etm1\n    et\n    et1\n    et2\n  node [shape=plaintext]\n    #    Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <  e<SUB>t. <\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n        ntm1 [label = <n<SUB>t-1<\/SUB>>]\n    nt [label = <  n<SUB>t  <\/SUB>>]\n    nt1 [label = <n<SUB>t+1<\/SUB>>]\n    nt2 [label = <n<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   #Y1 -> dots\n   #dots -> Ytm1\n   #Ytm1 -> Yt\n   #Yt -> Yt1\n   #Yt1 -> Yt2\n   ntm1 -> Ytm1\n   ntm1 -> nt\n   nt1 -> Yt1\n   nt -> Yt\n   nt2 -> Yt2\n   nt -> nt1\n   nt1 -> nt2\n   #e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same;  Ytm1; Yt; Yt1; Yt2}\n{rank=max; ntm1; nt; nt1; nt2}\n{rank=min; etm1; et; et1; et2}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Nótese que en esta gráfica, las <span class="math inline">\(y_t\)</span> no son independientes: están correlacionadas a través de caminos abiertos que pasan por el estado, que en este caso es el nivel de la serie.</p>
@@ -455,47 +455,47 @@ generated quantities{
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 parallel chains...
 
-Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 Exception: normal_lpdf: Location parameter[2] is inf, but must be finite! (in '/tmp/RtmpDYlMU7/model-28874c8a89a1.stan', line 31, column 2 to column 38)</code></pre>
+<pre><code>Chain 3 Exception: normal_lpdf: Location parameter[2] is inf, but must be finite! (in '/tmp/Rtmp9ISXx1/model-277e478edb03.stan', line 31, column 2 to column 38)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 1 </code></pre>
+<pre><code>Chain 3 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+<pre><code>Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 2 finished in 8.1 seconds.
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 8.2 seconds.
-Chain 4 finished in 8.1 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 3 finished in 8.2 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 8.6 seconds.
+Chain 4 finished in 8.6 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 8.2 seconds.
-Total execution time: 8.4 seconds.</code></pre>
+Mean chain execution time: 8.4 seconds.
+Total execution time: 8.8 seconds.</code></pre>
 </div>
 </div>
 <p>Mostramos primero nuestra estimación de las desviaciones estándar para el nivel y para la observación:</p>
@@ -505,8 +505,8 @@ Total execution time: 8.4 seconds.</code></pre>
 <pre><code># A tibble: 2 × 10
   variable     mean median    sd   mad    q5   q95  rhat ess_bulk ess_tail
   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-1 sigma_obs   123.   122.   12.6  12.5 102.  144.   1.00     910.    1829.
-2 sigma_nivel  43.1   41.4  15.7  16.1  20.5  71.3  1.00     519.     930.</code></pre>
+1 sigma_obs   122.   122.   12.6  12.7 102.  143.   1.00     974.    1712.
+2 sigma_nivel  44.0   42.1  15.7  15.9  21.7  72.2  1.01     621.    1320.</code></pre>
 </div>
 </div>
 <p>Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.</p>
@@ -629,57 +629,89 @@ Diagnósticos para nivel local
 <pre><code>Running MCMC with 4 parallel chains...
 
 Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp9ISXx1/model-277e478edb03.stan', line 31, column 2 to column 38)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp9ISXx1/model-277e478edb03.stan', line 31, column 2 to column 38)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 2 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 2.0 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 2 finished in 2.0 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 4 finished in 2.0 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.0 seconds.
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 2.4 seconds.
+Chain 3 finished in 2.1 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.1 seconds.
-Total execution time: 2.4 seconds.</code></pre>
+Mean chain execution time: 2.0 seconds.
+Total execution time: 2.3 seconds.</code></pre>
 </div>
 </div>
 <p>Repetimos nuestros chequeos posteriores predictivos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>obs_rep_tbl <span class="ot">&lt;-</span> sims_desajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"y_rep"</span>), <span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">limpiar_draws</span>(<span class="fu">c</span>(<span class="st">"y_rep"</span>)) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>obs_rep_tbl <span class="ot">&lt;-</span> sims_desajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"y_rep"</span>), <span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">limpiar_draws</span>(<span class="fu">c</span>(<span class="st">"y_rep"</span>)) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Dropping 'draws_df' class as required metadata was removed.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>resumen_tbl <span class="ot">&lt;-</span> obs_rep_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.draw <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="co">#|&gt; </span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(variable, t, indice, .draw) |&gt; </span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#summarise(media = mean(valores), q5 = quantile(valores, 0.05),</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#          q95 = quantile(valores, 0.95))</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>resumen_tbl <span class="ot">&lt;-</span> obs_rep_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.draw <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="co">#|&gt; </span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(variable, t, indice, .draw) |&gt; </span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#summarise(media = mean(valores), q5 = quantile(valores, 0.05),</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#          q95 = quantile(valores, 0.95))</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>resumen_tbl <span class="ot">&lt;-</span> resumen_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(Nile), <span class="at">valores =</span> Nile, <span class="at">.draw =</span> <span class="dv">11</span>))</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_tbl, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> valores)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .draw)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>resumen_tbl <span class="ot">&lt;-</span> resumen_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(Nile), <span class="at">valores =</span> Nile, <span class="at">.draw =</span> <span class="dv">11</span>))</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_tbl, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> valores)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .draw)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="08-modelos-1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>resumen_tbl <span class="sc">|&gt;</span> <span class="fu">as_tsibble</span>(<span class="at">index =</span> t, <span class="at">key =</span> .draw) <span class="sc">|&gt;</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.draw <span class="sc">&gt;</span> <span class="dv">7</span>, t <span class="sc">&lt;=</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ACF</span>(valores) <span class="sc">|&gt;</span> <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>resumen_tbl <span class="sc">|&gt;</span> <span class="fu">as_tsibble</span>(<span class="at">index =</span> t, <span class="at">key =</span> .draw) <span class="sc">|&gt;</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.draw <span class="sc">&gt;</span> <span class="dv">7</span>, t <span class="sc">&lt;=</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ACF</span>(valores) <span class="sc">|&gt;</span> <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="08-modelos-1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
