@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Métodos analíticos - 7&nbsp; Análisis de series de tiempo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08-modelos-1.html" rel="next">
+<link href="./06-exp-naturales.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/viz-1.8.2/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Métodos analíticos</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#patrones-en-series-de-tiempo" id="toc-patrones-en-series-de-tiempo" class="nav-link active" data-scroll-target="#patrones-en-series-de-tiempo"><span class="toc-section-number">7.1</span>  Patrones en series de tiempo</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-1-tendencia-y-ciclos" id="toc-ejemplo-1-tendencia-y-ciclos" class="nav-link" data-scroll-target="#ejemplo-1-tendencia-y-ciclos">Ejemplo 1: tendencia y ciclos</a></li>
+  <li><a href="#ejemplo-2-estacionalidad" id="toc-ejemplo-2-estacionalidad" class="nav-link" data-scroll-target="#ejemplo-2-estacionalidad">Ejemplo 2: estacionalidad</a></li>
+  <li><a href="#ejemplo-3" id="toc-ejemplo-3" class="nav-link" data-scroll-target="#ejemplo-3"><span class="toc-section-number">7.1.1</span>  Ejemplo 3</a></li>
+  </ul></li>
+  <li><a href="#ejemplo-series-irregulares" id="toc-ejemplo-series-irregulares" class="nav-link" data-scroll-target="#ejemplo-series-irregulares"><span class="toc-section-number">7.2</span>  Ejemplo: series irregulares</a></li>
+  <li><a href="#ejemplo-observaciones-heterogéneas" id="toc-ejemplo-observaciones-heterogéneas" class="nav-link" data-scroll-target="#ejemplo-observaciones-heterogéneas"><span class="toc-section-number">7.3</span>  Ejemplo: observaciones heterogéneas</a></li>
+  <li><a href="#estructura-de-correlación-a-corto-plazo" id="toc-estructura-de-correlación-a-corto-plazo" class="nav-link" data-scroll-target="#estructura-de-correlación-a-corto-plazo"><span class="toc-section-number">7.4</span>  Estructura de correlación a corto plazo</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-nacimientos" id="toc-ejemplo-nacimientos" class="nav-link" data-scroll-target="#ejemplo-nacimientos">Ejemplo: nacimientos</a></li>
+  </ul></li>
+  <li><a href="#más-de-autocorrelación" id="toc-más-de-autocorrelación" class="nav-link" data-scroll-target="#más-de-autocorrelación"><span class="toc-section-number">7.5</span>  Más de autocorrelación</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>locale <span class="ot">&lt;-</span> <span class="fu">Sys.setlocale</span>(<span class="st">"LC_TIME"</span>, <span class="st">"es_ES.UTF-8"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_light</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Las series de tiempo son datos ordenados o secuenciales, donde acciones o estados en el pasado influyen de manera causal en sus valores futuros. Por esta razón, son datos que naturalmente pueden tener una estructura compleja de <em>autocorrelación</em>, de modo que no podemos tomarlos como observaciones independientes. Es crucial modelar de alguna forma las fuentes de esas autocorrelación.</p>
+<p>En el análisis de series de tiempo, existen dos tareas principales que nos interesa:</p>
+<ul>
+<li>Descripción e inferencia acerca de la estructura de la serie de tiempo (generalmente análisis retrospectivo). ¿Qué patrones importantes observamos en las series de tiempo de interés?</li>
+<li>Pronósticos: predicciones acerca de valores futuros que puede tomar la serie de tiempo.</li>
+</ul>
+<p>Aunque estas dos tareas se pueden plantear independientemente, generalmente la primera tarea es importante para ejecutar de mejor manera la segunda.</p>
+<section id="patrones-en-series-de-tiempo" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="patrones-en-series-de-tiempo"><span class="header-section-number">7.1</span> Patrones en series de tiempo</h2>
+<p>Antes de comenzar a modelar estructura de series, mostramos los patrones que tienden a aparecer en diversas series</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Patrones principales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Tendencia y ciclos: patrones de largo plazo.</li>
+<li>Patrones periódicos fijos, estacionalidad.</li>
+<li>Patrones de corto plazo (autocorrelación o cambios estructurales).</li>
+</ol>
+</div>
+</div>
+<p>Abajo mostramos varios ejemplos estos patrones:</p>
+<section id="ejemplo-1-tendencia-y-ciclos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-1-tendencia-y-ciclos">Ejemplo 1: tendencia y ciclos</h3>
+<p>Primero veremos una serie larga donde la característica principal es su tendencia general y la presencia de ciclos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(us_employment <span class="sc">|&gt;</span> <span class="fu">filter</span>(Title <span class="sc">==</span> <span class="st">"Total Private"</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>         Employed) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Total empleo privado (millones)"</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="fl">0.1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Si principal característica es la tendencia creciente.</li>
+<li>Sin embargo, existen desviaciones (que ocurren a largo de años) de tendencia lineal. Estos normalmente se consideran ciclos.</li>
+<li>Esta serie también tiene algo de estacionalidad que veremos</li>
+</ul>
+</section>
+<section id="ejemplo-2-estacionalidad" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-2-estacionalidad">Ejemplo 2: estacionalidad</h3>
+<p>Por ejemplo, examinemos la producción de energía eléctrica por mes en México:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>energia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datos/czpcimzhlu_IIIA1C01_12032023_21_29.csv"</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"N/D"</span>, <span class="st">""</span>, <span class="st">"NA"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"/20"</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"mes_año"</span>, <span class="at">values_to =</span> <span class="st">"generacion"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fecha =</span> <span class="fu">yearmonth</span>(<span class="fu">my</span>(mes_año))) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">estado =</span> <span class="st">`</span><span class="at">...1</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(generacion)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">key =</span> estado, <span class="at">index =</span> fecha)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>energia_total <span class="ot">&lt;-</span> energia <span class="sc">|&gt;</span> <span class="fu">filter</span>(estado<span class="sc">==</span><span class="st">"TOTAL"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(energia_total, generacion) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Generación (MWh)"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>En este ejemplo, vemos un patrón de estacionalidad fuerte de mayor generación de energía alrededor de la mitad del año:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_season</span>(energia_total, generacion)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<ul>
+<li><p>También tiene una tendencia creciente al principio de 2010 que parece terminar en 2012, junto con un cambio de nivel considerable a principios de 2020.</p></li>
+<li><p>Para este tipo de series de tiempo, es crucial hacer predicciones de corto plazo (un día, horas) y también puede ser útil hacer predicciones con horizontes más largos.</p></li>
+</ul>
+</section>
+<section id="ejemplo-3" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="ejemplo-3"><span class="header-section-number">7.1.1</span> Ejemplo 3</h3>
+<p>Consideramos datos de afluencia para estaciones del metro en la CDMX. Veremos una estación en particular:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>metro_tbl <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">"../datos/metro-cmdx/afluenciastc_simple_11_2022.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">linea =</span> <span class="fu">str_replace</span>(linea, <span class="st">"í"</span>, <span class="st">"i"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dia_sem =</span> <span class="fu">weekdays</span>(fecha)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> fecha, <span class="at">key =</span> <span class="fu">c</span>(estacion, linea)) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 919815 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (3): mes, linea, estacion
+dbl  (2): anio, afluencia
+date (1): fecha
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>estacion_tbl <span class="ot">&lt;-</span> metro_tbl <span class="sc">|&gt;</span> <span class="fu">filter</span>(estacion <span class="sc">==</span> <span class="st">"Hospital General"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(fecha) <span class="sc">&lt;=</span> <span class="dv">2018</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(estacion_tbl, afluencia, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> dia_sem)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li><p>En este caso vemos un tendencia descendiente, con algunas oscilaciones que ocurren a lo largo de varios años. Hay algunos días que parecen tener cierres (probablemente deberíamos considerar estos datos como faltantes) y también picos de uso interesantes.</p></li>
+<li><p>Existe un patrón de estacionalidad que en la siguiente gráfica anual: principalmente vemos menos afluencia a principios y finales de año:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>estacion_tbl <span class="sc">|&gt;</span> <span class="fu">gg_season</span>(afluencia, <span class="at">alpha =</span> <span class="fl">0.5</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Hay otros patrones periódicos que podemos examinar, por ejemplo el patrón semanal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>estacion_tbl <span class="sc">|&gt;</span> <span class="fu">gg_season</span>(afluencia, <span class="at">period =</span> <span class="st">"week"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Podemos imaginar que series a nivel hora tendrían patrones adicionales periódicos que será necesario incluir para modelar y pronosticar adecuadamente.</li>
+</ul>
+</section>
+</section>
+<section id="ejemplo-series-irregulares" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="ejemplo-series-irregulares"><span class="header-section-number">7.2</span> Ejemplo: series irregulares</h2>
+<p>Es común tratar con series irregulares, por ejemplo cuando consideramos datos de sensores. En este caso, vemos la serie de tiempo del nivel de una cisterna de cerca de 9 mil litros:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cisterna_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datos/sensor-cisterna.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fecha_hora =</span> <span class="fu">as_datetime</span>(last_updated_ts)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fecha =</span> <span class="fu">as_date</span>(fecha_hora)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> fecha_hora, <span class="at">regular=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cisterna_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fecha <span class="sc">&lt;</span> <span class="fu">ymd</span>(<span class="st">"2023-03-01"</span>), fecha <span class="sc">&gt;</span> <span class="fu">ymd</span>(<span class="st">"2023-02-19"</span>)),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> fecha_hora,  <span class="at">y =</span> state)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Litros"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Además de patrones de uso y entrega de agua, observamos el hecho de que los sensores son ruidosos. Una tarea útil en estos casos es filtrar las observaciones ruidosas, por ejemplo para tener datos confiables para utilizar en automatización.</p>
+</section>
+<section id="ejemplo-observaciones-heterogéneas" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="ejemplo-observaciones-heterogéneas"><span class="header-section-number">7.3</span> Ejemplo: observaciones heterogéneas</h2>
+<p>Otro ejemplo adicional que consideraremos son observaciones irregulares con mediciones heterogéneas (algunas contemporáneas), por ejemplo, cuando consideramos el problema de utilizar encuestas para predecir resultados de elecciones. En este caso vemos datos para 2016, extraídos de <a href="https://github.com/TheEconomist/us-potus-model">TheEconomist us-potus-model</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/TheEconomist/us-potus-model/tree/master/data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gelman_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datos/all_polls_gelman.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>polls_tbl <span class="ot">&lt;-</span> gelman_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">undecided =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(undecided), <span class="dv">0</span>, undecided)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">oter =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(other), <span class="dv">0</span>, other)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">H_Clinton =</span> clinton<span class="sc">/</span>(clinton <span class="sc">+</span> trump),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">D_Trump =</span> <span class="dv">1</span> <span class="sc">-</span> H_Clinton) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(population <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Likely Voters"</span>, <span class="st">"Registered Voters"</span>), </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>         end.date <span class="sc">&gt;</span> <span class="st">"2016-06-10"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>         pollster <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ipsos/Reuters"</span>, <span class="st">"Quinnipiac"</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Monmouth University"</span>, <span class="st">"SurveyMonkey"</span>, <span class="st">"UPI/CVOTER"</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>         state <span class="sc">==</span> <span class="st">"--"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(polls_tbl, <span class="fu">aes</span>(<span class="at">x =</span> end.date, <span class="at">y =</span> H_Clinton, <span class="at">colour =</span> pollster)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">colour =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fl">0.4</span>,<span class="fl">0.7</span>)) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="estructura-de-correlación-a-corto-plazo" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="estructura-de-correlación-a-corto-plazo"><span class="header-section-number">7.4</span> Estructura de correlación a corto plazo</h2>
+<p>En escalas más cortas, también podemos encontrar patrones de asociación más allá de las que produce la tendencia, ciclos y estacionalidad, y que son importantes para entender la serie.</p>
+<p>En primer lugar, consideramos datos simulados:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>generar_obs <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">phi =</span> <span class="fl">0.5</span>, <span class="at">a =</span> <span class="dv">100</span>, <span class="at">sigma =</span> <span class="dv">5</span>, <span class="at">nu =</span> <span class="cn">NULL</span>){</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  e <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  tendencia <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  tendencia[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, a, <span class="fl">0.2</span> <span class="sc">*</span> a)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(nu)){</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n){</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    e[i] <span class="ot">&lt;-</span> phi <span class="sc">*</span> e[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> epsilon[i]</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    tendencia[i] <span class="ot">&lt;-</span>  tendencia[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> nu[i]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> tendencia <span class="sc">+</span> e </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span>n, <span class="at">y =</span> y, <span class="at">phi =</span> phi, <span class="at">y_detrend =</span> e)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">82</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>serie_1 <span class="ot">&lt;-</span> <span class="fu">generar_obs</span>(<span class="at">phi =</span> <span class="sc">-</span><span class="fl">0.7</span>, <span class="at">nu =</span> nu ) </span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>serie_2 <span class="ot">&lt;-</span> <span class="fu">generar_obs</span>(<span class="at">phi =</span>  <span class="fl">0.0</span>, <span class="at">nu =</span> nu ) </span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>serie_3 <span class="ot">&lt;-</span> <span class="fu">generar_obs</span>(<span class="at">phi =</span>  <span class="fl">0.7</span>, <span class="at">nu =</span> nu ) </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>series_tbl <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">list</span>(serie_1, serie_2, serie_3)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> t, <span class="at">key =</span> phi)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(series_tbl, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> phi, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Estas tres series, aunque tienen una tendencia similar, tienen un patrón de variación distinto en el corto plazo:</p>
+<ol type="1">
+<li>La primera serie tiende a “sobrecorregir” al siguiente periodo cuando se aleja de la tendencia</li>
+<li>En la segunda serie, las variaciones alrededor de la tendencia no tienen dependencia: a este caso se le llama a veces <em>ruido blanco</em>.</li>
+<li>En la tercera serie, la serie tiende tener oscilaciones más largas alrededor de la tendencia.</li>
+</ol>
+<p>Para confirmar nuestra observación, podemos hacer una gráfica de rezagos para las series <em>sin tendencia</em> (es decir, restamos la tendencia de la gráfica anterior a los datos):</p>
+<div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_lag</span>(series_tbl <span class="sc">|&gt;</span> <span class="fu">filter</span>(phi <span class="sc">==</span> <span class="sc">-</span><span class="fl">0.7</span>), </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       y_detrend, <span class="at">lags =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">geom =</span> <span class="st">"point"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_lag</span>(series_tbl <span class="sc">|&gt;</span> <span class="fu">filter</span>(phi <span class="sc">==</span> <span class="fl">0.7</span>), </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>       y_detrend, <span class="at">lags =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">geom =</span> <span class="st">"point"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Fig 1</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Fig 2</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Y podemos resumir estas gráficas calculando un resumen de asociación, usualmente la correlacción en cada de una de estas gráficas (es decir, una serie contra la misma serie rezagada en <span class="math inline">\(h\)</span> tiempos):</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Función de autocorrelación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La función de autocorrelación para rezagos <span class="math inline">\(h=1,2,\ldots\)</span> está dada por</p>
+<p><span class="math display">\[\textrm{ACF(h)} = \rho(h) = \textrm{cor}(y_t, y_{t-h})\]</span></p>
+</div>
+</div>
+<ul>
+<li>En palabras, comparamos la serie con una versión rezagada de ella misma.</li>
+<li>La ACF captura varios aspectos de autocorrelación de la serie: por ejemplo, refleja también tendencia y estacionalidad.</li>
+<li>Generalmente es más útil en series donde hemos quitado tendencia y estacionalidad, y así la usaremos típicamente en este curso.</li>
+<li>Un ejemplo es el siguiente: veremos que una señal de modelos para pronósticos deficientes es que la ACF de los errores de predicción no es ruido blanco (nuestro pronóstico no está usando toda la información disponible).</li>
+</ul>
+<p>Para el ejemplo de arriba, tenemos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>acf_tbl <span class="ot">&lt;-</span> series_tbl <span class="sc">|&gt;</span> <span class="fu">ACF</span>(y_detrend) </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>acf_tbl <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 6 x 3 [1]
+# Key:       phi [1]
+    phi      lag    acf
+  &lt;dbl&gt; &lt;cf_lag&gt;  &lt;dbl&gt;
+1  -0.7        1 -0.699
+2  -0.7        2  0.430
+3  -0.7        3 -0.294
+4  -0.7        4  0.248
+5  -0.7        5 -0.202
+6  -0.7        6  0.111</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(acf_tbl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07-intro-series_files/figure-html/acf-tres-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">tres series</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>Nota 1</em>: dado que la ACF se estima con una muestra, tiene error. Las líneas punteadas que generalmente la acompañan son intervalos de 95% para la autocorrelación <strong>bajo la hipótesis de que los valores de la serie no tienen correlación</strong>.</p>
+<p>Este resumen coincide con nuestra descripción de arriba: la primera serie oscila “sobre-corrigiendo”, la segunda serie oscila de manera más suave alrededor de la tendencia. En la intermedia vemos que las estimaciones están generalmente dentro de la banda señalada por las líneas puntuadas.</p>
+<section id="ejemplo-nacimientos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-nacimientos">Ejemplo: nacimientos</h3>
+<p>En general, cuando calculamos la ACF de una serie con tendencia-ciclo y estacionalidad fuertes, esos son los aspectos que tienden a dominar la gráfica.</p>
+<p>Consideremos por ejemplo la siguiente serie de nacimientos por día en México:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>natalidad_tbl <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../datos/natalidad.rds"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(fecha) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fecha <span class="sc">&gt;</span> <span class="fu">ymd</span>(<span class="st">"2000-01-01"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">nacimientos =</span> n) <span class="sc">|&gt;</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> fecha)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La serie completa se ve como sigue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(natalidad_tbl, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Plot variable not specified, automatically selected `.vars = nacimientos`</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Ahora consideramos la función de autocorrelacción, que tiene un pico negativo en el primer rezago:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ACF</span>(natalidad_tbl, nacimientos, <span class="at">lag_max =</span> <span class="dv">60</span>) <span class="sc">|&gt;</span> <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Esta ACF captura tanto la tendencia-ciclo (todas las correlaciones son positivas), como la estacionalidad (picos en múltiplos de 7 días). Podemos ver esta relación graficando directamente la serie contra sus rezagos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_lag</span>(natalidad_tbl, nacimientos, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Veremos más adelante técnicas para extraer tendencia, ciclo y estacionalidad de series. En este caso utilizaremos el metodo loess para examinar qué sucede con la variación adicional que podemos explicar con tendencia y estacionalidad anual y semanal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>descomp_nat <span class="ot">&lt;-</span> natalidad_tbl <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">STL</span>(nacimientos <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">window =</span> <span class="dv">101</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">season</span>(<span class="at">period =</span> <span class="st">"1 year"</span>, <span class="at">window =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">season</span>(<span class="at">period =</span> <span class="st">"week"</span>, <span class="at">window =</span><span class="dv">15</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">robust =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descomp_nat, <span class="fu">aes</span>(<span class="at">x =</span> fecha, <span class="at">y =</span> remainder)) <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Como vemos, esta serie no tiene una tendencia o estacionalidad claras, pues las hemos extraido con el proceso de arriba. Sin embargo, tiene una estructura de correlación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>descomp_nat <span class="sc">|&gt;</span> <span class="fu">as_tsibble</span>(<span class="at">index =</span> fecha) <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ACF</span>(remainder) <span class="sc">|&gt;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.2</span>,<span class="fl">0.2</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notamos que, aunque las autocorrelaciones son mucho más chicas, todavía existe una correlación positiva en rezago 1 y 2.</p>
+<p>Por otro lado, si se tratara de una serie donde las observaciones no tienen ninguna correlación, observaríamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>descomp_nat <span class="ot">&lt;-</span> <span class="fu">mutate</span>(descomp_nat, </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">remainder_perm =</span> <span class="fu">sample</span>(remainder))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descomp_nat, <span class="fu">aes</span>(<span class="at">x =</span> fecha, <span class="at">y =</span> remainder_perm)) <span class="sc">+</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Con ACF como sigue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>descomp_nat <span class="sc">|&gt;</span> <span class="fu">as_tsibble</span>(<span class="at">index =</span> fecha) <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ACF</span>(remainder_perm) <span class="sc">|&gt;</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.2</span>,<span class="fl">0.2</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="más-de-autocorrelación" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="más-de-autocorrelación"><span class="header-section-number">7.5</span> Más de autocorrelación</h2>
+<p>Consideramos <span class="math inline">\(y_1,y_2,\ldots, y_T\)</span> observaciones de una serie de tiempo, donde el subíndice indica el momento donde se tomó cada observación. Un modelo que podemos considerar es el siguiente:</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">'</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="st">        Y1 [label = &lt;Y&lt;SUB&gt;1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="st">    dots [label = "..."]</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Ytm1 [label = &lt;Y&lt;SUB&gt;t-1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Yt [label = &lt;Y&lt;SUB&gt;t&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Yt1 [label = &lt;Y&lt;SUB&gt;t+1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Yt2 [label = &lt;Y&lt;SUB&gt;t+2&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="st">    etm1 [label = &lt;e&lt;SUB&gt;t-1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="st">    et [label = &lt;e&lt;SUB&gt;t&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="st">    et1 [label = &lt;e&lt;SUB&gt;t+1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="st">    et2 [label = &lt;e&lt;SUB&gt;t+2&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="st">   Y1 -&gt; dots</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="st">   dots -&gt; Ytm1</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="st">   Ytm1 -&gt; Yt</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="st">   Yt -&gt; Yt1</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="st">   Yt1 -&gt; Yt2</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="st">   e1 -&gt; Y1</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="st">   etm1 -&gt; Ytm1</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="st">   et -&gt; Yt</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="st">   et1 -&gt; Yt1</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="st">   et2 -&gt; Yt2</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="st">{rank=same; Y1; dots; Ytm1; Yt; Yt1; Yt2}</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">40</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-773b1f53f47c31641e13" style="width:100%;height:130px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-773b1f53f47c31641e13">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n        Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <e<SUB>t<\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   Y1 -> dots\n   dots -> Ytm1\n   Ytm1 -> Yt\n   Yt -> Yt1\n   Yt1 -> Yt2\n   e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same; Y1; dots; Ytm1; Yt; Yt1; Yt2}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>En este modelo suponemos que dado <span class="math inline">\(Y_{t}\)</span>, <span class="math inline">\(Y_{t+1}\)</span> es condicionalmente independiente de cualquier otra <span class="math inline">\(Y\)</span> anterior a <span class="math inline">\(t\)</span>. La conjunta <span class="math inline">\(p(y_1,y_2,\ldots, y_T)\)</span> se escribe como</p>
+<p><span class="math display">\[p(y_1)p(y_2|y_1)\cdots p(y_{T-1}|y_{T-2}) p(y_T | y_{T-1})\]</span> Y podemos definir un modelo para cada <span class="math inline">\(p(y_t|y_{t-1})\)</span>. En modelos estáticos, generalmente se define una relación que depende de parámetros fijos, por ejemplo, un modelo autoregresivo de orden 1 AR(1) con errores normales es:</p>
+<p><span class="math display">\[y_t = \alpha_0 + \alpha_1 y_{t-1} + \epsilon_t\]</span> donde <span class="math inline">\(\epsilon_t\sim N(0,\sigma)\)</span> son independientes. En este caso, la relación probabilística de entre las observaciones es fija en cualquier tiempo. Podemos estimar <span class="math inline">\(\alpha_1\)</span>, que se puede escribir en términos de la correlación entre <span class="math inline">\(y_t\)</span> y <span class="math inline">\(y_{t-1}\)</span>, y podemos interpretar como el efecto directo d <span class="math inline">\(y_{t-1}\)</span> sobre <span class="math inline">\(y_t\)</span>.</p>
+<p>Cuando consideramos la correlación entre <span class="math inline">\(y_{t-2}\)</span> y <span class="math inline">\(y_t\)</span>, sustituyendo en le ecuación anterior podemos ver que también se trata de un modelo lineal. Podemos estimar el coeficiente de <span class="math inline">\(y_{t-2}\)</span> (que es <span class="math inline">\(\alpha_1^2\)</span>). En este caso, obtenemos esta correlación por el efecto mediado por <span class="math inline">\(y_{t-1}\)</span>, como en el ejemplo anterior de las tres series que vimos arriba.</p>
+<p>En este caso, la ACF muestra correlaciones totales (efecto total). Podríamos también preguntarnos por correlaciones parciales, que es la correlación entre <span class="math inline">\(y_t\)</span> y <span class="math inline">\(y_{t-2}\)</span> condicionando a <span class="math inline">\(y_{t-1}\)</span>. En este caso nos interesa el efecto directo de <span class="math inline">\(y_{t-2}\)</span> sobre <span class="math inline">\(y_t\)</span>, controlando por <span class="math inline">\(y_{t-1}\)</span>.</p>
+<p>Podemos definir la función de autocorrelación parcial PACF como las correlaciones entre <span class="math inline">\(y_t\)</span> y <span class="math inline">\(y_{t-h}\)</span> <em>condicionadas</em> a los valores intermedios <span class="math inline">\(y_{t-1},\ldots, y_{t-h}\)</span>: es decir, es la correlación directa, bloqueando la correlación que ocurre a través de otros nodos de la gráfica</p>
+<p>En nuestro ejemplo anterior, encontramos que</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>series_tbl <span class="sc">|&gt;</span> <span class="fu">ACF</span>(y_detrend) <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sin embargo, las autocorrelaciones parciales dan:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>series_tbl <span class="sc">|&gt;</span> <span class="fu">PACF</span>(y_detrend) <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y vemos que el coeficiente del primer rezago es igual que el de la ACF (no condicionamos a nada), pero una vez que condicionamos a rezagos intermedios, las correlaciones parciales son 0. De esta manera identificamos que el modelo subyacente es autoregresivo de orden 1.</p>
+<p>Podemos también considerar otras estructuras para modelar, como</p>
+<div class="cell">
+<details>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">'</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="st">        Y1 [label = &lt;Y&lt;SUB&gt;1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="st">    dots [label = "..."]</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Ytm1 [label = &lt;Y&lt;SUB&gt;t-1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Yt [label = &lt;Y&lt;SUB&gt;t&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Yt1 [label = &lt;Y&lt;SUB&gt;t+1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Yt2 [label = &lt;Y&lt;SUB&gt;t+2&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="st">    aa [label = ""]</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="st">        etm1 [label = &lt;e&lt;SUB&gt;t-1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="st">    et [label = &lt;e&lt;SUB&gt;t&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="st">    et1 [label = &lt;e&lt;SUB&gt;t+1&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="st">    et2 [label = &lt;e&lt;SUB&gt;t+2&lt;/SUB&gt;&gt;]</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="st">   Y1 -&gt; dots</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="st">   dots -&gt; Ytm1</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="st">   Ytm1 -&gt; Yt</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="st">   Ytm1 -&gt; Yt1</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="st">   Yt -&gt; Yt1</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="st">   Yt -&gt; Yt2</span></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="st">   Yt1 -&gt; Yt2</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a><span class="st">   aa -&gt; Ytm1</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a><span class="st">   e1 -&gt; Y1</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="st">   etm1 -&gt; Ytm1</span></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="st">   et -&gt; Yt</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="st">   et1 -&gt; Yt1</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="st">   et2 -&gt; Yt2</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="st">{rank=same; Y1; dots; Ytm1; Yt; Yt1; Yt2;aa}</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">40</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-ff99760eddd35a306616" style="width:100%;height:130px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ff99760eddd35a306616">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n        Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    aa [label = \"\"]\n        etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <e<SUB>t<\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   Y1 -> dots\n   dots -> Ytm1\n   Ytm1 -> Yt\n   Ytm1 -> Yt1\n   Yt -> Yt1\n   Yt -> Yt2\n   Yt1 -> Yt2\n   aa -> Ytm1\n   e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same; Y1; dots; Ytm1; Yt; Yt1; Yt2;aa}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>En este caso, el modelo generador es de la forma</p>
+<p><span class="math display">\[y_t = \alpha_0 + \alpha_1 y_{t-1} + \alpha_2 y_{t-2} + \epsilon_t\]</span> donde <span class="math inline">\(\epsilon_t\sim N(0,\sigma)\)</span> son independientes. Abajo simulamos de estos modelos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>generar_obs_2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">phi =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.2</span>), </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">a =</span> <span class="dv">100</span>, <span class="at">sigma =</span> <span class="dv">5</span>, <span class="at">nu =</span> <span class="cn">NULL</span>){</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  e <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  tendencia <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  tendencia[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, a, <span class="fl">0.2</span> <span class="sc">*</span> a)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(nu)){</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>      nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n){</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    tendencia[i] <span class="ot">&lt;-</span>  tendencia[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> nu[i]</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">3</span><span class="sc">:</span>n){</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    e[i] <span class="ot">&lt;-</span> phi[<span class="dv">1</span>] <span class="sc">*</span> e[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> phi[<span class="dv">2</span>] <span class="sc">*</span> e[i <span class="sc">-</span> <span class="dv">2</span>] <span class="sc">+</span> epsilon[i]</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> tendencia <span class="sc">+</span> e </span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span>n, <span class="at">y =</span> y, <span class="at">phi =</span> <span class="fu">paste</span>(phi, <span class="at">collapse =</span> <span class="st">","</span>), <span class="at">y_detrend =</span> e)</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">82</span>)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>serie_1 <span class="ot">&lt;-</span> <span class="fu">generar_obs_2</span>(<span class="at">phi =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">0.5</span>), <span class="at">nu =</span> nu ) </span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>serie_2 <span class="ot">&lt;-</span> <span class="fu">generar_obs_2</span>(<span class="at">phi =</span>  <span class="fu">c</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>), <span class="at">nu =</span> nu ) </span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>serie_3 <span class="ot">&lt;-</span> <span class="fu">generar_obs_2</span>(<span class="at">phi =</span>  <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>), <span class="at">nu =</span> nu ) </span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>series_2_tbl <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">list</span>(serie_1, serie_2, serie_3)) <span class="sc">|&gt;</span> </span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> t, <span class="at">key =</span> phi)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>series_2_tbl <span class="sc">|&gt;</span> <span class="fu">ACF</span>(y_detrend) <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sin embargo, las autocorrelaciones parciales dan:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>series_2_tbl <span class="sc">|&gt;</span> <span class="fu">PACF</span>(y_detrend) <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-intro-series_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Y estas gráficas son típicas para un proceso AR(2) como el que simulamos.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Modelos AR(p)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>En los modelos autorregresivos de orden <span class="math inline">\(p\)</span> suponemos una relación lineal no dinámica con valores anteriores de la serie observada.</li>
+<li>Identificamos <span class="math inline">\(p\)</span> por sus patrones de autocorrelación y autocorrelación parcial.</li>
+<li>Son parte del esquema ARIMA (o SARIMA) para hacer pronósticos.</li>
+</ul>
+</div>
+</div>
+<p>En este curso no nos concentramos en modelos ARIMA, pues no son muy apropiados para nuestra primera tarea de entender la estructura de series de tiempo, pero son modelos que pueden dar buenos resultados en pronósticos. Puedes leer más en <a href="https://otexts.com/fpp3/arima.html">nuestra referencia Forecasting: Principles and Practica</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-exp-naturales.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-modelos-1.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
