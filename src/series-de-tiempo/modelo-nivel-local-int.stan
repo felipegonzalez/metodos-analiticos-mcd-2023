@@ -6,6 +6,7 @@ data {
   int<lower=0> n_h; //numero de periodos de pronóstico
   array[N_obs] int ii_obs;
   real q;
+  int <lower=0> t_intervencion;
 }
 
 
@@ -22,20 +23,22 @@ transformed parameters {
   vector[N + n_h] mu;
   vector[N + n_h] alpha;
 
-
   alpha[1] = alpha_1;
   mu[1] = alpha[1];
-  // evolucion estado
   for(t in 2:(N + n_h)){
-    alpha[t] = alpha[t-1] + z_nivel[t] * sigma_nivel;
+    if(t != t_intervencion){
+      alpha[t] = alpha[t-1] + z_nivel[t] * sigma_nivel;
+    } else {
+      // s_obs un valor grande que refleja nuestra incertidumbre
+      // del cambio en el nivel:
+      alpha[t] = alpha[t-1] + z_nivel[t] * (10 * sigma_nivel);
+    }
     mu[t] = alpha[t];
   }
 }
 
 model {
-  // modelo de observaciones
   y[ii_obs] ~ normal(mu[ii_obs], sigma_obs);
-  // iniciales
   alpha_1 ~ normal(y[1], s_obs);
   z_nivel ~ normal(0, 1);
   sigma_nivel ~ normal(0, q * s_obs);

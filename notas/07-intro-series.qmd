@@ -625,6 +625,7 @@ lineal no dinámica con valores anteriores de la serie observada.
 En este curso no nos concentramos en modelos ARIMA, pues no son muy apropiados
 para nuestra primera tarea de entender la estructura de series de tiempo, pero
 son modelos que pueden dar buenos resultados en pronósticos. Puedes leer
-más en [nuestra referencia Forecasting: Principles and Practica](https://otexts.com/fpp3/arima.html).
+más en [nuestra referencia Forecasting: Principles and Practice](https://otexts.com/fpp3/arima.html).
+
 
 

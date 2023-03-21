@@ -114,12 +114,18 @@ es el nivel de la serie.
 Los modelos de espacio de estados para serie de tiempo consisten en
 dos ecuaciones. Si $y_t$ son los datos observados y $\theta_t$ son
 los parámetros que describen el estado, tenemos la ecuación de observación
-$$y_t = f(\theta_t, \epsilon_t)$$
+$$y_{t+1} = f(\theta_{t}, \epsilon_t)$$
 Es decir, cómo se relaciona el estado con las observaciones, y una
 ecuación de evolución del estado:
-$$\theta_t = g(\theta_{t-1}, \eta_t)$$
-En los modelos dinámicos lineales (DLM), $f$ y $g$ son funciones lineales.
+$$\theta_{t+1} = g(\theta_{t}, \eta_t)$$
+En los modelos dinámicos lineales (DLM), $f$ y $g$ son funciones lineales,
+es decir
+$$y_t = F_t\theta_t + \epsilon_t,$$
+y
 
+$$\theta_t = G_t\theta_{t-1} + \eta_t,$$
+donde suponemos, en general, que $\eta_t \sim N(0,\Sigma_t)$ y 
+$\epsilon_t \sim N(0,S_t)$ son normales multivariadas independientes.
 :::
 
 **Nota**: más adelante veremos detalles de este planteamiento, en particular
@@ -127,15 +133,47 @@ para los DLMs, y por qué
 aún cuando haya dependencias de más largo plazo en estado siempre es
 posible escribir nuestros modelos de esta forma.
 
+En el modelo de nivel local lo reescribimos por conveniencia como:
+
+$$y_t = \alpha_t + \epsilon_t,$$
+donde las $\epsilon_t \sim N(0,\sigma_\epsilon)$ independientes, y
+
+$$\alpha_t = \alpha_{t-1} + \eta_t$$
+donde $\eta_t \sim N(0,\sigma_\eta)$ independientes. En este caso, $F_t=1$ y $G_t=1$ según la notación de arriba.
+ 
 
 Para completar este modelo, es necesario:
 
-1. Poner una distribución previa al estado inicial $p(\textrm{nivel}_1)$
+1. Poner una distribución previa al estado inicial $p(\alpha_1)$
 2. Poner distribuciones previas al tamaño del ruido de la medición $p(\sigma_\epsilon)$ y
 a la evolución del nivel $p(\sigma_\eta)$.
 
 Usualmente consideramos que el nivel debe tener movimientos relativamente suaves,
 de manera que $p(\sigma_\eta)$ debe estar adecuadamente concentrada cerca de 0.
+
+## Análisis retrospectivo
+
+Existen dos tipos de análisis que podemos hacer de una serie de
+tiempo: análisis retrospectivo o análisis en línea. El primero es más
+útil para entender el comportamiento de la serie del tipo dada toda
+la información que tenemos, y el segundo es más útil cuando buscamos 
+hacer pronósticos.
+
+Comenzaremos estudiando los modelos de espacio de estados desde un punto
+de vista retrospectivo.
+
+::: callout-note
+# Análisis retrospectivo
+
+Una vez que tenemos todos los datos de la serie, ¿qué podemos
+decir de su evolución en el tiempo?
+
+Este análisis busca examinar las distribuciones $p(\theta_t|y_1,y_2,\ldots, y_T),$
+es decir, examinar la posterior de los estados dado el conocimiento completo de la serie. 
+
+:::
+
+
 
 ## Ejemplo: nivel del río Nilo
 
@@ -148,14 +186,18 @@ de nivel local:
 ```{r}
 library(cmdstanr)
 source("../R/limpiar_draws.R")
-modelo_nivel <- cmdstan_model("../src/series-de-tiempo/modelo-nivel-local.stan")
-print(modelo_nivel)
+mod_archivo <- "../src/series-de-tiempo/modelo-nivel-local.stan"
+modelo_nivel <- cmdstan_model(mod_archivo)
+read_lines(mod_archivo, skip = 20, n_max = 25) |> 
+  cat(sep = "\n")
 ```
 
 
 ```{r}
+#| message: false
 sims <- modelo_nivel$sample(
-  data = list(y = Nile, N = length(Nile),  s_obs = 200, q = 0.5, n_h = 4),
+  data = list(y = Nile, N = length(Nile),  s_obs = 200, q = 0.5, n_h = 4,
+              ii_obs = 1:length(Nile), N_obs = length(Nile)),
   parallel_chains = 4, refresh = 1000, init = 0.1, step_size = 0.1,
   adapt_delta = 0.99)
 ```
@@ -164,7 +206,8 @@ Mostramos primero nuestra estimación de las desviaciones estándar
 para el nivel y para la observación:
 
 ```{r}
-sims$summary(c("sigma_obs", "sigma_nivel"))
+sims$summary(c("sigma_obs", "sigma_nivel")) |> 
+  select(variable, mean, q5, q95)
 ```
 
 Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.
@@ -199,11 +242,20 @@ conforme avanza el tiempo perdemos certidumbre acerca de dónde se encontrará e
 incial del nivel, las dos desviaciones estándar de modelos de observación y de
 estado, y los 100 niveles no observados.
 
+::: callout-note
+# Residuales y análisis retrospectivo
+
+En el análisis retrospectivo, los residuales entre observaciones y
+ajustados *no* se pueden interpretar como errores de predicción a un paso:
+estos residuales incluyen información de toda la serie (valores pasados
+y futuros del tiempo $t$ que estamos considerando).
+
+:::
 
 
 Podemos hacer chequeos predictivos posteriores simulando distintas
-series a partir de los parámetros ajustados, y viendo si la estructura difiere
-mucho de 
+series a partir de los parámetros ajustados, y viendo si la estructura 
+difiere ( y cómo difiere) de los datos observados:
 
 ```{r}
 obs_rep_tbl <- sims$draws(c("y_rep"), format = "df") |> 
@@ -220,6 +272,7 @@ resumen_tbl <- resumen_tbl |>
 ggplot(resumen_tbl, aes(x = t, y = valores)) + geom_line() +
   facet_wrap(~ .draw)
 ```
+
 Como es usual, cualquier resumen relevante puede usarse para hacer
 chequeos predictivos posteriores, por ejemplo, las gráficas de acutocorrelación
 de datos simulados (una caja tiene los verdaderos datos observados):
@@ -231,7 +284,7 @@ resumen_tbl |> as_tsibble(index = t, key = .draw) |>
 ```
 
 ::: callout-note
-# Diagnósticos para nivel local
+# Diagnósticos 1
 
 - Es posible hacer chequeos posteriores predictivos como con cualquier modelo
 bayesiano generativo.
@@ -247,6 +300,7 @@ pronóstico podríamos graficarlo como sigue (con intervalos de 90%, por ejemplo
 
 ```{r}
 #| message: false
+#| warning: false
 pronosticos_tbl <- sims$draws(c("y_f"), format = "df") |> 
   limpiar_draws(c("y_f")) |> 
   group_by(variable, t) |> 
@@ -301,6 +355,427 @@ resumen_tbl |> as_tsibble(index = t, key = .draw) |>
 En todas estas gráficas podemos identificar claramente donde están los
 datos. Nuestro modelo de nivel constante (no dinámico) no ajusta a estos datos simples.
 
+## Ventajas de SS: Valores faltantes
+
+Existe una manera estándar de lidiar con valores faltantes en la serie
+de tiempo cuando usamos modelos de espacio de estados:
+
+- La ecuación de evolución del estado no cambia.
+- No incluimos términos en la posterior que involucran valores faltantes.
+
+Por ejemplo, vamos a producir algunas mediciones faltantes en la serie del Río
+Nilo:
+
+```{r}
+Nile_f <- Nile
+Nile_f[50:58] <- NA
+Nile_f[5:6] <- NA
+ii_obs <- which(!is.na(Nile_f))
+y_f <- ifelse(is.na(Nile_f), -1, Nile_f)
+```
+
+Y ajustamos el mismo modelo:
+
+```{r}
+sims <- modelo_nivel$sample(
+  data = list(y = y_f, N = length(Nile_f),  s_obs = 200, q = 0.5, n_h = 4,
+              N_obs = length(ii_obs),
+              ii_obs = ii_obs),
+  parallel_chains = 4, refresh = 1000, init = 0.1, step_size = 0.1,
+  adapt_delta = 0.99)
+```
+
+
+```{r}
+sims_nivel_tbl <- sims$draws(c("mu"), format = "df") |> 
+  limpiar_draws(c("mu")) 
+media_tbl <- sims_nivel_tbl |>  
+  group_by(variable, t) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95))
+```
+
+
+```{r}
+ggplot(sims_nivel_tbl |> filter(variable == "mu")) + 
+  geom_line(aes(x = t, y = valores, group = .draw), 
+            alpha = 0.02, size = 0.1, colour = "red") +
+  geom_line(data = media_tbl, aes(x = t, y = media), colour = "red") +
+  geom_point(data = tibble(y = Nile_f), aes(x = 1:length(Nile), y = y))
+```
+
+- En este caso, vemos que el la posterior del nivel en los valores
+desconocidos se amplía, lo cual refleja el hecho de que no tenemos
+observaciones que informen de su localización.
+
+
+## ## Ventajas de SS: Intervenciones
+
+Cuando consideramos análisis secuencial (veremos más adelante) y 
+detectamos desajustes o cambios
+grandes en la serie, es posible agregar incertidumbre en esos momentos,
+lo cual permite al modelo hacer evaluar reajustes de los parámetros que
+son más consistentes con datos y modelo. En este ejemplo, en el tiempo
+29 es posible diagnosticar un cambio de nivel que es incosistente con lo
+observado anteriormente. Podemos hacer una intervención en ese tiempo
+ampliando la varianza en la evolución del nivel:
+
+- En este caso, el modelo de observación no es modificado.
+- Ampliamos la varianza en momentos donde esperamos cambios de estado grandes (en este caso el nivel).
+
+```{r}
+mod_archivo_int <- "../src/series-de-tiempo/modelo-nivel-local-int.stan"
+modelo_nivel <- cmdstan_model(mod_archivo_int)
+read_lines(mod_archivo_int, skip = 20, n_max = 25) |> 
+  cat(sep = "\n")
+```
+
+
+```{r}
+#| message: false
+sims <- modelo_nivel$sample(
+  data = list(y = Nile, N = length(Nile),  s_obs = 200, q = 0.5, n_h = 4,
+              ii_obs = 1:length(Nile), N_obs = length(Nile),
+              t_intervencion = 29),
+  parallel_chains = 4, refresh = 1000, init = 0.1, step_size = 0.1,
+  adapt_delta = 0.99)
+```
+
+Mostramos primero nuestra estimación de las desviaciones estándar
+para el nivel y para la observación:
+
+```{r}
+sims$summary(c("sigma_obs", "sigma_nivel")) |> 
+  select(variable, mean, q5, q95)
+```
+
+Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.
+
+```{r}
+sims_nivel_tbl <- sims$draws(c("mu"), format = "df") |> 
+  limpiar_draws(c("mu")) 
+media_tbl <- sims_nivel_tbl |>  
+  group_by(variable, t) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95))
+```
+
+
+```{r}
+ggplot(sims_nivel_tbl |> filter(variable == "mu")) + 
+  geom_line(aes(x = t, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.1, colour = "red") +
+  geom_line(data = media_tbl, aes(x = t, y = media), colour = "red") +
+  geom_point(data = tibble(y = Nile), aes(x = 1:length(Nile), y = Nile))
+```
+
+- En este modelo, la evolución general del nivel es más suave, pues
+ahora estamos absorbiendo el cambio de nivel con una intervención en 
+la varianza al tiempo 29.
+- Nótese que la única modificación al modelo es ampliar la incertiumbre 
+acerca del estado al tiempo 29. 
+
+
+## Modelo de nivel local con tendencia
+
+El siguiente modelo que consideramos aplica a series que tienen tendencia
+y ciclos más definidos. En este caso, la ecuación de observación es la misma:
+
+$$y_t = \mu_t + \epsilon_t,$$
+pero las ecuaciones de evolución de estado son ahora
+
+$$\mu_t = \mu_{t-1} + \nu_{t-1} + \eta_{1,t}$$
+$$\nu_t = \nu_{t-1} + \eta_{2, t}$$
+Nótese que en este caso buscamos aprender tendencias además de nivel local. Las
+tendencias son localmente lineales, pero pueden adaptarse en el tiempo
+con la estructura de la serie.
+
+Consideremos el siguiente ejemplo de PIB de méxico en dólares nóminales
+(datos de OECD, paquete bsts):
+
+```{r}
+data(gdp)
+gdp_mex <- filter(gdp, Country == "MEX")
+#presion_tbl <- read_table("../datos/presion.txt",
+#                          col_types = "dd") |> 
+#  mutate(t = row_number())
+ggplot(gdp_mex, aes(x = Time, y = PerCapita)) + geom_line()
+```
+```{r}
+modelo_tend <- "../src/series-de-tiempo/modelo-nivel-local-tend.stan"
+mod_1 <- cmdstan_model(modelo_tend)
+read_lines(modelo_tend, skip = 20, n_max = 30) |> 
+  cat(sep = "\n")
+```
+
+
+```{r}
+sims <- mod_1$sample(
+  data = list(y = gdp_mex$PerCapita,  
+              N = nrow(gdp_mex),  s_obs = 5000, 
+              q_nivel = 0.01,
+              q_tend = 0.01,
+              n_h = 5,
+              ii_obs = 1:nrow(gdp_mex), N_obs = nrow(gdp_mex)),
+  iter_sampling = 3000, iter_warmup = 3000,
+  parallel_chains = 4, refresh = 1000,
+  adapt_delta = 0.995)
+```
+
+
+
+
+```{r}
+tiempo_tbl <- select(gdp_mex, Time) |> 
+  mutate(t = row_number()) |> 
+  bind_rows(tibble(t = 48:52, Time = 2017:2021))
+sims_nivel_tbl <- sims$draws(c("mu"), format = "df") |> 
+  limpiar_draws(c("mu")) |> 
+  left_join(tiempo_tbl)
+media_tbl <- sims_nivel_tbl |>  
+  group_by(variable, t, Time) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95))
+```
+
+Notamos ahora que nuestro pronóstico tiene una tendencia creciente,
+pues la incluimos en el modelo:
+
+```{r}
+
+ggplot(sims_nivel_tbl |> filter(variable == "mu")) + 
+  geom_line(aes(x = Time, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.1, colour = "red") +
+  geom_line(data = media_tbl, aes(x = Time, y = media), colour = "orange") +
+  geom_point(data = gdp_mex, aes(x = Time, y = PerCapita))
+```
+Podemos ver los cambios de tendencia en el modelo como componente separada,
+donde vemos que típicamente la tendencia es positiva, pero cambia a los largo
+del tiempo:
+
+```{r}
+sims_nivel_tbl <- sims$draws(c("nu"), format = "df") |> 
+  limpiar_draws(c("nu")) |> 
+  left_join(tiempo_tbl)
+ggplot(sims_nivel_tbl |> filter(variable == "nu", Time < 2017)) + 
+  geom_line(aes(x = Time, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.1, colour = "red") +
+  geom_hline(yintercept = 0) + ylab("Tendencia") + ylim(-2000, 3000)
+```
+
+::: callout-note
+# Nivel local con tendencia
+
+Para escribir el modelo de nivel local con tendencia, el estado
+se puede definir como el vector
+
+$$
+\theta_t  = 
+\begin{pmatrix}
+\mu_t \\
+\nu_t
+\end{pmatrix}
+$$
+y podemos
+utilizar nuestra notación de arriba con:
+
+$$
+F_t = F = 
+\begin{pmatrix}
+1 \\
+0
+\end{pmatrix},\, G_t = G = 
+\begin{pmatrix}
+1 & 1\\
+0 & 1
+\end{pmatrix}
+$$
+:::
+
+La ecuación de observación es entonces
+
+$$
+y_t = \begin{pmatrix}
+1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+\mu_t \\
+\nu_t
+\end{pmatrix} + \epsilon_t
+$$
+y la ecuación de evolución del estado es
+
+$$
+\begin{pmatrix}
+\mu_{t+1}  \\
+\nu_{t+1}
+\end{pmatrix} = 
+\begin{pmatrix}
+1 & 1\\
+0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+\mu_{t}  \\
+\nu_{t}
+\end{pmatrix}
+\begin{pmatrix}
+\eta_{1,t} \\
+\eta_{2,t}
+\end{pmatrix} 
+$$
+
+## Modelos con estacionalidad
+
+Ahora agregamos estacionalidad dinámica a nuestro modelo. Supongamos
+que tenemos datos en trimestres. Esto implica que necesitamos un
+parámero adicional para los trimestres 1, 2, 3 y 4, quizá con alguna restricción
+para que su suma sea igual a 0, por ejemplo.
+
+En este caso, el estado puede definirse (considerando el modelo
+de nivel local para comenzar) como
+
+$$
+\begin{pmatrix}
+\mu_t \\
+\nu_t \\
+\gamma_{1,t} \\
+\gamma_{2,t}\\
+\gamma_{3,t}\\
+\gamma_{4,t}\\
+\end{pmatrix}
+$$
+Ahora tenemos que poner un modelo de evolución para la estacionalidad. En
+principio, podemos usar una caminata aleatoria (como en el nivel local), y establecer
+
+$$\gamma_{1,t+4} = \gamma_{1, t} + \omega_{1,t},$$
+con ajustes apropiados para que en cada periodo los cuatro coeficientes
+de estacionalidad sumen 0. 
+
+```{r}
+modelo_est <- "../src/series-de-tiempo/modelo-nivel-local-tend-est.stan"
+mod_est_1 <- cmdstan_model(modelo_est)
+read_lines(modelo_est, skip = 28, n_max = 42) |> 
+  cat(sep = "\n")
+```
+
+```{r}
+uk_drivers <- Seatbelts |> as_tibble()
+head(uk_drivers)
+```
+```{r}
+sims <- mod_est_1$sample(
+  data = list(y = uk_drivers$DriversKilled,  
+              N = nrow(uk_drivers),  s_obs = 50, 
+              q_nivel = 0.5,
+              q_tend = 0.001, # sin tendencia
+              n_h = 5,
+              ii_obs = 1:nrow(uk_drivers), N_obs = nrow(uk_drivers),
+              periodo = 12),
+  iter_sampling = 1000, iter_warmup = 1000,
+  parallel_chains = 4, refresh = 1000,
+  adapt_delta = 0.99)
+```
+
+
+
+```{r}
+sims$summary(c("sigma_obs", "sigma_nivel", "sigma_tend", "sigma_est")) |> 
+  select(variable, mean, q5, q95, rhat)
+```
+
+
+```{r}
+sims_nivel_tbl <- sims$draws(c("alpha"), format = "df") |> 
+  limpiar_draws(c("alpha"))
+sims_ajuste_tbl <- sims$draws(c("mu"), format = "df") |> 
+  limpiar_draws(c("mu"))
+media_tbl <- sims_ajuste_tbl |>  
+  group_by(variable, t) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95))
+```
+
+Veamos nuestro ajuste y pronóstico:
+
+```{r}
+ggplot(sims_ajuste_tbl |> filter(variable == "mu")) + 
+  geom_line(aes(x = t, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.1, colour = "red") +
+  geom_line(data = media_tbl, aes(x = t, y = media), colour = "orange") +
+  geom_point(data = Seatbelts |> as_tibble() |> mutate(t = row_number()), 
+             aes(x = t, y = DriversKilled))
+```
+Podemos también graficar la componente de estacionalidad, que vemos
+que es considerablemente estable:
+
+```{r}
+sims_est_tbl <- sims$draws(c("gamma"), format = "df") |> 
+  limpiar_draws(c("gamma"))
+media_tbl <- sims_est_tbl |>  
+  group_by(variable, t) |> 
+  summarise(media = mean(valores), q5 = quantile(valores, 0.05),
+            q95 = quantile(valores, 0.95))
+ggplot(sims_est_tbl |> filter(variable == "gamma")) + 
+  geom_line(aes(x = t, y = valores, group = .draw), 
+            alpha = 0.01, size = 0.05, colour = "red") + 
+  geom_line(data = media_tbl, aes(x = t, y = media), colour = "black") 
+```
+
+
+
+
+Agregando este nuevo módulo de estacionalidad a nuestro modelo, obtenemos
+que la ecuación de observación es ahora
+
+$$
+y_t = \begin{pmatrix}
+1 & 0 & 1 & 0 & 0 & 0
+\end{pmatrix}
+\theta_t + \epsilon_t
+$$
+donde 
+$$
+\theta_{t+1} = 
+\begin{pmatrix}
+\mu_{t+1} \\
+\nu_{t+1} \\ 
+\gamma_{2,t} \\
+\gamma_{3,t}\\
+\gamma_{4,t}\\
+\gamma_{1,t}\\
+\end{pmatrix}
+
+= G \theta_t = G
+
+\begin{pmatrix}
+\mu_t \\
+\nu_t \\ 
+\gamma_{1,t} \\
+\gamma_{2,t}\\
+\gamma_{3,t}\\
+\gamma_{4,t}\\
+\end{pmatrix} +
+\begin{pmatrix}
+\eta_{1,t} \\
+\eta_{2,t} \\
+\omega_{1,t} \\
+\omega_{2,t}\\
+\omega_{3,t}\\
+\omega_{4,t}\\
+\end{pmatrix}
+$$
+donde
+
+$$
+\begin{pmatrix}
+1 & 1 & & & \\
+0 & 1 &\\ 
+ & & & 0 & 1 & 0 & 0\\
+ & & & 0 & 0 & 1 & 0\\
+ & & & 0 & 0 & 0 & 1\\
+ & & & 1 & 0 & 0 & 0\\
+\end{pmatrix}
+$$
 
 
 
