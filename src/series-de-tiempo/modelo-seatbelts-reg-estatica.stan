@@ -8,6 +8,7 @@ data {
   real q_nivel;
   real q_tend;
   int periodo;
+  vector[N + n_h] x; // covariable
 
 }
 
@@ -24,6 +25,8 @@ parameters {
   vector[N + n_h] z_nivel;
   vector[N + n_h] z_tend;
   vector[N + n_h] z_est;
+  vector[N + n_h] z_beta;
+  real beta;
 
 }
 
@@ -32,6 +35,7 @@ transformed parameters {
   vector[N + n_h] alpha;
   vector[N + n_h] nu;
   vector[N + n_h] gamma;
+  vector[N + n_h] mu_sin_est;
 
 
   alpha[1] = alpha_1;
@@ -48,7 +52,8 @@ transformed parameters {
     gamma[t] = - sum(gamma[(t - periodo + 1):(t - 1)]) + z_est[t] * sigma_est;
   }
   for(t in 1:(N+n_h)){
-    mu[t] = alpha[t] + gamma[t];
+    mu[t] = alpha[t] + gamma[t] + beta * x[t];
+    mu_sin_est[t] = alpha[t] + beta * x[t];
   }
 }
 
@@ -57,6 +62,7 @@ model {
   y[ii_obs] ~ normal(mu[ii_obs], sigma_obs);
   // iniciales
   alpha_1 ~ normal(y[1], s_obs);
+  beta ~ normal(0, s_obs);
   nu_1 ~ normal(0, s_obs);
   gamma_inicial ~ normal(0, s_obs);
   z_nivel ~ normal(0, 1);

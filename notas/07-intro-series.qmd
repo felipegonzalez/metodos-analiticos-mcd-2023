@@ -321,7 +321,7 @@ punteadas que generalmente la acompañan son intervalos de 95% para la autocorre
 
 Este resumen coincide con nuestra descripción de arriba: la primera serie oscila "sobre-corrigiendo", la segunda serie oscila de manera
 más suave alrededor de la tendencia. En la intermedia vemos que las estimaciones
-están generalmente dentro de la banda señalada por las líneas puntuadas.
+están generalmente dentro de la banda señalada por las líneas punteadas.
 
 
 ### Ejemplo: nacimientos {-}
@@ -482,8 +482,8 @@ $$y_t = \alpha_0 + \alpha_1 y_{t-1} + \epsilon_t$$
 donde $\epsilon_t\sim N(0,\sigma)$ son independientes. En este caso, la relación 
 probabilística de entre las observaciones es fija
 en cualquier tiempo. Podemos estimar $\alpha_1$, que se puede escribir
-en términos de la correlación entre $y_t$ y $y_{t-1}$, y podemos
-interpretar como el efecto directo d $y_{t-1}$ sobre $y_t$.
+en términos de la correlación entre $y_t$ y $y_{t-1}$, 
+y podemos interpretar como el efecto directo de $y_{t-1}$ sobre $y_t$.
 
 Cuando consideramos la correlación entre $y_{t-2}$ y  $y_t$, sustituyendo
 en le ecuación anterior
