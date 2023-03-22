@@ -977,7 +977,7 @@ cual puede ser especialmente útil para análisis retrospectivo, o cuando
 tales variables están disponibles antes que las que queremos pronosticar.
 
 En nuestro primer ejemplo, pretendemos medir el efecto de la ley
-de cinturones de seguridad en UK. El análisis lo h
+de cinturones de seguridad en UK. El análisis lo haremos en escala logarítmica.
 
 ```{r}
 modelo_est <- "../src/series-de-tiempo/modelo-seatbelts-reg-estatica.stan"
