@@ -533,13 +533,13 @@ N <- nrow(finnish_tbl)
 sims <- mod_1$sample(
   data = list(y = finnish_tbl$Finnish_fatalities,  
               N = N,  s_obs = 200, 
-              q_nivel = 0.1,
-              q_tend = 0.1,
+              q_nivel = 0.05,
+              q_tend = 0.05,
               n_h = 3,
               ii_obs = 1:N, N_obs = N),
-  iter_sampling = 2000, iter_warmup = 2000,
+  iter_sampling = 3000, iter_warmup = 3000,
   parallel_chains = 4, refresh = 1000,
-  adapt_delta = 0.9995, max_treedepth = 11)
+  adapt_delta = 0.9995)
 ```
 
 ```{r}
@@ -838,6 +838,7 @@ uk_drivers <- Seatbelts |> as_tibble()
 head(uk_drivers)
 ```
 ```{r}
+#| message: false
 sims <- mod_est_1$sample(
   data = list(y = uk_drivers$DriversKilled,  
               N = nrow(uk_drivers),  s_obs = 50, 
@@ -988,6 +989,7 @@ read_lines(modelo_est, skip = 28, n_max = 42) |>
 
 
 ```{r}
+#| message: false
 sims <- mod_est_1$sample(
   data = list(y = log(uk_drivers$drivers),  
               N = nrow(uk_drivers),  s_obs = 1, 
