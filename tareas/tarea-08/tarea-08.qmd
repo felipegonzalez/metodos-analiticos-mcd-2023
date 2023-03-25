@@ -1,0 +1,301 @@
+---
+title: "Tarea 8: intro a modelos de espacio de estados"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(cmdstanr)
+library(fpp3)
+```
+
+
+## Parte 1: Modelo nivel local
+
+En esta primera parte veremos con más detalle qué significan los parámetros
+de algunos modelos de espacio de estados. Primero consideramos
+el modelo de nivel local, cuyas ecuaciones de observación y evolución son
+respectivamente:
+
+$$y_t = \alpha_t + \epsilon_t,\, \alpha_t = \alpha_{t-1} + \eta_t$$
+donde $\eta_t \sim N(0, \sigma_eta)$ y $\epsilon_t \sim N(0, \sigma_\epsilon)$ son
+independientes, y $\alpha_1\sim N(m_0, \sigma_0)$.
+
+Checa el siguiente código y verifica que simula del modelo de nivel local:
+
+```{r}
+simular_nivel_local <- function(T = 100, alpha_1 = 100, 
+  sigma_eta = 1, sigma_epsilon = 1){
+  # Simular nivel
+  alpha <- numeric(T)
+  alpha[1] = alpha_1
+  for(t in 2:T){
+    alpha[t] = alpha[t-1] + rnorm(1, 0, sigma_eta)
+  }
+  # Simular observaciones
+  y <- numeric(T)
+  for(t in 1:T){
+    y[t] = alpha[t] + rnorm(1, 0, sigma_epsilon)
+  }
+  tibble(t = 1:T, alpha = alpha, y = y, 
+         sigma_eta = sigma_eta, sigma_epsilon = sigma_epsilon)
+}
+```
+
+Las desviaciones estándar $\sigma_eta, \sigma_\epsilon$ determinan la escala de la
+variabilidad de la serie. Fijaremos $\sigma_\epsilon = 5$, y consideraremos 
+distintos valores para $\sigma_eta$:
+
+Consideramos tres ejemplos (**ojo**: nota que las gráficas tienen escala diferente):
+
+```{r}
+set.seed(251)
+sims_tbl <- map_df(c(0.5, 1, 7), function(sigma_eta){
+  simular_nivel_local(T = 300, alpha_1 = 200, sigma_eta = sigma_eta, sigma_epsilon = 5)
+})
+ggplot(sims_tbl, aes(x = t)) +
+  geom_line(aes(y = alpha), colour = "red") +
+  geom_line(aes(y = y)) +
+  facet_grid(sigma_eta ~ sigma_epsilon, scales = "free_y", labeller = label_both)
+```
+
+**Pregunta 1**: ¿Cómo describirías cada una de las series? ¿Cómo depende
+la forma de la serie del cociente $\sigma_{\eta}^2 / \sigma_\epsilon^2$ ? Prueba haciendo
+otras simulaciones (con diferente semilla), o intenta cambiar los parámetros de
+la simulación.
+
+**Pregunta 2**: Intenta pensar cómo lucen las ACF (funciones de autocorrelación
+de cada una de estas series). Luego calcúlalas y compáralas. ¿Cuál es su diferencia?
+
+```{r}
+sims_tbl <- as_tsibble(sims_tbl, index = t, key = sigma_eta)
+ACF(sims_tbl, y, lag_max = 40) |> autoplot()
+```
+
+En el siguiente ejercicio, veremos si podemos recuperar los parámetros
+en cada uno de los casos, y con cuánta incertidumbre. 
+
+Utilizaremos el paquete
+*bsts* (bayesian structural time series) para introducir su uso, con los defaults
+que provee. Nota: una desventaja de este paquete es que hay que checar las cadenas
+resultantes y diagnosticar manualmente (ver el curso de Bayesiana). Sin embargo,
+es un paquete maduro, rápido,tiene una buena variedad de componentes útiles 
+que veremos más adelante, y no es necesario escribir de cero los modelos estándar.
+
+Puedes ver versiones en python (que no he probado) en https://pypi.org/project/pybsts/
+y https://pypi.org/project/pycausalimpact/
+
+Puede checar también implementaciones en tensorflow: https://blog.tensorflow.org/2019/03/structural-time-series-modeling-in.html y  https://github.com/WillianFuks/tfcausalimpact
+
+```{r}
+library(bsts)
+# preparamos datos con algunas observaciones faltantes
+y_obs <- sims_tbl |> filter(sigma_eta == 7) |> pull(y)
+y_obs[50:100] <- NA
+```
+
+
+```{r}
+# se pueden agregar especificación de la inicial,
+# pero bsts tiene defaults razonables
+## nuestro modelo es sólo nivel local:
+ss <- AddLocalLevel(list(), y_obs)
+## por ejemplo un nivel con tendencia y estacionalidad se escribe
+## con dos líneas:
+## ss <- AddLocalLinearTrend(list(), y_obs)
+## ss <- AddSeasonal(ss, y, nseasons = 12)
+# ajustar:
+model <- bsts(y_obs, state.specification = ss, niter = 2000, ping = 500)
+plot(model)
+```
+
+Examina del modelo la estimación posterior de las $\sigma_{\eta}, \simga_{\epsilon}$:
+
+```{r}
+model$sigma.level |> quantile()
+model$sigma.obs |> quantile()
+```
+**Pregunta 3**: explica por qué en el tiempo que pusimos valores
+faltantes podemos hacer estimaciones del nivel (revisa notas de clase).
+
+**Pregunta 4**: Examina en cada uno de los tres casos (valores de
+$\sigma_eta$) si recuperamos los valores verdaderos que generaron la
+siimulación, y en qué sentido los recuperamos.
+
+
+## Parte 2: modelo local con tendencia
+
+Ahora examinamos el modelo local con tendencia. Recuerda que las ecuaciones
+dinámicas para los estados son ahora
+
+$$\alpha_t = \alpha_{t-1} + \nu_{t-1}+ \eta_{1,t},\, \nu_t = \nu_{t-1} + \eta_{2,t}$$
+donde $\eta_{1,t} \sim N(0, \sigma_1)$ y $\eta_{2,t} \sim N(0, \sigma_2)$ son
+independientes.
+
+```{r}
+simular_nivel_local_tend <- function(T = 100, alpha_1 = 100, nu_1 = 0.5, 
+  sigma_eta_1 = 1, sigma_eta_2 = 0.1, sigma_epsilon = 1){
+  # Simular nivel y tendencia
+  alpha <- numeric(T)
+  nu <- numeric(T)
+  alpha[1] = alpha_1
+  nu[1] = nu_1
+  for(t in 2:T){
+    alpha[t] = alpha[t-1] + nu[t-1] + rnorm(1, 0, sigma_eta_1)
+    nu[t] = nu[t-1] + rnorm(1, 0, sigma_eta_2)
+  }
+  # Simular observaciones
+  y <- numeric(T)
+  for(t in 1:T){
+    y[t] = alpha[t] + rnorm(1, 0, sigma_epsilon)
+  }
+  tibble(t = 1:T, alpha = alpha, y = y, 
+         sigma_eta_1 = sigma_eta_1, 
+         sigma_eta_2 = sigma_eta_2,
+         sigma_epsilon = sigma_epsilon)
+}
+```
+
+Fijaremos $\sigma_\epsilon = 5$, $\sigma_{1,\eta}$ y consideraremos 
+distintos valores para $\sigma_{2, eta}$:
+
+Consideramos tres ejemplos (**ojo**: nota que las gráficas tienen escala diferente):
+
+```{r}
+set.seed(251)
+sims_tend_tbl <- map_df(c(0.000001, 0.01, 0.5), function(sigma_tend){
+  simular_nivel_local_tend(T = 300, alpha_1 = 200, nu_1 = 0.25,
+      sigma_eta_1 = 1, sigma_eta_2 = sigma_tend, sigma_epsilon = 5)
+})
+ggplot(sims_tend_tbl, aes(x = t)) +
+  geom_line(aes(y = alpha), colour = "red") +
+  geom_line(aes(y = y)) +
+  facet_grid(sigma_eta_2 ~ sigma_epsilon, scales = "free_y", labeller = label_both)
+```
+
+**Pregunta 4**: ¿Cómo describirías cada una de las series? 
+¿Por qué en el primer caso la tendencia parece ser muy cercana a lineal? (explica
+en términos de los parámetros de la simulación).
+
+**Pregunta 5**: la línea roja es el estado del nivel, tanto en estos ejemplos como
+en los de la Parte 1. Explica cualitativamente cómo son diferentes estos niveles
+(¿cuáles son más suaves, los del modelo con tendencia o sin tendencia?).
+
+
+# Parte 3 (más difícil)
+
+En este ejemplo veremos que especialmente en series cortas con poca variación
+es difícil identificar las componentes de algunos modelos, especialmente si no
+tenemos información considerable acerca de los parámetros. 
+
+Resolvemos con bsts el problema de fatalidades automovilística en Noruega:
+
+```{r}
+ejemplo_tbl <- read_table("./datos/NorwayFinland.txt") |> 
+  as_tsibble(index = year)
+head(ejemplo_tbl)
+autoplot(ejemplo_tbl, Finnish_fatalities)
+```
+
+```{r}
+library(bsts)
+y_obs <- finnish_tbl |> select(year, Finnish_fatalities) |> as.ts()
+ss_1 <- AddLocalLinearTrend(list(), y_obs)
+model_1 <- bsts(y_obs, state.specification = ss_1, niter = 50000, ping = 5000)
+plot(model_1)
+```
+
+Nótese que para esta serie corta es difícil tenemos intervalos
+muy amplios para las posteriores de cada componente:
+
+```{r}
+model_1$sigma.trend.level |> quantile(c(0.05, 0.5, 0.95))
+model_1$sigma.trend.slope |> quantile(c(0.05, 0.5, 0.95))
+model_1$sigma.obs |> quantile(c(0.05, 0.5, 0.95))
+
+```
+Lo cual confirmamos por ejemplo graficando simulaciones de la posterior
+de nivel y tendencia:
+
+```{r}
+sims_1 <- as_tibble(model_1[1:3])
+head(sims_1)
+ggplot(sims_1, aes(x = sigma.trend.level, y = sigma.trend.slope, colour = sigma.obs )) +
+  geom_point(alpha = 0.2)
+```
+
+**Pregunta 6**: Interpreta esta gráfica: ¿qué nos dice acerca de la evolución
+dinámica de nivel y tendencia, y el error irregular del modelo de observaciones? 
+Argumenta que esta gráfica indica que los datos son consistentes con distintas
+configuraciones del modelo.
+(en la gráfica están simulaciones de 
+$\sigma_{nivel}=\sigma_{1,\eta} $ y
+$\sigma_{tend}= \sigma_{2,\eta} $). 
+
+Esta dificultad aparece en series cortas, y es una dificultad
+principalemente computacional (explorar
+la posterior completa): en términos de interpretación, nuestra conclusión
+es que hay varias estructuras que explican estos datos (a menos que tengamos
+información adicional que podemos incluír en la especificación de las iniciales).
+
+Los pronósticos incluyen esta incertidumbre, incluyendo todas las posibilidades
+de la posterior:
+
+```{r}
+pred <- predict(model_1, horizon = 4)
+plot(pred)
+```
+
+**Pregunta 7**: explica por qué en este tipo de situación puede ser
+mala idea usar valores fijos de $\sigma_\epsilon, \sigma_{1,\nu}, \sgima_{2,\nu}$.
+
+
+Sin embargo, si suponemos que esta serie está explicada prinicipalmente por
+tendencia y error irregular (tendencia y error en las observaciones), obtenemos
+un modelo mejor identificado. En el siguiente código modificamos el modelo
+poniendo una inicial muy cercana a 0 para la perturbación del nivel, y dejamos
+los defaults para la perturbación de la tendencia
+
+```{r}
+ss_2 <- AddLocalLinearTrend(list(), y_obs)
+# ponemos media de desviación estándar y "precisión" para la inicial en un valor chico
+ss_2[[1]]$level.sigma.prior <- SdPrior(sigma.guess = 0.001, sample.size = 5)
+# sigma.guess es un valor inicial para la sigma, y sample.size 
+# determina que tan concentrada está la inicial en sigma.guess
+# la inicial entonces está concentrada en valores chicos.
+# Por como está hecho bsts, la inicial es entonces:
+qplot(sqrt(1/rgamma(1000, 5/2, (5/2) * (0.001)^2)))
+```
+
+
+```{r}
+model_2 <- bsts(y_obs, state.specification = ss_2, niter = 20000, ping = 5000)
+plot(model_2)
+```
+
+
+```{r}
+model_2$sigma.trend.level |> quantile(c(0.05, 0.5, 0.95))
+model_2$sigma.trend.slope |> quantile(c(0.05, 0.5, 0.95))
+model_2$sigma.obs |> quantile(c(0.05, 0.5, 0.95))
+```
+
+
+
+
+```{r}
+sims_2 <- as_tibble(model_2[1:3])
+ggplot(sims_2, aes(x = sigma.trend.level, y = sigma.trend.slope, colour = sigma.obs )) +
+  geom_point(alpha = 0.2)
+```
+
+
+Considera el panel superior de la siguiente gráfica, que muestra que el 
+modelo 1 es comparable en error predictivo a un paso
+al modelo 2. El panel de abajo es la serie original. Estas gráficas las
+discutiremos más adelante con detalle:
+
+```{r}
+CompareBstsModels(list(model_1, model_2))
+```
+
