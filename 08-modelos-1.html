@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -377,8 +377,8 @@ div.csl-indent {
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">300</span>, <span class="at">height =</span> <span class="dv">150</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-3dd211d488edec744977" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3dd211d488edec744977">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=circle]\n    nt\n    nt1\n    nt2\n    ntm1\n    etm1\n    et\n    et1\n    et2\n  node [shape=plaintext]\n    #    Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <  e<SUB>t. <\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n        ntm1 [label = <n<SUB>t-1<\/SUB>>]\n    nt [label = <  n<SUB>t  <\/SUB>>]\n    nt1 [label = <n<SUB>t+1<\/SUB>>]\n    nt2 [label = <n<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   #Y1 -> dots\n   #dots -> Ytm1\n   #Ytm1 -> Yt\n   #Yt -> Yt1\n   #Yt1 -> Yt2\n   ntm1 -> Ytm1\n   ntm1 -> nt\n   nt1 -> Yt1\n   nt -> Yt\n   nt2 -> Yt2\n   nt -> nt1\n   nt1 -> nt2\n   #e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same;  Ytm1; Yt; Yt1; Yt2}\n{rank=max; ntm1; nt; nt1; nt2}\n{rank=min; etm1; et; et1; et2}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f4b28358ddad09c22dfb" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f4b28358ddad09c22dfb">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=circle]\n    nt\n    nt1\n    nt2\n    ntm1\n    etm1\n    et\n    et1\n    et2\n  node [shape=plaintext]\n    #    Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <  e<SUB>t. <\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n        ntm1 [label = <n<SUB>t-1<\/SUB>>]\n    nt [label = <  n<SUB>t  <\/SUB>>]\n    nt1 [label = <n<SUB>t+1<\/SUB>>]\n    nt2 [label = <n<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   #Y1 -> dots\n   #dots -> Ytm1\n   #Ytm1 -> Yt\n   #Yt -> Yt1\n   #Yt1 -> Yt2\n   ntm1 -> Ytm1\n   ntm1 -> nt\n   nt1 -> Yt1\n   nt -> Yt\n   nt2 -> Yt2\n   nt -> nt1\n   nt1 -> nt2\n   #e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same;  Ytm1; Yt; Yt1; Yt2}\n{rank=max; ntm1; nt; nt1; nt2}\n{rank=min; etm1; et; et1; et2}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Nótese que en esta gráfica, las <span class="math inline">\(y_t\)</span> no son independientes: están correlacionadas a través de caminos abiertos que pasan por el estado, que en este caso es el nivel de la serie.</p>
@@ -490,26 +490,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 8.1 seconds.
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 8.7 seconds.
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 8.8 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 10.9 seconds.
+Chain 2 finished in 10.1 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 10.1 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 10.4 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 12.6 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 9.1 seconds.
-Total execution time: 11.1 seconds.</code></pre>
+Mean chain execution time: 10.8 seconds.
+Total execution time: 12.8 seconds.</code></pre>
 </div>
 </div>
 <p>Mostramos primero nuestra estimación de las desviaciones estándar para el nivel y para la observación:</p>
@@ -520,8 +520,8 @@ Total execution time: 11.1 seconds.</code></pre>
 <pre><code># A tibble: 2 × 5
   variable     mean    q5   q95  rhat
   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   122.  102.  143.   1.00
-2 sigma_nivel  43.7  21.1  71.6  1.01</code></pre>
+1 sigma_obs   121.  101.  142.   1.00
+2 sigma_nivel  45.0  21.7  74.8  1.00</code></pre>
 </div>
 </div>
 <p>Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.</p>
@@ -657,17 +657,17 @@ Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 2.1 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 2.2 seconds.
-Chain 3 finished in 2.2 seconds.
-Chain 4 finished in 2.2 seconds.
+Chain 1 finished in 3.0 seconds.
+Chain 2 finished in 3.0 seconds.
+Chain 4 finished in 2.9 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 3.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.2 seconds.
-Total execution time: 2.3 seconds.</code></pre>
+Mean chain execution time: 3.0 seconds.
+Total execution time: 3.4 seconds.</code></pre>
 </div>
 </div>
 <p>Repetimos nuestros chequeos posteriores predictivos:</p>
@@ -733,26 +733,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 8.6 seconds.
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 8.8 seconds.
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 8.9 seconds.
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 10.1 seconds.
+Chain 3 finished in 9.9 seconds.
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 10.1 seconds.
+Chain 4 finished in 10.0 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 10.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 9.1 seconds.
-Total execution time: 10.3 seconds.</code></pre>
+Mean chain execution time: 10.1 seconds.
+Total execution time: 10.4 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -836,24 +836,24 @@ Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 6.1 seconds.
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 7.7 seconds.
+Chain 1 finished in 7.5 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 7.9 seconds.
-Chain 4 finished in 7.8 seconds.
+Chain 2 finished in 9.4 seconds.
+Chain 4 finished in 9.2 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 9.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 7.4 seconds.
-Total execution time: 8.0 seconds.</code></pre>
+Mean chain execution time: 8.9 seconds.
+Total execution time: 9.6 seconds.</code></pre>
 </div>
 </div>
 <p>Mostramos primero nuestra estimación de las desviaciones estándar para el nivel y para la observación:</p>
@@ -864,8 +864,8 @@ Total execution time: 8.0 seconds.</code></pre>
 <pre><code># A tibble: 2 × 4
   variable     mean     q5   q95
   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   126.  109.   143. 
-2 sigma_nivel  21.3   9.61  41.7</code></pre>
+1 sigma_obs   125.  109.   143. 
+2 sigma_nivel  21.4   9.65  40.7</code></pre>
 </div>
 </div>
 <p>Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.</p>
@@ -988,42 +988,42 @@ Chain 1 Iteration:    1 / 6000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 6000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 6000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 6000 [  0%]  (Warmup) 
-Chain 1 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
 Chain 3 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
-Chain 4 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
+Chain 1 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
 Chain 2 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
-Chain 1 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
-Chain 4 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
+Chain 4 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
 Chain 3 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
 Chain 2 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
+Chain 1 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
+Chain 4 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
+Chain 2 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
+Chain 3 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
 Chain 1 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
 Chain 4 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
-Chain 3 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
-Chain 2 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
+Chain 2 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
+Chain 3 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
 Chain 1 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
 Chain 4 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
-Chain 3 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
-Chain 2 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
-Chain 1 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 1 finished in 74.8 seconds.
-Chain 4 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 4 finished in 75.5 seconds.
-Chain 3 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 3 finished in 75.5 seconds.
 Chain 2 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 2 finished in 75.7 seconds.
+Chain 2 finished in 91.8 seconds.
+Chain 3 Iteration: 6000 / 6000 [100%]  (Sampling) 
+Chain 3 finished in 92.4 seconds.
+Chain 1 Iteration: 6000 / 6000 [100%]  (Sampling) 
+Chain 1 finished in 92.6 seconds.
+Chain 4 Iteration: 6000 / 6000 [100%]  (Sampling) 
+Chain 4 finished in 92.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 75.4 seconds.
-Total execution time: 75.8 seconds.</code></pre>
+Mean chain execution time: 92.4 seconds.
+Total execution time: 93.0 seconds.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: 12000 of 12000 (100.0%) transitions hit the maximum treedepth limit of 10.
@@ -1038,9 +1038,9 @@ See https://mc-stan.org/misc/warnings for details.</code></pre>
 <pre><code># A tibble: 3 × 5
   variable     mean     q5   q95  rhat
   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   44.5  32.7    58.9  1.00
-2 sigma_nivel  9.59  0.765  23.3  1.01
-3 sigma_tend  19.6  12.1    28.5  1.00</code></pre>
+1 sigma_obs   45.5  33.5    61.2  1.00
+2 sigma_nivel  9.47  0.878  23.3  1.00
+3 sigma_tend  19.2  11.5    28.1  1.00</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1342,26 +1342,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 80.5 seconds.
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 94.0 seconds.
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 98.9 seconds.
+Chain 4 finished in 132.0 seconds.
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 118.4 seconds.
+Chain 1 finished in 133.7 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 136.1 seconds.
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 169.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 98.0 seconds.
-Total execution time: 118.6 seconds.</code></pre>
+Mean chain execution time: 142.7 seconds.
+Total execution time: 169.1 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1373,9 +1373,9 @@ Total execution time: 118.6 seconds.</code></pre>
   variable     mean     q5   q95  rhat
   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 sigma_obs   13.4  11.8   15.0   1.00
-2 sigma_nivel  3.89  2.40   5.92  1.00
+2 sigma_nivel  3.87  2.38   5.79  1.01
 3 sigma_tend   0     0      0     1.00
-4 sigma_est    1.14  0.116  2.55  1.01</code></pre>
+4 sigma_est    1.12  0.118  2.55  1.00</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1549,34 +1549,34 @@ Chain 1 Iteration:    1 / 4000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 4000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 4000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 4000 [  0%]  (Warmup) 
-Chain 1 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
-Chain 4 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
 Chain 3 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
+Chain 4 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
+Chain 1 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
 Chain 2 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
 Chain 4 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
+Chain 2 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
 Chain 1 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
 Chain 3 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
-Chain 2 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
 Chain 4 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 4 finished in 454.2 seconds.
-Chain 1 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 1 finished in 455.6 seconds.
-Chain 3 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 3 finished in 456.7 seconds.
+Chain 4 finished in 615.2 seconds.
 Chain 2 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 2 finished in 459.8 seconds.
+Chain 2 finished in 617.8 seconds.
+Chain 1 Iteration: 4000 / 4000 [100%]  (Sampling) 
+Chain 1 finished in 618.3 seconds.
+Chain 3 Iteration: 4000 / 4000 [100%]  (Sampling) 
+Chain 3 finished in 618.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 456.6 seconds.
-Total execution time: 460.0 seconds.</code></pre>
+Mean chain execution time: 617.5 seconds.
+Total execution time: 619.0 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1589,11 +1589,11 @@ Total execution time: 460.0 seconds.</code></pre>
 <pre><code># A tibble: 5 × 5
   variable         mean        q5      q95  rhat
   &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs    0.0606    0.0523    0.0690   1.01
-2 sigma_nivel  0.0232    0.0119    0.0345   1.01
-3 sigma_tend   0.000719  0.000047  0.00186  1.00
-4 sigma_est    0.00456   0.0004    0.0109   1.01
-5 beta        -0.250    -0.342    -0.155    1.01</code></pre>
+1 sigma_obs    0.0604    0.0526    0.0687   1.02
+2 sigma_nivel  0.0234    0.0125    0.0342   1.02
+3 sigma_tend   0.000712  0.000056  0.00184  1.01
+4 sigma_est    0.00431   0.000333  0.0102   1.06
+5 beta        -0.242    -0.336    -0.143    1.01</code></pre>
 </div>
 </div>
 <p>El coeficiente de la variable dummy que indica la presencia de la ley de usar cinturón de seguridad redujo en un 24% el número de muertes o heridos graves en accidentes, controlando por cambios posibles de nivel de la serie y estacionalidad.</p>
