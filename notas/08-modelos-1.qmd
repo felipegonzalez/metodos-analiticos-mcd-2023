@@ -746,17 +746,17 @@ de modo que para cualquier $t$, tenemos que:
 $$\gamma_{1,t} + \gamma_{2,t} + \gamma_{3,t} + \gamma_{4,t}=0.$$
 Podemos reducir entonces nuestro espacio de estados en una dimensión,
 pues siempre uno de los coeficientes en cada periodo es el negativo de la suma
-del resto. Si nuestro nuevo espacio de estado lo definimos como
+del resto. Por ejemplo, si nuestro nuevo espacio de estado lo definimos como
 
 $$
-\theta_1 = (\mu_1, \gamma_{1,1}, \gamma_{2,1}, \gamma_{3,1})^t
+\theta_1 = (\mu_1, \gamma_{1,1}, \gamma_{4,1}, \gamma_{3,1})^t
 $$
-entonces
+entonces (haz el cálculo sustiyendo las $\beta$ fijas si este argumento te confunde):
 
 $$
-\theta_{2} = (\mu_{2}, \gamma_{1,2}, \gamma_{2,2}, \gamma_{3,2})^t = (\mu_2, 
--(\gamma_{1,1} + \gamma_{2,1} + \gamma_{3,1}),
-\gamma_{1,1}, \gamma_{2,1})^t
+\theta_{2} = (\mu_{2}, \gamma_{1,2}, \gamma_{4,2}, \gamma_{3,2})^t = (\mu_2, 
+-(\gamma_{1,1} + \gamma_{4,1} + \gamma_{3,1}),
+\gamma_{1,1}, \gamma_{4,1})^t
 $$
 Y en términos matriciales
 
@@ -794,7 +794,7 @@ $$
 \theta_{t+1} = G_t\theta_t +
 \begin{pmatrix}
 \eta_t \\
-0 \\
+\omega_t \\
 0 \\
 0 \\
 \end{pmatrix}
@@ -815,8 +815,13 @@ $$
 \end{pmatrix},
 $$
 
-es decir, le agregamos $\gamma{1,t+1} = - (\gamma_{1,t} +\gamma_{2,t}+\gamma_{3,t}$ una perturbación $\omega_t \sim N(0, \sigma_\omega)$.
+es decir, le agregamos $\gamma_{1,t+1} = - (\gamma_{1,t} +\gamma_{2,t}+\gamma_{3,t})$ una perturbación $\omega_t \sim N(0, \sigma_\omega)$. Simplificando la notación,
+si la ecuación de observación es
 
+$$y_t = \mu_t + \gamma_t + \epsilon_t.$$
+la ecuación de transición para el término $\gamma_t$ de estacionalidad es
+
+$$\gamma_t = - (\gamma_{t-3} + \gamma_{t-2} + \gamma_{t-1}) + \omega_t$$
 
 
 Abajo podemos ver una implementación en Stan:
@@ -831,21 +836,23 @@ read_lines(modelo_est, skip = 28, n_max = 42) |>
 ### Ejemplo: cinturones de seguridad
 
 En este ejemplo también clásico examinamos la serie de tiempo
-muertes de conductores en UK:
+muertes de conductores en UK (que viajan en asientos traseros del automóvil):
 
 ```{r}
-uk_drivers <- Seatbelts |> as_tibble()
+uk_drivers <- Seatbelts |> as_tsibble()
 head(uk_drivers)
+uk_rear <- uk_drivers |> filter(key == "rear")
 ```
 ```{r}
 #| message: false
+#|
 sims <- mod_est_1$sample(
-  data = list(y = uk_drivers$DriversKilled,  
-              N = nrow(uk_drivers),  s_obs = 50, 
+  data = list(y = uk_rear$value,  
+              N = nrow(uk_rear),  s_obs = 50, 
               q_nivel = 0.5,
               q_tend = 1e-6, # sin tendencia
               n_h = 6,
-              ii_obs = 1:nrow(uk_drivers), N_obs = nrow(uk_drivers),
+              ii_obs = 1:nrow(uk_rear), N_obs = nrow(uk_rear),
               periodo = 12),
   iter_sampling = 1000, iter_warmup = 1000,
   parallel_chains = 4, refresh = 1000,
@@ -882,7 +889,7 @@ ggplot(sims_ajuste_tbl |> filter(variable == "mu")) +
             alpha = 0.01, size = 0.1, colour = "red") +
   geom_line(data = media_tbl, aes(x = t, y = media), colour = "orange") +
   geom_point(data = Seatbelts |> as_tibble() |> mutate(t = row_number()), 
-             aes(x = t, y = DriversKilled))
+             aes(x = t, y = rear))
 ```
 Podemos también graficar la componente de estacionalidad, que vemos
 que es considerablemente estable:
@@ -909,7 +916,7 @@ ggplot(sims_est_tbl |> filter(variable == "gamma")) +
 
 Agregando este nuevo módulo de estacionalidad a nuestro modelo de nivel 
 local con tendencia, obtenemos
-que la ecuación de observación es ahora:
+que la ecuación de observación es ahora (para periodo $s=4$):
 
 $$
 y_t = \begin{pmatrix}
@@ -971,14 +978,70 @@ $$
 Como vemos, las matrices $G_t$ y $F_t$ están organizadas en bloques,
 una para cada componente del modelo. 
 
+De esta manera, podemos agregar distintas componentes a nuestros modelos
+de manera modular. La matriz $G$ está organizada en bloques a lo a largo
+de su diagonal, un bloque para cada componente del modelo. Igualmente,
+la matriz $F$ está separada por bloques que corresponden a las componentes.
+
+### Ejemplo {-}
+
+En las aplicaciones originales de seguimiento de objetos basado en sensores
+ruidosos, el estado que nos interesa es la posición y velocidad de un objeto:
+
+$$\theta_t = (x_{i,t}, y_{i, t}, \dot x_{i,t}, \dot y_{i,t})$$
+Con matriz de transición:
+
+$$
+G = 
+\begin{pmatrix}
+1 & 0 & \delta_t & 0 \\
+0 & 1 &   0 & \delta_t\\
+0 & 0 &   1 & 0\\
+0 & 0 &   0 & 1\\
+\end{pmatrix}
+$$
+donde $\delta_t$ es el tiempo transcurrido entre mediciones. Cada una
+de estos tiene una perturbación aleatoria. Para la
+ecuación de observación, si las posiciones
+medidas por el sensor son pares de coordenadas $y_{1,t},y_{2,t}$, y la matriz
+$F$ es entonces
+
+$$
+F = 
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 &   0 & 0\\
+\end{pmatrix}
+$$
+y en este ejemplo podemos usar errores normales con varianza conocida (precisión
+del sensor).
+
+Si recordamos nuestros programas de Stan, nota que nada impide que podamos
+utilizar lecturas de varios sensores. Simplemente es necesario ponerlos
+como datos que informan los mismos parámetros. La estructura del error puede
+ser independiente o correlacionada, dependiendo de la naturaleza de los 
+distintos sensores.
+
+
+
 ## Componentes de regresión dinámica
 
 Finalmente, veremos cómo agregar variables explicativas a modelos, lo
 cual puede ser especialmente útil para análisis retrospectivo, o cuando
-tales variables están disponibles antes que las que queremos pronosticar.
+tales variables están disponibles antes que las que queremos 
+pronosticar (como en *nowcasting*).
 
 En nuestro primer ejemplo, pretendemos medir el efecto de la ley
-de cinturones de seguridad en UK. El análisis lo haremos en escala logarítmica.
+de cinturones de seguridad en UK. Utilizaremos la variable de muertes
+y heridos de gravedad de pasajeros en la parte frontal del automóvil:
+
+```{r}
+autoplot(uk_drivers |> filter(key %in% c("front", "rear")))
+uk_front <- filter(uk_drivers, key == "front")
+law <- filter(uk_drivers, key == "law")
+```
+
+
 
 ```{r}
 modelo_est <- "../src/series-de-tiempo/modelo-seatbelts-reg-estatica.stan"
@@ -991,15 +1054,15 @@ read_lines(modelo_est, skip = 28, n_max = 42) |>
 ```{r}
 #| message: false
 sims <- mod_est_1$sample(
-  data = list(y = log(uk_drivers$drivers),  
-              N = nrow(uk_drivers),  s_obs = 1, 
+  data = list(y = log(uk_front$value),  
+              N = nrow(uk_front),  s_obs = 1, 
               q_nivel = 0.5,
               q_tend = 0.1,
               q_reg = 0.5,
               n_h = 0,
-              ii_obs = 1:nrow(uk_drivers), N_obs = nrow(uk_drivers),
+              ii_obs = 1:nrow(uk_front), N_obs = nrow(uk_front),
               periodo = 12,
-              x = uk_drivers$law),
+              x = law$value),
   iter_sampling = 2000, iter_warmup = 2000,
   parallel_chains = 4, refresh = 1000, init = 0.01,
   step_size = 0.01,
@@ -1014,9 +1077,11 @@ sims$summary(
   select(variable, mean, q5, q95, rhat) |> 
   mutate(across(where(is.double), ~ round(.x, 6)))
 ```
+
 El coeficiente de la variable dummy que indica
-la presencia de la ley de usar cinturón de seguridad redujo en un 24%
-el número de muertes o heridos graves en accidentes,
+la presencia de la ley de usar cinturón de seguridad redujo en alrededor de 35%
+el número de muertes o heridos graves en accidentes de pasajeros viajando
+en los asientos delanteros,
 controlando por cambios posibles de nivel de la serie y estacionalidad.
 
 ```{r}
@@ -1031,9 +1096,9 @@ ggplot(sims_est_tbl |> filter(variable == "mu_sin_est")) +
   geom_line(aes(x = t, y = valores, group = .draw), 
             alpha = 0.01, size = 0.05, colour = "red") +
   geom_line(data = media_tbl, aes(x = t, y = media, colour = variable)) +
-  geom_vline(xintercept = which(uk_drivers$law==1)[1], colour = "gray") +
+  geom_vline(xintercept = which(law$value==1)[1], colour = "gray") +
    geom_point(data = Seatbelts |> as_tibble() |> mutate(t = row_number()), 
-             aes(x = t, y = log(drivers)))
+             aes(x = t, y = log(front)))
 ```
 
 En este ejemplo usamos el modelo de observaciones dado por
@@ -1044,3 +1109,482 @@ cinturones de seguridad. En general, podemos usar más covariables
 apropiadas y coeficientes dinámicos:
 
 $$y_t = \mu_t + \gamma_t + \beta_t x_t + \epsilon_t$$
+En este caso, podemos definir el estado como:
+
+$$\theta_t = (\mu_t, \nu_t, \gamma_{1,t},\ldots,\gamma_{s,t}, \beta_{1,t},\beta_{2,t},
+\ldots,\beta_{p,t})^t,$$
+
+La ecuación de observación es:
+
+$$y_t = F_t\theta_t + \epsilon_t,$$
+
+donde 
+$$
+F_t = 
+(1, 0, 1, 0,\ldots, 0, x_{1,t}, x_{2,t},\ldots , x_{p,t}).
+$$
+La ecuación de transición de estados (suponiendo datos trimestrales
+($s=4$) y dos covariables $x_t$ ($p=2$) está dada por 
+
+$$
+G_t =
+\begin{pmatrix}
+1 & 1 & & & & &\\
+0 & 1 & & &\\ 
+ & & &  -1 & -1 & -1 & &\\
+ & & &  1 & 0 & 0 & &\\
+ & & & 0 & 1 & 0 & &\\
+  & & &  &  &  & 1& 0\\
+ & & &  &  &  & 0 & 1\\
+
+\end{pmatrix}
+$$
+Para términos $\beta$ estáticos de regresión, podemos tomar
+
+$$
+\theta_{t} = G_t \theta_{t-1} + 
+\begin{pmatrix}
+\eta_{1,t} \\
+\eta_{2,t} \\
+\omega_t \\
+0 \\
+\vdots \\
+0
+
+\end{pmatrix}
+$$
+
+y para regresión dinámica:
+
+$$
+\theta_{t} = G_t \theta_{t-1} + 
+\begin{pmatrix}
+\eta_{1,t} \\
+\eta_{2,t} \\
+\omega_t \\
+0 \\
+\vdots \\
+0\\
+e_{1,t} \\
+e_{2,t} \\
+\end{pmatrix}
+$$
+con $e_{i,t} \sim N(0, \sigma_{i,\beta})$. Es decir, ponemos una transición
+de caminata aleatoria para cada coerficiente. Generalmente:
+
+- Conviene que las variables $x_i$ estén centradas y escaladas (estandarizadas) para que tengan variación similar
+- Al centrarlas, evitamos problemas en el ajuste por correlaciones con el nivel
+y tendencia.
+- Al escalarlas, es más simple poner iniciales apropiadas para $\sigma_{i,\beta}$.
+
+
+
+### Ejemplo: cinturones de seguridad
+
+Regresamos al ejemplo de cinturones de seguridad. Usaremos el paquete 
+*bsts* para especificar nuestro modelo. En este ejemplo usaremos
+adicionalmente la variable de precio de gasolina, pues esta variable
+tiene efecto sobre la forma de manejar y las decisiones de viajes.
+
+```{r}
+#| message: false
+library(bsts)
+y <- log(uk_front$value) |> as.ts()
+precio_gas <- log(uk_drivers |> filter(key == "PetrolPrice") |> 
+  pull(value))
+precio_gas_c <- (precio_gas - mean(precio_gas))
+```
+
+```{r}
+ggplot(uk_drivers |> filter(key == "PetrolPrice"), 
+       aes(x = index, y = value)) +
+  geom_point() +
+  geom_vline(xintercept = my("Feb, 1983"), colour = "red")
+```
+
+
+
+```{r}
+ley <- uk_drivers |> filter(key=="law") |> pull(value)
+esp_estado <- 
+  AddLocalLinearTrend(list(), y) |> 
+  AddSeasonal(y, nseasons = 12) |>
+  AddDynamicRegression(y ~ precio_gas_c + ley) 
+```
+
+```{r}
+ajuste <- bsts(y, state.specification = esp_estado,
+               niter = 10000, seed = 2323)
+```
+
+```{r}
+plot(ajuste, "state", burn = 2000)
+```
+
+Y podemos ver los coeficientes de los términos de regresión:
+
+```{r}
+plot(ajuste, "dynamic", burn = 1000)
+```
+El coeficiente de precio de la gasolina es negativo, y se reduce
+en cierta medida en el tiempo.
+
+Podemos graficar simplemente las componentes de nuestro modelo:
+
+```{r}
+plot(ajuste, "components")
+PlotBstsComponents(ajuste, components = 2:3, same = FALSE)
+```
+O también podemos graficar manualmente, por ejemplo:
+
+```{r}
+dims <- ajuste$state.contributions |> dim()
+tiempo <- dims[3]
+contribuciones_tbl <- map(1:tiempo, ~ ajuste$state.contributions[,,.x] |> 
+  as_tibble() |> mutate(t = .x)) |> bind_rows() |> 
+  pivot_longer(trend:dynamic, values_to = "value", names_to = "comp") |> 
+  group_by(t, comp) |> 
+  summarise(media = mean(value), q5 = quantile(value, 0.05),
+            q95 = quantile(value, 0.95), .groups = "drop")
+```
+
+
+En la siguiente gráfica mostramos las componentes *en escala diferente*:
+
+```{r}
+ggplot(contribuciones_tbl, 
+  aes(x = t, y = media, ymin = q5, ymax = q95)) +
+  geom_ribbon(alpha = 0.1) + 
+  geom_line(alpha = 1) + facet_wrap(~ comp, scales = "free_y", ncol = 1)
+```
+Nótese que cerca de la intervención se amplía el intervalo del nivel: esto
+es porque existe la posibilidad de que que la tendencia explique (o contrarrestre)
+parte del efecto de la introducción de la ley de cinturones.
+
+## Análisis secuencial
+
+Ahora veremos cómo hacemos análisis secuencial, en contraste al análisis
+retrospectivo que examinamos en la parte anterior. Este análisis, además
+de ser útil en la práctica, es importante pues produce diagnósticos 
+útiles, relativamente simples, para determinar qué tan bueno es el ajuste
+del modelo a las series de tiempo de interés.
+
+Veremos el argumento aplicado al modelo del nivel local. Puedes
+ver el argumnento general en la sección 4.2 de @durbinkoopman.
+
+$$y_t =  \theta_t + \epsilon_t,$$
+$$\theta_t = \theta_{t-1} + \eta_t,$$
+con 
+
+- $\epsilon_t$ normal con media cero y varianza $\sigma_\epsilon^2$, y 
+- $\eta_t$ normal con media cero y varianza $\sigma_\eta^2$.
+- En esta parte, supondremos $\sigma_\epsilon^2$ y $\sigma_\eta^2$ **conocidas** (aunque en los
+ejemplos anteriores no lo hicimos). 
+
+Denotaremos todos los valores de la serie hasta el momento
+$t$, $y_1,y_2,\ldots, y_t$ mediante $D_t$. Nótese que todo el 
+análisis retrospectivo que hemos hecho hasta el momento es de la posterior
+de los estados dados todos los datos:
+$$p(\theta_t|D_T)$$
+Para hacer el análisis en línea, supongamos que estamos en el momento $t$ y 
+observamos $y_t$. Consideramos las siguientes distribuciones:
+
+- Predicción a un paso del estado del sistema: $p(\theta_t| D_{t-1})$
+- Predicción del valor de la serie a un paso: $p(y_t | D_{t-1})$
+- Estado actualizado cuando observamos $y_t$: $p(\theta_t | D_t)$
+
+Supondremos que tenemos $p(\theta_{t-1}|D_{t-1})$, y que tiene
+distribución normal con media $m_{t-1}$ y varianza $C_{t-1}$:
+
+$$\theta_{t-1}|D_{t-1} \sim N(m_{t-1}, C_{t-1}).$$
+
+Ahora veremos cómo encontramos
+las distribuciones mostradas arriba, lo cuál nos dará una manera recursiva
+de hacer estos cálculos.
+
+### Evolución del estado
+
+Encontrar $p(\theta_t|D_{t-1})$ es relativamente fácil. Como
+
+$$\theta_t = \theta_{t-1}+ \eta_t$$,
+
+Entonces (por propiedades de esperanza y varianza):
+
+$$\theta_t|D_{t-1} \sim N(m_{t-1}, C_{t-1} + \sigma_\eta^2)$$
+Denotamos $a_t$ y $P_t$ como la media y varianza de $\theta_t|D_{t-1}$,
+de modo que tenemos las ecuaciones
+$$a_t = m_{t-1}, P_t = C_{t-1} + \sigma_\eta^2$$ 
+
+### Actualización
+
+Ahora consideramos actualizar nuestra información del estado incluyendo
+$y_t$ una vez que lo observamos, es decir, queremos calcular 
+$p(\theta_t|D_t)$. Por la regla de Bayes,
+
+$$p(\theta_t|D_t)=p(\theta_t|D_{t-1},y_t) \propto p(Y_t=y_t|D_{t-1}, \theta_t)p(\theta_t|D_{t-1})$$
+Esto es el producto de dos distribuciones normales, así que el producto es normal,
+y basta con encontrar su media $m_t$ y varianza $C_t$.
+Podemos usar esta fórmula y completar cuadrados. Daremos otro argumento abajo:
+
+Consideramos primero $E[\theta_t|D_t] = E_{D_{t-1}}[\theta_t| y_t]$. La ecuación
+de espacio de estados indica que dado $D_{t-1}$, $y_t$ y $\theta_t$ tienen
+una distribución conjunta bivariada (la condicional de $\theta_t$ dado $D_{t-1}$ es
+normal como vimos arriba, y la condicional de $y_t$ dado $D_{t-1}$ y $\theta_t$
+es normal por la ecuación de observación).
+
+::: callout-tip
+
+Recordamos entonces que si $Y$ y $Z$ tienen
+una distribución normal bivariada, entonces la condicional de $Y$ 
+dada $Z$ tiene una distribución normal
+con media
+
+$$E[Y|Z] = E[Y] + \rho\frac{\sigma_Y}{\sigma_Z}(Z -  E[Z])$$
+y varianza
+$$V(Y|Z=z) = ({1-\rho^2}){\sigma_Y^2}$$
+:::
+
+Aplicando a nuestro caso, tenemos
+
+$$E_{D_{t-1}}[\theta_t| y_t] = E_{D_{t-1}}[\theta_t] + \rho\sqrt{\frac{\textrm{Var}_{D_{t-1}}(\theta_t)}{\textrm{Var}_{D_{t-1}}(y_t)}}\left
+(y_t - E_{D_{t-1}}[y_t] \right).$$
+
+Tenemos ahora que $E_{D_{t-1}}[y_t] = a_t, E_{D_{t-1}}[\theta_t] = a_t$,
+por definición,
+y adicionalmente
+$$Var_{D_{t-1}}(y_t) = Var_{D_{t-1}}(\theta_t) + \sigma_\epsilon^2 = P_t + \sigma_\epsilon^2$$
+de modo que la ecuación de arriba queda:
+
+$$E_{D_{t-1}}[\theta_t| y_t] = a_t + \rho\sqrt{\frac{P_t}{P_t + \sigma_\epsilon^2}}\left
+(y_t - a_t \right).$$
+
+Ahora consideramos $\rho$. La covarianza entre $\alpha_t$ y $y_t$ dado
+$D_{t-1}$ es igual a
+$$\textrm{Cov}_{D_{t-1}}(\theta_t, y_t) = E_{D_{t-1}}((\theta_t - a_t)(y_t -a_t))$$
+que es igual a
+
+$$E_{D_{t-1}}((\theta_t - a_t)(\theta_t + \epsilon_t - a_t)) =
+\textrm{Var}_{D_{t-1}}(\theta_t) = P_t,$$
+
+y sustituyendo arriba,
+
+$$m_t = E[\theta_t|D_t]= E_{D_{t-1}}[\theta_t| y_t] = a_t + {\frac{P_t}{P_t + \sigma_\epsilon^2}}\left
+(y_t - a_t \right) $$
+
+es decir,
+
+$$m_t =  a_t + K_t(y_t-a_t)$$
+donde 
+
+$$K_t = \frac{P_t}{P_t + \sigma_\epsilon^2}$$.
+
+Y ahora podemos interpetar esta ecuación: para actualizar el valor
+esperado del estado $a_t$ dado $D_{t-1}$,
+una vez que observamos $y_t$, ajustamos $a_t$
+por un factor de la *innovación*
+$$v_t = y_t - a_t$$
+El factor de ajuste es chico cuando la observación es muy ruidosa ($\sigma_\epsilon$ es grande), o cuando $P_t$ es muy chico (el estado es estimado con alta precisión).
+Esto explica cómo el nivel es un tipo de suavizamiento de las observaciones.
+
+Ahora calculamos la varianza. Por las ecuaciones de arriba de la normal bivariada,
+tenemos entonces:
+
+$$\rho^2 = \frac{P_t^2}{P_t(P_t + \sigma_\epsilon^2) } = \frac{P_t}{P_t + \sigma_\epsilon^2} $$
+De modo que
+
+$$C_t = \textrm{Var}(\theta_t|D_t) = P_t(1 - K_t)$$
+Nótese que $K_t$ está entre cero y uno, y como 
+$P_t =\textrm{Var}(\theta_t|D_{t-1})$,
+la varianza del estado baja cuando observamos un nuevo valor $y_t$. A la cantidad
+$K_t$ se le llama a veces ganancia de Kalman.
+
+### Predicción
+
+Finalmente, hacemos predicciones usando $p(\theta{t}|D_{t-1})$. Como
+esta última distribución es normal con media $a_t$ y varianza $P_t$, 
+la distribución predictiva $p(y_{t}|D_{t-1})$ es normal con media
+
+$$f_t = a_t$$
+
+y varianza
+
+$$P_t + \sigma_\epsilon^2$$
+
+### Resumen
+
+A este proceso iterativo de evolución y actualización se le llama
+*filtro de Kalman*. Nuestro resultado es el siguiente:
+
+::: callout-note
+# Filtro de Kalman para nivel local
+
+1. Suponemos $\theta_{t-1}|D_{t-1} \sim N(m_{t-1}, C_{t-1})$, con algunas $m_t$ y $C_t$ fijas.
+2. **Predicción de estado**: $\theta_t|D_{t-1} \sim N(a_t, P_t)$, donde
+$$a_t = m_{t-1}$$ y $P_t = C_{t-1} + \sigma_\eta^2$.
+3. **Pronóstico a un paso**: $y_{t} \sim N(f_t, Q_t)$, donde
+$f_t = a_t$ y $Q_t = P_t + \sigma_\epsilon^2$.
+4. **Actualización**: Sea $\theta_t|D_{t} \sim N(m_t, C_t)$, donde
+$m_t = a_t + K_t(y_t - a_t)$ y $C_t = P_t(1-K_t)$, con 
+$K_t = \frac{P_t}{P_t + \sigma_{\epsilon}^2}$
+
+Inicializamos el filtro fijando $\theta_1|D_0 \sim N(a_1, P_1).$ 
+:::
+
+Para hacer predicciones, este filtro es todo lo que necesitamos si 
+$\sigma_{\epsilon},\sigma_{\nu}$ son conocidas. Este filtro puede implementarse
+de manera muy eficiente. Puedes ver la versión general para el modelo
+estructural lineal en 4.2 de @durbinkoopman.
+
+### Ejemplo
+
+Consideramos la serie de Río Nilo. Fijamos $\sigma_\epsilon = 122$
+y $\sigma_\eta = 44$ (estimadores puntuales que calculamos arriba). El filtro
+en una implementación simple se ve como sigue:
+
+```{r}
+filtro_nivel <- function(y, sigma_2_eps = 122, sigma_2_eta = 44){
+  n <- length(y)
+  a <- numeric(n)
+  m <- numeric(n)
+  P <- numeric(n)
+  C <- numeric(n)
+  Q <- numeric(n)
+  v_std <- numeric(n)
+  a[1] <- 1000
+  P[1] <- 50
+  for(t in 1:n){
+    # predicción de estado
+    if(t >= 2){
+      a[t] = m[t-1]
+      P[t] = C[t-1] + sigma_2_eta
+    }
+    # pronóstico
+    y_f[t] <- a[t]
+    Q[t] <- P[t] + sigma_2_eps
+    # actualización
+    K = P[t]/ (P[t] + sigma_2_eps)
+    m[t] <- a[t] + K * (y[t] - a[t])
+    C[t] <- P[t] * (1 - K)
+    v_std[t] <- (y[t] - a[t])/sqrt(P[t])
+  }
+  tibble(t = 1:n, a, y_f, Q, P, y, v_std) |> 
+    as_tsibble(index = t)
+}
+filtro_tbl <- filtro_nivel(Nile |> as.numeric())
+```
+
+En la siguiente gráfica, graficamos el pronóstico del estado para
+cada $t$. Obsérvese como el filtro va corrigiendo (está haciendo "tracking" del
+estado) su estimación dependiendo
+de dónde caen las observaciones en relación al estado anterior:
+
+```{r}
+ggplot(filtro_tbl, 
+  aes(x = t, ymin = a - 2 * sqrt(Q), ymax = a + 2 * sqrt(Q))) + 
+  geom_ribbon(alpha = 0.5, fill = "red") + 
+  geom_line(aes(y= a), colour = "red")+
+  geom_line(aes(y = y)) + geom_point(aes(y = y))
+```
+
+
+
+
+
+## Innovaciones y diagnósticos
+
+Un resultado importante de este filtro es que las innovaciones
+$v_t = y_t - a_t$, que es comparar la observación con la predicción de $y_t$ dado $D_{t-1}$
+cumplen la siguiente propiedad:
+
+
+::: callout-tip
+# Innovaciones y diagnósticos
+
+Bajo los supuestos del modelo lineal de espacio de estados, las innovaciones
+$v_t$ son normales independientes con media cero.
+
+:::
+
+La normalidad puedes demostrarla del argumento de arriba. La independencia
+puedes deducirla del DAG para el modelo. Por ejemplo, nuestro diagnóstico
+para el modelo del río Nilo que vimos arriba da:
+
+```{r}
+#| layout-ncol: 2
+#| fig-cap: 
+#|  - "Fig 1"
+#|  - "Fig 2"
+#| fig-width: 4
+#| fig-height: 3
+ACF(filtro_tbl, v_std) |> autoplot() + ylim(c(-1, 1))
+ggplot(filtro_tbl, aes(sample = v_std)) + geom_qq() +
+  geom_qq_line()
+```
+
+
+
+
+## Filtrado y Suavizamiento
+
+Las estimaciones del estado 
+en línea del análisis secuencial generalmente se llaman **estados filtrados**,
+mientras que las estimaciones del análisis retrospectivo que vimos arriba
+se llaman **estados suavizados**.
+
+Bajo los supuestos del modelo lineal con errores gaussianos es posible
+hacer un algoritmo eficiente para calcular tanto filtro como suavizador
+(este es el enfoque del paquete *bsts*). Para hacer una simulación MCMC
+hacemos:
+
+- Con algunos valores iniciales para las varianzas, se filtran los datos
+con el filtro de Kalman. Se obtienen predicciones a un paso condicionales
+a los valores de la varianza.
+- Se obtienen los valores suavizados con otro algoritmo suavizador, que hace una pasada de los datos del final hacia el principio.
+- Se obtiene una simulación de las varianzas condicional a los valores suavizados.
+- Se repite el proceso para la siguiente simulación.
+
+La ventaja de este enfoque es que es una manera eficiente de obtener todos
+los estados suavizados junto con las innovaciones y error de predicción condicional
+a las varianzas. Podemos usar diagnósticos de ajuste sobre esas innovaciones
+que resultan del filtro.
+
+### Ejemplo (bsts) {-}
+
+```{r}
+#| message: false
+library(bsts)
+y <- Nile
+esp_estado <- AddLocalLevel(list(), y) 
+ajuste <- bsts(y, state.specification = esp_estado,
+               niter = 10000, seed = 2323)
+```
+
+Podemos ver el estado suavizado:
+
+```{r}
+plot(ajuste, "state",  burn = 2000)
+```
+Y podemos también examinar las innovaciones, que se obtienen aplicando
+el filtro de Kalman para cada simulación de las varianzas y los coeficientes
+de regresión:
+
+```{r}
+#| warning: false
+pred_errors_tbl <- 
+  ajuste$one.step.prediction.errors |> 
+  t() |> as_tibble() |>
+  mutate(t = 1: length(Nile)) |> 
+  pivot_longer(-c(t), names_to = "sim", values_to = "valor") |> 
+  group_by(t) |> 
+  summarise(valor = mean(valor)) |> 
+  as_tsibble(index = t)
+```
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+ACF(pred_errors_tbl) |> 
+  autoplot() + ylim(c(-1,1))
+```
+
+
