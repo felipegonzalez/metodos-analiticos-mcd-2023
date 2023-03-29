@@ -1123,6 +1123,7 @@ $$
 F_t = 
 (1, 0, 1, 0,\ldots, 0, x_{1,t}, x_{2,t},\ldots , x_{p,t}).
 $$
+
 La ecuación de transición de estados (suponiendo datos trimestrales
 ($s=4$) y dos covariables $x_t$ ($p=2$) está dada por 
 
@@ -1139,6 +1140,7 @@ G_t =
 
 \end{pmatrix}
 $$
+
 Para términos $\beta$ estáticos de regresión, podemos tomar
 
 $$
@@ -1169,6 +1171,7 @@ e_{1,t} \\
 e_{2,t} \\
 \end{pmatrix}
 $$
+
 con $e_{i,t} \sim N(0, \sigma_{i,\beta})$. Es decir, ponemos una transición
 de caminata aleatoria para cada coerficiente. Generalmente:
 
@@ -1270,7 +1273,7 @@ de ser útil en la práctica, es importante pues produce diagnósticos
 del modelo a las series de tiempo de interés.
 
 Veremos el argumento aplicado al modelo del nivel local. Puedes
-ver el argumnento general en la sección 4.2 de @durbinkoopman.
+ver el argumento general en la sección 4.2 de @durbinkoopman.
 
 $$y_t =  \theta_t + \epsilon_t,$$
 $$\theta_t = \theta_{t-1} + \eta_t,$$
@@ -1400,7 +1403,7 @@ $K_t$ se le llama a veces ganancia de Kalman.
 
 ### Predicción
 
-Finalmente, hacemos predicciones usando $p(\theta{t}|D_{t-1})$. Como
+Finalmente, hacemos predicciones usando $p(\theta_{t}|D_{t-1})$. Como
 esta última distribución es normal con media $a_t$ y varianza $P_t$, 
 la distribución predictiva $p(y_{t}|D_{t-1})$ es normal con media
 
@@ -1437,12 +1440,12 @@ estructural lineal en 4.2 de @durbinkoopman.
 
 ### Ejemplo
 
-Consideramos la serie de Río Nilo. Fijamos $\sigma_\epsilon = 122$
-y $\sigma_\eta = 44$ (estimadores puntuales que calculamos arriba). El filtro
+Consideramos la serie de Río Nilo. Fijamos $\sigma_\epsilon = 120$
+y $\sigma_\eta = 20$ (estimadores puntuales que calculamos arriba). El filtro
 en una implementación simple se ve como sigue:
 
 ```{r}
-filtro_nivel <- function(y, sigma_2_eps = 122, sigma_2_eta = 44){
+filtro_nivel <- function(y, sigma_2_eps = 120^2, sigma_2_eta = 20^2){
   n <- length(y)
   a <- numeric(n)
   m <- numeric(n)
@@ -1465,9 +1468,9 @@ filtro_nivel <- function(y, sigma_2_eps = 122, sigma_2_eta = 44){
     K = P[t]/ (P[t] + sigma_2_eps)
     m[t] <- a[t] + K * (y[t] - a[t])
     C[t] <- P[t] * (1 - K)
-    v_std[t] <- (y[t] - a[t])/sqrt(P[t])
+    v_std[t] <- (y[t] - a[t])/sqrt(P[t] + sigma_2_eps)
   }
-  tibble(t = 1:n, a, y_f, Q, P, y, v_std) |> 
+  tibble(t = 1:n, a, m, y_f, Q, P, C, y, v_std) |> 
     as_tsibble(index = t)
 }
 filtro_tbl <- filtro_nivel(Nile |> as.numeric())
@@ -1480,7 +1483,7 @@ de dónde caen las observaciones en relación al estado anterior:
 
 ```{r}
 ggplot(filtro_tbl, 
-  aes(x = t, ymin = a - 2 * sqrt(Q), ymax = a + 2 * sqrt(Q))) + 
+  aes(x = t, ymin = m - 2 * sqrt(C), ymax = m + 2 * sqrt(C))) + 
   geom_ribbon(alpha = 0.5, fill = "red") + 
   geom_line(aes(y= a), colour = "red")+
   geom_line(aes(y = y)) + geom_point(aes(y = y))
