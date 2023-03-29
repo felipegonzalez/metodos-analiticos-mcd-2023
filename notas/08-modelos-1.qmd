@@ -1496,7 +1496,7 @@ ggplot(filtro_tbl,
 ## Innovaciones y diagnósticos
 
 Un resultado importante de este filtro es que las innovaciones
-$v_t = y_t - a_t$, que es comparar la observación con la predicción de $y_t$ dado $D_{t-1}$
+$v_t = y_t - f_t$, que es comparar la observación con la predicción de $y_t$ dado $D_{t-1}$
 cumplen la siguiente propiedad:
 
 
@@ -1504,12 +1504,25 @@ cumplen la siguiente propiedad:
 # Innovaciones y diagnósticos
 
 Bajo los supuestos del modelo lineal de espacio de estados, las innovaciones
-$v_t$ son normales independientes con media cero.
+$v_t$ son normales con media cero y sin correlación.
 
 :::
 
-La normalidad puedes demostrarla del argumento de arriba. La independencia
-puedes deducirla del DAG para el modelo. Por ejemplo, nuestro diagnóstico
+La normalidad puedes demostrarla del argumento de arriba. La media es cero pues
+por la esperanza iterada,
+
+$$E[y_t-f_t] = E[E[y_t - f_t|D_{t-1}]]$$
+pero $E[y_t|D_{t-1}] = E[\theta_t - \eta_t|D_{t-1}] = a_t = f_t$.
+
+Igualmente puedes condicionar para demostrar  covarianza cero: 
+supongamos que $s < t$, entonces
+
+$$E[(y_t - f_t)(y_s -f_s)|D_{t-1}] = (y_s - f_s)E[(y_t - f_t)|D_{t-1}]$$
+pero $E[y_t-f_t|D_{t-1}]=0$ y por esperanza iterada, la covarianza de cualquier par $v_t,v_s$, $s\neq t$ es
+igual a 0.
+
+Esto nos da un diagnóstico de ajuste basado en las predicciones a un paso.
+Por ejemplo, nuestro diagnóstico
 para el modelo del río Nilo que vimos arriba da:
 
 ```{r}
