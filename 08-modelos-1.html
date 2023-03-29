@@ -396,8 +396,8 @@ div.csl-indent {
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">300</span>, <span class="at">height =</span> <span class="dv">150</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-cfa85793d0aa00fece42" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cfa85793d0aa00fece42">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=circle]\n    nt\n    nt1\n    nt2\n    ntm1\n    etm1\n    et\n    et1\n    et2\n  node [shape=plaintext]\n    #    Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <  e<SUB>t. <\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n        ntm1 [label = <n<SUB>t-1<\/SUB>>]\n    nt [label = <  n<SUB>t  <\/SUB>>]\n    nt1 [label = <n<SUB>t+1<\/SUB>>]\n    nt2 [label = <n<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   #Y1 -> dots\n   #dots -> Ytm1\n   #Ytm1 -> Yt\n   #Yt -> Yt1\n   #Yt1 -> Yt2\n   ntm1 -> Ytm1\n   ntm1 -> nt\n   nt1 -> Yt1\n   nt -> Yt\n   nt2 -> Yt2\n   nt -> nt1\n   nt1 -> nt2\n   #e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same;  Ytm1; Yt; Yt1; Yt2}\n{rank=max; ntm1; nt; nt1; nt2}\n{rank=min; etm1; et; et1; et2}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8b161d1bd1f83fd2844e" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8b161d1bd1f83fd2844e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=circle]\n    nt\n    nt1\n    nt2\n    ntm1\n    etm1\n    et\n    et1\n    et2\n  node [shape=plaintext]\n    #    Y1 [label = <Y<SUB>1<\/SUB>>]\n    dots [label = \"...\"]\n    Ytm1 [label = <Y<SUB>t-1<\/SUB>>]\n    Yt [label = <Y<SUB>t<\/SUB>>]\n    Yt1 [label = <Y<SUB>t+1<\/SUB>>]\n    Yt2 [label = <Y<SUB>t+2<\/SUB>>]\n    etm1 [label = <e<SUB>t-1<\/SUB>>]\n    et [label = <  e<SUB>t. <\/SUB>>]\n    et1 [label = <e<SUB>t+1<\/SUB>>]\n    et2 [label = <e<SUB>t+2<\/SUB>>]\n        ntm1 [label = <n<SUB>t-1<\/SUB>>]\n    nt [label = <  n<SUB>t  <\/SUB>>]\n    nt1 [label = <n<SUB>t+1<\/SUB>>]\n    nt2 [label = <n<SUB>t+2<\/SUB>>]\n  edge [minlen = 3]\n   #Y1 -> dots\n   #dots -> Ytm1\n   #Ytm1 -> Yt\n   #Yt -> Yt1\n   #Yt1 -> Yt2\n   ntm1 -> Ytm1\n   ntm1 -> nt\n   nt1 -> Yt1\n   nt -> Yt\n   nt2 -> Yt2\n   nt -> nt1\n   nt1 -> nt2\n   #e1 -> Y1\n   etm1 -> Ytm1\n   et -> Yt\n   et1 -> Yt1\n   et2 -> Yt2\n{rank=same;  Ytm1; Yt; Yt1; Yt2}\n{rank=max; ntm1; nt; nt1; nt2}\n{rank=min; etm1; et; et1; et2}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Nótese que en esta gráfica, las <span class="math inline">\(y_t\)</span> no son independientes: están correlacionadas a través de caminos abiertos que pasan por el estado, que en este caso es el nivel de la serie.</p>
@@ -509,26 +509,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 8.3 seconds.
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 9.1 seconds.
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 9.2 seconds.
+Chain 1 finished in 10.7 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 10.7 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 10.9 seconds.
+Chain 3 finished in 10.9 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 13.1 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 9.3 seconds.
-Total execution time: 10.9 seconds.</code></pre>
+Mean chain execution time: 11.4 seconds.
+Total execution time: 13.3 seconds.</code></pre>
 </div>
 </div>
 <p>Mostramos primero nuestra estimación de las desviaciones estándar para el nivel y para la observación:</p>
@@ -539,8 +539,8 @@ Total execution time: 10.9 seconds.</code></pre>
 <pre><code># A tibble: 2 × 5
   variable     mean    q5   q95  rhat
   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   122.  101.  143.   1.00
-2 sigma_nivel  44.5  20.9  75.0  1.00</code></pre>
+1 sigma_obs   123.  102.  144.   1.00
+2 sigma_nivel  43.2  20.9  71.8  1.01</code></pre>
 </div>
 </div>
 <p>Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.</p>
@@ -667,26 +667,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 2.1 seconds.
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 2.3 seconds.
-Chain 2 finished in 2.3 seconds.
+Chain 1 finished in 2.6 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.4 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 2.6 seconds.
+Chain 4 finished in 2.6 seconds.
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 2.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.3 seconds.
-Total execution time: 2.5 seconds.</code></pre>
+Mean chain execution time: 2.6 seconds.
+Total execution time: 2.9 seconds.</code></pre>
 </div>
 </div>
 <p>Repetimos nuestros chequeos posteriores predictivos:</p>
@@ -754,24 +754,24 @@ Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 7.6 seconds.
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 8.2 seconds.
-Chain 3 finished in 8.3 seconds.
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 8.7 seconds.
+Chain 1 finished in 10.1 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 10.2 seconds.
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 10.3 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 10.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 8.2 seconds.
-Total execution time: 8.8 seconds.</code></pre>
+Mean chain execution time: 10.3 seconds.
+Total execution time: 10.6 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -855,24 +855,24 @@ Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 6.0 seconds.
-Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 6.1 seconds.
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 6.3 seconds.
+Chain 1 finished in 7.1 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 7.0 seconds.
+Chain 3 finished in 7.7 seconds.
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 8.5 seconds.
+Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 4 finished in 8.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 6.4 seconds.
-Total execution time: 7.2 seconds.</code></pre>
+Mean chain execution time: 8.0 seconds.
+Total execution time: 9.1 seconds.</code></pre>
 </div>
 </div>
 <p>Mostramos primero nuestra estimación de las desviaciones estándar para el nivel y para la observación:</p>
@@ -883,8 +883,8 @@ Total execution time: 7.2 seconds.</code></pre>
 <pre><code># A tibble: 2 × 4
   variable     mean     q5   q95
   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   126.  109.   143. 
-2 sigma_nivel  20.9   9.48  39.3</code></pre>
+1 sigma_obs   125.  110.   142. 
+2 sigma_nivel  21.0   9.75  38.7</code></pre>
 </div>
 </div>
 <p>Y ahora resumimos y mostramos cómo se ve el nivel inferido bajo nuestro modelo.</p>
@@ -1008,41 +1008,41 @@ Chain 2 Iteration:    1 / 6000 [  0%]  (Warmup)
 Chain 3 Iteration:    1 / 6000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 6000 [  0%]  (Warmup) 
 Chain 1 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
-Chain 4 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
 Chain 2 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
 Chain 3 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
+Chain 4 Iteration: 1000 / 6000 [ 16%]  (Warmup) 
 Chain 1 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
-Chain 4 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
 Chain 2 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
 Chain 3 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
+Chain 4 Iteration: 2000 / 6000 [ 33%]  (Warmup) 
 Chain 1 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 3000 / 6000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 3001 / 6000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
 Chain 2 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
-Chain 4 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
 Chain 3 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
+Chain 4 Iteration: 4000 / 6000 [ 66%]  (Sampling) 
 Chain 1 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
-Chain 4 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
 Chain 2 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
 Chain 3 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
+Chain 4 Iteration: 5000 / 6000 [ 83%]  (Sampling) 
 Chain 1 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 1 finished in 74.3 seconds.
-Chain 4 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 4 finished in 75.2 seconds.
-Chain 3 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 3 finished in 75.5 seconds.
+Chain 1 finished in 86.9 seconds.
 Chain 2 Iteration: 6000 / 6000 [100%]  (Sampling) 
-Chain 2 finished in 75.7 seconds.
+Chain 2 finished in 87.0 seconds.
+Chain 3 Iteration: 6000 / 6000 [100%]  (Sampling) 
+Chain 3 finished in 87.1 seconds.
+Chain 4 Iteration: 6000 / 6000 [100%]  (Sampling) 
+Chain 4 finished in 87.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 75.2 seconds.
-Total execution time: 75.8 seconds.</code></pre>
+Mean chain execution time: 87.1 seconds.
+Total execution time: 87.4 seconds.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: 12000 of 12000 (100.0%) transitions hit the maximum treedepth limit of 10.
@@ -1057,9 +1057,9 @@ See https://mc-stan.org/misc/warnings for details.</code></pre>
 <pre><code># A tibble: 3 × 5
   variable     mean    q5   q95  rhat
   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   45.2  33.4   60.2  1.00
-2 sigma_nivel  9.25  0.67  22.6  1.01
-3 sigma_tend  19.5  11.9   28.1  1.00</code></pre>
+1 sigma_obs   45.2  33.0   60.6  1.01
+2 sigma_nivel  9.53  0.72  23.4  1.00
+3 sigma_tend  19.4  11.6   28.3  1.00</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1366,26 +1366,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 81.2 seconds.
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 89.3 seconds.
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 94.0 seconds.
+Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 94.2 seconds.
+Chain 4 finished in 88.2 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 89.2 seconds.
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 2 finished in 100.8 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 106.3 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 89.7 seconds.
-Total execution time: 94.4 seconds.</code></pre>
+Mean chain execution time: 96.1 seconds.
+Total execution time: 106.5 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1394,12 +1394,12 @@ Total execution time: 94.4 seconds.</code></pre>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is_double), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
-  variable     mean    q5   q95  rhat
-  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs   37.6  33.5  41.7   1.00
-2 sigma_nivel  9.28  5.56 14.4   1   
-3 sigma_tend   0     0     0     1   
-4 sigma_est    1.94  0.17  4.83  1.00</code></pre>
+  variable     mean     q5   q95  rhat
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 sigma_obs   37.7  33.8   41.8   1.00
+2 sigma_nivel  9.14  5.44  13.9   1.00
+3 sigma_tend   0     0      0     1.00
+4 sigma_est    1.97  0.181  4.83  1.00</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1607,34 +1607,34 @@ Chain 1 Iteration:    1 / 4000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 4000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 4000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 4000 [  0%]  (Warmup) 
-Chain 4 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
 Chain 1 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
-Chain 3 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
+Chain 4 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
 Chain 2 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
-Chain 4 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 1000 / 4000 [ 25%]  (Warmup) 
 Chain 1 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
-Chain 4 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
+Chain 4 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
+Chain 4 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
+Chain 3 Iteration: 2000 / 4000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 2001 / 4000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
 Chain 2 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
-Chain 4 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 4 finished in 455.3 seconds.
-Chain 3 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 3 finished in 456.1 seconds.
+Chain 4 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 3000 / 4000 [ 75%]  (Sampling) 
 Chain 1 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 1 finished in 457.0 seconds.
+Chain 1 finished in 519.3 seconds.
 Chain 2 Iteration: 4000 / 4000 [100%]  (Sampling) 
-Chain 2 finished in 457.8 seconds.
+Chain 2 finished in 521.4 seconds.
+Chain 4 Iteration: 4000 / 4000 [100%]  (Sampling) 
+Chain 4 finished in 521.9 seconds.
+Chain 3 Iteration: 4000 / 4000 [100%]  (Sampling) 
+Chain 3 finished in 523.5 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 456.5 seconds.
-Total execution time: 457.9 seconds.</code></pre>
+Mean chain execution time: 521.5 seconds.
+Total execution time: 523.6 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1647,11 +1647,11 @@ Total execution time: 457.9 seconds.</code></pre>
 <pre><code># A tibble: 5 × 5
   variable        mean        q5      q95  rhat
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-1 sigma_obs    0.0716   0.0629    0.0804   1.00
-2 sigma_nivel  0.0206   0.00577   0.0331   1.02
-3 sigma_tend   0.00099  0.000082  0.00237  1.01
-4 sigma_est    0.00511  0.000391  0.0127   1.00
-5 beta        -0.339   -0.439    -0.237    1.00</code></pre>
+1 sigma_obs    0.0716   0.0626    0.0806   1.01
+2 sigma_nivel  0.0206   0.00525   0.0340   1.02
+3 sigma_tend   0.00100  0.000079  0.00247  1.01
+4 sigma_est    0.00510  0.000425  0.0126   1.01
+5 beta        -0.338   -0.440    -0.234    1.00</code></pre>
 </div>
 </div>
 <p>El coeficiente de la variable dummy que indica la presencia de la ley de usar cinturón de seguridad redujo en alrededor de 35% el número de muertes o heridos graves en accidentes de pasajeros viajando en los asientos delanteros, controlando por cambios posibles de nivel de la serie y estacionalidad.</p>
@@ -1690,7 +1690,8 @@ Total execution time: 457.9 seconds.</code></pre>
 <p>donde <span class="math display">\[
 F_t =
 (1, 0, 1, 0,\ldots, 0, x_{1,t}, x_{2,t},\ldots , x_{p,t}).
-\]</span> La ecuación de transición de estados (suponiendo datos trimestrales (<span class="math inline">\(s=4\)</span>) y dos covariables <span class="math inline">\(x_t\)</span> (<span class="math inline">\(p=2\)</span>) está dada por</p>
+\]</span></p>
+<p>La ecuación de transición de estados (suponiendo datos trimestrales (<span class="math inline">\(s=4\)</span>) y dos covariables <span class="math inline">\(x_t\)</span> (<span class="math inline">\(p=2\)</span>) está dada por</p>
 $$ G_t =
 <span class="math display">\[\begin{pmatrix}
 1 &amp; 1 &amp; &amp; &amp; &amp; &amp;\\
@@ -1702,7 +1703,8 @@ $$ G_t =
 &amp; &amp; &amp;  &amp;  &amp;  &amp; 0 &amp; 1\\
 
 \end{pmatrix}\]</span>
-<p>$$ Para términos <span class="math inline">\(\beta\)</span> estáticos de regresión, podemos tomar</p>
+<p>$$</p>
+<p>Para términos <span class="math inline">\(\beta\)</span> estáticos de regresión, podemos tomar</p>
 $$ <em>{t} = G_t </em>{t-1} +
 <span class="math display">\[\begin{pmatrix}
 \eta_{1,t} \\
@@ -1727,7 +1729,8 @@ $$ <em>{t} = G_t </em>{t-1} +
 e_{1,t} \\
 e_{2,t} \\
 \end{pmatrix}
-\]</span> con <span class="math inline">\(e_{i,t} \sim N(0, \sigma_{i,\beta})\)</span>. Es decir, ponemos una transición de caminata aleatoria para cada coerficiente. Generalmente:</p>
+\]</span></p>
+<p>con <span class="math inline">\(e_{i,t} \sim N(0, \sigma_{i,\beta})\)</span>. Es decir, ponemos una transición de caminata aleatoria para cada coerficiente. Generalmente:</p>
 <ul>
 <li>Conviene que las variables <span class="math inline">\(x_i\)</span> estén centradas y escaladas (estandarizadas) para que tengan variación similar</li>
 <li>Al centrarlas, evitamos problemas en el ajuste por correlaciones con el nivel y tendencia.</li>
@@ -1763,16 +1766,16 @@ e_{2,t} \\
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y, <span class="at">state.specification =</span> esp_estado,</span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">niter =</span> <span class="dv">10000</span>, <span class="at">seed =</span> <span class="dv">2323</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Mar 29 00:39:30 2023 =-=-=-=-=
-=-=-=-=-= Iteration 1000 Wed Mar 29 00:39:35 2023 =-=-=-=-=
-=-=-=-=-= Iteration 2000 Wed Mar 29 00:39:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 3000 Wed Mar 29 00:39:44 2023 =-=-=-=-=
-=-=-=-=-= Iteration 4000 Wed Mar 29 00:39:49 2023 =-=-=-=-=
-=-=-=-=-= Iteration 5000 Wed Mar 29 00:39:53 2023 =-=-=-=-=
-=-=-=-=-= Iteration 6000 Wed Mar 29 00:39:58 2023 =-=-=-=-=
-=-=-=-=-= Iteration 7000 Wed Mar 29 00:40:03 2023 =-=-=-=-=
-=-=-=-=-= Iteration 8000 Wed Mar 29 00:40:07 2023 =-=-=-=-=
-=-=-=-=-= Iteration 9000 Wed Mar 29 00:40:12 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Mar 29 03:27:43 2023 =-=-=-=-=
+=-=-=-=-= Iteration 1000 Wed Mar 29 03:27:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 2000 Wed Mar 29 03:27:54 2023 =-=-=-=-=
+=-=-=-=-= Iteration 3000 Wed Mar 29 03:27:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 4000 Wed Mar 29 03:28:05 2023 =-=-=-=-=
+=-=-=-=-= Iteration 5000 Wed Mar 29 03:28:10 2023 =-=-=-=-=
+=-=-=-=-= Iteration 6000 Wed Mar 29 03:28:16 2023 =-=-=-=-=
+=-=-=-=-= Iteration 7000 Wed Mar 29 03:28:21 2023 =-=-=-=-=
+=-=-=-=-= Iteration 8000 Wed Mar 29 03:28:27 2023 =-=-=-=-=
+=-=-=-=-= Iteration 9000 Wed Mar 29 03:28:32 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1827,7 +1830,7 @@ e_{2,t} \\
 <section id="análisis-secuencial" class="level2" data-number="8.11">
 <h2 data-number="8.11" class="anchored" data-anchor-id="análisis-secuencial"><span class="header-section-number">8.11</span> Análisis secuencial</h2>
 <p>Ahora veremos cómo hacemos análisis secuencial, en contraste al análisis retrospectivo que examinamos en la parte anterior. Este análisis, además de ser útil en la práctica, es importante pues produce diagnósticos útiles, relativamente simples, para determinar qué tan bueno es el ajuste del modelo a las series de tiempo de interés.</p>
-<p>Veremos el argumento aplicado al modelo del nivel local. Puedes ver el argumnento general en la sección 4.2 de <span class="citation" data-cites="durbinkoopman">Durbin y Koopman (<a href="99-referencias.html#ref-durbinkoopman" role="doc-biblioref">2001</a>)</span>.</p>
+<p>Veremos el argumento aplicado al modelo del nivel local. Puedes ver el argumento general en la sección 4.2 de <span class="citation" data-cites="durbinkoopman">Durbin y Koopman (<a href="99-referencias.html#ref-durbinkoopman" role="doc-biblioref">2001</a>)</span>.</p>
 <p><span class="math display">\[y_t =  \theta_t + \epsilon_t,\]</span> <span class="math display">\[\theta_t = \theta_{t-1} + \eta_t,\]</span> con</p>
 <ul>
 <li><span class="math inline">\(\epsilon_t\)</span> normal con media cero y varianza <span class="math inline">\(\sigma_\epsilon^2\)</span>, y</li>
@@ -1891,7 +1894,7 @@ Tip
 </section>
 <section id="predicción" class="level3" data-number="8.11.3">
 <h3 data-number="8.11.3" class="anchored" data-anchor-id="predicción"><span class="header-section-number">8.11.3</span> Predicción</h3>
-<p>Finalmente, hacemos predicciones usando <span class="math inline">\(p(\theta{t}|D_{t-1})\)</span>. Como esta última distribución es normal con media <span class="math inline">\(a_t\)</span> y varianza <span class="math inline">\(P_t\)</span>, la distribución predictiva <span class="math inline">\(p(y_{t}|D_{t-1})\)</span> es normal con media</p>
+<p>Finalmente, hacemos predicciones usando <span class="math inline">\(p(\theta_{t}|D_{t-1})\)</span>. Como esta última distribución es normal con media <span class="math inline">\(a_t\)</span> y varianza <span class="math inline">\(P_t\)</span>, la distribución predictiva <span class="math inline">\(p(y_{t}|D_{t-1})\)</span> es normal con media</p>
 <p><span class="math display">\[f_t = a_t\]</span></p>
 <p>y varianza</p>
 <p><span class="math display">\[P_t + \sigma_\epsilon^2\]</span></p>
@@ -1922,9 +1925,9 @@ Filtro de Kalman para nivel local
 </section>
 <section id="ejemplo-1" class="level3" data-number="8.11.5">
 <h3 data-number="8.11.5" class="anchored" data-anchor-id="ejemplo-1"><span class="header-section-number">8.11.5</span> Ejemplo</h3>
-<p>Consideramos la serie de Río Nilo. Fijamos <span class="math inline">\(\sigma_\epsilon = 122\)</span> y <span class="math inline">\(\sigma_\eta = 44\)</span> (estimadores puntuales que calculamos arriba). El filtro en una implementación simple se ve como sigue:</p>
+<p>Consideramos la serie de Río Nilo. Fijamos <span class="math inline">\(\sigma_\epsilon = 120\)</span> y <span class="math inline">\(\sigma_\eta = 20\)</span> (estimadores puntuales que calculamos arriba). El filtro en una implementación simple se ve como sigue:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>filtro_nivel <span class="ot">&lt;-</span> <span class="cf">function</span>(y, <span class="at">sigma_2_eps =</span> <span class="dv">122</span>, <span class="at">sigma_2_eta =</span> <span class="dv">44</span>){</span>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>filtro_nivel <span class="ot">&lt;-</span> <span class="cf">function</span>(y, <span class="at">sigma_2_eps =</span> <span class="dv">120</span><span class="sc">^</span><span class="dv">2</span>, <span class="at">sigma_2_eta =</span> <span class="dv">20</span><span class="sc">^</span><span class="dv">2</span>){</span>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
 <span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
 <span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
@@ -1947,9 +1950,9 @@ Filtro de Kalman para nivel local
 <span id="cb89-21"><a href="#cb89-21" aria-hidden="true" tabindex="-1"></a>    K <span class="ot">=</span> P[t]<span class="sc">/</span> (P[t] <span class="sc">+</span> sigma_2_eps)</span>
 <span id="cb89-22"><a href="#cb89-22" aria-hidden="true" tabindex="-1"></a>    m[t] <span class="ot">&lt;-</span> a[t] <span class="sc">+</span> K <span class="sc">*</span> (y[t] <span class="sc">-</span> a[t])</span>
 <span id="cb89-23"><a href="#cb89-23" aria-hidden="true" tabindex="-1"></a>    C[t] <span class="ot">&lt;-</span> P[t] <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> K)</span>
-<span id="cb89-24"><a href="#cb89-24" aria-hidden="true" tabindex="-1"></a>    v_std[t] <span class="ot">&lt;-</span> (y[t] <span class="sc">-</span> a[t])<span class="sc">/</span><span class="fu">sqrt</span>(P[t])</span>
+<span id="cb89-24"><a href="#cb89-24" aria-hidden="true" tabindex="-1"></a>    v_std[t] <span class="ot">&lt;-</span> (y[t] <span class="sc">-</span> a[t])<span class="sc">/</span><span class="fu">sqrt</span>(P[t] <span class="sc">+</span> sigma_2_eps)</span>
 <span id="cb89-25"><a href="#cb89-25" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb89-26"><a href="#cb89-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span>n, a, y_f, Q, P, y, v_std) <span class="sc">|&gt;</span> </span>
+<span id="cb89-26"><a href="#cb89-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span>n, a, m, y_f, Q, P, C, y, v_std) <span class="sc">|&gt;</span> </span>
 <span id="cb89-27"><a href="#cb89-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tsibble</span>(<span class="at">index =</span> t)</span>
 <span id="cb89-28"><a href="#cb89-28" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb89-29"><a href="#cb89-29" aria-hidden="true" tabindex="-1"></a>filtro_tbl <span class="ot">&lt;-</span> <span class="fu">filtro_nivel</span>(Nile <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1957,7 +1960,7 @@ Filtro de Kalman para nivel local
 <p>En la siguiente gráfica, graficamos el pronóstico del estado para cada <span class="math inline">\(t\)</span>. Obsérvese como el filtro va corrigiendo (está haciendo “tracking” del estado) su estimación dependiendo de dónde caen las observaciones en relación al estado anterior:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtro_tbl, </span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> a <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(Q), <span class="at">ymax =</span> a <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(Q))) <span class="sc">+</span> </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> m <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(C), <span class="at">ymax =</span> m <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(C))) <span class="sc">+</span> </span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
 <span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span> a), <span class="at">colour =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
 <span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> y))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2030,16 +2033,16 @@ Innovaciones y diagnósticos
 <span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y, <span class="at">state.specification =</span> esp_estado,</span>
 <span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">niter =</span> <span class="dv">10000</span>, <span class="at">seed =</span> <span class="dv">2323</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Mar 29 00:40:22 2023 =-=-=-=-=
-=-=-=-=-= Iteration 1000 Wed Mar 29 00:40:22 2023 =-=-=-=-=
-=-=-=-=-= Iteration 2000 Wed Mar 29 00:40:23 2023 =-=-=-=-=
-=-=-=-=-= Iteration 3000 Wed Mar 29 00:40:23 2023 =-=-=-=-=
-=-=-=-=-= Iteration 4000 Wed Mar 29 00:40:24 2023 =-=-=-=-=
-=-=-=-=-= Iteration 5000 Wed Mar 29 00:40:24 2023 =-=-=-=-=
-=-=-=-=-= Iteration 6000 Wed Mar 29 00:40:25 2023 =-=-=-=-=
-=-=-=-=-= Iteration 7000 Wed Mar 29 00:40:26 2023 =-=-=-=-=
-=-=-=-=-= Iteration 8000 Wed Mar 29 00:40:26 2023 =-=-=-=-=
-=-=-=-=-= Iteration 9000 Wed Mar 29 00:40:27 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Mar 29 03:28:44 2023 =-=-=-=-=
+=-=-=-=-= Iteration 1000 Wed Mar 29 03:28:44 2023 =-=-=-=-=
+=-=-=-=-= Iteration 2000 Wed Mar 29 03:28:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 3000 Wed Mar 29 03:28:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 4000 Wed Mar 29 03:28:46 2023 =-=-=-=-=
+=-=-=-=-= Iteration 5000 Wed Mar 29 03:28:47 2023 =-=-=-=-=
+=-=-=-=-= Iteration 6000 Wed Mar 29 03:28:47 2023 =-=-=-=-=
+=-=-=-=-= Iteration 7000 Wed Mar 29 03:28:48 2023 =-=-=-=-=
+=-=-=-=-= Iteration 8000 Wed Mar 29 03:28:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 9000 Wed Mar 29 03:28:49 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>Podemos ver el estado suavizado:</p>
