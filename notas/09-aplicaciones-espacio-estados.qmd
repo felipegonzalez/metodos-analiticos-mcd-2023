@@ -1,0 +1,312 @@
+# Aplicaciones de modelos de espacio de estados
+
+```{r}
+#| code-fold: true
+#| warning: false
+library(tidyverse)
+library(kableExtra)
+library(DiagrammeR)
+locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
+library(lubridate)
+library(fpp3)
+ggplot2::theme_set(ggplot2::theme_light())
+```
+
+## Pronósticos
+
+Consideramos un ejemplo de @hyndman2014, donde buscamos hacer pronósticos
+de empleo en Estados Unidos.
+
+```{r}
+ent_hosp_tbl <- filter(us_employment, 
+  Title == "Leisure and Hospitality") |> 
+  filter_index("2000-01" ~ . )
+ent_hosp_ts <- ent_hosp_tbl |> as.ts(Employed)
+#ent_hosp_ts <- log(ent_hosp_ts)
+autoplot(ent_hosp_tbl, Employed)
+```
+
+
+
+```{r}
+#| message: false
+#| warning: false
+library(bsts)
+set.seed(998)
+#inicial_nivel <- NormalPrior(11000, 1500, initial.value = 11000)
+mod_spec_1 <- AddLocalLevel(list(), y = ent_hosp_ts)
+mod_spec_2 <- AddLocalLinearTrend(list(), y = ent_hosp_ts)
+mod_spec_3 <- AddLocalLevel(list(), y = ent_hosp_ts) |> 
+  AddSeasonal(nseasons = 12, y = ent_hosp_ts)
+mod_spec_4 <- AddLocalLinearTrend(list(), y = ent_hosp_ts) |> 
+  AddSeasonal(nseasons = 12, y = ent_hosp_ts) 
+mod_spec_5 <- AddSemilocalLinearTrend(list(), y = ent_hosp_ts) |> 
+  AddSeasonal(nseasons = 12, y = ent_hosp_ts) 
+mod_spec_6 <- AddSemilocalLinearTrend(list(), y = ent_hosp_ts) |> 
+  AddSeasonal(nseasons = 12, y = ent_hosp_ts) |> 
+  AddAr(lags = 2, y = ent_hosp_ts)
+specs <- list(mod_spec_1, mod_spec_2, mod_spec_3, mod_spec_4, mod_spec_5, mod_spec_6)
+ajustes <- map(specs, function(spec){
+  bsts(ent_hosp_ts, spec, niter = 40000, ping = 10000)
+})
+```
+
+En primer lugar, podemos comparar las predicciones a un paso de cada modelo.
+En este caso, los modelos 3 y 4 son claramente superiores a 1 y 2 en desempeño
+a un paso. El mejor modelo en desempeño a un paso es el modelo 4, por la tendencia
+lineal de la serie.
+
+```{r}
+#| fig-height: 10
+#| fig-width: 6
+CompareBstsModels(ajustes, burn = 30000)
+```
+
+```{r}
+plot(ajuste, "components")
+```
+
+
+```{r}
+pred_errors_tbl <- 
+  bsts.prediction.errors(ajuste, burn = 20000)$in.sample |> 
+  t() |> as_tibble() |>
+  mutate(t = 1: length(ent_hosp_ts)) |> 
+  pivot_longer(-c(t), names_to = "sim", values_to = "valor") |>
+  group_by(t) |> 
+  summarise(valor = mean(valor)) |> 
+  as_tsibble(index = t)
+# filtramos a partir de 12 meses (mínimo requerido para
+# estimar estacionalidad):
+ACF(pred_errors_tbl |> filter(t > 12), valor, lag_max = 20) |> 
+  autoplot() + ylim(c(-1,1))
+```
+Ahora podemos hacer pronósticos:
+
+
+
+
+```{r}
+#| warning: false
+ajuste <- ajustes[[6]]
+pred <- predict(ajuste, horizon = 36, burn = 30000)
+  plot(pred)
+```
+
+Podemos hacer también pronósticos agregados. Como tenemos simulaciones de los
+pronósticos, esto es fácil, incluyendo intervalos predictivos. En el siguiente
+ejemplo, hacemos un intervalo para la suma de los 36 meses que pronosticamos:
+
+```{r}
+#| fig-width: 4
+#| fig.height: 3
+pred$distribution |> dim()
+apply(pred$distribution, 1, sum) |> qplot()
+print("Intervalo de 90% para el agregado:")
+apply(pred$distribution, 1, sum) |> quantile(c(0.05, 0.50, 0.95))
+
+```
+
+## Pronósticos: datos diarios
+
+Consideremos por ejemplo la siguiente serie de nacimientos por día
+en México (ver la sección de introducción de series de tiempo):
+
+```{r}
+natalidad_tbl <- read_rds("../datos/natalidad.rds") |> 
+  ungroup() |> 
+  arrange(fecha) |> 
+  filter(fecha >= ymd("2008-01-01")) |> 
+  mutate(nacimientos = log(n)) |> 
+  select(-fecha_str, -n) |> 
+  as_tsibble(index = fecha)
+```
+
+
+```{r}
+y <- natalidad_tbl |> as.ts(frequency = 365.25)
+y <- zoo(natalidad_tbl$nacimientos, natalidad_tbl$fecha)
+natalidad_tbl <- natalidad_tbl |> 
+  mutate(feb_29 = as.numeric(month(fecha)==2 & day(fecha) == 29))
+feb_29 <- natalidad_tbl$feb_29
+mar_1_feb_29 <- lag(feb_29, default = 0)
+```
+
+
+```{r}
+año_nuevo <- NamedHoliday(holiday.name = "NewYearsDay", days.before = 2,
+                          days.after = 4)
+navidad <- NamedHoliday(holiday.name = "Christmas", days.before = 4,
+                        days.after = 4)
+pascua <- NamedHoliday(holiday.name = "EasterSunday", 
+                       days.after = 5, days.before = 5)
+feb_14 <- NamedHoliday(holiday.name = "ValentinesDay", 
+                       days.after = 5, days.before = 5)
+halloween <- NamedHoliday(holiday.name = "Halloween", 
+                       days.after = 4, days.before = 4)
+sept_16 <- FixedDateHoliday(holiday.name = "Independencia", 
+                            month = "September", day = 16, days.before = 3,
+                            days.after = 3)
+modelo_natalidad <- AddLocalLevel(list(), y = y) |> 
+  AddSeasonal(nseasons = 7, y = y) |> 
+  AddTrig(period = 365.25, frequencies = 1:3, y = y) |> 
+  AddRandomWalkHoliday(holiday = año_nuevo, y = y, time0 = ymd("2005-01-01")) |> 
+  AddRandomWalkHoliday(holiday = navidad, y = y, time0 = ymd("2005-01-01")) |> 
+  AddRandomWalkHoliday(holiday = pascua, y = y, time0 = ymd("2005-01-01")) |> 
+  AddRandomWalkHoliday(holiday = feb_14, y = y, time0 = ymd("2005-01-01")) |> 
+  AddRandomWalkHoliday(holiday = halloween, y = y, time0 = ymd("2005-01-01")) |> 
+  AddRandomWalkHoliday(holiday = sept_16, y = y, time0 = ymd("2005-01-01")) |> 
+  AddDynamicRegression(y ~ feb_29 + mar_1_feb_29)
+```
+
+```{r}
+ajuste_nat <- bsts(y, modelo_natalidad, niter = 400)
+```
+ 
+```{r}
+mean_contrib <- ajuste_nat$state.contributions |> 
+  apply(c(2, 3), mean)
+mean_contrib_tbl <- mean_contrib |> t() |> as_tibble() |> 
+  mutate(fecha = natalidad_tbl$fecha) |> 
+  mutate(trend_c = trend - mean(trend)) |> 
+  select(-trend) |> 
+  pivot_longer(cols = c(seasonal.7.1:dynamic, trend_c),
+               names_to = "componente", values_to = "valor")
+ggplot(mean_contrib_tbl, aes(x = fecha, y = valor)) +
+  facet_wrap(~ componente) + geom_point()
+ggplot(mean_contrib_tbl |> filter(year(fecha) == 2008), 
+       aes(x = fecha, y = valor)) +
+  facet_wrap(~ componente) + geom_line()
+```
+
+```{r}
+error <- ajuste_nat$one.step.prediction.errors |> apply(2, mean) 
+qplot(error)
+natalidad_tbl$error <- error
+ACF(natalidad_tbl, error) |> autoplot() + ylim(c(-1,1))
+```
+```{r}
+natalidad_tbl |> arrange(desc(abs(error))) |> 
+  mutate(dia_sem = weekdays(fecha))
+```
+
+
+
+
+## Nowcasting y uso de covariables
+
+::: callout-note
+# Nowcasting
+
+En nowcasting buscamos predecir los valores contemporáneos de una
+serie de tiempo que, por retrasos en reporte, no tenemos disponibles.
+Usualmente utilizamos variables asociadas contemporáneas que sí
+están disponibles, y se trata de pronósticos a corto plazo
+
+:::
+
+Un ejemplo es el indicador oportuno de actividad económica que se publica
+ mensualmente. Este indicador busca estimar el IGAE (indicador global de
+ actividad económica), y utiliza variables económicas, financieras y otras,
+ disponibles al momento (mientras que el IGAE se publica con unos dos meses
+ de retraso). Ver aquí: https://www.inegi.org.mx/investigacion/ioae/.
+ 
+ 
+Una estrategia puede ser incluír variables relevantes cómo en regresión
+dinámica. Sin embargo, si estamos buscando entre una cantidad relativamente
+grande de predictores, es posible obtener mejores resultados haciendo
+ selección de variables. En el caso de *bsts* se utiliza una
+inicial de *spike-slab*, que es una mezcla de una masa de probabilidad mayor a 0
+para un valor del coeficiente igual a 0 (es decir, la variable está excluída
+del modelo), y una distribución normal centrada en 0 (el coeficiente puede
+tomar un valor positivo o negativo). 
+
+
+En este ejemplo consideraremos (@scottvarian2015) el pronóstico oportuno de 
+los números semanales
+reclamaciones pagos de seguro de desempleo en Estados Unidos, que se reportan
+varios días después de que cierra cada semana. En el artículo citado,
+utilizan medidas relativa de popularidad de búsquedas relacionadas
+con desempleo en Google, que se pueden tener de manera completa en cuanto
+la semana cierra. Ver también [aquí](https://www.nber.org/system/files/working_papers/w19567/w19567.pdf) o [aquí](https://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html).
+
+Este código está adaptado de [aqui](https://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html), ver también [este reporte](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/41335.pdf).
+
+
+Primero construiremos un modelo con tendencia lineal y estacionalidad.
+En este caso, como consideramos una serie relativamente
+corta (no más de 10 años), y la estacionalidad es dinámica, podemos
+usar un periodo de 52 semanas, aún cuando sabemos que algunos años
+tienen 53 semanas.
+
+```{r}
+data(iclaims)     
+original.claims <- initial.claims
+initial.claims <- original.claims[1:436, ]
+new.data <- original.claims[437:456, ]
+ss <- AddLocalLinearTrend(list(), initial.claims$iclaimsNSA)
+ss <- AddSeasonal(ss, initial.claims$iclaimsNSA, nseasons = 52)
+model1 <- bsts(initial.claims$iclaimsNSA,
+               state.specification = ss,
+               niter = 1000)
+```
+
+```{r}
+plot(model1)
+plot(model1, "components")  
+```
+
+Y podemos construir predicciones:
+
+```{r}
+pred1 <- predict(model1, horizon = 12)
+plot(pred1, plot.original = 156)
+```
+
+Entre las variables de términos de búsqueda están
+
+```{r}
+names(initial.claims)[-1]
+```
+
+Seleccionamos una inicial para el tamaño esperado del modelo (y después
+seleccionamos según desempeño predictivo):
+
+```{r}
+model2 <- bsts(iclaimsNSA ~ .,
+               state.specification = ss,
+               niter = 1000,
+               data = initial.claims, 
+               expected.model.size = 2)
+model3 <- bsts(iclaimsNSA ~ .,
+               state.specification = ss,
+               niter = 1000,
+               data = initial.claims,
+               expected.model.size = 6)  # Passed to SpikeSlabPrior.
+```
+
+Comparamos los modelos con el error de pronóstico a un paso, y el
+modelo 2 es el de mejor desempeño:
+
+```{r}
+CompareBstsModels(list("Modelo s.vars" = model1,
+                       "Modelo esp2" = model2,
+                       "Modelo esp6" = model3),
+                  colors = c("black", "red", "blue"))
+```
+```{r}
+pred2 <- predict(model2, horizon = 12, newdata = new.data[1:12, ])
+plot(pred2, plot.original = 156)
+```
+Podemos ver qué variables fueron seleccionadas:
+
+```{r}
+plot(model2, "coefficients")
+```
+
+
+
+## Agregación de encuestas
+
+
+## Impacto causal

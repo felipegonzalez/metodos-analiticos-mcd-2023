@@ -1441,11 +1441,11 @@ estructural lineal en 4.2 de @durbinkoopman.
 ### Ejemplo
 
 Consideramos la serie de Río Nilo. Fijamos $\sigma_\epsilon = 120$
-y $\sigma_\eta = 20$ (estimadores puntuales que calculamos arriba). El filtro
+y $\sigma_\eta = 22$ (estimadores puntuales que calculamos arriba). El filtro
 en una implementación simple se ve como sigue:
 
 ```{r}
-filtro_nivel <- function(y, sigma_2_eps = 120^2, sigma_2_eta = 20^2){
+filtro_nivel <- function(y, sigma_2_eps = 122^2, sigma_2_eta = 40^2){
   n <- length(y)
   a <- numeric(n)
   m <- numeric(n)
@@ -1602,5 +1602,4 @@ pred_errors_tbl <-
 ACF(pred_errors_tbl) |> 
   autoplot() + ylim(c(-1,1))
 ```
-
 
