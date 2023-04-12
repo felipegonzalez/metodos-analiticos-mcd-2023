@@ -14,8 +14,10 @@ ggplot2::theme_set(ggplot2::theme_light())
 
 ## Pronósticos
 
-Consideramos un ejemplo de @hyndman2014, donde buscamos hacer pronósticos
-de empleo en Estados Unidos.
+Consideramos un ejemplo de @hyndman2014 [en la esta sección](https://otexts.com/fpp3/seasonal-arima.html), 
+donde buscamos hacer pronósticos
+de empleo en Estados Unidos. Consideramos los datos de entretenimiento y
+hospitalidad:
 
 ```{r}
 ent_hosp_tbl <- filter(us_employment, 
@@ -25,7 +27,16 @@ ent_hosp_ts <- ent_hosp_tbl |> as.ts(Employed)
 #ent_hosp_ts <- log(ent_hosp_ts)
 autoplot(ent_hosp_tbl, Employed)
 ```
+Intentaremos usar varios modelos, incluso algunos que claramente 
+no son correctos:
 
+1. Nivel local
+2. Nivel local y tendencia
+3. Nivel local con estacionalidad (12 meses)
+4. Nivel local con tendencia y estacionalidad (12 meses)
+5. Nivel semilocal con tendencia y estacionalidad
+6. Nivel semilocal con tendencia, estacionalidad, y una componente
+autoregresiva.
 
 
 ```{r}
@@ -57,17 +68,20 @@ a un paso. El mejor modelo en desempeño a un paso es el modelo 4, por la tenden
 lineal de la serie.
 
 ```{r}
-#| fig-height: 10
-#| fig-width: 6
-CompareBstsModels(ajustes, burn = 30000)
+#| fig-height: 3
+#| fig-width: 7
+CompareBstsModels(ajustes, burn = 20000)
 ```
 
 ```{r}
+ajuste <- ajustes[[6]]
 plot(ajuste, "components")
 ```
 
 
 ```{r}
+#| fig-height: 3
+#| fig-width: 7
 pred_errors_tbl <- 
   bsts.prediction.errors(ajuste, burn = 20000)$in.sample |> 
   t() |> as_tibble() |>
@@ -88,6 +102,8 @@ Ahora podemos hacer pronósticos:
 
 ```{r}
 #| warning: false
+#| fig-height: 3
+#| fig-width: 7
 ajuste <- ajustes[[6]]
 pred <- predict(ajuste, horizon = 36, burn = 30000)
   plot(pred)
@@ -107,7 +123,7 @@ apply(pred$distribution, 1, sum) |> quantile(c(0.05, 0.50, 0.95))
 
 ```
 
-## Pronósticos: datos diarios
+## Análisis de datos diarios
 
 Consideremos por ejemplo la siguiente serie de nacimientos por día
 en México (ver la sección de introducción de series de tiempo):
@@ -132,6 +148,104 @@ feb_29 <- natalidad_tbl$feb_29
 mar_1_feb_29 <- lag(feb_29, default = 0)
 ```
 
+En este caso, es necesario:
+
+- Agregar estacionalidad con periodo de 7 días
+- Agregar estacionalidad con periodo de 1 año
+- Agregar efectos de días de asueto, incluyendo posibles efectos que
+no ocurren solamente el día en cuestión, sino en los "hombros" del día 
+(unos días antes o después).
+
+La estacionalidad anual la modelamos con armónicos de periodo 365.25,
+es decir, con $\lambda_j = 2\pi j /365.25$. Cada armónico agrega dos
+coeficientes al espacio de estados.
+
+### Estacionalidad trigonométrica {-}
+
+Supongamos que queremos modelar estacionalidad anual para datos mensuales
+usando armónicos. 
+El primer armónico tiene un ciclo de 12 meses, así
+que ponemos
+$$\lambda_1 = 2\pi /12 = \pi/6$$
+Consideramos las funciones
+
+$$f_1(t) = a\cos(\lambda_1 t) + b \sin(\lambda_1 t)$$
+
+Con el tamaño de a y b se define la amplitud, y la fase
+depende de los tamaños relativos de $a$ y $b$. Esto lo podemos
+ver, por ejemplo, notando que $a\sin x + b\cos x = \sqrt{a^2 + b^2}\sin(x + \alpha)$.
+
+
+```{r}
+#| fig-height: 3
+#| fig-width: 7
+arm_1 <- tibble(t=1:25) |> 
+  mutate(f_1 = -2 * cos(t * pi / 6) + 4 * sin(t * pi / 6)) |> 
+  mutate(n = 1) |> 
+bind_rows(
+  tibble(t=1:25) |> 
+  mutate(f_1 = 0.5 * cos(t * pi / 6) + 0.1 * sin(t * pi / 6)) |> 
+  mutate(n = 2)
+) 
+ggplot(arm_1, aes(x = t, y = f_1, colour = factor(n))) + geom_line() + 
+  geom_point() +
+  geom_vline(xintercept = c(1, 13, 25))
+```
+
+Podemos considerar armónicos más altos. El siguiente es
+
+$$f_2(t) = f_1(t) + a_2\cos(2\lambda_1 t) + b_2 \sin(2\lambda_1 t)$$
+para obtener una funciones como las que siguen:
+
+```{r}
+#| fig-height: 3
+#| fig-width: 7
+arm_2 <- arm_1 |> 
+  mutate(f_2 = f_1 + -3 * cos(2 * t * pi / 6) + 2 * sin(2 * t * pi / 6))
+ggplot(arm_2, aes(x = t, y = f_2, colour = factor(n))) + geom_line() + 
+  geom_point() +
+  geom_vline(xintercept = c(1, 13, 25))
+```
+Y así sucesivamente. Cualquier función periodica puede aproximarse bien
+mediante una suma de cosenos y senos, siempre y cuando utilicemos 
+suficientes armónicos.
+
+Nota que en los ejemplos de arriba necesitamos dos coeficientes para cada 
+armónico. La componente estacional del modelo podemos escribirla como
+(para estacionalidad constante):
+
+$$\gamma_t = \sum_{j=1}^L (a_j \cos(\lambda_j t) + a^*_j \sin(\lambda_jt)).$$
+Y hacemos estocásticas estas componentes sustituyendo 
+$$a_{j,t+1} = a_{j,t} + \omega_{j,t},  a^*_{j,t+1} = a^*_{j,t} + \omega^*_{j,t}$$
+donde las $\omega,\omega^*$ son normales independientes con
+varianza $\sigma_\omega^2$.
+
+Esta es la forma más simple de agregar estacionalidad trigonométrica,
+pero tiene la desventaja de que los errores que agregamos se multiplican
+después por senos y cosenos, lo cual quiere decir que su efecto no es
+igual en diferentes partes del periodo. La otra forma más usual
+puedes verla en la ayuda de *AddTrig* de bsts o en la sección 3.2.1 de
+@durbinkoopman.
+
+---
+
+Nuestra primera parte del modelo es entonces (donde podemos
+ajustar el número de frecuencias o armónicos que incluímos
+comparando los modelos producidos):
+
+```{r}
+modelo_natalidad_1 <- AddLocalLevel(list(), y = y) |> 
+  AddSeasonal(nseasons = 7, y = y) |> 
+  AddTrig(period = 365.25, frequencies = 1:3, y = y) 
+```
+
+### Días de asueto
+
+Definiremos componentes para algunos de los días de asueto/especiales más
+importantes, considerando que su efecto puede ir más allá del día particular.
+En la versión estática, tenemos un coeficiente distinto para cada uno
+de esos días en la ventana que hayamos elegido:
+
 
 ```{r}
 año_nuevo <- NamedHoliday(holiday.name = "NewYearsDay", days.before = 2,
@@ -141,29 +255,38 @@ navidad <- NamedHoliday(holiday.name = "Christmas", days.before = 4,
 pascua <- NamedHoliday(holiday.name = "EasterSunday", 
                        days.after = 5, days.before = 5)
 feb_14 <- NamedHoliday(holiday.name = "ValentinesDay", 
-                       days.after = 5, days.before = 5)
+                       days.after = 3, days.before = 3)
 halloween <- NamedHoliday(holiday.name = "Halloween", 
-                       days.after = 4, days.before = 4)
+                       days.after = 5, days.before = 4)
 sept_16 <- FixedDateHoliday(holiday.name = "Independencia", 
                             month = "September", day = 16, days.before = 3,
                             days.after = 3)
+```
+
+
+Y nuestro modelo es entonces, agregando también un coeficiente
+para febrero 29 y marzo 1 cuando sigue de 29 de febrero:
+
+```{r}
 modelo_natalidad <- AddLocalLevel(list(), y = y) |> 
   AddSeasonal(nseasons = 7, y = y) |> 
   AddTrig(period = 365.25, frequencies = 1:3, y = y) |> 
-  AddRandomWalkHoliday(holiday = año_nuevo, y = y, time0 = ymd("2005-01-01")) |> 
-  AddRandomWalkHoliday(holiday = navidad, y = y, time0 = ymd("2005-01-01")) |> 
-  AddRandomWalkHoliday(holiday = pascua, y = y, time0 = ymd("2005-01-01")) |> 
-  AddRandomWalkHoliday(holiday = feb_14, y = y, time0 = ymd("2005-01-01")) |> 
-  AddRandomWalkHoliday(holiday = halloween, y = y, time0 = ymd("2005-01-01")) |> 
-  AddRandomWalkHoliday(holiday = sept_16, y = y, time0 = ymd("2005-01-01")) |> 
+  AddRandomWalkHoliday(holiday = año_nuevo, y = y) |> 
+  AddRandomWalkHoliday(holiday = navidad, y = y,) |> 
+  AddRandomWalkHoliday(holiday = pascua, y = y) |> 
+  AddRandomWalkHoliday(holiday = feb_14, y = y) |> 
+  AddRandomWalkHoliday(holiday = halloween, y = y) |> 
+  AddRandomWalkHoliday(holiday = sept_16, y = y) |> 
   AddDynamicRegression(y ~ feb_29 + mar_1_feb_29)
 ```
 
 ```{r}
-ajuste_nat <- bsts(y, modelo_natalidad, niter = 400)
+ajuste_nat <- bsts(y, modelo_natalidad, niter = 1000)
 ```
  
 ```{r}
+#| fig-height: 6
+#| fig-width: 7
 mean_contrib <- ajuste_nat$state.contributions |> 
   apply(c(2, 3), mean)
 mean_contrib_tbl <- mean_contrib |> t() |> as_tibble() |> 
@@ -174,20 +297,41 @@ mean_contrib_tbl <- mean_contrib |> t() |> as_tibble() |>
                names_to = "componente", values_to = "valor")
 ggplot(mean_contrib_tbl, aes(x = fecha, y = valor)) +
   facet_wrap(~ componente) + geom_point()
-ggplot(mean_contrib_tbl |> filter(year(fecha) == 2008), 
-       aes(x = fecha, y = valor)) +
-  facet_wrap(~ componente) + geom_line()
 ```
 
+Podemos ver con más detalle cómo es el efecto de los días de
+asueto y sus "hombros", tomando por ejemplo 2008-2009:
+
 ```{r}
-error <- ajuste_nat$one.step.prediction.errors |> apply(2, mean) 
-qplot(error)
+#| fig-height: 6
+#| fig-width: 7
+ggplot(mean_contrib_tbl |> 
+         filter(year(fecha) == 2009 & month(fecha) < 5 |
+                year(fecha) == 2008 & month(fecha) >= 12), 
+       aes(x = fecha, y = valor)) +
+  facet_wrap(~ componente) + geom_line() + geom_point(size = 0.5)
+```
+
+**Obs**: este modelo todavía requiere considerar qué otros efectos
+adicionales están actuando. La distribución de errores a un paso
+tiene colas largas, y todavía hay cierta información que podríamos
+usar para mejorar las predicción si consideramos la ACF de las innovaciones:
+
+```{r}
+#| fig-height: 3
+#| fig-width: 7
+error <- ajuste_nat$one.step.prediction.errors |> apply(2, mean)
+error_sin_2008 <- error[-c(1:365)]
+qqnorm(error_sin_2008)
 natalidad_tbl$error <- error
-ACF(natalidad_tbl, error) |> autoplot() + ylim(c(-1,1))
+ACF(natalidad_tbl |> filter(year(fecha) > 2008), 
+    error) |> autoplot() + ylim(c(-1,1))
 ```
 ```{r}
-natalidad_tbl |> arrange(desc(abs(error))) |> 
-  mutate(dia_sem = weekdays(fecha))
+natalidad_tbl |> 
+  filter(year(fecha) > 2008) |> 
+  arrange(desc(abs(error))) |> 
+  mutate(dia_sem = weekdays(fecha)) 
 ```
 
 

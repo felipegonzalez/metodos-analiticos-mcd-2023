@@ -1289,8 +1289,7 @@ $t$, $y_1,y_2,\ldots, y_t$ mediante $D_t$. Nótese que todo el
 análisis retrospectivo que hemos hecho hasta el momento es de la posterior
 de los estados dados todos los datos:
 $$p(\theta_t|D_T)$$
-Para hacer el análisis en línea, supongamos que estamos en el momento $t$ y 
-observamos $y_t$. Consideramos las siguientes distribuciones:
+Para hacer el análisis *en línea* o secuencial, supongamos que estamos en el momento $t-1$. Consideramos las siguientes distribuciones:
 
 - Predicción a un paso del estado del sistema: $p(\theta_t| D_{t-1})$
 - Predicción del valor de la serie a un paso: $p(y_t | D_{t-1})$
@@ -1603,3 +1602,95 @@ ACF(pred_errors_tbl) |>
   autoplot() + ylim(c(-1,1))
 ```
 
+## Componentes autoregresivas 
+
+Un defecto de los modelos de nivel local y tendencia que hemos considerado
+hastas ahora es que, por su forma su varianza crece indefinidamente 
+cuando pronosticamos. Esto produce comportamientos poco realistas, especialmente
+cuando hacemos pronósticos a mediano o largo plazo.
+
+En primer lugar, podemos utilizar componentes autorregresivas como componente
+del modelo, por ejemplo,  si en nuestro espacio de estados
+agregamos una componente con ecuación de evolución
+
+$$\mu_{t-1} = \rho \mu_t  + \eta_t$$
+dond $|\rho| < 1$, entonces podemos ver que conforme pasa el tiempo,
+el proceso de esta componente converge a una distribución con varianza finita.
+
+Considera por ejemplo:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+simular_ar <- function(rho = 1, T = 200, mu0 = 5, sigma = 1, id = "1"){
+  mu <- vector(length = T)
+  mu[1] <- mu0
+  for(j in 2:T){
+    mu[j] <- rho * mu[j - 1] + rnorm(1,0, sigma)
+  }
+  tibble(rho = rho, t = 1:T, mu = mu, id = id)
+}
+set.seed(4241)
+sims_ar <- map2_df(
+  c(1, 0.7, 0.4), 
+  c("cam_aleatoria", "rho0.7", "rho0.4"), function(x,y){
+  simular_ar(rho = x, id = y)
+})
+ggplot(sims_ar, aes(x = t, y = mu)) + geom_line() +
+  facet_wrap(~ id)
+```
+Como vemos, como $|\rho| < 1$, entonces la varianza de esta componente
+se estabiliza para $t$ grande, lo cual no sucede con la componente de nivel 
+local. Es posible agregar componentes autorregresivas de orden más alto
+si es necesario (por ejemplo checando diagnósticos de innovaciones).
+
+Otra componente útil que reemplaza al nivel local con tendencia lineal es
+una con nivel local usual pero una componente autorregresiva para la
+pendiente. Esta componente es de la forma
+
+$$\mu_{t+1} = \mu_t + \delta_t  + \eta_{0,t}$$
+$$\delta_{t+1} = D + \rho(\delta_t - D)  + \eta_{1,t}$$
+en donde en la ecuación de evolución del nivel hemos reemplazado
+la caminata aleatoria para $\deta_t$ con un modelo autorregresivo alrededor
+de un valor $D$ que es necesario estimar.
+
+### Ejemplo {-}
+
+El siguiente ejemplo considera precios de cierre de Google para varios años:
+
+```{r}
+data(goog)
+ss_1 <- AddLocalLinearTrend(list(), goog)
+model_1 <- bsts(goog, state.specification = ss_1, niter = 1000)
+pred_1 <- predict(model_1, horizon = 300)
+
+
+ss_2 <- AddSemilocalLinearTrend(list(), goog)
+model_2 <- bsts(goog, state.specification = ss_2, niter = 1000)
+pred_2 <- predict(model_2, horizon = 300)
+
+
+plot(pred_2, plot.original = 360, ylim = range(pred_1))
+plot(pred_1, plot.original = 360, ylim = range(pred_1))
+```
+
+
+
+```{r}
+#| warning: false
+pred_errors_tbl <- 
+  model_2$one.step.prediction.errors |> 
+  t() |> as_tibble() |>
+  mutate(t = 1:2067) |> 
+  pivot_longer(-c(t), names_to = "sim", values_to = "valor") |> 
+  group_by(t) |> 
+  summarise(valor = mean(valor)) |> 
+  as_tsibble(index = t)
+```
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+ACF(pred_errors_tbl, valor) |> 
+  autoplot() + ylim(c(-1,1))
+```
