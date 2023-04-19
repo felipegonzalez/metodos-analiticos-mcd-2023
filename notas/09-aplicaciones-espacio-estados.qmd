@@ -68,7 +68,7 @@ a un paso. El mejor modelo en desempeño a un paso es el modelo 4, por la tenden
 lineal de la serie.
 
 ```{r}
-#| fig-height: 3
+#| fig-height: 6
 #| fig-width: 7
 CompareBstsModels(ajustes, burn = 20000)
 ```
@@ -318,8 +318,8 @@ tiene colas largas, y todavía hay cierta información que podríamos
 usar para mejorar las predicción si consideramos la ACF de las innovaciones:
 
 ```{r}
-#| fig-height: 3
-#| fig-width: 7
+#| fig-height: 5
+#| fig-width: 6
 error <- ajuste_nat$one.step.prediction.errors |> apply(2, mean)
 error_sin_2008 <- error[-c(1:365)]
 qqnorm(error_sin_2008)
