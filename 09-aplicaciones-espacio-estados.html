@@ -342,30 +342,30 @@ div.csl-indent {
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bsts</span>(ent_hosp_ts, spec, <span class="at">niter =</span> <span class="dv">40000</span>, <span class="at">ping =</span> <span class="dv">10000</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Apr 12 04:38:01 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Wed Apr 12 04:38:16 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Wed Apr 12 04:38:30 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Wed Apr 12 04:38:44 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Wed Apr 12 04:38:59 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Wed Apr 12 04:39:18 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Wed Apr 12 04:39:35 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Wed Apr 12 04:39:53 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Wed Apr 12 04:40:10 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Wed Apr 12 04:40:49 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Wed Apr 12 04:41:27 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Wed Apr 12 04:42:05 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Wed Apr 12 04:42:44 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Wed Apr 12 04:43:29 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Wed Apr 12 04:44:15 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Wed Apr 12 04:45:01 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Wed Apr 12 04:45:47 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Wed Apr 12 04:46:32 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Wed Apr 12 04:47:18 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Wed Apr 12 04:48:04 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Wed Apr 12 04:48:49 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Wed Apr 12 04:49:54 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Wed Apr 12 04:51:00 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Wed Apr 12 04:52:05 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 06:33:07 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Fri Apr 21 06:33:20 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Fri Apr 21 06:33:33 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Fri Apr 21 06:33:46 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Fri Apr 21 06:33:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Fri Apr 21 06:34:15 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Fri Apr 21 06:34:30 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Fri Apr 21 06:34:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Fri Apr 21 06:35:01 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Fri Apr 21 06:35:35 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Fri Apr 21 06:36:09 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Fri Apr 21 06:36:44 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Fri Apr 21 06:37:18 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Fri Apr 21 06:37:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Fri Apr 21 06:38:39 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Fri Apr 21 06:39:20 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Fri Apr 21 06:40:00 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Fri Apr 21 06:40:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Fri Apr 21 06:41:21 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Fri Apr 21 06:42:02 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Fri Apr 21 06:42:42 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Fri Apr 21 06:43:40 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Fri Apr 21 06:44:38 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Fri Apr 21 06:45:35 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>En primer lugar, podemos comparar las predicciones a un paso de cada modelo. En este caso, los modelos 3 y 4 son claramente superiores a 1 y 2 en desempeño a un paso. El mejor modelo en desempeño a un paso es el modelo 4, por la tendencia lineal de la serie.</p>
@@ -436,7 +436,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pred<span class="sc">$</span>distribution, <span class="dv">1</span>, sum) <span class="sc">|&gt;</span> <span class="fu">quantile</span>(<span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.50</span>, <span class="fl">0.95</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      5%      50%      95% 
-600173.6 617755.8 635731.1 </code></pre>
+600230.0 617269.0 634272.5 </code></pre>
 </div>
 </div>
 </section>
@@ -546,16 +546,16 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ajuste_nat <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y, modelo_natalidad, <span class="at">niter =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Apr 12 04:53:20 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Wed Apr 12 04:54:52 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Wed Apr 12 04:56:26 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Wed Apr 12 04:57:59 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Wed Apr 12 04:59:32 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Wed Apr 12 05:01:07 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Wed Apr 12 05:02:42 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Wed Apr 12 05:04:20 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Wed Apr 12 05:05:58 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Wed Apr 12 05:07:35 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 06:46:42 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Fri Apr 21 06:48:05 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Fri Apr 21 06:49:28 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Fri Apr 21 06:50:51 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Fri Apr 21 06:52:15 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Fri Apr 21 06:53:38 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Fri Apr 21 06:55:01 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Fri Apr 21 06:56:24 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Fri Apr 21 06:57:48 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Fri Apr 21 06:59:11 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -590,13 +590,13 @@ div.csl-indent {
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>error_sin_2008 <span class="ot">&lt;-</span> error[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>)]</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(error_sin_2008)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="576"></p>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>natalidad_tbl<span class="sc">$</span>error <span class="ot">&lt;-</span> error</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ACF</span>(natalidad_tbl <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">year</span>(fecha) <span class="sc">&gt;</span> <span class="dv">2008</span>), </span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    error) <span class="sc">|&gt;</span> <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
@@ -616,15 +616,15 @@ Current temporal ordering may yield unexpected results.
 <pre><code># A tsibble: 2,922 x 5 [1D]
    fecha      nacimientos feb_29  error dia_sem 
    &lt;date&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
- 1 2013-01-01        8.45      0 -0.196 Tuesday 
- 2 2009-11-02        8.64      0 -0.187 Monday  
- 3 2012-12-25        8.47      0 -0.176 Tuesday 
- 4 2012-09-16        8.66      0  0.173 Sunday  
- 5 2016-11-21        8.49      0 -0.172 Monday  
- 6 2016-12-25        8.15      0  0.167 Sunday  
- 7 2014-05-01        8.57      0 -0.163 Thursday
- 8 2015-05-01        8.55      0 -0.158 Friday  
- 9 2015-11-16        8.56      0 -0.158 Monday  
+ 1 2013-01-01        8.45      0 -0.199 Tuesday 
+ 2 2009-11-02        8.64      0 -0.186 Monday  
+ 3 2012-09-16        8.66      0  0.172 Sunday  
+ 4 2016-11-21        8.49      0 -0.172 Monday  
+ 5 2012-12-25        8.47      0 -0.167 Tuesday 
+ 6 2016-12-25        8.15      0  0.162 Sunday  
+ 7 2014-05-01        8.57      0 -0.161 Thursday
+ 8 2015-11-16        8.56      0 -0.159 Monday  
+ 9 2015-05-01        8.55      0 -0.158 Friday  
 10 2012-11-19        8.66      0 -0.150 Monday  
 # … with 2,912 more rows</code></pre>
 </div>
@@ -662,16 +662,16 @@ Nowcasting
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">state.specification =</span> ss,</span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">niter =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Apr 12 05:09:17 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Wed Apr 12 05:09:23 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Wed Apr 12 05:09:28 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Wed Apr 12 05:09:33 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Wed Apr 12 05:09:38 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Wed Apr 12 05:09:43 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Wed Apr 12 05:09:48 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Wed Apr 12 05:09:53 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Wed Apr 12 05:09:58 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Wed Apr 12 05:10:03 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 07:00:39 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Fri Apr 21 07:00:43 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Fri Apr 21 07:00:48 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Fri Apr 21 07:00:52 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Fri Apr 21 07:00:56 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Fri Apr 21 07:01:01 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Fri Apr 21 07:01:05 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Fri Apr 21 07:01:09 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Fri Apr 21 07:01:13 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Fri Apr 21 07:01:18 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -711,16 +711,16 @@ Nowcasting
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> initial.claims, </span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">expected.model.size =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Apr 12 05:10:09 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Wed Apr 12 05:10:14 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Wed Apr 12 05:10:19 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Wed Apr 12 05:10:24 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Wed Apr 12 05:10:29 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Wed Apr 12 05:10:34 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Wed Apr 12 05:10:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Wed Apr 12 05:10:45 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Wed Apr 12 05:10:50 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Wed Apr 12 05:10:55 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 07:01:23 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Fri Apr 21 07:01:28 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Fri Apr 21 07:01:32 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Fri Apr 21 07:01:36 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Fri Apr 21 07:01:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Fri Apr 21 07:01:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Fri Apr 21 07:01:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Fri Apr 21 07:01:54 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Fri Apr 21 07:01:58 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Fri Apr 21 07:02:02 2023 =-=-=-=-=</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(iclaimsNSA <span class="sc">~</span> .,</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">state.specification =</span> ss,</span>
@@ -728,16 +728,16 @@ Nowcasting
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> initial.claims,</span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">expected.model.size =</span> <span class="dv">6</span>)  <span class="co"># Passed to SpikeSlabPrior.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Wed Apr 12 05:11:00 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Wed Apr 12 05:11:05 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Wed Apr 12 05:11:10 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Wed Apr 12 05:11:16 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Wed Apr 12 05:11:21 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Wed Apr 12 05:11:26 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Wed Apr 12 05:11:31 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Wed Apr 12 05:11:36 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Wed Apr 12 05:11:41 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Wed Apr 12 05:11:46 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 07:02:07 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Fri Apr 21 07:02:11 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Fri Apr 21 07:02:15 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Fri Apr 21 07:02:20 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Fri Apr 21 07:02:24 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Fri Apr 21 07:02:28 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Fri Apr 21 07:02:33 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Fri Apr 21 07:02:37 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Fri Apr 21 07:02:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Fri Apr 21 07:02:46 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>Comparamos los modelos con el error de pronóstico a un paso, y el modelo 2 es el de mejor desempeño:</p>

@@ -535,13 +535,21 @@ Ingorabilidad
 <pre><code>- CmdStanR documentation and vignettes: mc-stan.org/cmdstanr</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>- CmdStan path: /home/runner/.cmdstan/cmdstan-2.31.0</code></pre>
+<pre><code>- CmdStan path: /home/runner/.cmdstan/cmdstan-2.32.0</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>- CmdStan version: 2.31.0</code></pre>
+<pre><code>- CmdStan version: 2.32.0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod_aspirina <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/contrafactual-simple.stan"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_aspirina)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod_aspirina <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/contrafactual-simple.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpUTaAPZ/
+model-405958acb8e8.hpp'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
+RtmpUTaAPZ/model-405958acb8e8.hpp'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_aspirina)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 data {
@@ -608,10 +616,10 @@ generated quantities{
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_aspirina<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(obs_1), </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">as.numeric</span>(obs_1<span class="sc">$</span>T),</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">intensidad =</span> obs_1<span class="sc">$</span>intensidad, <span class="at">y_obs =</span> obs_1<span class="sc">$</span>Y), </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">init =</span> <span class="fl">0.1</span>, <span class="at">step_size =</span> <span class="fl">0.1</span>, <span class="at">refresh =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_aspirina<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(obs_1), </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">as.numeric</span>(obs_1<span class="sc">$</span>T),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">intensidad =</span> obs_1<span class="sc">$</span>intensidad, <span class="at">y_obs =</span> obs_1<span class="sc">$</span>Y), </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">init =</span> <span class="fl">0.1</span>, <span class="at">step_size =</span> <span class="fl">0.1</span>, <span class="at">refresh =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 sequential chains...
 
@@ -619,31 +627,31 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 10.8 seconds.
+Chain 1 finished in 9.2 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 10.1 seconds.
+Chain 2 finished in 8.7 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 9.5 seconds.
+Chain 3 finished in 8.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 8.9 seconds.
+Chain 4 finished in 7.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 9.8 seconds.
-Total execution time: 39.7 seconds.</code></pre>
+Mean chain execution time: 8.4 seconds.
+Total execution time: 34.1 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"sigma"</span>, <span class="st">"alpha_0"</span>, <span class="st">"alpha"</span>, <span class="st">"beta"</span>, <span class="st">"efecto_trata"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"mean"</span>, <span class="st">"q5"</span>, <span class="st">"q95"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">"sigma"</span>, <span class="st">"alpha_0"</span>, <span class="st">"alpha"</span>, <span class="st">"beta"</span>, <span class="st">"efecto_trata"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"variable"</span>, <span class="st">"mean"</span>, <span class="st">"q5"</span>, <span class="st">"q95"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   variable         mean     q5    q95
@@ -738,20 +746,20 @@ Modelos e Ignorabilidad
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir = LR]</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=circle]</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">  T -&gt; Y</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">  T -&gt; M</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">  M -&gt; Y</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">#{ rank = same; A; D }</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2, rankdir = LR]</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=circle]</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="st">  T -&gt; Y</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="st">  T -&gt; M</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="st">  M -&gt; Y</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="st">#{ rank = same; A; D }</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="htmlwidget-89d05eae0e09a13fbb4e" style="width:100%;height:162px;" class="grViz html-widget"></div>
@@ -805,8 +813,8 @@ Tip
 <p>Las distribuciones estimadas de datos observados son</p>
 <p>_</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tabla_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">tarea =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">prob_exito =</span> <span class="fu">c</span>(<span class="fl">0.80</span>, <span class="fl">0.40</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span>))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tabla_1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tabla_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">tarea =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">prob_exito =</span> <span class="fu">c</span>(<span class="fl">0.80</span>, <span class="fl">0.40</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tabla_1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
       t tarea prob_exito
@@ -819,8 +827,8 @@ Tip
 </div>
 <p>Y tenemos para el nodo de tarea, el tratamiento incrementa la probabilidad de hacer tarea considerablemente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tabla_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">prob_tarea =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.75</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>tabla_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tabla_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">prob_tarea =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.75</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>tabla_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
       t prob_tarea
@@ -831,79 +839,79 @@ Tip
 </div>
 <p>Aunque es posible hacer todos los cálculos de manera analítica, en este ejemplo calcularemos con simulación. El efecto total es</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sim_total <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tratados</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no tratados</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># contraste</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(sim_exito_trata <span class="sc">-</span> sim_exito_sin_trata)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">sim_total</span>()</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sim_total <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tratados</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no tratados</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># contraste</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(sim_exito_trata <span class="sc">-</span> sim_exito_sin_trata)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">sim_total</span>()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4591</code></pre>
 </div>
 </div>
 <p>El efecto natural directo es</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sim_nde <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea sin tratamiento</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito con tarea anterior, suponiendo tratamiento</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito con tarea anterior, sin tratamiento</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_trata)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  parte_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="sc">-</span> parte_2</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>nde <span class="ot">&lt;-</span> <span class="fu">sim_nde</span>()</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>nde</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sim_nde <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea sin tratamiento</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito con tarea anterior, suponiendo tratamiento</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.8</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito con tarea anterior, sin tratamiento</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_trata)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  parte_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="sc">-</span> parte_2</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>nde <span class="ot">&lt;-</span> <span class="fu">sim_nde</span>()</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>nde</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.32065</code></pre>
 </div>
 </div>
 <p>Y el efecto natural indirecto es:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sim_nie <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea con tratamiento</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito sin tratamiento</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea sin tratamiento</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  sim_tarea<span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito sin tratamiento</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  parte_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculamos la diferencia entre las dos medias</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="sc">-</span> parte_2</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>nie <span class="ot">&lt;-</span> <span class="fu">sim_nie</span>()</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>nie</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sim_nie <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span><span class="dv">100000</span>){</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea con tratamiento</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  sim_tarea <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.75</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito sin tratamiento</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos tarea sin tratamiento</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  sim_tarea<span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulamos éxito sin tratamiento</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  sim_exito_sin_trata <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span><span class="sc">*</span>sim_tarea <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sim_tarea))</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  parte_2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim_exito_sin_trata)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculamos la diferencia entre las dos medias</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  parte_1 <span class="sc">-</span> parte_2</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>nie <span class="ot">&lt;-</span> <span class="fu">sim_nie</span>()</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>nie</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.03589</code></pre>
 </div>
 </div>
 <p>Tenemos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto total </span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto total </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4591</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto indirecto comparado con ATE:</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> nde<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto indirecto comparado con ATE:</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> nde<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3015683</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto indirecto comparado con ATE:</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nie<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Efecto indirecto comparado con ATE:</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>nie<span class="sc">/</span>ate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.07817469</code></pre>
 </div>
@@ -921,22 +929,22 @@ Tip
 <div class="cell">
 <details>
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">    G</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">    D</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">    A </span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="st">  #node [shape = circle]</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="st">  #  U</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="st">    G -&gt; D</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="st">    G -&gt; A</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="st">    D -&gt; A</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; G;A}</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph {</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [ranksep = 0.2]</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape=plaintext]</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="st">    G</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="st">    D</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="st">    A </span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="st">  #node [shape = circle]</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="st">  #  U</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [minlen = 3]</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="st">    G -&gt; D</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="st">    G -&gt; A</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="st">    D -&gt; A</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="st">{rank = same; G;A}</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="htmlwidget-f9a0c636bb5a8a643938" style="width:100%;height:464px;" class="grViz html-widget"></div>
@@ -944,15 +952,15 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"UCBAdmissions"</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>adm_original <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Admit, <span class="at">values_from =</span> n) </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>adm_indiv <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">ifelse</span>(Gender<span class="sc">==</span><span class="st">"Female"</span>, <span class="dv">2</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Dept =</span> <span class="fu">factor</span>(Dept) <span class="sc">|&gt;</span> <span class="fu">as.integer</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Admit =</span> <span class="fu">ifelse</span>(Admit <span class="sc">==</span> <span class="st">"Admitted"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uncount</span>(n) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Dept <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>adm_indiv <span class="sc">|&gt;</span> <span class="fu">head</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"UCBAdmissions"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>adm_original <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Admit, <span class="at">values_from =</span> n) </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>adm_indiv <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">ifelse</span>(Gender<span class="sc">==</span><span class="st">"Female"</span>, <span class="dv">2</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Dept =</span> <span class="fu">factor</span>(Dept) <span class="sc">|&gt;</span> <span class="fu">as.integer</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Admit =</span> <span class="fu">ifelse</span>(Admit <span class="sc">==</span> <span class="st">"Admitted"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uncount</span>(n) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Dept <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>adm_indiv <span class="sc">|&gt;</span> <span class="fu">head</span>() </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   Admit Gender  Dept
@@ -966,8 +974,16 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mod_efectos_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-efectos-naturales.stan"</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_efectos_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod_efectos_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-efectos-naturales.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpUTaAPZ/
+model-40593285e06a.hpp'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
+RtmpUTaAPZ/model-40593285e06a.hpp'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_efectos_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>data {
   int&lt;lower=0&gt; N;
@@ -1067,13 +1083,13 @@ generated quantities{
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(adm_indiv), <span class="at">n_d =</span> <span class="dv">4</span>,</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">admit =</span> adm_indiv<span class="sc">$</span>Admit, <span class="at">gender =</span> adm_indiv<span class="sc">$</span>Gender,</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> adm_indiv<span class="sc">$</span>Dept)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_efectos_berkeley<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, </span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">iter_warmup =</span> <span class="dv">300</span>, <span class="at">iter_sampling =</span> <span class="dv">1000</span>,</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">parallel_chains =</span> <span class="dv">4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>datos_lista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(adm_indiv), <span class="at">n_d =</span> <span class="dv">4</span>,</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">admit =</span> adm_indiv<span class="sc">$</span>Admit, <span class="at">gender =</span> adm_indiv<span class="sc">$</span>Gender,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dept =</span> adm_indiv<span class="sc">$</span>Dept)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_efectos_berkeley<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lista, </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">iter_warmup =</span> <span class="dv">300</span>, <span class="at">iter_sampling =</span> <span class="dv">1000</span>,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">refresh =</span> <span class="dv">1000</span>, <span class="at">parallel_chains =</span> <span class="dv">4</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 parallel chains...
 
@@ -1086,22 +1102,22 @@ Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 173.0 seconds.
+Chain 3 finished in 165.8 seconds.
 Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 186.8 seconds.
+Chain 2 finished in 179.9 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 187.7 seconds.
+Chain 4 finished in 180.6 seconds.
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 191.8 seconds.
+Chain 1 finished in 183.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 184.8 seconds.
-Total execution time: 191.8 seconds.</code></pre>
+Mean chain execution time: 177.3 seconds.
+Total execution time: 183.1 seconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, mean, q5, q95)</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, mean, q5, q95)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   variable          mean      q5    q95
