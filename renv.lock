@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.2",
+    "Version": "4.2.3",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -35,6 +35,20 @@
       "Hash": "339b88d04461ec1d953f64fc17d0c624",
       "Requirements": [
         "Boom"
+      ]
+    },
+    "CausalImpact": {
+      "Package": "CausalImpact",
+      "Version": "1.3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "73c470e44ba543bbfc756da20506f269",
+      "Requirements": [
+        "Boom",
+        "assertthat",
+        "bsts",
+        "ggplot2",
+        "zoo"
       ]
     },
     "DBI": {
