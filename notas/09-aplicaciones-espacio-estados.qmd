@@ -6,6 +6,7 @@
 library(tidyverse)
 library(kableExtra)
 library(DiagrammeR)
+library(CausalImpact)
 locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
 library(lubridate)
 library(fpp3)
