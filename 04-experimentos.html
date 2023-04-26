@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -147,6 +118,7 @@ div.csl-indent {
 <link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
 <script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -155,11 +127,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-experimentos.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -167,85 +144,98 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Métodos analíticos</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Temario y referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></a>
+  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></a>
+  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></a>
+  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></span></a>
   </div>
 </li>
       </ul>
@@ -253,22 +243,23 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#controles-buenos-o-neutros" id="toc-controles-buenos-o-neutros" class="nav-link active" data-scroll-target="#controles-buenos-o-neutros"><span class="toc-section-number">4.1</span>  Controles buenos o neutros</a>
+  <li><a href="#controles-buenos-o-neutros" id="toc-controles-buenos-o-neutros" class="nav-link active" data-scroll-target="#controles-buenos-o-neutros"><span class="header-section-number">4.1</span> Controles buenos o neutros</a>
   <ul class="collapse">
-  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo"><span class="toc-section-number">4.1.1</span>  Ejemplo</a></li>
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo"><span class="header-section-number">4.1.1</span> Ejemplo</a></li>
   </ul></li>
-  <li><a href="#malos-controles-sobrecontrol" id="toc-malos-controles-sobrecontrol" class="nav-link" data-scroll-target="#malos-controles-sobrecontrol"><span class="toc-section-number">4.2</span>  Malos controles: sobrecontrol</a></li>
-  <li><a href="#malos-controles-variables-post-tratamiento" id="toc-malos-controles-variables-post-tratamiento" class="nav-link" data-scroll-target="#malos-controles-variables-post-tratamiento"><span class="toc-section-number">4.3</span>  Malos controles: variables post-tratamiento</a>
+  <li><a href="#malos-controles-sobrecontrol" id="toc-malos-controles-sobrecontrol" class="nav-link" data-scroll-target="#malos-controles-sobrecontrol"><span class="header-section-number">4.2</span> Malos controles: sobrecontrol</a></li>
+  <li><a href="#malos-controles-variables-post-tratamiento" id="toc-malos-controles-variables-post-tratamiento" class="nav-link" data-scroll-target="#malos-controles-variables-post-tratamiento"><span class="header-section-number">4.3</span> Malos controles: variables post-tratamiento</a>
   <ul class="collapse">
   <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo</a></li>
   </ul></li>
-  <li><a href="#control-malo-sesgo-de-colisionador" id="toc-control-malo-sesgo-de-colisionador" class="nav-link" data-scroll-target="#control-malo-sesgo-de-colisionador"><span class="toc-section-number">4.4</span>  Control Malo: sesgo de colisionador</a>
+  <li><a href="#control-malo-sesgo-de-colisionador" id="toc-control-malo-sesgo-de-colisionador" class="nav-link" data-scroll-target="#control-malo-sesgo-de-colisionador"><span class="header-section-number">4.4</span> Control Malo: sesgo de colisionador</a>
   <ul class="collapse">
   <li><a href="#ejemplo-la-paradoja-de-peso-de-recién-nacidos" id="toc-ejemplo-la-paradoja-de-peso-de-recién-nacidos" class="nav-link" data-scroll-target="#ejemplo-la-paradoja-de-peso-de-recién-nacidos">Ejemplo: la paradoja de peso de recién nacidos</a></li>
   </ul></li>
@@ -280,7 +271,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></h1>
 </div>
 
 
@@ -341,8 +332,8 @@ div.csl-indent {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-fa769d763596eea88f71" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa769d763596eea88f71">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n   Dia -> T\n   T -> Y\n   X -> Z\n   W -> Z\n   Y -> W \n   Y -> Z\n   A -> Y\n   T -> A\n   X -> W\n   T -> X\n   S -> Y\n#{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a08964f9e6bb68d67208" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a08964f9e6bb68d67208">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n\n  node [shape=plaintext]\n  \n\n  edge [minlen = 3]\n   Dia -> T\n   T -> Y\n   X -> Z\n   W -> Z\n   Y -> W \n   Y -> Z\n   A -> Y\n   T -> A\n   X -> W\n   T -> X\n   S -> Y\n#{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>La variable <span class="math inline">\(Dia\)</span> que determina el tratamiento no tiene aristas en común con ningún otro nodo de nuestro modelo causal, así que para tener una estimación del efecto total en este experimento, no es necesario aplicar ningún ajuste, no importa lo complicada que sea esta gráfica, y podemos usar simplemente <span class="math inline">\(p(y|t)\)</span>. No hay necesidad de estratificar por ninguna variable. No es un modelo “mecanístico”, ni nos sirve para aprender otras cosas, pero sabemos que da una estrategia de identificación para el efecto causal que nos interesa. A partir de nuestra estimación de esta condicional podemos resumir para obtener el efecto causal de interés. Por ejemplo, si el tratamiento toma valores <span class="math inline">\(T=0\)</span> o <span class="math inline">\(T=1\)</span>, podemos considerar la diferencia de medias condicionales.</p>
@@ -352,12 +343,12 @@ div.csl-indent {
 <li>Aunque hay que hacer esto con cuidado, pues si estratificamos sin cuidado por alguna de las otras variables, entonces podríamos agregar inducir asociaciones no causales en nuestra estimación.</li>
 </ul>
 <p>Resumiendo:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Experimentos e inferencia causal
 </div>
 </div>
@@ -392,8 +383,8 @@ Experimentos e inferencia causal
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">60</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-81d2e0d6f2908e852cd3" style="width:100%;height:156px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-81d2e0d6f2908e852cd3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Z -> Y\n    T -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0268869c8632b31c9498" style="width:100%;height:156px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0268869c8632b31c9498">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Z -> Y\n    T -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="ejemplo" class="level3" data-number="4.1.1">
@@ -425,8 +416,8 @@ Experimentos e inferencia causal
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e17056a51c8d07ab257f" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e17056a51c8d07ab257f">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node[shape=circle]\n      U\n      V\n  node [shape=plaintext]\n    T\n  edge [minlen = 3]\n   #G -> H\n   #H -> PI\n   T -> PF\n   #G -> PF\n   PI -> PF\n   U -> PI\n   U -> PF\n   V -> PF\n   T -> C -> PF\n   PF -> B\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-19ab5dcdb7ec7920df53" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-19ab5dcdb7ec7920df53">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node[shape=circle]\n      U\n      V\n  node [shape=plaintext]\n    T\n  edge [minlen = 3]\n   #G -> H\n   #H -> PI\n   T -> PF\n   #G -> PF\n   PI -> PF\n   U -> PI\n   U -> PF\n   V -> PF\n   T -> C -> PF\n   PF -> B\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>No hay ninguna variable confusora, y una estrategia de estimación es comparar <span class="math inline">\(PF\)</span> entre los grupos.</p>
@@ -502,12 +493,12 @@ Experimentos e inferencia causal
 </div>
 </div>
 <p>Y notamos que nuestra estimación es más precisa. Esto es porque <span class="math inline">\(PI\)</span> absorbe una parte importante de la variación de PF. Al incluir este control no cambiamos la cantidad que estamos estimando, pero sí el estimador particular, que en este caso tiene menos incertidumbre.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Tip
 </div>
 </div>
@@ -550,8 +541,8 @@ Tip
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">120</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-1cf25e00de9f958a17df" style="width:100%;height:312px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1cf25e00de9f958a17df">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Z -> Y\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    Ta -> M\n    M -> Ya\n    M -> Za\n    Ta -> Ya\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e5a834fde26cf20b09b" style="width:100%;height:312px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e5a834fde26cf20b09b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Z -> Y\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    Ta -> M\n    M -> Ya\n    M -> Za\n    Ta -> Ya\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -600,8 +591,8 @@ Tip
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">120</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-9a06edd50618d2909cfe" style="width:100%;height:312px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9a06edd50618d2909cfe">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node[shape= circle]\n    U_y\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Y -> Z\n    T -> Y  \n    U_y -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1a38825fa981a0cbb34b" style="width:100%;height:312px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1a38825fa981a0cbb34b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node[shape= circle]\n    U_y\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    Y -> Z\n    T -> Y  \n    U_y -> Y\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Hemos añadido un nodo implícito (otros factores que afectan <span class="math inline">\(Y\)</span> y no tienen relación con otras variables del sistema) para explicar qué es lo que pasa cuando condicionamos a <span class="math inline">\(Z\)</span>: como <span class="math inline">\(Z\)</span> es un descendiente del colisionador en <span class="math inline">\(Y\)</span>, se activa una ruta no causal entre <span class="math inline">\(U_y\)</span> y <span class="math inline">\(T\)</span>, y estas dos cantidades aparecen como correlacionadas (es una correlación no causal). Esto en consecuencia modifica la correlación entre <span class="math inline">\(T\)</span> y <span class="math inline">\(Y\)</span>.</p>
@@ -676,8 +667,8 @@ Tip
 <span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="st">'</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">140</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-31b4e0f261781745f982" style="width:100%;height:364px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-31b4e0f261781745f982">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Y -> Z\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=circle]\n    U\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    U -> Za\n    U -> Ya\n    Ta -> Ya\n    Ta -> Za\n  {rank=same; Za; Ta}\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2a243c1087ebf06c2a7f" style="width:100%;height:364px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2a243c1087ebf06c2a7f">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  subgraph caso_1 {\n    node [shape=plaintext]\n    Z [fontcolor=\"red\"]\n    edge [minlen = 3]\n    T -> Z\n    Y -> Z\n    T -> Y\n  }\n  \n  subgraph caso_2 {\n    node [shape=circle]\n    U\n    node [shape=plaintext]\n    Ya [label=\"Y\"]\n    Ta [label=\"T\"]\n    Za [label=\"Z\"][fontcolor=\"red\"]\n    edge [minlen = 3]\n    U -> Za\n    U -> Ya\n    Ta -> Ya\n    Ta -> Za\n  {rank=same; Za; Ta}\n  }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="ejemplo-la-paradoja-de-peso-de-recién-nacidos" class="level3 unnumbered">
@@ -689,11 +680,11 @@ Tip
 <p>Esta es una asociación no causal creada por condicionar a un colisionador.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-Pearl2022gb" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Pearl2022gb" class="csl-entry" role="listitem">
 Cinelli, Carlos, Andrew Forney, y Judea Pearl. <span>«A Crash Course in Good and Bad Controls»</span>. <em>Sociological Methods &amp; Research</em> 0 (0): 00491241221099552. <a href="https://doi.org/10.1177/00491241221099552">https://doi.org/10.1177/00491241221099552</a>.
 </div>
-<div id="ref-birthweight" class="csl-entry" role="doc-biblioentry">
+<div id="ref-birthweight" class="csl-entry" role="listitem">
 Hernández-Díaz, Sonia, Enrique F. Schisterman, y Miguel A. Hernán. 2006. <span>«<span>The Birth Weight <span>“Paradox”</span> Uncovered?</span>»</span> <em>American Journal of Epidemiology</em> 164 (11): 1115-20. <a href="https://doi.org/10.1093/aje/kwj275">https://doi.org/10.1093/aje/kwj275</a>.
 </div>
 </div>
@@ -728,9 +719,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -795,6 +800,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

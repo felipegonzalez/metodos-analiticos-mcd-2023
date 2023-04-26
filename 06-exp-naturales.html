@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -150,6 +121,7 @@ div.csl-indent {
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -158,11 +130,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-exp-naturales.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -170,85 +147,98 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Métodos analíticos</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Temario y referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></a>
+  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></a>
+  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></a>
+  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></span></a>
   </div>
 </li>
       </ul>
@@ -256,16 +246,17 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#intro-variables-instrumentales" id="toc-intro-variables-instrumentales" class="nav-link active" data-scroll-target="#intro-variables-instrumentales"><span class="toc-section-number">6.1</span>  Intro: Variables instrumentales</a></li>
-  <li><a href="#variables-instrumentales" id="toc-variables-instrumentales" class="nav-link" data-scroll-target="#variables-instrumentales"><span class="toc-section-number">6.2</span>  Variables instrumentales</a></li>
-  <li><a href="#estimación-con-variables-instrumentales" id="toc-estimación-con-variables-instrumentales" class="nav-link" data-scroll-target="#estimación-con-variables-instrumentales"><span class="toc-section-number">6.3</span>  Estimación con variables instrumentales</a></li>
-  <li><a href="#regresión-discontinua" id="toc-regresión-discontinua" class="nav-link" data-scroll-target="#regresión-discontinua"><span class="toc-section-number">6.4</span>  Regresión discontinua</a>
+  <li><a href="#intro-variables-instrumentales" id="toc-intro-variables-instrumentales" class="nav-link active" data-scroll-target="#intro-variables-instrumentales"><span class="header-section-number">6.1</span> Intro: Variables instrumentales</a></li>
+  <li><a href="#variables-instrumentales" id="toc-variables-instrumentales" class="nav-link" data-scroll-target="#variables-instrumentales"><span class="header-section-number">6.2</span> Variables instrumentales</a></li>
+  <li><a href="#estimación-con-variables-instrumentales" id="toc-estimación-con-variables-instrumentales" class="nav-link" data-scroll-target="#estimación-con-variables-instrumentales"><span class="header-section-number">6.3</span> Estimación con variables instrumentales</a></li>
+  <li><a href="#regresión-discontinua" id="toc-regresión-discontinua" class="nav-link" data-scroll-target="#regresión-discontinua"><span class="header-section-number">6.4</span> Regresión discontinua</a>
   <ul class="collapse">
   <li><a href="#ejemplo-simulado" id="toc-ejemplo-simulado" class="nav-link" data-scroll-target="#ejemplo-simulado">Ejemplo simulado</a></li>
   <li><a href="#ejemplo-parte-2" id="toc-ejemplo-parte-2" class="nav-link" data-scroll-target="#ejemplo-parte-2">Ejemplo: parte 2</a></li>
@@ -279,7 +270,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></h1>
 </div>
 
 
@@ -326,8 +317,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-aa64eeb189de31a79b6e" style="width:100%;height:325px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa64eeb189de31a79b6e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0cf34e9aa3051b1876f6" style="width:100%;height:325px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0cf34e9aa3051b1876f6">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    MiasmaPobreza\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    PurezaAgua -> Colera\n    MiasmaPobreza -> Colera\n    MiasmaPobreza -> PurezaAgua\n  {rank = same; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Dado este diagrama, como hemos discutido, no podemos identificar el efecto causal de la calidad de suministro de agua en las muertes o infecciones de cólera: podría ser la “miasma” que contamina el agua y enferma a las personas (correlación no causal), por ejemplo, y no hay relación causal entre tomar agua contaminada y cólera.</p>
@@ -358,8 +349,8 @@ div.csl-indent {
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-31a526d543077ee4b1e6" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-31a526d543077ee4b1e6">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c907be3012e35d45403b" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c907be3012e35d45403b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    Miasma\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Comp -> PurezaAgua -> Colera\n    Miasma -> PurezaAgua\n    Miasma -> Colera\n  {rank = same; Comp; PurezaAgua; Colera}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Tenemos entonces:</p>
@@ -382,37 +373,37 @@ div.csl-indent {
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">tasa_muertes_10milcasas =</span> <span class="fu">c</span>(<span class="dv">315</span>, <span class="dv">37</span>, <span class="dv">59</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">|&gt;</span> <span class="fu">kable_paper</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> comp </th>
-   <th style="text-align:right;"> casas </th>
-   <th style="text-align:right;"> muertes_colera </th>
-   <th style="text-align:right;"> tasa_muertes_10milcasas </th>
-  </tr>
- </thead>
+<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">comp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">casas</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">muertes_colera</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">tasa_muertes_10milcasas</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> Southwark+Vauxhall </td>
-   <td style="text-align:right;"> 40046 </td>
-   <td style="text-align:right;"> 1263 </td>
-   <td style="text-align:right;"> 315 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lambeth </td>
-   <td style="text-align:right;"> 26107 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 37 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Resto </td>
-   <td style="text-align:right;"> 256423 </td>
-   <td style="text-align:right;"> 1422 </td>
-   <td style="text-align:right;"> 59 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">Southwark+Vauxhall</td>
+<td style="text-align: right;">40046</td>
+<td style="text-align: right;">1263</td>
+<td style="text-align: right;">315</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lambeth</td>
+<td style="text-align: right;">26107</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">37</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Resto</td>
+<td style="text-align: right;">256423</td>
+<td style="text-align: right;">1422</td>
+<td style="text-align: right;">59</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -441,16 +432,16 @@ div.csl-indent {
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width=</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">70</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-ab1b717d4a4d94e63734" style="width:100%;height:227px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ab1b717d4a4d94e63734">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9194d58d09c2c122df4e" style="width:100%;height:227px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9194d58d09c2c122df4e">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n    Z -> T -> Y\n    U-> T\n    U-> Y\n  {rank = same; Z;T; Y}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Variables instrumentales
 </div>
 </div>
@@ -559,12 +550,12 @@ Variables instrumentales
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mod_colera <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/iv-ejemplo.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpB77MVd/
-model-419c7a861331.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/Rtmp0S0zHF/
+model-26122674d5a3.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpB77MVd/model-419c7a861331.hpp'</code></pre>
+Rtmp0S0zHF/model-26122674d5a3.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_colera)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -640,19 +631,19 @@ Chain 3 Iteration:  100 / 1500 [  6%]  (Warmup)
 Chain 2 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 4 Iteration:  100 / 1500 [  6%]  (Warmup) 
 Chain 2 Iteration:  200 / 1500 [ 13%]  (Warmup) 
-Chain 1 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 3 Iteration:  200 / 1500 [ 13%]  (Warmup) 
+Chain 1 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 4 Iteration:  200 / 1500 [ 13%]  (Warmup) 
 Chain 1 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 3 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 2 Iteration:  300 / 1500 [ 20%]  (Warmup) 
 Chain 4 Iteration:  300 / 1500 [ 20%]  (Warmup) 
-Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 3 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 1 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 2 Iteration:  400 / 1500 [ 26%]  (Warmup) 
+Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 3 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 3 Iteration:  501 / 1500 [ 33%]  (Sampling) 
-Chain 4 Iteration:  400 / 1500 [ 26%]  (Warmup) 
 Chain 1 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 1 Iteration:  501 / 1500 [ 33%]  (Sampling) 
 Chain 2 Iteration:  500 / 1500 [ 33%]  (Warmup) 
@@ -660,34 +651,34 @@ Chain 2 Iteration:  501 / 1500 [ 33%]  (Sampling)
 Chain 3 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 4 Iteration:  500 / 1500 [ 33%]  (Warmup) 
 Chain 4 Iteration:  501 / 1500 [ 33%]  (Sampling) 
-Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 2 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 3 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 1 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 4 Iteration:  600 / 1500 [ 40%]  (Sampling) 
 Chain 3 Iteration:  800 / 1500 [ 53%]  (Sampling) 
-Chain 1 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 2 Iteration:  700 / 1500 [ 46%]  (Sampling) 
+Chain 1 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 3 Iteration:  900 / 1500 [ 60%]  (Sampling) 
 Chain 4 Iteration:  700 / 1500 [ 46%]  (Sampling) 
 Chain 2 Iteration:  800 / 1500 [ 53%]  (Sampling) 
-Chain 1 Iteration:  800 / 1500 [ 53%]  (Sampling) 
 Chain 3 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
+Chain 1 Iteration:  800 / 1500 [ 53%]  (Sampling) 
 Chain 4 Iteration:  800 / 1500 [ 53%]  (Sampling) 
-Chain 3 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 2 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 1 Iteration:  900 / 1500 [ 60%]  (Sampling) 
-Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 4 Iteration:  900 / 1500 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 2 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
+Chain 1 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 4 Iteration: 1000 / 1500 [ 66%]  (Sampling) 
 Chain 2 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 3 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 1 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
-Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 3 finished in 77.8 seconds.
 Chain 2 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
+Chain 3 Iteration: 1500 / 1500 [100%]  (Sampling) 
+Chain 3 finished in 93.6 seconds.
 Chain 4 Iteration: 1100 / 1500 [ 73%]  (Sampling) 
 Chain 1 Iteration: 1200 / 1500 [ 80%]  (Sampling) 
 Chain 2 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
@@ -697,16 +688,16 @@ Chain 2 Iteration: 1400 / 1500 [ 93%]  (Sampling)
 Chain 4 Iteration: 1300 / 1500 [ 86%]  (Sampling) 
 Chain 1 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 2 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 2 finished in 91.1 seconds.
+Chain 2 finished in 109.5 seconds.
 Chain 4 Iteration: 1400 / 1500 [ 93%]  (Sampling) 
 Chain 1 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 1 finished in 92.5 seconds.
+Chain 1 finished in 112.2 seconds.
 Chain 4 Iteration: 1500 / 1500 [100%]  (Sampling) 
-Chain 4 finished in 94.2 seconds.
+Chain 4 finished in 113.3 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 88.9 seconds.
-Total execution time: 94.4 seconds.</code></pre>
+Mean chain execution time: 107.2 seconds.
+Total execution time: 113.6 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -778,8 +769,8 @@ Total execution time: 94.4 seconds.</code></pre>
 <span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>, <span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">200</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-8183e3e8a7c59679c7db" style="width:100%;height:650px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8183e3e8a7c59679c7db">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node [shape = circle]\n    U\n    #V\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Y\n     #V -> Estatura\n     #V -> Y\n    Estatura -> T\n    T -> Y\n    Estatura -> Y\n{rank = same; U; T}\n{rank = min;  Estatura}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-603e8152f9e0943d70b2" style="width:100%;height:650px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-603e8152f9e0943d70b2">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n  node [shape = circle]\n    U\n    #V\n  node [shape=plaintext]\n    Estatura\n  edge [minlen = 3]\n     U -> Y\n     #V -> Estatura\n     #V -> Y\n    Estatura -> T\n    T -> Y\n    Estatura -> Y\n{rank = same; U; T}\n{rank = min;  Estatura}\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Como vimos, hay una variable observable (la estatura) que determina la aplicación del tratamiento, y que se asigna de la siguiente forma:</p>
@@ -810,8 +801,8 @@ Total execution time: 94.4 seconds.</code></pre>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>,<span class="at">width =</span> <span class="dv">200</span>, <span class="at">height =</span> <span class="dv">200</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-347e1097d851d169b76c" style="width:100%;height:650px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-347e1097d851d169b76c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; U; Y}\n{rank = min; T; Estatura120}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-64fbba8b53188c45325a" style="width:100%;height:650px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64fbba8b53188c45325a">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir=LR]\n \n  node [shape = circle]\n    U\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n     U -> Y\n     \n    Estatura120 -> T\n    T -> Y\n{rank = same; U; Y}\n{rank = min; T; Estatura120}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, el grupo Estatura120 son aquellos que miden entre 118 y 122, por ejemplo, y estamos suponiendo que el efecto de la variación de la estatura en este grupo es mínimo.</p>
@@ -857,12 +848,12 @@ Total execution time: 94.4 seconds.</code></pre>
 </div>
 </div>
 <p>Si nuestros modelos son apropiados, podemos estimar el efecto causal a los 9 años: el programa incrementa la asistencia en un promedio de larededor de 25 días de 200 posibles. Para hacer inferencia apropiadamente, podemos ajustar modelos como veremos más adelante.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Regresión discontinua
 </div>
 </div>
@@ -948,98 +939,98 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
 Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
 Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
 Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 4.5 seconds.
+Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 3 finished in 4.5 seconds.
+Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 2 finished in 5.9 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 2 finished in 4.6 seconds.
+Chain 1 finished in 6.1 seconds.
+Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 3 finished in 6.1 seconds.
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 4.7 seconds.
+Chain 4 finished in 6.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 4.6 seconds.
-Total execution time: 4.8 seconds.</code></pre>
+Mean chain execution time: 6.1 seconds.
+Total execution time: 6.4 seconds.</code></pre>
 </div>
 </div>
 <p>Nuestro resumen del efecto local en 9 años es el siguiente:</p>
@@ -1049,7 +1040,7 @@ Total execution time: 4.8 seconds.</code></pre>
 <pre><code># A tibble: 1 × 4
   variable  mean    q5   q95
   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 delta     19.3  12.4  26.0</code></pre>
+1 delta     19.3  12.5  25.8</code></pre>
 </div>
 </div>
 <p>Finalmente, vemos cómo ajusta el modelo:</p>
@@ -1130,11 +1121,11 @@ Total execution time: 4.8 seconds.</code></pre>
 <p><em>Ejercicio</em>: construye modelos de stan para estos datos, como en el ejemplo anterior.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-freedmanshoe" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-freedmanshoe" class="csl-entry" role="listitem">
 Freedman, David A. 1991. <span>«Statistical Models and Shoe Leather»</span>. <em>Sociological Methodology</em> 21: 291-313. <a href="http://www.jstor.org/stable/270939">http://www.jstor.org/stable/270939</a>.
 </div>
-<div id="ref-morgan2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-morgan2015" class="csl-entry" role="listitem">
 Morgan, S. L., y C. Winship. 2015. <em>Counterfactuals and Causal Inference</em>. Analytical Methods for Social Research. Cambridge University Press. <a href="https://books.google.com.mx/books?id=Q6YaBQAAQBAJ">https://books.google.com.mx/books?id=Q6YaBQAAQBAJ</a>.
 </div>
 </div>
@@ -1169,9 +1160,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1236,6 +1241,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

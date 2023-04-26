@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,6 +114,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -151,11 +123,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-aplicaciones-espacio-estados.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -163,85 +140,98 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Métodos analíticos</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Temario y referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></a>
+  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></a>
+  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></a>
+  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></span></a>
   </div>
 </li>
       </ul>
@@ -249,21 +239,27 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#pronósticos" id="toc-pronósticos" class="nav-link active" data-scroll-target="#pronósticos"><span class="toc-section-number">9.1</span>  Pronósticos</a></li>
-  <li><a href="#análisis-de-datos-diarios" id="toc-análisis-de-datos-diarios" class="nav-link" data-scroll-target="#análisis-de-datos-diarios"><span class="toc-section-number">9.2</span>  Análisis de datos diarios</a>
+  <li><a href="#pronósticos" id="toc-pronósticos" class="nav-link active" data-scroll-target="#pronósticos"><span class="header-section-number">9.1</span> Pronósticos</a></li>
+  <li><a href="#análisis-de-datos-diarios" id="toc-análisis-de-datos-diarios" class="nav-link" data-scroll-target="#análisis-de-datos-diarios"><span class="header-section-number">9.2</span> Análisis de datos diarios</a>
   <ul class="collapse">
   <li><a href="#estacionalidad-trigonométrica" id="toc-estacionalidad-trigonométrica" class="nav-link" data-scroll-target="#estacionalidad-trigonométrica">Estacionalidad trigonométrica</a></li>
-  <li><a href="#días-de-asueto" id="toc-días-de-asueto" class="nav-link" data-scroll-target="#días-de-asueto"><span class="toc-section-number">9.2.1</span>  Días de asueto</a></li>
+  <li><a href="#días-de-asueto" id="toc-días-de-asueto" class="nav-link" data-scroll-target="#días-de-asueto"><span class="header-section-number">9.2.1</span> Días de asueto</a></li>
   </ul></li>
-  <li><a href="#nowcasting-y-uso-de-covariables" id="toc-nowcasting-y-uso-de-covariables" class="nav-link" data-scroll-target="#nowcasting-y-uso-de-covariables"><span class="toc-section-number">9.3</span>  Nowcasting y uso de covariables</a></li>
-  <li><a href="#agregación-de-encuestas" id="toc-agregación-de-encuestas" class="nav-link" data-scroll-target="#agregación-de-encuestas"><span class="toc-section-number">9.4</span>  Agregación de encuestas</a></li>
-  <li><a href="#impacto-causal" id="toc-impacto-causal" class="nav-link" data-scroll-target="#impacto-causal"><span class="toc-section-number">9.5</span>  Impacto causal</a></li>
+  <li><a href="#nowcasting-y-uso-de-covariables" id="toc-nowcasting-y-uso-de-covariables" class="nav-link" data-scroll-target="#nowcasting-y-uso-de-covariables"><span class="header-section-number">9.3</span> Nowcasting y uso de covariables</a></li>
+  <li><a href="#agregación-de-encuestas" id="toc-agregación-de-encuestas" class="nav-link" data-scroll-target="#agregación-de-encuestas"><span class="header-section-number">9.4</span> Agregación de encuestas</a></li>
+  <li><a href="#contrafactuales-de-impacto-causal" id="toc-contrafactuales-de-impacto-causal" class="nav-link" data-scroll-target="#contrafactuales-de-impacto-causal"><span class="header-section-number">9.5</span> Contrafactuales de impacto causal</a>
+  <ul class="collapse">
+  <li><a href="#modelos-predictivos-del-contrafactual" id="toc-modelos-predictivos-del-contrafactual" class="nav-link" data-scroll-target="#modelos-predictivos-del-contrafactual"><span class="header-section-number">9.5.1</span> Modelos predictivos del contrafactual</a></li>
+  <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1"><span class="header-section-number">9.5.2</span> Ejemplo 1</a></li>
+  <li><a href="#ejemplo-2" id="toc-ejemplo-2" class="nav-link" data-scroll-target="#ejemplo-2"><span class="header-section-number">9.5.3</span> Ejemplo 2</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -272,7 +268,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></h1>
 </div>
 
 
@@ -293,10 +289,11 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>locale <span class="ot">&lt;-</span> <span class="fu">Sys.setlocale</span>(<span class="st">"LC_TIME"</span>, <span class="st">"es_ES.UTF-8"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_light</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CausalImpact)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>locale <span class="ot">&lt;-</span> <span class="fu">Sys.setlocale</span>(<span class="st">"LC_TIME"</span>, <span class="st">"es_ES.UTF-8"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_light</span>())</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="pronósticos" class="level2" data-number="9.1">
@@ -342,30 +339,30 @@ div.csl-indent {
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bsts</span>(ent_hosp_ts, spec, <span class="at">niter =</span> <span class="dv">40000</span>, <span class="at">ping =</span> <span class="dv">10000</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 06:33:07 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Fri Apr 21 06:33:20 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Fri Apr 21 06:33:33 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Fri Apr 21 06:33:46 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Fri Apr 21 06:33:59 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Fri Apr 21 06:34:15 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Fri Apr 21 06:34:30 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Fri Apr 21 06:34:45 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Fri Apr 21 06:35:01 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Fri Apr 21 06:35:35 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Fri Apr 21 06:36:09 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Fri Apr 21 06:36:44 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Fri Apr 21 06:37:18 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Fri Apr 21 06:37:59 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Fri Apr 21 06:38:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Fri Apr 21 06:39:20 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Fri Apr 21 06:40:00 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Fri Apr 21 06:40:41 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Fri Apr 21 06:41:21 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Fri Apr 21 06:42:02 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Fri Apr 21 06:42:42 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Fri Apr 21 06:43:40 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Fri Apr 21 06:44:38 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Fri Apr 21 06:45:35 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 16:32:12 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Wed Apr 26 16:32:26 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Wed Apr 26 16:32:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Wed Apr 26 16:32:55 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Wed Apr 26 16:33:10 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Wed Apr 26 16:33:28 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Wed Apr 26 16:33:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Wed Apr 26 16:34:02 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Wed Apr 26 16:34:19 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Wed Apr 26 16:34:57 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Wed Apr 26 16:35:34 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Wed Apr 26 16:36:11 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Wed Apr 26 16:36:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Wed Apr 26 16:37:33 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Wed Apr 26 16:38:17 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Wed Apr 26 16:39:01 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Wed Apr 26 16:39:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Wed Apr 26 16:40:30 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Wed Apr 26 16:41:15 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Wed Apr 26 16:42:00 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Wed Apr 26 16:42:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Wed Apr 26 16:43:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Wed Apr 26 16:44:51 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Wed Apr 26 16:45:54 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>En primer lugar, podemos comparar las predicciones a un paso de cada modelo. En este caso, los modelos 3 y 4 son claramente superiores a 1 y 2 en desempeño a un paso. El mejor modelo en desempeño a un paso es el modelo 4, por la tendencia lineal de la serie.</p>
@@ -436,7 +433,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pred<span class="sc">$</span>distribution, <span class="dv">1</span>, sum) <span class="sc">|&gt;</span> <span class="fu">quantile</span>(<span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.50</span>, <span class="fl">0.95</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      5%      50%      95% 
-600230.0 617269.0 634272.5 </code></pre>
+600174.3 617181.0 634645.9 </code></pre>
 </div>
 </div>
 </section>
@@ -516,7 +513,7 @@ div.csl-indent {
 <h3 data-number="9.2.1" class="anchored" data-anchor-id="días-de-asueto"><span class="header-section-number">9.2.1</span> Días de asueto</h3>
 <p>Definiremos componentes para algunos de los días de asueto/especiales más importantes, considerando que su efecto puede ir más allá del día particular. En la versión estática, tenemos un coeficiente distinto para cada uno de esos días en la ventana que hayamos elegido:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>año_nuevo <span class="ot">&lt;-</span> <span class="fu">NamedHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"NewYearsDay"</span>, <span class="at">days.before =</span> <span class="dv">2</span>,</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>año_nuevo <span class="ot">&lt;-</span> <span class="fu">NamedHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"NewYearsDay"</span>, <span class="at">days.before =</span> <span class="dv">4</span>,</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">days.after =</span> <span class="dv">4</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>navidad <span class="ot">&lt;-</span> <span class="fu">NamedHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"Christmas"</span>, <span class="at">days.before =</span> <span class="dv">4</span>,</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">days.after =</span> <span class="dv">4</span>)</span>
@@ -525,10 +522,13 @@ div.csl-indent {
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>feb_14 <span class="ot">&lt;-</span> <span class="fu">NamedHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"ValentinesDay"</span>, </span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">days.after =</span> <span class="dv">3</span>, <span class="at">days.before =</span> <span class="dv">3</span>)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>halloween <span class="ot">&lt;-</span> <span class="fu">NamedHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"Halloween"</span>, </span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">days.after =</span> <span class="dv">5</span>, <span class="at">days.before =</span> <span class="dv">4</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">days.after =</span> <span class="dv">5</span>, <span class="at">days.before =</span> <span class="dv">5</span>)</span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>sept_16 <span class="ot">&lt;-</span> <span class="fu">FixedDateHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"Independencia"</span>, </span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">month =</span> <span class="st">"September"</span>, <span class="at">day =</span> <span class="dv">16</span>, <span class="at">days.before =</span> <span class="dv">3</span>,</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">days.after =</span> <span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">month =</span> <span class="st">"September"</span>, <span class="at">day =</span> <span class="dv">16</span>, <span class="at">days.before =</span> <span class="dv">2</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">days.after =</span> <span class="dv">2</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>mayo_1 <span class="ot">&lt;-</span> <span class="fu">FixedDateHoliday</span>(<span class="at">holiday.name =</span> <span class="st">"Trabajo"</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">month =</span> <span class="st">"May"</span>, <span class="at">day =</span> <span class="dv">1</span>, <span class="at">days.before =</span> <span class="dv">2</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">days.after =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Y nuestro modelo es entonces, agregando también un coeficiente para febrero 29 y marzo 1 cuando sigue de 29 de febrero:</p>
 <div class="cell">
@@ -540,22 +540,23 @@ div.csl-indent {
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddRandomWalkHoliday</span>(<span class="at">holiday =</span> pascua, <span class="at">y =</span> y) <span class="sc">|&gt;</span> </span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddRandomWalkHoliday</span>(<span class="at">holiday =</span> feb_14, <span class="at">y =</span> y) <span class="sc">|&gt;</span> </span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddRandomWalkHoliday</span>(<span class="at">holiday =</span> halloween, <span class="at">y =</span> y) <span class="sc">|&gt;</span> </span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddRandomWalkHoliday</span>(<span class="at">holiday =</span> sept_16, <span class="at">y =</span> y) <span class="sc">|&gt;</span> </span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddDynamicRegression</span>(y <span class="sc">~</span> feb_29 <span class="sc">+</span> mar_1_feb_29)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddRandomWalkHoliday</span>(<span class="at">holiday =</span> sept_16, <span class="at">y =</span> y) <span class="sc">|&gt;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddRandomWalkHoliday</span>(<span class="at">holiday =</span> mayo_1, <span class="at">y =</span> y) <span class="sc">|&gt;</span> </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AddDynamicRegression</span>(y <span class="sc">~</span> feb_29 <span class="sc">+</span> mar_1_feb_29)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ajuste_nat <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y, modelo_natalidad, <span class="at">niter =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 06:46:42 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Fri Apr 21 06:48:05 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Fri Apr 21 06:49:28 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Fri Apr 21 06:50:51 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Fri Apr 21 06:52:15 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Fri Apr 21 06:53:38 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Fri Apr 21 06:55:01 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Fri Apr 21 06:56:24 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Fri Apr 21 06:57:48 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Fri Apr 21 06:59:11 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 16:47:08 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Wed Apr 26 16:48:50 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Wed Apr 26 16:50:31 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Wed Apr 26 16:52:13 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Wed Apr 26 16:53:55 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Wed Apr 26 16:55:36 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Wed Apr 26 16:57:18 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Wed Apr 26 16:58:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Wed Apr 26 17:00:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Wed Apr 26 17:02:23 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -573,7 +574,7 @@ div.csl-indent {
 <p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Podemos ver con más detalle cómo es el efecto de los días de asueto y sus “hombros”, tomando por ejemplo 2008-2009:</p>
+<p>Podemos ver con más detalle cómo es el efecto de los días de asueto y sus “hombros”, tomando por ejemplo una parte 2008-2009 vemos la estructura:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mean_contrib_tbl <span class="sc">|&gt;</span> </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(<span class="fu">year</span>(fecha) <span class="sc">==</span> <span class="dv">2009</span> <span class="sc">&amp;</span> <span class="fu">month</span>(fecha) <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">|</span></span>
@@ -584,11 +585,12 @@ div.csl-indent {
 <p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Obs</strong>: este modelo todavía requiere considerar qué otros efectos adicionales están actuando. La distribución de errores a un paso tiene colas largas, y todavía hay cierta información que podríamos usar para mejorar las predicción si consideramos la ACF de las innovaciones:</p>
+<p><strong>Nota</strong>: este modelo todavía requiere considerar qué otros efectos adicionales están actuando. La distribución de errores a un paso tiene colas largas, y todavía hay cierta información que podríamos usar para mejorar las predicción si consideramos la ACF de las innovaciones:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>error <span class="ot">&lt;-</span> ajuste_nat<span class="sc">$</span>one.step.prediction.errors <span class="sc">|&gt;</span> <span class="fu">apply</span>(<span class="dv">2</span>, mean)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>error_sin_2008 <span class="ot">&lt;-</span> error[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>)]</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(error_sin_2008)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(error_sin_2008)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(error_sin_2008)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="576"></p>
 </div>
@@ -614,31 +616,35 @@ Current temporal ordering may yield unexpected results.
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tsibble: 2,922 x 5 [1D]
-   fecha      nacimientos feb_29  error dia_sem 
-   &lt;date&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
- 1 2013-01-01        8.45      0 -0.199 Tuesday 
- 2 2009-11-02        8.64      0 -0.186 Monday  
- 3 2012-09-16        8.66      0  0.172 Sunday  
- 4 2016-11-21        8.49      0 -0.172 Monday  
- 5 2012-12-25        8.47      0 -0.167 Tuesday 
- 6 2016-12-25        8.15      0  0.162 Sunday  
- 7 2014-05-01        8.57      0 -0.161 Thursday
- 8 2015-11-16        8.56      0 -0.159 Monday  
- 9 2015-05-01        8.55      0 -0.158 Friday  
-10 2012-11-19        8.66      0 -0.150 Monday  
+   fecha      nacimientos feb_29  error dia_sem
+   &lt;date&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  
+ 1 2013-01-01        8.45      0 -0.198 martes 
+ 2 2012-12-25        8.47      0 -0.186 martes 
+ 3 2009-11-02        8.64      0 -0.185 lunes  
+ 4 2012-09-16        8.66      0  0.174 domingo
+ 5 2016-11-21        8.49      0 -0.171 lunes  
+ 6 2016-12-25        8.15      0  0.168 domingo
+ 7 2015-11-16        8.56      0 -0.157 lunes  
+ 8 2012-11-19        8.66      0 -0.149 lunes  
+ 9 2014-03-17        8.55      0 -0.148 lunes  
+10 2011-11-21        8.69      0 -0.147 lunes  
 # … with 2,912 more rows</code></pre>
 </div>
 </div>
+<ul>
+<li>En la tabla de arriba vemos que falta incluir algunos otros días de asueto, los que feriados que se mueven a los lunes.</li>
+<li>También días feriados con fecha fija que caen en Domingo tienen un efecto distinto (es posible construir manualmente la serie de días de asueto excluyendo los feriados que caen en domingo, por ejemplo).</li>
+</ul>
 </section>
 </section>
 <section id="nowcasting-y-uso-de-covariables" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="nowcasting-y-uso-de-covariables"><span class="header-section-number">9.3</span> Nowcasting y uso de covariables</h2>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Nowcasting
 </div>
 </div>
@@ -662,16 +668,16 @@ Nowcasting
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">state.specification =</span> ss,</span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">niter =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 07:00:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Fri Apr 21 07:00:43 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Fri Apr 21 07:00:48 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Fri Apr 21 07:00:52 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Fri Apr 21 07:00:56 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Fri Apr 21 07:01:01 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Fri Apr 21 07:01:05 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Fri Apr 21 07:01:09 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Fri Apr 21 07:01:13 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Fri Apr 21 07:01:18 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 17:04:11 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Wed Apr 26 17:04:16 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Wed Apr 26 17:04:20 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Wed Apr 26 17:04:24 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Wed Apr 26 17:04:29 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Wed Apr 26 17:04:33 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Wed Apr 26 17:04:38 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Wed Apr 26 17:04:42 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Wed Apr 26 17:04:46 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Wed Apr 26 17:04:51 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -711,16 +717,16 @@ Nowcasting
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> initial.claims, </span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">expected.model.size =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 07:01:23 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Fri Apr 21 07:01:28 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Fri Apr 21 07:01:32 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Fri Apr 21 07:01:36 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Fri Apr 21 07:01:41 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Fri Apr 21 07:01:45 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Fri Apr 21 07:01:49 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Fri Apr 21 07:01:54 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Fri Apr 21 07:01:58 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Fri Apr 21 07:02:02 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 17:04:56 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Wed Apr 26 17:05:01 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Wed Apr 26 17:05:05 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Wed Apr 26 17:05:10 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Wed Apr 26 17:05:14 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Wed Apr 26 17:05:19 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Wed Apr 26 17:05:23 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Wed Apr 26 17:05:28 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Wed Apr 26 17:05:32 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Wed Apr 26 17:05:37 2023 =-=-=-=-=</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(iclaimsNSA <span class="sc">~</span> .,</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">state.specification =</span> ss,</span>
@@ -728,16 +734,16 @@ Nowcasting
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> initial.claims,</span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">expected.model.size =</span> <span class="dv">6</span>)  <span class="co"># Passed to SpikeSlabPrior.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Fri Apr 21 07:02:07 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Fri Apr 21 07:02:11 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Fri Apr 21 07:02:15 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Fri Apr 21 07:02:20 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Fri Apr 21 07:02:24 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Fri Apr 21 07:02:28 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Fri Apr 21 07:02:33 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Fri Apr 21 07:02:37 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Fri Apr 21 07:02:41 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Fri Apr 21 07:02:46 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 17:05:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Wed Apr 26 17:05:46 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Wed Apr 26 17:05:50 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Wed Apr 26 17:05:55 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Wed Apr 26 17:05:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Wed Apr 26 17:06:04 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Wed Apr 26 17:06:08 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Wed Apr 26 17:06:13 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Wed Apr 26 17:06:17 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Wed Apr 26 17:06:22 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>Comparamos los modelos con el error de pronóstico a un paso, y el modelo 2 es el de mejor desempeño:</p>
@@ -767,22 +773,540 @@ Nowcasting
 </section>
 <section id="agregación-de-encuestas" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="agregación-de-encuestas"><span class="header-section-number">9.4</span> Agregación de encuestas</h2>
+<p>Para cada elección, se publica en México un gran número de encuestas sobre las preferencias partidistas. Con el fin de obtener una estimación de las preferencias subyacentes, las encuestas pueden combinarse en una encuesta de encuestas. Mostramos un modelo dinámico bayesiano para combinar encuestas y producir una única estimación.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>mex_2018_tbl <span class="ot">&lt;-</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">"../datos/wiki_encuestas_2018_en_campana.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_encuesta =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_encuesta, <span class="fu">everything</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Muestra =</span> <span class="fu">as.numeric</span>(Muestra)) <span class="sc">|&gt;</span> </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">margen_error =</span> <span class="fu">str_remove</span>(<span class="st">`</span><span class="at">Margen de error</span><span class="st">`</span>, <span class="st">"±"</span> )) <span class="sc">|&gt;</span> </span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">margen_error =</span> <span class="fu">as.numeric</span>(margen_error)) <span class="sc">|&gt;</span> </span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">no_contesto =</span> </span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="st">`</span><span class="at">Ninguno Nulo/Blanco</span><span class="st">`</span>, <span class="st">`</span><span class="at">NC/NS</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Margen de error</span><span class="st">`</span>, <span class="st">`</span><span class="at">Ninguno Nulo/Blanco</span><span class="st">`</span>, <span class="st">`</span><span class="at">NC/NS</span><span class="st">`</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Zavala =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Zavala), <span class="dv">0</span>, Zavala)) <span class="sc">|&gt;</span> </span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Rodríguez <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Rodríguez ), <span class="dv">0</span>, Rodríguez )) <span class="sc">|&gt;</span> </span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Otros =</span> Zavala <span class="sc">+</span> Rodríguez) <span class="sc">|&gt;</span> </span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">publicacion =</span> <span class="fu">dmy</span>(<span class="fu">paste</span>(<span class="st">`</span><span class="at">Publicación (2018)</span><span class="st">`</span>, <span class="dv">2018</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_encuesta, Encuestadora, publicacion, Muestra, </span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>         Obrador<span class="sc">:</span>Meade, Otros, no_contesto, margen_error)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generalmente las casas encuestadores usan una fórmula simple para el error, como si fuera muestreo aleatorio simple, que rara vez se usa en la práctica (para encuestas casa por casa, por ejemplo), y no toma el cuenta de que muchas veces se usan reponderaciones de los datos. Ambas cosas generalmente producen varianzas considerablemente más altas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mex_2018_tbl, <span class="fu">aes</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> margen_error, <span class="at">y =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">/</span> <span class="fu">sqrt</span>(Muestra),<span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 11 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Supondremos margen de error de 6 para aquellos que no reportan tamaño de muestra o error, y usamos un factor de diseño igual a 2. Adicionalmente, como buscamos preferencias efectivas, descontamos aquellos que no reportaron preferencia:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># suponemos margen de error 6 para las que no reportan</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># generalmente se reporta el error para un porcentaje de 50%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># como si fuera muestreo aleatorio simple</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Usamos un factor de diseño igual a 2</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>mex_2018_tbl <span class="ot">&lt;-</span> mex_2018_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">margen_error =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(margen_error), <span class="dv">6</span>, margen_error)) <span class="sc">|&gt;</span> </span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_inf =</span> (<span class="dv">100</span> <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="dv">2</span>) <span class="sc">*</span> margen_error))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_efectiva =</span> n_inf <span class="sc">*</span> (Obrador <span class="sc">+</span> Anaya <span class="sc">+</span> Meade <span class="sc">+</span> Otros)<span class="sc">/</span><span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finalmente, normalizamos a preferencia efectiva:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>pref_tbl <span class="ot">&lt;-</span> mex_2018_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Obrador<span class="sc">:</span>Otros, <span class="at">names_to =</span> <span class="st">"candidato"</span>, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"pref_cruda"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_encuesta) <span class="sc">|&gt;</span> </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> pref_cruda <span class="sc">/</span> <span class="fu">sum</span>(pref_cruda)) <span class="sc">|&gt;</span> </span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_cand =</span> p <span class="sc">*</span> n_efectiva) <span class="sc">|&gt;</span> </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(p, pref_cruda)) <span class="sc">|&gt;</span> </span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> candidato, <span class="at">values_from =</span> n_cand) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ahora consideramos el <strong>modelo de observaciones</strong> que utilizaremos. En primer lugar, las observaciones son conteos, que suponemos multinomiales:</p>
+<p><span class="math display">\[n_i \sim \textrm{Multinom}(\pi_i, N_{i}^{eff})\]</span> donde <span class="math inline">\(n_i\)</span> es el vector de conteos observado, <span class="math inline">\(N_i^{eff}\)</span> es la muestra efectiva, y <span class="math inline">\(\pi_i\)</span> es el vector de preferencias de los candidatos para la encuesta <span class="math inline">\(i\)</span>. Ahora definimos <span class="math inline">\(\mu_i\)</span> tal que <span class="math display">\[\textrm{softmax}(\mu_i) = \pi_i\]</span> Ahora consideramos <span class="math inline">\(\mu_i\)</span> para cada encuesta. Esta cantidad dependerá de:</p>
+<ul>
+<li>La preferencia subyacente <span class="math inline">\(p(t_i)\)</span> de los votantes al tiempo <span class="math inline">\(t_i\)</span> que se tomó la encuesta.</li>
+<li>Sesgos propios de cada cada casa encuestadora <span class="math inline">\(d_i\)</span>. Estos ocurren porque diversas metodologías alcanzan a distintos sectores de posibles votantes, o consideran diferentes poblaciones objetivo. Suponemos que en promedio sobre las casas encuestadores, este valor es cercano a cero.</li>
+<li>Sesgos general <span class="math inline">\(b\)</span> en el que incurren todas las casas encuestadoras. Este error sistemático ocurre por ejemplo, cuando un sector particular no responde a encuestas, y también tiene preferencias distintas a las de la población general.</li>
+</ul>
+<p>El modelo entonces es</p>
+<p><span class="math display">\[\mu_i = \alpha(t_i) +  b + d_i\]</span> Nuestro interés es estimar <span class="math inline">\(\alpha(t)\)</span> para cada <span class="math inline">\(t\)</span>, y en consecuencia nuestra estimación de la preferencia será</p>
+<p><span class="math display">\[p (t) = \textrm{softmax}(\alpha(t)),\]</span> es decir, la preferencia quitando el sesgo de casa encuestadora y el sesgo general de todas las encuestas. Buscaremos hacer una proyección <span class="math inline">\(p(T)\)</span> si <span class="math inline">\(T\)</span> es el día de la elección.</p>
+<p>Ahora construímos la parte dinámica del modelo. Supondremos los sesgos generales y por casas encuestadoras como fijos en el tiempo (esto puede cambiarse si existen cambios de metodología en el tiempo por ejemplo).</p>
+<p>En este ejemplo usaremos el modelo más simple de nivel local, como en <a href="https://www.sowi.uni-mannheim.de/media/Lehrstuehle/sowi/Gschwend/Articel/forecasting_elections_in_multiparty_systems_a_bayesian_approach_combining_polls_and_fundamentals.pdf">en este modelo de elecciones en Alemania</a>, o <a href="https://github.com/TheEconomist/us-potus-model">el modelo del Economist para la elección presidencial de 2020</a>:</p>
+<ul>
+<li>Modelo de nivel local, donde los choques ocurren cada día y cambian las preferencias. Las predicciones al día de la elección son las últimas estimaciones junto con la incertidumbre asociada a la evolución de las preferencias.</li>
+<li>Otra alternativa es también modelar tendencia (usual o autorregresiva), si consideramos que el “momento” de los candidatos es importante. Las predicciones al día de elección incluyen esa tendencia.</li>
+</ul>
+<p>En este caso, tenemos usaremos (recuerda que la longitud de <span class="math inline">\(p\)</span> es el número de candidatos). En primer lugar, ponemos</p>
+<p><span class="math display">\[\alpha(t+1) = \alpha(t) + \epsilon(t)\]</span> con <span class="math inline">\(\epsilon(t) \sim NMV(0, W)\)</span>, donde <span class="math inline">\(W\)</span> es una matriz de varianzas y covarianzas para los choques, que pueden tener patrones de correlación entre candidatos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>primer_dia <span class="ot">&lt;-</span> pref_tbl<span class="sc">$</span>publicacion <span class="sc">|&gt;</span> <span class="fu">min</span>()</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>ultimo_dia <span class="ot">&lt;-</span> pref_tbl<span class="sc">$</span>publicacion <span class="sc">|&gt;</span> <span class="fu">max</span>()</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>fecha_eleccion <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(<span class="st">"2018-07-01"</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co">#dias_tbl &lt;- tibble(dia = seq(primer_dia, fecha_eleccion, by = "day")) |&gt; </span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(id_dia = row_number())</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>dias_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datos/dias.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 92 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl  (1): id_dia
+date (1): dia
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identificar dias</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>pref_tbl <span class="ot">&lt;-</span> pref_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dias_tbl <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">publicacion =</span> dia)) <span class="sc">|&gt;</span> </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "publicacion"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numerar casas</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>pref_tbl <span class="ot">&lt;-</span> pref_tbl <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_casa =</span> <span class="fu">as.integer</span>(<span class="fu">factor</span>(Encuestadora)))</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>cands_tbl <span class="ot">&lt;-</span> pref_tbl <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(Obrador<span class="sc">:</span>Otros, <span class="at">names_to =</span> <span class="st">"candidato"</span>,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">values_to =</span> <span class="st">"n_pref"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_encuesta) <span class="sc">|&gt;</span> </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje_pref =</span> <span class="dv">100</span> <span class="sc">*</span> n_pref <span class="sc">/</span> <span class="fu">sum</span>(n_pref))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Y podemos usar un modelo como el que sigue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>mod_elecciones <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/series-de-tiempo/modelo-eleccion.stan"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_elecciones)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data {
+  int&lt;lower=0&gt; N; //num encuestas
+  int&lt;lower=0&gt; T; //num dias
+  int&lt;lower=0&gt; K; //num candidatos
+  int&lt;lower=0&gt; S; //num casas
+  array[N, K] int n_obs;   //preferencias
+  array[N] int num_casa_enc;
+  array[N] int dia_enc;
+}
+
+parameters {
+
+  cholesky_factor_corr[K] L_Omega;
+  vector&lt;lower=0&gt;[K] sigma;
+  array[T] vector[K] eta;
+  vector[K] alpha_1;
+  array[S] vector[K] d_casa;
+  vector[K] b;
+
+}
+
+transformed parameters {
+  array[N] simplex[K] mu;
+  array[T] vector[K] alpha;
+  array[S] vector[K] d_casa_c;
+
+  alpha[1] = alpha_1;
+  // nivel local
+  for(t in 2:T){
+    alpha[t] = alpha[t-1] +  diag_pre_multiply(sigma, L_Omega) *  eta[t];
+  }
+  // modelo para la media
+  for(s in 1:S){
+    d_casa_c[s] = d_casa[s] - mean(d_casa[s]);
+  }
+  for(i in 1:N){
+    mu[i] = softmax(alpha[dia_enc[i]] + d_casa_c[num_casa_enc[i]] + b);
+  }
+}
+
+model {
+  for(i in 1:N){
+    n_obs[i] ~ multinomial(mu[i]);
+  }
+
+  alpha_1 ~ normal(0, 2);
+  for(t in 1:T) {
+    eta[t] ~ std_normal();
+  }
+  b ~ normal(0, 0.07);
+  for(s in 1:S){
+    d_casa[s] ~ normal(0, 0.25);
+  }
+  L_Omega ~ lkj_corr_cholesky(2);
+  sigma ~ normal(0, 0.05);
+}
+
+generated quantities{
+  corr_matrix[K] Omega;
+
+  Omega = multiply_lower_tri_self_transpose(L_Omega);
+
+}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>n_obs <span class="ot">&lt;-</span> pref_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Obrador<span class="sc">:</span>Otros) <span class="sc">|&gt;</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), as.integer)</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>casas <span class="ot">&lt;-</span> pref_tbl<span class="sc">$</span>id_casa</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>dia_enc <span class="ot">&lt;-</span> pref_tbl<span class="sc">$</span>id_dia</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>datos_lst <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">K =</span> <span class="fu">ncol</span>(n_obs), <span class="at">N =</span> <span class="fu">nrow</span>(n_obs), <span class="at">n_obs =</span> n_obs <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">S =</span> <span class="fu">max</span>(casas), <span class="at">num_casa_enc =</span> casas,</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dia_enc =</span> dia_enc, <span class="at">T =</span> <span class="fu">max</span>(dias_tbl<span class="sc">$</span>id_dia))</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">&lt;-</span> mod_elecciones<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> datos_lst, </span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">parallel_chains =</span> <span class="dv">4</span>, <span class="at">max_treedepth =</span> <span class="dv">12</span>, <span class="at">init =</span> <span class="fl">0.01</span>,</span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">step_size =</span> <span class="fl">0.01</span>, <span class="at">refresh =</span> <span class="dv">1000</span>,</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter_sampling =</span> <span class="dv">500</span>, <span class="at">iter_warmup =</span> <span class="dv">500</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running MCMC with 4 parallel chains...
+
+Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
+Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
+Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
+Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
+Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
+Chain 1 finished in 262.2 seconds.
+Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
+Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
+Chain 2 finished in 302.6 seconds.
+Chain 3 finished in 302.8 seconds.
+Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
+Chain 4 finished in 306.2 seconds.
+
+All 4 chains finished successfully.
+Mean chain execution time: 293.5 seconds.
+Total execution time: 306.6 seconds.</code></pre>
+</div>
+</div>
+<p>Extraemos la componente de interés, la resumimos y la transformamos a porcentaje de preferencia:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>alpha_tbl <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="st">"alpha"</span>, <span class="at">format =</span> <span class="st">"df"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"alpha"</span>), </span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"valor"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(variable, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"var"</span>, <span class="st">"id_dia"</span>, <span class="st">"cand"</span>), </span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert =</span> <span class="cn">TRUE</span>, <span class="at">extra =</span> <span class="st">"drop"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>prop_tbl <span class="ot">&lt;-</span> alpha_tbl <span class="sc">|&gt;</span> <span class="fu">group_by</span>(.draw, id_dia) <span class="sc">|&gt;</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">valor =</span> <span class="fu">exp</span>(valor)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">exp</span>(valor))) <span class="sc">|&gt;</span> </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_dia, cand) <span class="sc">|&gt;</span> </span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(valor), <span class="at">q5 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.05</span>),</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">q95 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.95</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Y podemos var ahora las estimaciones suavizadas y los pronósticos desde el momento que terminaron las encuestas hasta el día de la elección:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>cands_tbl <span class="ot">&lt;-</span> cands_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">tibble</span>(<span class="at">cand =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">candidato =</span> <span class="fu">colnames</span>(n_obs)))</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>prop_tbl <span class="ot">&lt;-</span> prop_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dias_tbl)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prop_tbl, <span class="fu">aes</span>( <span class="at">y =</span> <span class="dv">100</span> <span class="sc">*</span> media, <span class="at">group =</span> <span class="fu">factor</span>(cand),</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">colour =</span> <span class="fu">factor</span>(cand))) <span class="sc">+</span> </span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> dia)) <span class="sc">+</span> </span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> dia,<span class="at">ymax =</span> <span class="dv">100</span> <span class="sc">*</span> q95, <span class="at">ymin =</span> <span class="dv">100</span> <span class="sc">*</span> q5, <span class="at">fill =</span> <span class="fu">factor</span>(cand)), </span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cands_tbl, <span class="fu">aes</span>(<span class="at">x =</span> publicacion, <span class="at">y =</span> porcentaje_pref), <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Preferencia"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Por ejemplo la matriz de correlaciones estimada (para los choque del nivel) es:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="st">"Omega"</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, median, sd) <span class="sc">|&gt;</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 3
+   variable   median    sd
+   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 Omega[1,1]  1     0    
+ 2 Omega[2,1]  0.036 0.334
+ 3 Omega[3,1]  0.12  0.39 
+ 4 Omega[4,1] -0.235 0.332
+ 5 Omega[1,2]  0.036 0.334
+ 6 Omega[2,2]  1     0    
+ 7 Omega[3,2]  0.004 0.35 
+ 8 Omega[4,2] -0.182 0.241
+ 9 Omega[1,3]  0.12  0.39 
+10 Omega[2,3]  0.004 0.35 
+11 Omega[3,3]  1     0    
+12 Omega[4,3]  0.164 0.356
+13 Omega[1,4] -0.235 0.332
+14 Omega[2,4] -0.182 0.241
+15 Omega[3,4]  0.164 0.356
+16 Omega[4,4]  1     0    </code></pre>
+</div>
+</div>
+<p>Este modelo tiene varias ventajas sobre hacer promedios simples o suavizamientos locales (como loess), por ejemplo:</p>
+<ul>
+<li>Considera el error de estimación de cada encuesta.</li>
+<li>Cuando distintas casas publican a frecuencias distintas, es importante considerar que esos datos informan tanto la preferencia como <em>el sesgo de la casa encuestadora</em>. Esto implica, por ejemplo, que los encuestadores con encuestas más grandes o con más encuestas no dominan la estimación.</li>
+<li>Contiene parámetros más apropiados para calibrar las predicciones contra datos de elecciones anteriores (los intervalos deben ser consistentes con los resultados finales de la elección), incluyendo efectos de casa, sesgos generales, y rapidez en la evolución del sistema.</li>
+</ul>
 </section>
-<section id="impacto-causal" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="impacto-causal"><span class="header-section-number">9.5</span> Impacto causal</h2>
+<section id="contrafactuales-de-impacto-causal" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="contrafactuales-de-impacto-causal"><span class="header-section-number">9.5</span> Contrafactuales de impacto causal</h2>
+<p>Los modelos de espacio de estados también presentan una herramienta útil para hacer inferencia causal, específicamente cuando nos interesa el efecto de una intervención en una métrica que se mide en el tiempo.</p>
+<p>En un ejemplo anterior, vimos cómo utilizar estos modelos, y variables dummy, para hacer análisis de efecto de intervenciones (efecto de ley de cinturones de seguridad). La hipótesis básica es que no existen puertas traseras una vez que condicionamos a las covariables incluidas. Esto sucedería si alguna variable <span class="math inline">\(U_t\)</span> afecta a la variable de intervención <span class="math inline">\(X_t\)</span> al mismo tiempo que afecta el estado del sistema <span class="math inline">\(\theta_t\)</span> o sus valores futuros. En este caso, el coeficiente de la variable <span class="math inline">\(X_t\)</span> puede estar contaminado con una correlación no causal. Por ejemplo, un camino de puerta trasera podría ser que hay una decisión de implica poner la ley de cinturones y un reglamento de velocidad máxima en autopistas en fechas cercanas.</p>
+<p>Igualmente, el conjunto al que condicionamos no debe contener colisionadores que formen una ruta no causal entre la variable intervenida <span class="math inline">\(X_t\)</span> y el estado del sistema <span class="math inline">\(\theta_t\)</span>. En el caso de los cinturones, por ejemplo, usar como control <span class="math inline">\(R_t\)</span>, el número de personas con heridas menores por accidentes es mala idea, pues es afectado tanto por la ley como por el estado del sistema (o un antecesor del estado).</p>
+<p>En ese ejemplo, recaemos en nuestros supuestos de que no existes puertas traseras y en la forma funcional del modelo para hacer la estimación del contrafactual.</p>
+<section id="modelos-predictivos-del-contrafactual" class="level3" data-number="9.5.1">
+<h3 data-number="9.5.1" class="anchored" data-anchor-id="modelos-predictivos-del-contrafactual"><span class="header-section-number">9.5.1</span> Modelos predictivos del contrafactual</h3>
+<p>Otra forma de abordar el problema es el siguiente (<span class="citation" data-cites="causalimpact">(<a href="99-referencias.html#ref-causalimpact" role="doc-biblioref"><strong>causalimpact?</strong></a>)</span>), ver también <a href="https://google.github.io/CausalImpact/">Google Causal Impact</a>):</p>
+<ul>
+<li>Construimos un modelo predictivo para la serie que vamos a intervenir, utilizando solamente variables que <strong>sabemos que no serán afectadas por la intervención</strong>.</li>
+<li>Para este modelo sólo usamos los <strong>datos anteriores a la intervención</strong> que estamos considerando.</li>
+<li>Una alternativa es utilizar <strong>modelos de espacio de estados</strong>, lo cual más adelante nos permite estimar adecuadamente errores de estimación en efectos causales (toman en cuenta la autocorrelación, y la incertidumbre que aumenta conforme el tiempo pasa después de la intervención).</li>
+<li>Usando este modelo pronosticamos los valores de la serie de interés después de que ocurre la intervención. Estos pronósticos, por el supuesto en el primer inciso, constituye nuestro <strong>contrafactual</strong> si la intervención no se hubiera aplicado.</li>
+<li><strong>Comparamos</strong> los valores observados de la serie de interés, después de la intervención, con los pronósticos para estimar el efecto causal de la intervención.</li>
+</ul>
+<p>Nótese que no es necesario suponer una forma parámétrica para la intervención, podemos estimarla como la diferencia señalada arriba (individualmente en cada periodo o de forma agregada sobre cierto tiempo después de la intervención).</p>
+<p>Un ejemplo es: si imaginamos que una promoción se hace exclusivamente en una región <span class="math inline">\(A\)</span> del país, podemos usar otras regiones del país como predictores de las ventas en la región <span class="math inline">\(A\)</span>. Muchas veces estos modelos tienden a ser más precisos y simples pues no es necesario incluir factores como estacionalidad, pues están sujetos a fuentes de variación similares.</p>
+<p>En términos de contrafactuales: una vez que construimos este modelo, hacemos pronósticos con nuestro modelo para <span class="math inline">\(t&gt;t_{int}\)</span>, después de la intervención, que denotamos como <span class="math inline">\(\hat{y}_t^0\)</span>, que son estimaciones de <span class="math inline">\(y_t^0\)</span> (el contrafactual sin la intervención). Después de la intervención observamos <span class="math inline">\(y_t^1\)</span>, así que calculamos, para cada <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[y_t^1 - \hat{y}_t^0\]</span> Esta cantidad tiene una distribución posteriar, que representa lo que sabemos del efecto causal individual sobre la región tratada <span class="math inline">\(A\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Método de Impacto causal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Requerimos los siguientes supuestos fuertes:</p>
+<ul>
+<li>La serie de interés <span class="math inline">\(y\)</span> puede ser explicada en términos de otras series de tiempo que <strong>no son afectadas</strong> por la intervención</li>
+<li>La relación entre la serie de interés <span class="math inline">\(y\)</span> y la serie de control se supone <strong>estable</strong> durante el periodo post-intervención.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="ejemplo-1" class="level3" data-number="9.5.2">
+<h3 data-number="9.5.2" class="anchored" data-anchor-id="ejemplo-1"><span class="header-section-number">9.5.2</span> Ejemplo 1</h3>
+<p>Tomamos el siguiente ejemplo del paquete</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CausalImpact)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bsts)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1241</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.999</span>), <span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>x_int <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Suponemos que la intervencion se hace en el tiempo <span class="math inline">\(t=71\)</span>, y que tiene el efecto de aumentar la <span class="math inline">\(y\)</span> en 10 unidades:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="ot">&lt;-</span> y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>x_int[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(y, x, x_int)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Los dos series, antes de la intervención, muestra correlación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">t =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> x), <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Don't know how to automatically pick scale for object of type &lt;ts&gt;. Defaulting
+to continuous.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Ahora usamos la idea de construir un contrafactual con el método de impacto causal:</p>
+<p>En primer lugar, excluímos los datos post-tratamiento:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>post_periodo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>y_mod <span class="ot">&lt;-</span> y</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>post_y <span class="ot">&lt;-</span> y[post_periodo[<span class="dv">1</span>] <span class="sc">:</span> post_periodo[<span class="dv">2</span>]]</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>y_mod[post_periodo[<span class="dv">1</span>] <span class="sc">:</span> post_periodo[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Construimos un modelo. En este caso usamos regresión estática pero agregamos una componente de nivel local:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">886</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>mod_esp_1 <span class="ot">&lt;-</span> <span class="fu">AddLocalLevel</span>(<span class="fu">list</span>(), y_mod)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>mod_esp_2 <span class="ot">&lt;-</span> <span class="fu">AddLocalLinearTrend</span>(<span class="fu">list</span>(), y_mod)</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>ajuste_pre_1 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y_mod <span class="sc">~</span> x, mod_esp_1, <span class="at">niter =</span> <span class="dv">5000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 17:12:17 2023 =-=-=-=-=</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>ajuste_pre_2 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y_mod <span class="sc">~</span> x, mod_esp_2, <span class="at">niter =</span> <span class="dv">5000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=-=-=-=-= Iteration 0 Wed Apr 26 17:12:21 2023 =-=-=-=-=</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CompareBstsModels</span>(<span class="fu">list</span>(ajuste_pre_1, ajuste_pre_2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Seleccionamos el primer modelo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ajuste_pre_1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="576"></p>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ajuste_pre_1, <span class="st">"components"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-45-2.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Extraemos predicciones que automáticamente hace <em>bsts</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quitar burn-in</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>estado_contrib <span class="ot">&lt;-</span> ajuste_pre_1<span class="sc">$</span>state.contributions[<span class="sc">-</span><span class="fu">seq_len</span>(<span class="dv">500</span>), , ,drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sumar contribuciones de componentes</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>pred_cf <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">aperm</span>(estado_contrib, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)), <span class="at">dims =</span> <span class="dv">2</span>)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extraer period post-intervencion</span></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>pred_cf <span class="ot">&lt;-</span> pred_cf[, <span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>]</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pred_cf)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4500   30</code></pre>
+</div>
+</div>
+<p>Y estimamos el efecto promedio en estos 30 días utilizando el valor observado de <span class="math inline">\(y\)</span> menos las simulaciones correspondientes del contrafactual:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>media_dia_post <span class="ot">&lt;-</span> <span class="fu">apply</span>(pred_cf, <span class="dv">1</span>, mean)</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>diferencia <span class="ot">&lt;-</span>  <span class="fu">mean</span>(y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>]) <span class="sc">-</span> media_dia_post</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(diferencia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.359428</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(diferencia, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  2.5%  97.5% 
+ 8.295 10.143 </code></pre>
+</div>
+</div>
+<p>O más simplemente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CausalImpact</span>(<span class="at">bsts.model =</span> ajuste_pre_1,</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">post.period.response =</span> y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>])</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior inference {CausalImpact}
+
+                         Average       Cumulative   
+Actual                   87            2613         
+Prediction (s.d.)        78 (0.43)     2330 (12.96) 
+95% CI                   [77, 79]      [2305, 2356] 
+                                                    
+Absolute effect (s.d.)   9.4 (0.43)    283.0 (12.96)
+95% CI                   [8.6, 10]     [257.3, 308] 
+                                                    
+Relative effect (s.d.)   12% (0.62%)   12% (0.62%)  
+95% CI                   [11%, 13%]    [11%, 13%]   
+
+Posterior tail-area probability p:   0.00023
+Posterior prob. of a causal effect:  99.97653%
+
+For more details, type: summary(impact, "report")</code></pre>
+</div>
+</div>
+<p>Podemos hacer esto automáticamente usando funciones del paquete:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>pre_periodo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>post_periodo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>impact <span class="ot">&lt;-</span> <span class="fu">CausalImpact</span>(datos_tbl <span class="sc">|&gt;</span> <span class="fu">select</span>(y, x), </span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  pre_periodo, post_periodo, <span class="at">model.args =</span> <span class="fu">list</span>(<span class="at">niter =</span> <span class="dv">5000</span>))</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(impact)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior inference {CausalImpact}
+
+                         Average       Cumulative   
+Actual                   87            2613         
+Prediction (s.d.)        78 (0.68)     2335 (20.55) 
+95% CI                   [76, 79]      [2295, 2375] 
+                                                    
+Absolute effect (s.d.)   9.3 (0.68)    278.5 (20.55)
+95% CI                   [8, 11]       [239, 319]   
+                                                    
+Relative effect (s.d.)   12% (0.99%)   12% (0.99%)  
+95% CI                   [10%, 14%]    [10%, 14%]   
+
+Posterior tail-area probability p:   2e-04
+Posterior prob. of a causal effect:  99.97997%
+
+For more details, type: summary(impact, "report")</code></pre>
+</div>
+</div>
+</section>
+<section id="ejemplo-2" class="level3" data-number="9.5.3">
+<h3 data-number="9.5.3" class="anchored" data-anchor-id="ejemplo-2"><span class="header-section-number">9.5.3</span> Ejemplo 2</h3>
+<p>Nótese adicionalmente esta estimación es no-paramétrica, y no establecemos un modelo explícito para el efecto de la intervención.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CausalImpact)</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bsts)</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">461</span>)</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.999</span>), <span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>x_int <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="ot">&lt;-</span> y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> (<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">-</span> <span class="dv">71</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">25</span> <span class="sc">*</span> (<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">-</span><span class="dv">71</span>) <span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>x_int[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>datos_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(y, x, x_int)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>pre.period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>post.period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>impact <span class="ot">&lt;-</span> <span class="fu">CausalImpact</span>(datos_tbl <span class="sc">|&gt;</span> <span class="fu">select</span>(y, x), pre.period, post.period)</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(impact)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-aplicaciones-espacio-estados_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>En casos como este, muchas veces tiene más sentido considerar el efecto acumulado en lugar del promedio (por ejemplo si la variable <span class="math inline">\(y\)</span> son clicks o compras):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior inference {CausalImpact}
+
+                         Average        Cumulative   
+Actual                   126            3785         
+Prediction (s.d.)        123 (0.32)     3703 (9.75)  
+95% CI                   [123, 124]     [3684, 3722] 
+                                                     
+Absolute effect (s.d.)   2.7 (0.32)     82.0 (9.75)  
+95% CI                   [2.1, 3.4]     [63.1, 100.8]
+                                                     
+Relative effect (s.d.)   2.2% (0.27%)   2.2% (0.27%) 
+95% CI                   [1.7%, 2.7%]   [1.7%, 2.7%] 
+
+Posterior tail-area probability p:   0.00101
+Posterior prob. of a causal effect:  99.8993%
+
+For more details, type: summary(impact, "report")</code></pre>
+</div>
+</div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-durbinkoopman" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-durbinkoopman" class="csl-entry" role="listitem">
 Durbin, J., y S. J. Koopman. 2001. <em>Time Series Analysis by State Space Methods</em>. Oxford Statistical Science Series. Clarendon Press. <a href="https://books.google.com.mx/books?id=XRCu5iSz\_HwC">https://books.google.com.mx/books?id=XRCu5iSz\_HwC</a>.
 </div>
-<div id="ref-hyndman2014" class="csl-entry" role="doc-biblioentry">
+<div id="ref-hyndman2014" class="csl-entry" role="listitem">
 Hyndman, R. J., y G. Athanasopoulos. 2014. <em>Forecasting: principles and practice</em>. OTexts. <a href="https://books.google.com.mx/books?id=gDuRBAAAQBAJ">https://books.google.com.mx/books?id=gDuRBAAAQBAJ</a>.
 </div>
-<div id="ref-scottvarian2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-scottvarian2015" class="csl-entry" role="listitem">
 Scott, Steven L., y Hal R. Varian. 2015. <em><span>Bayesian Variable Selection for Nowcasting Economic Time Series</span></em>. University of Chicago Press. <a href="https://doi.org/10.7208/chicago/9780226206981.003.0004">https://doi.org/10.7208/chicago/9780226206981.003.0004</a>.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -813,9 +1337,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -880,6 +1418,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

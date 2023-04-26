@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -147,6 +118,7 @@ div.csl-indent {
 <link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
 <script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -155,11 +127,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-modelos-causales.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -167,85 +144,98 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Métodos analíticos</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Temario y referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></a>
+  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></a>
+  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></a>
+  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></span></a>
   </div>
 </li>
       </ul>
@@ -253,41 +243,42 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#intervenciones" id="toc-intervenciones" class="nav-link active" data-scroll-target="#intervenciones"><span class="toc-section-number">3.1</span>  Intervenciones</a>
+  <li><a href="#intervenciones" id="toc-intervenciones" class="nav-link active" data-scroll-target="#intervenciones"><span class="header-section-number">3.1</span> Intervenciones</a>
   <ul class="collapse">
   <li><a href="#ejemplo-pearl" id="toc-ejemplo-pearl" class="nav-link" data-scroll-target="#ejemplo-pearl">Ejemplo (Pearl)</a></li>
   </ul></li>
-  <li><a href="#ejemplo-una-intervención-simple" id="toc-ejemplo-una-intervención-simple" class="nav-link" data-scroll-target="#ejemplo-una-intervención-simple"><span class="toc-section-number">3.2</span>  Ejemplo: una intervención simple</a></li>
-  <li><a href="#cálculo-do-de-pearl" id="toc-cálculo-do-de-pearl" class="nav-link" data-scroll-target="#cálculo-do-de-pearl"><span class="toc-section-number">3.3</span>  Cálculo-do de Pearl</a>
+  <li><a href="#ejemplo-una-intervención-simple" id="toc-ejemplo-una-intervención-simple" class="nav-link" data-scroll-target="#ejemplo-una-intervención-simple"><span class="header-section-number">3.2</span> Ejemplo: una intervención simple</a></li>
+  <li><a href="#cálculo-do-de-pearl" id="toc-cálculo-do-de-pearl" class="nav-link" data-scroll-target="#cálculo-do-de-pearl"><span class="header-section-number">3.3</span> Cálculo-do de Pearl</a>
   <ul class="collapse">
   <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
   </ul></li>
-  <li><a href="#fórmula-de-ajuste" id="toc-fórmula-de-ajuste" class="nav-link" data-scroll-target="#fórmula-de-ajuste"><span class="toc-section-number">3.4</span>  Fórmula de ajuste</a></li>
-  <li><a href="#simulación-para-estimar-efectos-causales" id="toc-simulación-para-estimar-efectos-causales" class="nav-link" data-scroll-target="#simulación-para-estimar-efectos-causales"><span class="toc-section-number">3.5</span>  Simulación para estimar efectos causales</a></li>
-  <li><a href="#ejemplo-estaturas-versión-1" id="toc-ejemplo-estaturas-versión-1" class="nav-link" data-scroll-target="#ejemplo-estaturas-versión-1"><span class="toc-section-number">3.6</span>  Ejemplo: estaturas (versión 1)</a></li>
-  <li><a href="#bloqueando-puertas-traseras" id="toc-bloqueando-puertas-traseras" class="nav-link" data-scroll-target="#bloqueando-puertas-traseras"><span class="toc-section-number">3.7</span>  Bloqueando puertas traseras</a>
+  <li><a href="#fórmula-de-ajuste" id="toc-fórmula-de-ajuste" class="nav-link" data-scroll-target="#fórmula-de-ajuste"><span class="header-section-number">3.4</span> Fórmula de ajuste</a></li>
+  <li><a href="#simulación-para-estimar-efectos-causales" id="toc-simulación-para-estimar-efectos-causales" class="nav-link" data-scroll-target="#simulación-para-estimar-efectos-causales"><span class="header-section-number">3.5</span> Simulación para estimar efectos causales</a></li>
+  <li><a href="#ejemplo-estaturas-versión-1" id="toc-ejemplo-estaturas-versión-1" class="nav-link" data-scroll-target="#ejemplo-estaturas-versión-1"><span class="header-section-number">3.6</span> Ejemplo: estaturas (versión 1)</a></li>
+  <li><a href="#bloqueando-puertas-traseras" id="toc-bloqueando-puertas-traseras" class="nav-link" data-scroll-target="#bloqueando-puertas-traseras"><span class="header-section-number">3.7</span> Bloqueando puertas traseras</a>
   <ul class="collapse">
   <li><a href="#ejemplo-pearl-1" id="toc-ejemplo-pearl-1" class="nav-link" data-scroll-target="#ejemplo-pearl-1">Ejemplo (Pearl)</a></li>
   <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo</a></li>
   </ul></li>
-  <li><a href="#reglas-del-cálculo-do-opcional" id="toc-reglas-del-cálculo-do-opcional" class="nav-link" data-scroll-target="#reglas-del-cálculo-do-opcional"><span class="toc-section-number">3.8</span>  Reglas del cálculo-do (opcional)</a></li>
-  <li><a href="#el-criterio-de-puerta-delantera" id="toc-el-criterio-de-puerta-delantera" class="nav-link" data-scroll-target="#el-criterio-de-puerta-delantera"><span class="toc-section-number">3.9</span>  El criterio de puerta delantera</a>
+  <li><a href="#reglas-del-cálculo-do-opcional" id="toc-reglas-del-cálculo-do-opcional" class="nav-link" data-scroll-target="#reglas-del-cálculo-do-opcional"><span class="header-section-number">3.8</span> Reglas del cálculo-do (opcional)</a></li>
+  <li><a href="#el-criterio-de-puerta-delantera" id="toc-el-criterio-de-puerta-delantera" class="nav-link" data-scroll-target="#el-criterio-de-puerta-delantera"><span class="header-section-number">3.9</span> El criterio de puerta delantera</a>
   <ul class="collapse">
   <li><a href="#ejemplo-proceso-generador" id="toc-ejemplo-proceso-generador" class="nav-link" data-scroll-target="#ejemplo-proceso-generador">Ejemplo: proceso generador</a></li>
   <li><a href="#ejemplo-estimación-con-puerta-delantera" id="toc-ejemplo-estimación-con-puerta-delantera" class="nav-link" data-scroll-target="#ejemplo-estimación-con-puerta-delantera">Ejemplo: estimación con puerta delantera</a></li>
   </ul></li>
-  <li><a href="#mediación-y-datos-de-berkeley" id="toc-mediación-y-datos-de-berkeley" class="nav-link" data-scroll-target="#mediación-y-datos-de-berkeley"><span class="toc-section-number">3.10</span>  Mediación y datos de Berkeley</a>
+  <li><a href="#mediación-y-datos-de-berkeley" id="toc-mediación-y-datos-de-berkeley" class="nav-link" data-scroll-target="#mediación-y-datos-de-berkeley"><span class="header-section-number">3.10</span> Mediación y datos de Berkeley</a>
   <ul class="collapse">
-  <li><a href="#ejemplo-admisiones-de-berkeley" id="toc-ejemplo-admisiones-de-berkeley" class="nav-link" data-scroll-target="#ejemplo-admisiones-de-berkeley"><span class="toc-section-number">3.10.1</span>  Ejemplo: Admisiones de Berkeley</a></li>
+  <li><a href="#ejemplo-admisiones-de-berkeley" id="toc-ejemplo-admisiones-de-berkeley" class="nav-link" data-scroll-target="#ejemplo-admisiones-de-berkeley"><span class="header-section-number">3.10.1</span> Ejemplo: Admisiones de Berkeley</a></li>
   <li><a href="#ejemplo-burks-pearl" id="toc-ejemplo-burks-pearl" class="nav-link" data-scroll-target="#ejemplo-burks-pearl">Ejemplo (Burks, Pearl)</a></li>
   </ul></li>
-  <li><a href="#controles-buenos-y-malos" id="toc-controles-buenos-y-malos" class="nav-link" data-scroll-target="#controles-buenos-y-malos"><span class="toc-section-number">3.11</span>  Controles buenos y malos</a></li>
+  <li><a href="#controles-buenos-y-malos" id="toc-controles-buenos-y-malos" class="nav-link" data-scroll-target="#controles-buenos-y-malos"><span class="header-section-number">3.11</span> Controles buenos y malos</a></li>
   </ul>
 </nav>
     </div>
@@ -296,7 +287,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></h1>
 </div>
 
 
@@ -350,8 +341,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-a7adb0c349877e659041" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a7adb0c349877e659041">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cb7fdcef123cbd671f3b" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cb7fdcef123cbd671f3b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>donde <span class="math inline">\(T\)</span> es la temperatura, <span class="math inline">\(A\)</span> son las unidades de agua embotellada vendida y <span class="math inline">\(Z\)</span> es la actividad de los mosquitos (medido con muestreo, por ejemplo). Mostramos también otras variables causales que pueden afectar a las variables de interés (muchas veces omitimos estas variables que solo afectan a una variable de interés), pero que no tienen efecto sobre otras variables del diagrama.</p>
@@ -405,8 +396,8 @@ div.csl-indent {
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-5758bc6d290050988daa" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5758bc6d290050988daa">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e6e13e9fa35713c51d3" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e6e13e9fa35713c51d3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En esta nueva gráfica, <span class="math inline">\(A\)</span> y <span class="math inline">\(Z\)</span> son independientes, que es la respuesta correcta. Como cambiamos la gráfica, su proceso generador es diferente al original de los datos observados. Sin embargo, en este ejemplo puedes ver por qué es claro que el cambio que hicimos (manipular <span class="math inline">\(A\)</span> en lugar de que esté determinado por su proceso generador original) no cambia el modelo de <span class="math inline">\(Z\)</span>, de manera que podemos simular de nuestro nuevo proceso generador donde manipulamos <span class="math inline">\(A\)</span>:</p>
@@ -503,8 +494,8 @@ div.csl-indent {
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-df7b3c17b96098e963df" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-df7b3c17b96098e963df">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2b1ceb9a4f34c85d704c" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2b1ceb9a4f34c85d704c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -550,8 +541,8 @@ div.csl-indent {
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-d05af1893cedb7b785c9" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d05af1893cedb7b785c9">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5b80ff7eb15bc31b410d" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5b80ff7eb15bc31b410d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Ahora queremos calcular <span class="math inline">\(p(a|do(d)) = p_m(a|d)\)</span> en función de los datos. Siguiendo el mismo argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o condicionar a <span class="math inline">\(T\)</span> para poder usar nuestro proceso generador de observaciones, y obtenemos:</p>
@@ -643,12 +634,12 @@ Coefficients:
 <section id="fórmula-de-ajuste" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="fórmula-de-ajuste"><span class="header-section-number">3.4</span> Fórmula de ajuste</h2>
 <p>En resumen, tenemos la primera regla de Pearl de inferencia causal:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Fórmula de ajuste (Pearl)
 </div>
 </div>
@@ -658,12 +649,12 @@ Fórmula de ajuste (Pearl)
 </div>
 </div>
 <p>Esta fórmula se extiende a más de dos padres <span class="math inline">\(Z_1,Z_2,Z_3,\ldots, Z_k\)</span>.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Tip
 </div>
 </div>
@@ -698,12 +689,12 @@ Tip
 <section id="simulación-para-estimar-efectos-causales" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="simulación-para-estimar-efectos-causales"><span class="header-section-number">3.5</span> Simulación para estimar efectos causales</h2>
 <p>La estrategia más general y conceptualmente simple (aunque técnicamente puede ser difícil por la multitud de modelos necesarios) para usar la idea de la fórmula de ajuste es utilizar simulación:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Fórmula de ajuste con simulación
 </div>
 </div>
@@ -733,12 +724,12 @@ Fórmula de ajuste con simulación
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mod_agua <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/agua-1.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b8153c20eac.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb638dab762.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b8153c20eac.hpp'</code></pre>
+RtmpbouamF/model-1fb638dab762.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_agua)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -843,26 +834,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 5.3 seconds.
+Chain 1 finished in 5.5 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 5.3 seconds.
+Chain 2 finished in 5.7 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 5.3 seconds.
+Chain 3 finished in 5.6 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 5.4 seconds.
+Chain 4 finished in 5.9 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 5.3 seconds.
-Total execution time: 21.8 seconds.</code></pre>
+Mean chain execution time: 5.7 seconds.
+Total execution time: 23.2 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -932,12 +923,12 @@ Total execution time: 21.8 seconds.</code></pre>
 <p>Claramente todos los estimadores están bien separados de 0. Diez puntos porcentuales de incremento en desabasto incrementan las ventas en alrededor de 8 mil unidades.</p>
 <hr>
 <p>Recordemos que en todos estos ejemplos nos estamos concentrando en la <em>identificación</em> de un efecto causal que nos interesa, así que nos estamos saltando algunos pasos en el proceso de modelación y estimación que en el trabajo usual debemos seguir:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Modelación y estimadores
 </div>
 </div>
@@ -1013,8 +1004,8 @@ dbl (4): height, weight, age, male
 <span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-17037f9d415073416aa6" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-17037f9d415073416aa6">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f75dc5c3821871b59f8c" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f75dc5c3821871b59f8c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ul>
@@ -1024,12 +1015,12 @@ dbl (4): height, weight, age, male
 </ul>
 <p>Ahora veamos cómo calcular el efecto causal <strong>total</strong> de sexo sobre peso.</p>
 <p><em>Podemos ver que no hay ninguna flecha que llegue a <span class="math inline">\(S\)</span>, de modo que para el efecto total no es necesario hacer cirugía ni usar la fórmula de ajuste.</em></p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Condicionando equivocadamente
 </div>
 </div>
@@ -1043,12 +1034,12 @@ Condicionando equivocadamente
 <li>Existe una ruta no causal de sexo sobre peso, y es el camino <span class="math inline">\(S\to H \gets U \to W\)</span>. Sin embargo, esta ruta está bloqueada por <span class="math inline">\(H\)</span>, la estatura, que es un colisionador.</li>
 </ul>
 <p>Comenzamos ahora el proceso de modelado. Excluiremos a <span class="math inline">\(U\)</span> en nuestro modelo, pues no tiene relevancia para la inferencia acerca del efecto total de <span class="math inline">\(S\)</span> sobre <span class="math inline">\(W\)</span>, como discutimos arriba.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Ojo: interpetación de modelos
 </div>
 </div>
@@ -1064,12 +1055,12 @@ Ojo: interpetación de modelos
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>mod_1 <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(<span class="st">"../src/peso-estatura-inferencia-1.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b815d06c4f9.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb62818e4d.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b815d06c4f9.hpp'</code></pre>
+RtmpbouamF/model-1fb62818e4d.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1171,26 +1162,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 2.9 seconds.
+Chain 1 finished in 3.3 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 2.6 seconds.
+Chain 2 finished in 2.8 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.7 seconds.
+Chain 3 finished in 3.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 2.6 seconds.
+Chain 4 finished in 2.9 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.7 seconds.
-Total execution time: 11.1 seconds.</code></pre>
+Mean chain execution time: 3.0 seconds.
+Total execution time: 12.2 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
@@ -1216,12 +1207,12 @@ Total execution time: 11.1 seconds.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>mod_2 <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(<span class="st">"../src/peso-estatura-inferencia-simple.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b81320f9501.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb65ac497b7.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b81320f9501.hpp'</code></pre>
+RtmpbouamF/model-1fb65ac497b7.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1306,26 +1297,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 1.7 seconds.
+Chain 1 finished in 1.9 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 1.7 seconds.
+Chain 2 finished in 1.9 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 1.8 seconds.
+Chain 3 finished in 2.1 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 1.8 seconds.
+Chain 4 finished in 2.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 1.7 seconds.
-Total execution time: 7.4 seconds.</code></pre>
+Mean chain execution time: 2.0 seconds.
+Total execution time: 8.1 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
@@ -1352,12 +1343,12 @@ Total execution time: 7.4 seconds.</code></pre>
 <h2 data-number="3.7" class="anchored" data-anchor-id="bloqueando-puertas-traseras"><span class="header-section-number">3.7</span> Bloqueando puertas traseras</h2>
 <p>En las partes anteriores vimos que estratificando por los padres de la variable de tratamiento <span class="math inline">\(X\)</span> podemos construir un estimador del efecto de <span class="math inline">\(X\)</span> sobre otra variable <span class="math inline">\(Y\)</span>, pasando de una distribución observacional a una conceptualmente experimental (dado que los supuestos causales sean aproximadamente correctos).</p>
 <p>Sin embargo, esta aplicación de la fórmula de ajuste no funciona si existen padres que no fueron observados, y por tanto no podemos estratificar por ellos. El siguiente método (ajuste por “puerta trasera”) nos da una técnica adicional que podemos usar dado ciertos tipos de estructura en nuestro modelo causal, y presenta una mejoría sobre la fórmula de ajuste simple (veremos también por ejemplo, que a veces podemos usar menos variables que padres de la variable de interés). Nótese que una vez más, este criterio sólo depende de la gráfica causal <span class="math inline">\(G\)</span> asociada a nuestro modelo, y no los modelos locales que utilizemos para modelar la condicional de cada nodo.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Ajuste de puerta trasera (Pearl)
 </div>
 </div>
@@ -1400,8 +1391,8 @@ Ajuste de puerta trasera (Pearl)
 <span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e6855077471b954e013f" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e6855077471b954e013f">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n  node [shape = circle]\n    NSE\n    Peso\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5a6d0ebedad601dd25e8" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5a6d0ebedad601dd25e8">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n  node [shape = circle]\n    NSE\n    Peso\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Observamos que no podemos directamente usar la fórmula de ajuste pues NSE no es una variable observada.</p>
@@ -1430,8 +1421,8 @@ Ajuste de puerta trasera (Pearl)
 <span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-efd64bff9517c27600c5" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-efd64bff9517c27600c5">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n    Peso\n  node [shape = circle]\n    NSE\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5315110f576b1f44e674" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5315110f576b1f44e674">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n    Peso\n  node [shape = circle]\n    NSE\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, todavía no podemos aplicar la fórmula original de ajuste pues no conocemos <span class="math inline">\(NSE\)</span>. Sin embargo, podemos bloquear los caminos no causales estratificando por Peso, y entonces podemos usar el criterio de puerta trasera para identificar el efecto del tratamiento, aún cuando no tengamos NSE.</p>
@@ -1537,12 +1528,12 @@ Ajuste de puerta trasera (Pearl)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>mod_trata <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/trata-backdoor.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b814bfe6541.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb61ac93dde.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b814bfe6541.hpp'</code></pre>
+RtmpbouamF/model-1fb61ac93dde.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_trata)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1621,26 +1612,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 2.7 seconds.
+Chain 1 finished in 3.6 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 2.8 seconds.
+Chain 2 finished in 3.7 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.7 seconds.
+Chain 3 finished in 3.6 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 2.8 seconds.
+Chain 4 finished in 3.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.8 seconds.
-Total execution time: 11.4 seconds.</code></pre>
+Mean chain execution time: 3.7 seconds.
+Total execution time: 14.8 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_trata"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1671,12 +1662,12 @@ Total execution time: 11.4 seconds.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>mod_trata <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/trata-backdoor-promedio.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b816c1ee9c.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb67fa3a587.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b816c1ee9c.hpp'</code></pre>
+RtmpbouamF/model-1fb67fa3a587.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_trata)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1759,26 +1750,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 14.5 seconds.
+Chain 1 finished in 14.6 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 14.8 seconds.
+Chain 2 finished in 15.1 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 14.8 seconds.
+Chain 3 finished in 14.7 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 14.9 seconds.
+Chain 4 finished in 15.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 14.7 seconds.
-Total execution time: 59.4 seconds.</code></pre>
+Mean chain execution time: 14.9 seconds.
+Total execution time: 59.9 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"dif_trata"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1816,12 +1807,12 @@ Total execution time: 59.4 seconds.</code></pre>
 <li><p>La regla 2 es el criterio de la puerta trasera: si condicionamos a variables <span class="math inline">\(W\)</span> que bloquean toda puerta trasera de <span class="math inline">\(X\)</span> a <span class="math inline">\(Y\)</span>, podemos cambiar <span class="math inline">\(do(x)\)</span> por <span class="math inline">\(x\)</span>: <span class="math inline">\(p(y | do(x), w) = p(y | x, w)\)</span>.</p></li>
 <li><p>La regla 3 expresa que si no hay caminos causales de <span class="math inline">\(X\)</span> a <span class="math inline">\(Y\)</span>, entonces <span class="math inline">\(p(y|do(x)) = p(y)\)</span>.</p></li>
 </ul>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Completitud (Shpitser, Pearl)
 </div>
 </div>
@@ -1864,8 +1855,8 @@ Completitud (Shpitser, Pearl)
 <span id="cb108-15"><a href="#cb108-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-14a3019f252978c1d403" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-14a3019f252978c1d403">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> C\n{rank= same; C; F}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7f9c225e0a26788830e8" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f9c225e0a26788830e8">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> C\n{rank= same; C; F}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, el efecto de fumar (<span class="math inline">\(F\)</span>) sobre cáncer (<span class="math inline">\(C\)</span>) no es identificable pues no podemos condicionar a la variable de Genotipo (<span class="math inline">\(U\)</span>). Supongamos que tenemos una medida adicional, que es la cantidad de depósitos de alquitrán den los pulmones de los pacientes. Este es es afectado por <span class="math inline">\(F\)</span>, y a su vez, el alquitrán incrementa la probabilidad de cáncer:</p>
@@ -1891,8 +1882,8 @@ Completitud (Shpitser, Pearl)
 <span id="cb109-17"><a href="#cb109-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-3677d39184d7a17a42ce" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3677d39184d7a17a42ce">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n    A\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> A\n    A -> C\n{rank= same; C; F; A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e44221a378ebf62032b6" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e44221a378ebf62032b6">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n    A\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> A\n    A -> C\n{rank= same; C; F; A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>La idea es primero estimar el efecto de <span class="math inline">\(F\)</span> sobre <span class="math inline">\(A\)</span>, y después estimar el efecto de <span class="math inline">\(A\)</span> sobre <span class="math inline">\(C\)</span>. La “composición” de estos dos efectos, dado el diagrama, debe darnos el estimador correcto. Primero consideramos el efecto de <span class="math inline">\(F\)</span> sobre <span class="math inline">\(A\)</span>, y tenemos que (regla 2)</p>
@@ -1904,12 +1895,12 @@ Completitud (Shpitser, Pearl)
 <p>que equivale en simulación a: dado un valor de <span class="math inline">\(F\)</span>, simulamos <span class="math inline">\(A=a\)</span> con nuestro modelo ajustado con datos naturales. Ahora intervenimos <span class="math inline">\(A\)</span> con el valor a que obtuvimos y simulamos <span class="math inline">\(C\)</span>. Sin embargo, para hacer este último paso con datos naturales, necesitamos usar el criterio de puerta trasera como explicamos arriba: simulamos entonces <span class="math inline">\(f´\)</span> de <span class="math inline">\(p(f)\)</span>, y después simulamos <span class="math inline">\(C\)</span> en función de <span class="math inline">\(a\)</span> y <span class="math inline">\(f´\)</span> (con una distribución construida a partir de datos).</p>
 <p>Requerimos en este caso construir y estimar la condicional <span class="math inline">\(p(c|a, f)\)</span> basado en los datos.</p>
 <p>En fórmula, en general, se escribe como:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Criterio de fuerta delantera (Pearl)
 </div>
 </div>
@@ -2006,12 +1997,12 @@ Criterio de fuerta delantera (Pearl)
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>sims_fd <span class="ot">&lt;-</span> <span class="fu">simular_fd</span>(<span class="dv">2000</span>)</span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>mod_front_door <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/front-door-2.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b8170c7b32c.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb63b8e54dc.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b8170c7b32c.hpp'</code></pre>
+RtmpbouamF/model-1fb63b8e54dc.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_front_door)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2111,17 +2102,17 @@ Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 77.4 seconds.
+Chain 1 finished in 96.6 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 77.6 seconds.
+Chain 2 finished in 96.8 seconds.
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 79.0 seconds.
+Chain 4 finished in 98.4 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 81.3 seconds.
+Chain 3 finished in 101.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 78.8 seconds.
-Total execution time: 81.4 seconds.</code></pre>
+Mean chain execution time: 98.2 seconds.
+Total execution time: 101.4 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2227,20 +2218,20 @@ Total execution time: 81.4 seconds.</code></pre>
 <span id="cb131-16"><a href="#cb131-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-46f1520e9aba77377d63" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46f1520e9aba77377d63">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a42ee63636035ea6a19c" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a42ee63636035ea6a19c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Bajo estos supuestos, podemos calcular el efecto total de género en admisiones: para esto es importante <strong>no</strong> condicionar a departamento. Nuestro modelo es el siguiente:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>mod_1_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-1.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b812dc49d.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb6439779d7.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b812dc49d.hpp'</code></pre>
+RtmpbouamF/model-1fb6439779d7.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_1_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2325,22 +2316,22 @@ Chain 1 Iteration:   1 / 700 [  0%]  (Warmup)
 Chain 2 Iteration:   1 / 700 [  0%]  (Warmup) 
 Chain 3 Iteration:   1 / 700 [  0%]  (Warmup) 
 Chain 4 Iteration:   1 / 700 [  0%]  (Warmup) 
-Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 4 Iteration: 201 / 700 [ 28%]  (Sampling) 
+Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 1 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 2 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 4 finished in 143.9 seconds.
+Chain 4 finished in 169.8 seconds.
 Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 3 finished in 147.7 seconds.
+Chain 3 finished in 179.6 seconds.
 Chain 1 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 1 finished in 150.7 seconds.
+Chain 1 finished in 181.2 seconds.
 Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 2 finished in 151.6 seconds.
+Chain 2 finished in 186.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 148.5 seconds.
-Total execution time: 151.7 seconds.</code></pre>
+Mean chain execution time: 179.2 seconds.
+Total execution time: 186.2 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2384,12 +2375,12 @@ Total execution time: 151.7 seconds.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>mod_2_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-2.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b812b900ca5.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb621ada49b.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b812b900ca5.hpp'</code></pre>
+RtmpbouamF/model-1fb621ada49b.hpp'</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2411,17 +2402,17 @@ Chain 2 Iteration: 201 / 700 [ 28%]  (Sampling)
 Chain 4 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 1 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 1 finished in 145.4 seconds.
-Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
+Chain 1 finished in 177.6 seconds.
 Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 3 finished in 155.6 seconds.
+Chain 2 finished in 187.0 seconds.
+Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
+Chain 3 finished in 187.5 seconds.
 Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 2 finished in 155.9 seconds.
-Chain 4 finished in 155.8 seconds.
+Chain 4 finished in 188.1 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 153.2 seconds.
-Total execution time: 156.0 seconds.</code></pre>
+Mean chain execution time: 185.0 seconds.
+Total execution time: 188.3 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2482,16 +2473,16 @@ Total execution time: 156.0 seconds.</code></pre>
 <span id="cb153-19"><a href="#cb153-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-d1e69ff935ed94412441" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d1e69ff935ed94412441">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n    U -> D\n    U -> A\n{rank = same; G;A}\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-58dbe7dbc1c13f3ff6f4" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-58dbe7dbc1c13f3ff6f4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n    U -> D\n    U -> A\n{rank = same; G;A}\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Mediación con variables confusoras
 </div>
 </div>
@@ -2507,12 +2498,12 @@ Mediación con variables confusoras
 <div class="cell">
 <div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>mod_3_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-3.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpfcgPVy/
-model-3b815918b9e0.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
+model-1fb67e15af30.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpfcgPVy/model-3b815918b9e0.hpp'</code></pre>
+RtmpbouamF/model-1fb67e15af30.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_3_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2590,12 +2581,12 @@ generated quantities{
 }</code></pre>
 </div>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Variables latentes
 </div>
 </div>
@@ -2633,17 +2624,17 @@ Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 3 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 638.5 seconds.
-Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 640.2 seconds.
+Chain 1 finished in 729.0 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 640.8 seconds.
+Chain 4 finished in 730.2 seconds.
+Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 3 finished in 730.7 seconds.
 Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 643.4 seconds.
+Chain 2 finished in 734.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 640.7 seconds.
-Total execution time: 643.7 seconds.</code></pre>
+Mean chain execution time: 731.1 seconds.
+Total execution time: 734.9 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>resumen_disc_mod <span class="ot">&lt;-</span> ajuste_disc<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a>resumen_disc_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2681,12 +2672,12 @@ Total execution time: 643.7 seconds.</code></pre>
 </div>
 </div>
 <p>Notamos que los resultados para el “departamento discriminatorio” efectivamente indica un efecto directo más grande que favorece a hombres. Nótese como en este ejemplo el efecto de selección de departamento para mujeres es relativamente fuerte (alta habilidad tiende a ir a departamento 5), los efectos para el resto de los departamentos son contrarios: algunos se mueven a la derecha, es decir, parece haber má ventaja para mujeres. Esto es porque el departamento 5 absorbe desproporcionadamente a mujeres de habilidad alta, lo que implica q ue la habilidad promedio de mujeres en otros departamentos es más baja que la de los hombres.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Análisis de sensibilidad
 </div>
 </div>
@@ -2718,8 +2709,8 @@ Análisis de sensibilidad
 <span id="cb166-15"><a href="#cb166-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-f2bd1012e68c6c17043b" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f2bd1012e68c6c17043b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape = circle]\n    U\n  node [shape=plaintext]\n  edge [minlen = 3]\n    IntPadres -> NSE\n    NSE -> IntHijos\n    U -> NSE\n    U -> IntHijos\n    IntPadres -> IntHijos\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-501b0107e5a986aa2511" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-501b0107e5a986aa2511">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape = circle]\n    U\n  node [shape=plaintext]\n  edge [minlen = 3]\n    IntPadres -> NSE\n    NSE -> IntHijos\n    U -> NSE\n    U -> IntHijos\n    IntPadres -> IntHijos\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Como el NSE es del hogar (una medida general de estatus social), se consideró en principio como una variable pre-tratamiento a la inteligencia de los niños por la que tradicionalmente se controlaba. Burks notó que hacer esto tenía como consecuencia cortar parte del efecto total de la inteligencia sobre el la inteligencia de los hijos. Adicionalmente, condicionar a NSE abre un camino no causal entre Inteligencia de Padres e Hijos.</p>
@@ -2732,11 +2723,11 @@ Análisis de sensibilidad
 <p>En <span class="citation" data-cites="Pearl2022gb">Cinelli, Forney, y Pearl</span>, Pearl et al.&nbsp;<a href="https://ftp.cs.ucla.edu/pub/stat_ser/r493.pdf">A Crash Course in Good and Bad Controls</a> muestran diversos ejemplos de buenos y malos controles (variables para incluir en <span class="math inline">\(z\)</span>). Estas ideas aplican tanto a datos observacionales como experimentales.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-Pearl2022gb" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Pearl2022gb" class="csl-entry" role="listitem">
 Cinelli, Carlos, Andrew Forney, y Judea Pearl. <span>«A Crash Course in Good and Bad Controls»</span>. <em>Sociological Methods &amp; Research</em> 0 (0): 00491241221099552. <a href="https://doi.org/10.1177/00491241221099552">https://doi.org/10.1177/00491241221099552</a>.
 </div>
-<div id="ref-rethinking" class="csl-entry" role="doc-biblioentry">
+<div id="ref-rethinking" class="csl-entry" role="listitem">
 McElreath, Richard. 2015. <em>Statistical Rethinking, A Course in R and Stan</em>. <a href="http://xcelab.net/rmpubs/rethinking/Statistical_Rethinking_sample.pdf">http://xcelab.net/rmpubs/rethinking/Statistical_Rethinking_sample.pdf</a>.
 </div>
 </div>
@@ -2770,9 +2761,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -2837,6 +2842,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

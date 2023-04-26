@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -150,6 +121,7 @@ div.csl-indent {
 <link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
 <script src="site_libs/grViz-binding-1.0.9/grViz.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -158,11 +130,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-contrafactuales.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -170,85 +147,98 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Métodos analíticos</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Temario y referencias</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Temario y referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></a>
+  <a href="./01-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción (Parte 1)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></a>
+  <a href="./02-modelos-graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelos gráficos probabilísticos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></a>
+  <a href="./03-modelos-causales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modelos causales e inferencia</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></a>
+  <a href="./04-experimentos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experimentos y controles</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></a>
+  <a href="./05-contrafactuales.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></a>
+  <a href="./06-exp-naturales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Otros métodos para inferencia causal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></a>
+  <a href="./07-intro-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Análisis de series de tiempo</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></a>
+  <a href="./08-modelos-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></a>
+  <a href="./09-aplicaciones-espacio-estados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Aplicaciones de modelos de espacio de estados</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">Referencias</a>
+  <a href="./99-referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencias</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></a>
+  <a href="./apendice-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></span></a>
   </div>
 </li>
       </ul>
@@ -256,23 +246,24 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#efectos-causales-a-nivel-individuo." id="toc-efectos-causales-a-nivel-individuo." class="nav-link active" data-scroll-target="#efectos-causales-a-nivel-individuo."><span class="toc-section-number">5.1</span>  Efectos causales a nivel individuo.</a>
+  <li><a href="#efectos-causales-a-nivel-individuo." id="toc-efectos-causales-a-nivel-individuo." class="nav-link active" data-scroll-target="#efectos-causales-a-nivel-individuo."><span class="header-section-number">5.1</span> Efectos causales a nivel individuo.</a>
   <ul class="collapse">
   <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
   <li><a href="#ejemplo-simple-rubin" id="toc-ejemplo-simple-rubin" class="nav-link" data-scroll-target="#ejemplo-simple-rubin">Ejemplo simple (Rubin)</a></li>
   </ul></li>
-  <li><a href="#asignación-no-ignorable" id="toc-asignación-no-ignorable" class="nav-link" data-scroll-target="#asignación-no-ignorable"><span class="toc-section-number">5.2</span>  Asignación no ignorable</a></li>
-  <li><a href="#mediacion-con-contrafactuales" id="toc-mediacion-con-contrafactuales" class="nav-link" data-scroll-target="#mediacion-con-contrafactuales"><span class="toc-section-number">5.3</span>  Mediacion con contrafactuales</a>
+  <li><a href="#asignación-no-ignorable" id="toc-asignación-no-ignorable" class="nav-link" data-scroll-target="#asignación-no-ignorable"><span class="header-section-number">5.2</span> Asignación no ignorable</a></li>
+  <li><a href="#mediacion-con-contrafactuales" id="toc-mediacion-con-contrafactuales" class="nav-link" data-scroll-target="#mediacion-con-contrafactuales"><span class="header-section-number">5.3</span> Mediacion con contrafactuales</a>
   <ul class="collapse">
-  <li><a href="#caso-donde-no-hay-variables-confusoras" id="toc-caso-donde-no-hay-variables-confusoras" class="nav-link" data-scroll-target="#caso-donde-no-hay-variables-confusoras"><span class="toc-section-number">5.3.1</span>  Caso donde no hay variables confusoras</a></li>
+  <li><a href="#caso-donde-no-hay-variables-confusoras" id="toc-caso-donde-no-hay-variables-confusoras" class="nav-link" data-scroll-target="#caso-donde-no-hay-variables-confusoras"><span class="header-section-number">5.3.1</span> Caso donde no hay variables confusoras</a></li>
   <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo</a></li>
-  <li><a href="#ejemplo-admisiones-de-berkeley" id="toc-ejemplo-admisiones-de-berkeley" class="nav-link" data-scroll-target="#ejemplo-admisiones-de-berkeley"><span class="toc-section-number">5.3.2</span>  Ejemplo (Admisiones de Berkeley)</a></li>
+  <li><a href="#ejemplo-admisiones-de-berkeley" id="toc-ejemplo-admisiones-de-berkeley" class="nav-link" data-scroll-target="#ejemplo-admisiones-de-berkeley"><span class="header-section-number">5.3.2</span> Ejemplo (Admisiones de Berkeley)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -282,7 +273,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Contrafactuales</span></h1>
 </div>
 
 
@@ -311,12 +302,12 @@ div.csl-indent {
 </ul>
 <p>Podemos escribir también como</p>
 <p><span class="math display">\[y_i = y_{i}^1 t_i + y_{i}^0 (1 - t_i)\]</span> El primer avance, entonces, es establecer que para cada unidad hay dos posibles <em>resultados potenciales</em>, pero nosotros solamente observamos uno: <span class="math inline">\(y_i\)</span>. Esta notación más específica nos permite definir:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Contrafactuales
 </div>
 </div>
@@ -366,62 +357,62 @@ Contrafactuales
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(T, intensidad, Y, Y_1, Y_0)</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>obs_1 <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">|&gt;</span> kableExtra<span class="sc">::</span><span class="fu">kable_paper</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> T </th>
-   <th style="text-align:right;"> intensidad </th>
-   <th style="text-align:right;"> Y </th>
-   <th style="text-align:right;"> Y_1 </th>
-   <th style="text-align:right;"> Y_0 </th>
-  </tr>
- </thead>
+<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">T</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">intensidad</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Y</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Y_1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Y_0</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> 0.757 </td>
-   <td style="text-align:right;"> -0.313 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> -0.313 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> -1.348 </td>
-   <td style="text-align:right;"> -1.226 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> -1.226 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:right;"> 0.328 </td>
-   <td style="text-align:right;"> 0.833 </td>
-   <td style="text-align:right;"> 0.833 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> 0.408 </td>
-   <td style="text-align:right;"> -1.105 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> -1.105 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> -0.971 </td>
-   <td style="text-align:right;"> 2.588 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 2.588 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> FALSE </td>
-   <td style="text-align:right;"> -0.175 </td>
-   <td style="text-align:right;"> 0.721 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.721 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.757</td>
+<td style="text-align: right;">-0.313</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">-0.313</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">-1.348</td>
+<td style="text-align: right;">-1.226</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">-1.226</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">0.328</td>
+<td style="text-align: right;">0.833</td>
+<td style="text-align: right;">0.833</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.408</td>
+<td style="text-align: right;">-1.105</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">-1.105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">-0.971</td>
+<td style="text-align: right;">2.588</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">2.588</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">-0.175</td>
+<td style="text-align: right;">0.721</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.721</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -456,12 +447,12 @@ Contrafactuales
 1 -0.522 0.0377</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Efectos causales a nivel de unidad
 </div>
 </div>
@@ -475,12 +466,12 @@ Efectos causales a nivel de unidad
 <p><span class="math display">\[\delta = E[Y^1] - E[Y^0]\]</span> En términos de nuestra notación de la sección anterior, esto es lo mismo que</p>
 <p><span class="math display">\[\delta = E[Y|do(T=1)] - E[Y|do(T=0)].\]</span> y estos valores esperados son bajo la distribución <span class="math inline">\(p(y|do(t))\)</span>. Nótese sin embargo, que en cálculo-do siempre tratamos con las distribuciones poblacionales, y el enfoque de contrafactuales nos permite conectarlos con <em>efectos individuales</em>.</p>
 <p>Para que las definiciones de arriba tengan sentido y podamos trabajar con ellas de manera relativamente simple, es necesario hacer algunos supuestos. Los primeros se denominan <em>SUTVA</em>, o Stable Unit Treatment Value Assumption), ver (<span class="citation" data-cites="rubin2005">Rubin (<a href="99-referencias.html#ref-rubin2005" role="doc-biblioref">2005</a>)</span>):</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 SUTVA
 </div>
 </div>
@@ -499,12 +490,12 @@ SUTVA
 </ul>
 <p>Igual que en el marco de modelos causales estructurales (DAGs), es necesario hacer supuestos considerables acerca de estos dos modelos.</p>
 <p>En cuanto al proceso de asignación del tratamiento, Rubin introduce el concepto de ignorabilidad:</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Ingorabilidad
 </div>
 </div>
@@ -542,12 +533,12 @@ Ingorabilidad
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod_aspirina <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/contrafactual-simple.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpUTaAPZ/
-model-405958acb8e8.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpDHiHDO/
+model-25024ffa5f88.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpUTaAPZ/model-405958acb8e8.hpp'</code></pre>
+RtmpDHiHDO/model-25024ffa5f88.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_aspirina)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -627,26 +618,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 9.2 seconds.
+Chain 1 finished in 11.9 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 8.7 seconds.
+Chain 2 finished in 11.1 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 8.0 seconds.
+Chain 3 finished in 10.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 7.7 seconds.
+Chain 4 finished in 10.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 8.4 seconds.
-Total execution time: 34.1 seconds.</code></pre>
+Mean chain execution time: 10.8 seconds.
+Total execution time: 43.4 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -664,12 +655,12 @@ Total execution time: 34.1 seconds.</code></pre>
 6 efecto_trata -0.483   -0.584 -0.380</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Modelos e Ignorabilidad
 </div>
 </div>
@@ -791,12 +782,12 @@ Modelos e Ignorabilidad
 <p><span class="math display">\[NDE = \int (E[Y|T=1, M = m]- E[Y|T=0, M = m] )p(m|t=0)dm \]</span> Cada integral la podemos estimar simulando y promediando. Por ejemplo, para la primer integral, simulamos <span class="math inline">\(M=m\)</span> dado que <span class="math inline">\(T=0\)</span>, y luego simulamos <span class="math inline">\(Y\)</span> dado <span class="math inline">\(T=1\)</span> y <span class="math inline">\(M=m\)</span> con la <span class="math inline">\(m\)</span> que obtuvimos en le paso anterior. Igualmente para la segunda integral.</p>
 <p>El efecto indirecto también está identificado y es:</p>
 <p><span class="math display">\[NIE = \int E[y|T=0, M = m]p(m|t=1)dm - \int E[y|T=0, M = m]p(m|t=0)dm\]</span> Que igualmente podemos calcular simulando.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Tip
 </div>
 </div>
@@ -976,12 +967,12 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod_efectos_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-efectos-naturales.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpUTaAPZ/
-model-40593285e06a.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpDHiHDO/
+model-2502564c7025.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpUTaAPZ/model-40593285e06a.hpp'</code></pre>
+RtmpDHiHDO/model-2502564c7025.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_efectos_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1102,17 +1093,17 @@ Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 165.8 seconds.
-Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 179.9 seconds.
+Chain 3 finished in 203.4 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 180.6 seconds.
+Chain 4 finished in 213.6 seconds.
+Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 2 finished in 214.4 seconds.
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 183.0 seconds.
+Chain 1 finished in 220.5 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 177.3 seconds.
-Total execution time: 183.1 seconds.</code></pre>
+Mean chain execution time: 213.0 seconds.
+Total execution time: 220.6 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
@@ -1129,12 +1120,12 @@ Total execution time: 183.1 seconds.</code></pre>
 </div>
 <p>En este caso, el efecto total (que favorece al género 1) puede explicarse principalmente, mediante el efecto natural indirecto (la selección de departamento), y el efecto directo natural favorece al género 2. <strong>Nótese que esto supone que no hay variables confusoras entre departamento y admisión</strong>. Como vimos en la sección anterior, esto no es necesariamente cierto.</p>
 <p><strong>Ejercicio</strong>: bajo este modelo y considerando los efectos que acabamos de estimar, ¿ayudaría en algo hacer que las aplicaciones fueran “ciegas”, en el sentido de quitar nombres o otras maneras de editar las aplicaciones para que no se pueda saber el género del aplicante (si fuera posible)?</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Identificación de NDE y NIE
 </div>
 </div>
@@ -1148,14 +1139,14 @@ Identificación de NDE y NIE
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-imbens_rubin_2015" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-imbens_rubin_2015" class="csl-entry" role="listitem">
 Imbens, Guido W., y Donald B. Rubin. 2015. <em>Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction</em>. Cambridge University Press. <a href="https://doi.org/10.1017/CBO9781139025751">https://doi.org/10.1017/CBO9781139025751</a>.
 </div>
-<div id="ref-pearl2016causal" class="csl-entry" role="doc-biblioentry">
+<div id="ref-pearl2016causal" class="csl-entry" role="listitem">
 Pearl, J., M. Glymour, y N. P. Jewell. 2016. <em>Causal Inference in Statistics: A Primer</em>. Wiley. <a href="https://books.google.com.mx/books?id=L3G-CgAAQBAJ">https://books.google.com.mx/books?id=L3G-CgAAQBAJ</a>.
 </div>
-<div id="ref-rubin2005" class="csl-entry" role="doc-biblioentry">
+<div id="ref-rubin2005" class="csl-entry" role="listitem">
 Rubin, Donald B. 2005. <span>«Causal Inference Using Potential Outcomes»</span>. <em>Journal of the American Statistical Association</em> 100 (469): 322-31. <a href="https://doi.org/10.1198/016214504000001880">https://doi.org/10.1198/016214504000001880</a>.
 </div>
 </div>
@@ -1190,9 +1181,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1257,6 +1262,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
