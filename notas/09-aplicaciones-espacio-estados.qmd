@@ -469,7 +469,7 @@ Para cada elección, se publica en México un gran número de encuestas sobre la
 #| warning: false
 library(lubridate)
 mex_2018_tbl <- 
-  read_csv("../datos/wiki_encuestas_2018_en_campaña.csv") |> 
+  read_csv("../datos/wiki_encuestas_2018_en_campana.csv") |> 
   mutate(id_encuesta = row_number()) |> 
   select(id_encuesta, everything()) |> 
   mutate(Muestra = as.numeric(Muestra)) |> 
