@@ -7,7 +7,7 @@ library(tidyverse)
 library(kableExtra)
 library(DiagrammeR)
 library(CausalImpact)
-locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
+#locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
 library(lubridate)
 library(fpp3)
 ggplot2::theme_set(ggplot2::theme_light())
@@ -463,11 +463,13 @@ plot(model2, "coefficients")
 
 ## Agregación de encuestas
 
+Para cada elección, se publica en México un gran número de encuestas sobre las preferencias partidistas. Con el fin de obtener una estimación de las preferencias subyacentes, las encuestas pueden combinarse en una encuesta de encuestas. Mostramos un modelo dinámico bayesiano para combinar encuestas y producir una única estimación. 
+
 ```{r}
 #| warning: false
 library(lubridate)
 mex_2018_tbl <- 
-  read_csv("../datos/wiki_encuestas_2016_en_campaña.csv") |> 
+  read_csv("../datos/wiki_encuestas_2018_en_campaña.csv") |> 
   mutate(id_encuesta = row_number()) |> 
   select(id_encuesta, everything()) |> 
   mutate(Muestra = as.numeric(Muestra)) |> 
@@ -537,9 +539,9 @@ efectiva, y $\pi_i$ es el vector de preferencias de los candidatos
 para la encuesta $i$. Ahora definimos 
 $\mu_i$ tal que
 $$\textrm{softmax}(\mu_i) = \pi_i$$
-Ahora consideramos $mu_i$. Esta cantidad dependerá de:
+Ahora consideramos $\mu_i$ para cada encuesta. Esta cantidad dependerá de:
 
-- La preferencia $p(t_i)$ de los votantes al tiempo $t_i$ que se tomó
+- La preferencia subyacente $p(t_i)$ de los votantes al tiempo $t_i$ que se tomó
 la encuesta.
 - Sesgos propios de cada cada casa encuestadora $d_i$. Estos ocurren porque
 diversas metodologías alcanzan a distintos sectores de posibles votantes, o 
@@ -641,6 +643,8 @@ alpha_tbl <- ajuste$draws("alpha", format = "df") |>
   separate(variable, into = c("var", "id_dia", "cand"), 
            convert = TRUE, extra = "drop")
 ```
+
+
 ```{r}
 prop_tbl <- alpha_tbl |> group_by(.draw, id_dia) |> 
   mutate(valor = exp(valor)/sum(exp(valor))) |> 
@@ -676,8 +680,15 @@ ajuste$summary("Omega") |> select(variable, median, sd) |>
   mutate(across(where(is.numeric), ~ round(.x, 3)))
 ```
 
+Este modelo tiene varias ventajas sobre hacer promedios simples
+o suavizamientos locales (como loess), por ejemplo:
 
-
+- Considera el error de estimación de cada encuesta.
+- Cuando distintas casas publican a frecuencias distintas, es importante
+considerar que esos datos informan tanto la preferencia como *el sesgo de la casa encuestadora*. Esto implica, por ejemplo, que los encuestadores con encuestas más grandes o con más encuestas no dominan la estimación.
+- Contiene parámetros más apropiados para calibrar las predicciones contra datos de elecciones anteriores (los intervalos deben ser consistentes con
+los resultados finales de la elección), incluyendo efectos de casa, sesgos
+generales, y rapidez en la evolución del sistema.
 
 
 
@@ -716,14 +727,14 @@ modelo para hacer la estimación del contrafactual.
 
 ### Modelos predictivos del contrafactual
 
-Otra forma de abordar el problema es el siguiente (@causalimpact, 
+Otra forma de abordar el problema es el siguiente (@causalimpact), 
 ver también [Google Causal Impact](https://google.github.io/CausalImpact/)):
 
 - Construimos un modelo predictivo para la serie que vamos a intervenir,
 utilizando solamente variables que **sabemos que no serán afectadas por la intervención**.
 - Para este modelo sólo usamos los **datos anteriores a la intervención**
 que estamos considerando.
-- Una alternativa es utilizar modelos de espacio de estados, lo cual
+- Una alternativa es utilizar **modelos de espacio de estados**, lo cual
 más adelante nos permite estimar adecuadamente errores de estimación en
 efectos causales (toman en cuenta la autocorrelación, y la incertidumbre
 que aumenta conforme el tiempo pasa después de la intervención).
@@ -731,7 +742,7 @@ que aumenta conforme el tiempo pasa después de la intervención).
 después de que ocurre la intervención. Estos pronósticos, por el
 supuesto en el primer inciso, constituye nuestro **contrafactual** si la
 intervención no se hubiera aplicado.
-- Comparamos los valores observados de la serie de interés, después
+- **Comparamos** los valores observados de la serie de interés, después
 de la intervención, con los pronósticos para estimar el efecto causal
 de la intervención.
 
@@ -743,21 +754,19 @@ tiempo después de la intervención).
 Un ejemplo es: si imaginamos que una promoción se hace
 exclusivamente en una región $A$
 del país, podemos usar otras regiones del país como predictores de las
-ventas en la región $A$.Muchas veces estos modelos tienden a ser más
+ventas en la región $A$. Muchas veces estos modelos tienden a ser más
 precisos y simples pues no es necesario incluir 
 factores como estacionalidad, pues están sujetos a fuentes de 
 variación similares.
 
 En términos de contrafactuales: una vez que construimos este modelo, hacemos pronósticos con nuestro
-modelo para $t>t_{int}$, después de la intervención. que denotamos como $\hat{y}_t^0$, que son estimaciones de $y_t^0$ (el contrafactual sin
+modelo para $t>t_{int}$, después de la intervención, que denotamos como $\hat{y}_t^0$, que son estimaciones de $y_t^0$ (el contrafactual sin
 la intervención). Después de la intervención observamos
 $y_t^1$, así que calculamos, para cada $t$:
 
 $$y_t^1 - \hat{y}_t^0$$ 
-Esta cantidad tiene una distribución, que representa lo que sabemos
-del efecto causal individual sobre la región tratada $A$. Nótese que
-no podemos generalizar a efectos sobre otras regiones: su respuesta
-podría ser diferente a la de $A$.
+Esta cantidad tiene una distribución posteriar, que representa lo que sabemos
+del efecto causal individual sobre la región tratada $A$. 
 
 :::callout-note
 # Método de Impacto causal
@@ -786,28 +795,26 @@ set.seed(1241)
 x <- 100 + arima.sim(model = list(ar = 0.999), n = 100)
 x_int <- rep(0, 100)
 y <- 1.2 * x + rnorm(100)
+```
+
+Suponemos que la intervencion se hace en el tiempo $t=71$, y que
+tiene el efecto de aumentar la $y$ en 10 unidades:
+
+```{r}
 y[71:100] <- y[71:100] + 10
 x_int[71:100] <- 1
 datos_tbl <- tibble(y, x, x_int)
 ```
 
+Los dos series, antes de la intervención, muestra correlación:
+
 ```{r}
-#| fig.width: 5
-#| fig.height: 3
-x_mat <- datos_tbl |> select(x, x_int) |> as.matrix()
-x_mat <- cbind(1, x_mat)
-modelo <- AddLocalLevel(list(), datos_tbl$y) 
-ajuste <- bsts(y ~ x_int, state.specification = modelo, niter = 2500, 
-               data = datos_tbl |> select(y, x_int), ping = 10000, 
-               prior = SpikeSlabPrior(x_mat[, c(1,3)], 
-                                      y = datos_tbl$y, 
-                                      expected.model.size = 2))
-ajuste$coefficients[,"x_int"] |> qplot() +
-  xlab("Efecto de intervención")
+datos_tbl |> mutate(t = row_number()) |> 
+  ggplot(aes(x = t)) +
+  geom_line(aes(y = y)) +
+  geom_line(aes(y = x), colour = "red")
 ```
-Y vemos que el intervalo es muy amplio, y que tenemos que asumir
-que el efecto es fijo en el tiempo. Esto no es tan apropiado para
-la mayoría de las intervenciones, en donde su efecto varía en el tiempo.
+
 
 Ahora usamos la idea de construir un contrafactual con el método
 de impacto causal:
@@ -825,12 +832,35 @@ Construimos un modelo. En este caso usamos regresión estática pero
 agregamos una componente de nivel local:
 
 ```{r}
-mod_esp <- AddLocalLevel(list(), y_mod)
-ajuste_pre <- bsts(y_mod ~ x, mod_esp, niter = 1000, ping = 1000)
+#| fig-width: 6
+#| fig-height: 4
+set.seed(886)
+mod_esp_1 <- AddLocalLevel(list(), y_mod)
+mod_esp_2 <- AddLocalLinearTrend(list(), y_mod)
+ajuste_pre_1 <- bsts(y_mod ~ x, mod_esp_1, niter = 5000, ping = 5000)
+ajuste_pre_2 <- bsts(y_mod ~ x, mod_esp_2, niter = 5000, ping = 5000)
+CompareBstsModels(list(ajuste_pre_1, ajuste_pre_2))
 ```
 
+Seleccionamos el primer modelo:
+
 ```{r}
-preds_cf <- predict(ajuste_pre, horizon = 30, newdata = x[71:100])
+#| fig-width: 6
+#| fig-height: 4
+plot(ajuste_pre_1)
+plot(ajuste_pre_1, "components")
+```
+
+Extraemos predicciones que automáticamente hace *bsts*
+
+```{r}
+# quitar burn-in
+estado_contrib <- ajuste_pre_1$state.contributions[-seq_len(500), , ,drop = FALSE]
+# sumar contribuciones de componentes
+pred_cf <- rowSums(aperm(estado_contrib, c(1, 3, 2)), dims = 2)
+# extraer period post-intervencion
+pred_cf <- pred_cf[, 71:100]
+dim(pred_cf)
 ```
 
 Y estimamos el efecto promedio en estos 30 días utilizando
@@ -838,15 +868,16 @@ el valor observado de $y$ menos las simulaciones correspondientes
 del contrafactual:
 
 ```{r}
-media_dia_post <- apply(preds_cf$distribution, 1, mean)
+media_dia_post <- apply(pred_cf, 1, mean)
 diferencia <-  mean(y[71:100]) - media_dia_post
-quantile(diferencia, c(0.05, 0.5, 0.95)) |> round(2)
+mean(diferencia)
+quantile(diferencia, c(0.025, 0.975)) |> round(3)
 ```
 
 O más simplemente:
 
 ```{r}
-CausalImpact(bsts.model = ajuste_pre,
+CausalImpact(bsts.model = ajuste_pre_1,
                        post.period.response = y[71:100])
 ```
 
@@ -857,7 +888,7 @@ paquete:
 pre_periodo <- c(1, 70)
 post_periodo <- c(71, 100)
 impact <- CausalImpact(datos_tbl |> select(y, x), 
-  pre_periodo, post_periodo)
+  pre_periodo, post_periodo, model.args = list(niter = 5000))
 plot(impact)
 ```
 ```{r}
