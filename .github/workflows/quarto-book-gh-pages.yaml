@@ -26,6 +26,11 @@ jobs:
       - name: Install curl
         run: sudo apt-get install -y libcurl4-openssl-dev
 
+      - name: SetLocale
+        run: |
+          sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen es_ES.UTF-8
+          sudo update-locale
+
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/install-quarto@v1
         # uncomment and fill to pin a version
@@ -43,7 +48,7 @@ jobs:
           cmdstanr::check_cmdstan_toolchain(fix = TRUE)
           cmdstanr::install_cmdstan(cores = 2)
         shell: Rscript {0}
-        
+
       - name: Render book to all format
         # Add any command line argument needed
         run: |
