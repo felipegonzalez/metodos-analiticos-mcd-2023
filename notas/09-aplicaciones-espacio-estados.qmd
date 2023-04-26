@@ -588,9 +588,10 @@ pueden tener patrones de correlación entre candidatos.
 ```{r}
 primer_dia <- pref_tbl$publicacion |> min()
 ultimo_dia <- pref_tbl$publicacion |> max()
-fecha_eleccion <- ymd("2018-07-01")
-dias_tbl <- tibble(dia = seq(primer_dia, fecha_eleccion, by = "day")) |> 
-  mutate(id_dia = row_number())
+fecha_eleccion <- lubridate::ymd("2018-07-01")
+#dias_tbl <- tibble(dia = seq(primer_dia, fecha_eleccion, by = "day")) |> 
+#  mutate(id_dia = row_number())
+dias_tbl <- read_csv("../datos/dias.csv")
 # identificar dias
 pref_tbl <- pref_tbl |> 
   left_join(dias_tbl |> rename(publicacion = dia)) |> 
