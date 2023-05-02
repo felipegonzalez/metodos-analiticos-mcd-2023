@@ -728,20 +728,21 @@ modelo para hacer la estimación del contrafactual.
 
 ### Modelos predictivos del contrafactual
 
-Otra forma de abordar el problema es el siguiente (@causalimpact), 
+Otra forma de abordar el problema es el siguiente (@causalimpact) , 
 ver también [Google Causal Impact](https://google.github.io/CausalImpact/)):
 
 - Construimos un modelo predictivo para la serie que vamos a intervenir,
 utilizando solamente variables que **sabemos que no serán afectadas por la intervención**.
-- Para este modelo sólo usamos los **datos anteriores a la intervención**
+- Para constrruir este modelo sólo usamos los **datos anteriores a la intervención**
 que estamos considerando.
 - Una alternativa es utilizar **modelos de espacio de estados**, lo cual
 más adelante nos permite estimar adecuadamente errores de estimación en
 efectos causales (toman en cuenta la autocorrelación, y la incertidumbre
 que aumenta conforme el tiempo pasa después de la intervención).
 - Usando este modelo pronosticamos los valores de la serie de interés
-después de que ocurre la intervención. Estos pronósticos, por el
-supuesto en el primer inciso, constituye nuestro **contrafactual** si la
+después de que ocurre la intervención con nuestro modelo
+pre-intervención. Estos pronósticos, por el
+supuesto en el primer inciso, constituyen nuestro **contrafactual** si la
 intervención no se hubiera aplicado.
 - **Comparamos** los valores observados de la serie de interés, después
 de la intervención, con los pronósticos para estimar el efecto causal
@@ -750,43 +751,13 @@ de la intervención.
 Nótese que no es necesario suponer una forma parámétrica para
 la intervención, podemos estimarla como la diferencia señalada arriba
 (individualmente en cada periodo o de forma agregada sobre cierto
-tiempo después de la intervención).
-
-Un ejemplo es: si imaginamos que una promoción se hace
-exclusivamente en una región $A$
-del país, podemos usar otras regiones del país como predictores de las
-ventas en la región $A$. Muchas veces estos modelos tienden a ser más
-precisos y simples pues no es necesario incluir 
-factores como estacionalidad, pues están sujetos a fuentes de 
-variación similares.
-
-En términos de contrafactuales: una vez que construimos este modelo, hacemos pronósticos con nuestro
-modelo para $t>t_{int}$, después de la intervención, que denotamos como $\hat{y}_t^0$, que son estimaciones de $y_t^0$ (el contrafactual sin
-la intervención). Después de la intervención observamos
-$y_t^1$, así que calculamos, para cada $t$:
-
-$$y_t^1 - \hat{y}_t^0$$ 
-Esta cantidad tiene una distribución posteriar, que representa lo que sabemos
-del efecto causal individual sobre la región tratada $A$. 
-
-:::callout-note
-# Método de Impacto causal
-
-Requerimos los siguientes supuestos fuertes:
-
-- La serie de interés $y$ puede ser explicada
-en términos de otras series de tiempo que **no son afectadas** por la intervención
-- La relación entre la serie de interés $y$ y la serie de control se supone
-**estable** durante el periodo post-intervención.
-
-:::
-
-
+tiempo después de la intervención), y es posible estimar efectos
+rezagados de la intervención.
 
 
 ### Ejemplo 1
 
-Tomamos el siguiente ejemplo del paquete
+Tomamos el siguiente ejemplo del paquete *CausalImpact*:
 
 ```{r}
 #| warning: false
@@ -807,17 +778,60 @@ x_int[71:100] <- 1
 datos_tbl <- tibble(y, x, x_int)
 ```
 
-Los dos series, antes de la intervención, muestra correlación:
+Los dos series, antes de la intervención, muestra correlación.
+Construiremos un 
 
 ```{r}
 datos_tbl |> mutate(t = row_number()) |> 
+  filter(t < 71) |> 
   ggplot(aes(x = t)) +
   geom_line(aes(y = y)) +
   geom_line(aes(y = x), colour = "red")
 ```
 
+- Si sabemos que la serie $x$ roja no puede ser afectada por nuestra
+intervención sobre $y$, y suponemos que 
+la relación entre $y$ y $x$ se mantendría después del tiempo de la 
+intervención, entonces podemos contruir un modelo predictivo de $y$ en
+función de $x$ para construir contrafactuales.
 
-Ahora usamos la idea de construir un contrafactual con el método
+Un ejemplo es: si imaginamos que una promoción se hace
+exclusivamente en una región $A$
+del país, podemos usar otras regiones del país como predictores de las
+ventas en la región $A$. Muchas veces estos modelos tienden a ser más
+precisos y simples pues no es necesario incluir 
+factores como estacionalidad, pues están sujetos a fuentes de 
+variación similares.
+
+---
+
+En términos de contrafactuales: una vez que construimos este modelo, hacemos pronósticos con nuestro
+modelo para $t>t_{int}$, después de la intervención, que denotamos como $\hat{y}_t^0$, que son estimaciones de $y_t^0$ (el contrafactual sin
+la intervención). Después de la intervención observamos
+$y_t^1$, así que calculamos, para cada $t$:
+
+$$y_t^1 - \hat{y}_t^0$$ 
+Esta cantidad tiene una distribución posterior, que representa lo que sabemos
+del efecto causal individual sobre la región tratada $A$. 
+
+:::callout-note
+# Método de Impacto causal
+
+Requerimos los siguientes supuestos fuertes:
+
+- La serie de interés $y$ puede ser explicada
+en términos de otras series de tiempo que **no son afectadas** por la intervención
+- La relación entre la serie de interés $y$ y la serie de control se supone
+**estable** durante el periodo post-intervención.
+
+:::
+
+
+
+
+### Ejemplo {-}
+
+Usamos la idea de construir un contrafactual con el método
 de impacto causal:
 
 En primer lugar, excluímos los datos post-tratamiento:
@@ -896,7 +910,7 @@ plot(impact)
 summary(impact)
 ```
 
-### Ejemplo 2
+### Ejemplo 2 {-}
 
 
 Nótese adicionalmente esta estimación es no-paramétrica, y no establecemos
@@ -917,9 +931,9 @@ datos_tbl <- tibble(y, x, x_int)
 
 
 ```{r}
-pre.period <- c(1, 70)
-post.period <- c(71, 100)
-impact <- CausalImpact(datos_tbl |> select(y, x), pre.period, post.period)
+pre_period <- c(1, 70)
+post_period <- c(71, 100)
+impact <- CausalImpact(datos_tbl |> select(y, x), pre_period, post_period)
 plot(impact)
 ```
 
@@ -932,8 +946,115 @@ summary(impact)
 ```
 
 
+## Ejemplo: cinturones de seguridad
+
+En el ejemplo de cinturones de seguridad, es necesario encontrar
+series que se razonable que no son afectadas por la introducción 
+de la ley de cinturones de seguridad.
+
+Supondremos (aunque puede ser discutible), que la ley no tendrá un
+efecto considerable en kilómetros recorridos o precio de la gasolina,
+y tampoco tendrá un efecto sobre pasajeros que viajan en los asientos
+traseros. Estas variables son candidatas para construir un modelo
+predictivo antes de la introducción de la ley.
 
 
+```{r}
+uk_drivers <- Seatbelts |> as_tibble() |>  
+  mutate(ind = row_number()) 
+pre_periodo <- c(1, which(uk_drivers$law == 0) |> max())
+pre_periodo
+post_periodo <- c(pre_periodo[2] + 1, nrow(uk_drivers))
+datos_mod_tbl <- uk_drivers |> select(drivers, kms, rear, PetrolPrice,ind)
+```
+
+Podemos construir nuestro modelo manualmente (usualmente, varios
+modelo que comparamos en capacidad predictiva y calibración de intervalos):
+
+```{r}
+datos_ent_tbl <- datos_mod_tbl
+datos_ent_tbl <- datos_mod_tbl |> filter(ind <= 140)
+modelo_ent  <- AddLocalLevel(list(),
+    sigma.prior = SdPrior(5, 10),
+    y = datos_ent_tbl$drivers) |> 
+  AddSeasonal(nseasons = 12, datos_ent_tbl$drivers)
+ajuste_ent <- bsts(drivers ~ kms + rear + PetrolPrice, 
+                 modelo_ent, data = datos_ent_tbl,
+                 niter = 5000, ping = 5000)
+```
+```{r}
+plot(ajuste_ent)
+```
+Checamos predicciones validando un periodo de validación hasta
+antes de la intervención:
+
+```{r}
+preds_val <- predict(ajuste_ent, newdata = datos_mod_tbl |> 
+          filter(ind > 140, ind < 169)) 
+drivers_val <- datos_mod_tbl |> 
+          filter(ind > 140, ind < 169) |> pull(drivers)
+tibble(pred = preds_val$mean, 
+       pred_inf = preds_val$interval[1, ],
+       pred_sup = preds_val$interval[2, ],
+       drivers = drivers_val) |> 
+  ggplot(aes(x = drivers, y = pred, ymin = pred_inf,ymax = pred_sup )) + geom_point() + geom_linerange(colour = "red") + 
+  geom_abline() + coord_fixed()
+# MAPE
+mean(abs(preds_val$mean - drivers_val)/drivers_val)
+```
+Estas son las variables que utilizamos en el modelo (el color indica
+el signo cuando entra en el modelo):
+
+```{r}
+plot(ajuste_ent, "coefficients")
+```
+
+
+Y ahora ajustamos el modelo a todos los datos pre intervención:
+
+```{r}
+datos_mod_tbl$y <- datos_mod_tbl$drivers
+datos_mod_tbl$y[post_periodo[1]:post_periodo[2]] <- NA
+modelo_1  <- AddLocalLevel(list(), 
+    sigma.prior = SdPrior(5, 10),
+    datos_mod_tbl$y) |> 
+  AddSeasonal(nseasons = 12, datos_mod_tbl$y)
+ajuste_1 <- bsts(y ~ kms + rear + PetrolPrice, modelo_1, data = datos_mod_tbl,
+                   niter = 5000, ping = 5000)
+```
+
+```{r}
+impacto <- CausalImpact(bsts.model = ajuste_1,
+      post.period.response = 
+        datos_mod_tbl$drivers[post_periodo[1]:post_periodo[2]])
+plot(impacto)
+```
+
+
+```{r}
+impacto
+```
+
+Finalmente, podemos checar cómo cambiaron las variables del modelo
+predictivo post-entrenamiento. Por ejemplo, para las muertes
+y heridas graves de pasajeros
+de los asientos traseros:
+
+```{r}
+uk_drivers |> 
+  ggplot(aes(x = ind)) +
+  geom_line(aes(y = drivers)) +
+  geom_line(aes(y = rear), colour = "red")
+```
+O más simplemente, podemos usar los defaults de CausalImpact:
+
+```{r}
+impacto_auto <- CausalImpact(datos_mod_tbl |> select(-y), pre_periodo, post_periodo)
+impacto_auto
+```
+
+*Nota*: los valores de las iniciales que usa por default *CausalImpact*
+son diferentes a los de *bsts*.
 
 
 
