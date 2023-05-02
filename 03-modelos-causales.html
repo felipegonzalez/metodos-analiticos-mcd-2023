@@ -341,8 +341,8 @@ div.csl-indent {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-cb7fdcef123cbd671f3b" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cb7fdcef123cbd671f3b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-722b8a3c4c8d952066ca" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-722b8a3c4c8d952066ca">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> Z\n   U_a -> A\n   U_z -> Z\n   \n   \n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>donde <span class="math inline">\(T\)</span> es la temperatura, <span class="math inline">\(A\)</span> son las unidades de agua embotellada vendida y <span class="math inline">\(Z\)</span> es la actividad de los mosquitos (medido con muestreo, por ejemplo). Mostramos también otras variables causales que pueden afectar a las variables de interés (muchas veces omitimos estas variables que solo afectan a una variable de interés), pero que no tienen efecto sobre otras variables del diagrama.</p>
@@ -396,8 +396,8 @@ div.csl-indent {
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-2e6e13e9fa35713c51d3" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2e6e13e9fa35713c51d3">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-37af3cc7b3221f456c33" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37af3cc7b3221f456c33">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n   A\n  edge [minlen = 3]\n   U_t -> T\n   T -> Z\n   U_m -> Z\n{ rank = same; A; Z }\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En esta nueva gráfica, <span class="math inline">\(A\)</span> y <span class="math inline">\(Z\)</span> son independientes, que es la respuesta correcta. Como cambiamos la gráfica, su proceso generador es diferente al original de los datos observados. Sin embargo, en este ejemplo puedes ver por qué es claro que el cambio que hicimos (manipular <span class="math inline">\(A\)</span> en lugar de que esté determinado por su proceso generador original) no cambia el modelo de <span class="math inline">\(Z\)</span>, de manera que podemos simular de nuestro nuevo proceso generador donde manipulamos <span class="math inline">\(A\)</span>:</p>
@@ -494,8 +494,8 @@ div.csl-indent {
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-2b1ceb9a4f34c85d704c" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2b1ceb9a4f34c85d704c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ac89bda20ae58100e803" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ac89bda20ae58100e803">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   T -> D\n   D -> A\n   U_a -> A\n   U_d -> D\n\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -541,8 +541,8 @@ div.csl-indent {
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-5b80ff7eb15bc31b410d" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b80ff7eb15bc31b410d">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1de58cd2625fca4e0f3b" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1de58cd2625fca4e0f3b">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n\n  edge [minlen = 3]\n   U_t -> T\n   T -> A\n   D -> A\n   U_a -> A\n{ rank = same; A; D }\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Ahora queremos calcular <span class="math inline">\(p(a|do(d)) = p_m(a|d)\)</span> en función de los datos. Siguiendo el mismo argumento que en el ejemplo anterior, sabemos que tenemos que estratificar o condicionar a <span class="math inline">\(T\)</span> para poder usar nuestro proceso generador de observaciones, y obtenemos:</p>
@@ -717,19 +717,19 @@ Fórmula de ajuste con simulación
 <pre><code>- CmdStanR documentation and vignettes: mc-stan.org/cmdstanr</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>- CmdStan path: /home/runner/.cmdstan/cmdstan-2.32.0</code></pre>
+<pre><code>- CmdStan path: /home/runner/.cmdstan/cmdstan-2.32.1</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>- CmdStan version: 2.32.0</code></pre>
+<pre><code>- CmdStan version: 2.32.1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mod_agua <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/agua-1.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb638dab762.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f1957afff15.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb638dab762.hpp'</code></pre>
+RtmpxdgsyL/model-1f1957afff15.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_agua)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -834,26 +834,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 5.5 seconds.
+Chain 1 finished in 5.2 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 5.7 seconds.
+Chain 2 finished in 5.3 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 5.6 seconds.
+Chain 3 finished in 5.3 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 5.9 seconds.
+Chain 4 finished in 5.4 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 5.7 seconds.
-Total execution time: 23.2 seconds.</code></pre>
+Mean chain execution time: 5.3 seconds.
+Total execution time: 21.4 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1004,8 +1004,8 @@ dbl (4): height, weight, age, male
 <span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-f75dc5c3821871b59f8c" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f75dc5c3821871b59f8c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2482b56f6f5e68a6fd9a" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2482b56f6f5e68a6fd9a">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    S\n    H\n    W \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    S -> H\n    S -> W\n    H -> W\n    U -> H\n    U -> W\n{rank = same; S;H}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ul>
@@ -1055,12 +1055,12 @@ Ojo: interpetación de modelos
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>mod_1 <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(<span class="st">"../src/peso-estatura-inferencia-1.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb62818e4d.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f194abf592f.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb62818e4d.hpp'</code></pre>
+RtmpxdgsyL/model-1f194abf592f.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1162,26 +1162,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 3.3 seconds.
+Chain 1 finished in 2.8 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 2.8 seconds.
+Chain 2 finished in 2.5 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 3.0 seconds.
+Chain 3 finished in 2.7 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 2.9 seconds.
+Chain 4 finished in 2.5 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 3.0 seconds.
-Total execution time: 12.2 seconds.</code></pre>
+Mean chain execution time: 2.6 seconds.
+Total execution time: 11.0 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
@@ -1207,12 +1207,12 @@ Total execution time: 12.2 seconds.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>mod_2 <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">cmdstan_model</span>(<span class="st">"../src/peso-estatura-inferencia-simple.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb65ac497b7.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f19385059fb.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb65ac497b7.hpp'</code></pre>
+RtmpxdgsyL/model-1f19385059fb.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1297,26 +1297,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 1.9 seconds.
+Chain 1 finished in 1.8 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 1.9 seconds.
+Chain 2 finished in 1.7 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 2.1 seconds.
+Chain 3 finished in 1.7 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 2.0 seconds.
+Chain 4 finished in 1.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 2.0 seconds.
-Total execution time: 8.1 seconds.</code></pre>
+Mean chain execution time: 1.7 seconds.
+Total execution time: 7.3 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_male"</span>))</span>
@@ -1391,8 +1391,8 @@ Ajuste de puerta trasera (Pearl)
 <span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-5a6d0ebedad601dd25e8" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5a6d0ebedad601dd25e8">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n  node [shape = circle]\n    NSE\n    Peso\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-62688298ebd7b33f00b1" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-62688298ebd7b33f00b1">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n  node [shape = circle]\n    NSE\n    Peso\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Observamos que no podemos directamente usar la fórmula de ajuste pues NSE no es una variable observada.</p>
@@ -1421,8 +1421,8 @@ Ajuste de puerta trasera (Pearl)
 <span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-5315110f576b1f44e674" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5315110f576b1f44e674">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n    Peso\n  node [shape = circle]\n    NSE\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-58ca40bc15e6af6707d6" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-58ca40bc15e6af6707d6">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2, rankdir = LR]\n  node [shape=plaintext]\n    Trata\n    Res\n    Peso\n  node [shape = circle]\n    NSE\n    U\n  edge [minlen = 3]\n    NSE -> Peso\n    NSE -> Trata\n    Trata -> Res\n    Peso -> Res\n    U -> NSE\n    U -> Peso\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, todavía no podemos aplicar la fórmula original de ajuste pues no conocemos <span class="math inline">\(NSE\)</span>. Sin embargo, podemos bloquear los caminos no causales estratificando por Peso, y entonces podemos usar el criterio de puerta trasera para identificar el efecto del tratamiento, aún cuando no tengamos NSE.</p>
@@ -1528,12 +1528,12 @@ Ajuste de puerta trasera (Pearl)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>mod_trata <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/trata-backdoor.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb61ac93dde.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f19549b78ec.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb61ac93dde.hpp'</code></pre>
+RtmpxdgsyL/model-1f19549b78ec.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_trata)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1612,26 +1612,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 3.6 seconds.
+Chain 1 finished in 2.7 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 3.7 seconds.
+Chain 2 finished in 2.8 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 3.6 seconds.
+Chain 3 finished in 2.8 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 3.8 seconds.
+Chain 4 finished in 2.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 3.7 seconds.
-Total execution time: 14.8 seconds.</code></pre>
+Mean chain execution time: 2.8 seconds.
+Total execution time: 11.4 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>( <span class="at">format =</span> <span class="st">"df"</span>)</span>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>( <span class="st">"dif_trata"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1662,12 +1662,12 @@ Total execution time: 14.8 seconds.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>mod_trata <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/trata-backdoor-promedio.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb67fa3a587.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f191786edb1.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb67fa3a587.hpp'</code></pre>
+RtmpxdgsyL/model-1f191786edb1.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_trata)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1750,26 +1750,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 14.6 seconds.
+Chain 1 finished in 15.1 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 15.1 seconds.
+Chain 2 finished in 15.4 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 14.7 seconds.
+Chain 3 finished in 15.3 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 15.0 seconds.
+Chain 4 finished in 15.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 14.9 seconds.
-Total execution time: 59.9 seconds.</code></pre>
+Mean chain execution time: 15.2 seconds.
+Total execution time: 61.4 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">"dif_trata"</span>), <span class="at">format =</span> <span class="st">"df"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1855,8 +1855,8 @@ Completitud (Shpitser, Pearl)
 <span id="cb108-15"><a href="#cb108-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-7f9c225e0a26788830e8" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7f9c225e0a26788830e8">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> C\n{rank= same; C; F}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-51633257fdcfd5e72786" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-51633257fdcfd5e72786">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> C\n{rank= same; C; F}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>En este caso, el efecto de fumar (<span class="math inline">\(F\)</span>) sobre cáncer (<span class="math inline">\(C\)</span>) no es identificable pues no podemos condicionar a la variable de Genotipo (<span class="math inline">\(U\)</span>). Supongamos que tenemos una medida adicional, que es la cantidad de depósitos de alquitrán den los pulmones de los pacientes. Este es es afectado por <span class="math inline">\(F\)</span>, y a su vez, el alquitrán incrementa la probabilidad de cáncer:</p>
@@ -1882,8 +1882,8 @@ Completitud (Shpitser, Pearl)
 <span id="cb109-17"><a href="#cb109-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-e44221a378ebf62032b6" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e44221a378ebf62032b6">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n    A\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> A\n    A -> C\n{rank= same; C; F; A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1ca02d9170b3e6a073b1" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ca02d9170b3e6a073b1">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    F\n    C\n    A\n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    U -> F\n    U -> C\n    F -> A\n    A -> C\n{rank= same; C; F; A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>La idea es primero estimar el efecto de <span class="math inline">\(F\)</span> sobre <span class="math inline">\(A\)</span>, y después estimar el efecto de <span class="math inline">\(A\)</span> sobre <span class="math inline">\(C\)</span>. La “composición” de estos dos efectos, dado el diagrama, debe darnos el estimador correcto. Primero consideramos el efecto de <span class="math inline">\(F\)</span> sobre <span class="math inline">\(A\)</span>, y tenemos que (regla 2)</p>
@@ -1997,12 +1997,12 @@ Criterio de fuerta delantera (Pearl)
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>sims_fd <span class="ot">&lt;-</span> <span class="fu">simular_fd</span>(<span class="dv">2000</span>)</span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>mod_front_door <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/front-door-2.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb63b8e54dc.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f1957dc4666.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb63b8e54dc.hpp'</code></pre>
+RtmpxdgsyL/model-1f1957dc4666.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_front_door)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2102,17 +2102,17 @@ Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 96.6 seconds.
+Chain 1 finished in 77.9 seconds.
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 96.8 seconds.
+Chain 2 finished in 78.7 seconds.
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 98.4 seconds.
+Chain 4 finished in 79.4 seconds.
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 101.2 seconds.
+Chain 3 finished in 81.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 98.2 seconds.
-Total execution time: 101.4 seconds.</code></pre>
+Mean chain execution time: 79.5 seconds.
+Total execution time: 81.9 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2218,20 +2218,20 @@ Total execution time: 101.4 seconds.</code></pre>
 <span id="cb131-16"><a href="#cb131-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-a42ee63636035ea6a19c" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a42ee63636035ea6a19c">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fd2a42e10ac86f7381eb" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fd2a42e10ac86f7381eb">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  #node [shape = circle]\n  #  U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n{rank = same; G;A}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Bajo estos supuestos, podemos calcular el efecto total de género en admisiones: para esto es importante <strong>no</strong> condicionar a departamento. Nuestro modelo es el siguiente:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>mod_1_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-1.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb6439779d7.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f19579b26d9.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb6439779d7.hpp'</code></pre>
+RtmpxdgsyL/model-1f19579b26d9.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_1_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2321,17 +2321,17 @@ Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling)
 Chain 1 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 2 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 4 finished in 169.8 seconds.
+Chain 4 finished in 142.1 seconds.
 Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 3 finished in 179.6 seconds.
+Chain 3 finished in 147.3 seconds.
 Chain 1 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 1 finished in 181.2 seconds.
+Chain 1 finished in 150.5 seconds.
 Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 2 finished in 186.0 seconds.
+Chain 2 finished in 150.8 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 179.2 seconds.
-Total execution time: 186.2 seconds.</code></pre>
+Mean chain execution time: 147.7 seconds.
+Total execution time: 151.0 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2375,12 +2375,12 @@ Total execution time: 186.2 seconds.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>mod_2_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-2.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb621ada49b.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f195e957a89.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb621ada49b.hpp'</code></pre>
+RtmpxdgsyL/model-1f195e957a89.hpp'</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2402,17 +2402,17 @@ Chain 2 Iteration: 201 / 700 [ 28%]  (Sampling)
 Chain 4 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 3 Iteration: 201 / 700 [ 28%]  (Sampling) 
 Chain 1 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 1 finished in 177.6 seconds.
-Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 2 finished in 187.0 seconds.
-Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 3 finished in 187.5 seconds.
+Chain 1 finished in 143.7 seconds.
 Chain 4 Iteration: 700 / 700 [100%]  (Sampling) 
-Chain 4 finished in 188.1 seconds.
+Chain 2 Iteration: 700 / 700 [100%]  (Sampling) 
+Chain 4 finished in 153.4 seconds.
+Chain 2 finished in 153.6 seconds.
+Chain 3 Iteration: 700 / 700 [100%]  (Sampling) 
+Chain 3 finished in 154.1 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 185.0 seconds.
-Total execution time: 188.3 seconds.</code></pre>
+Mean chain execution time: 151.2 seconds.
+Total execution time: 154.3 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>resumen_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2473,8 +2473,8 @@ Total execution time: 188.3 seconds.</code></pre>
 <span id="cb153-19"><a href="#cb153-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-58dbe7dbc1c13f3ff6f4" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-58dbe7dbc1c13f3ff6f4">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n    U -> D\n    U -> A\n{rank = same; G;A}\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-61a15d026faef8845cf1" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-61a15d026faef8845cf1">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape=plaintext]\n    G\n    D\n    A \n  node [shape = circle]\n    U\n  edge [minlen = 3]\n    G -> D\n    G -> A\n    D -> A\n    U -> D\n    U -> A\n{rank = same; G;A}\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -2498,12 +2498,12 @@ Mediación con variables confusoras
 <div class="cell">
 <div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>mod_3_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-3.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpbouamF/
-model-1fb67e15af30.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpxdgsyL/
+model-1f197d36d53c.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpbouamF/model-1fb67e15af30.hpp'</code></pre>
+RtmpxdgsyL/model-1f197d36d53c.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_3_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2623,18 +2623,18 @@ Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
-Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 729.0 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 730.2 seconds.
+Chain 4 finished in 643.8 seconds.
+Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 1 finished in 645.9 seconds.
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 730.7 seconds.
+Chain 3 finished in 647.4 seconds.
 Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 734.7 seconds.
+Chain 2 finished in 651.5 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 731.1 seconds.
-Total execution time: 734.9 seconds.</code></pre>
+Mean chain execution time: 647.1 seconds.
+Total execution time: 651.6 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>resumen_disc_mod <span class="ot">&lt;-</span> ajuste_disc<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(variable, mean, q5, q95)</span>
 <span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a>resumen_disc_mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2709,8 +2709,8 @@ Análisis de sensibilidad
 <span id="cb166-15"><a href="#cb166-15" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-501b0107e5a986aa2511" style="width:100%;height:464px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-501b0107e5a986aa2511">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape = circle]\n    U\n  node [shape=plaintext]\n  edge [minlen = 3]\n    IntPadres -> NSE\n    NSE -> IntHijos\n    U -> NSE\n    U -> IntHijos\n    IntPadres -> IntHijos\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e934078c8fff1cedab58" style="width:100%;height:464px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e934078c8fff1cedab58">{"x":{"diagram":"\ndigraph {\n  graph [ranksep = 0.2]\n  node [shape = circle]\n    U\n  node [shape=plaintext]\n  edge [minlen = 3]\n    IntPadres -> NSE\n    NSE -> IntHijos\n    U -> NSE\n    U -> IntHijos\n    IntPadres -> IntHijos\n{rank = same; U}\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Como el NSE es del hogar (una medida general de estatus social), se consideró en principio como una variable pre-tratamiento a la inteligencia de los niños por la que tradicionalmente se controlaba. Burks notó que hacer esto tenía como consecuencia cortar parte del efecto total de la inteligencia sobre el la inteligencia de los hijos. Adicionalmente, condicionar a NSE abre un camino no causal entre Inteligencia de Padres e Hijos.</p>
