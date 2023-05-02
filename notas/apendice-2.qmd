@@ -1,0 +1,143 @@
+# Apéndice 2
+
+```{r}
+#| code-fold: true
+#| warning: false
+library(tidyverse)
+library(kableExtra)
+library(DiagrammeR)
+library(CausalImpact)
+locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
+library(lubridate)
+library(fpp3)
+ggplot2::theme_set(ggplot2::theme_light())
+```
+
+
+## Transformaciones para serie de tiempo
+
+Muchas veces podemos simplificar modelos utilizando transformaciones
+de la serie de tiempo que nos interesa. 
+
+Una común es que la variación de la serie de tiempo es proporcional
+a su nivel. Consideramos el ejemplo de [Forecasting: PP](https://otexts.com/fpp3/time-plots.html) de datos mensuales de costo de
+medicinas para diabetes en Australia:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+data(PBS)
+a10 <- filter(PBS, ATC2 == "A10") |> 
+  select(Month, ATC2, ATC2_desc, Scripts, Cost) |> 
+  summarise(Scripts = sum(Scripts), Cost = sum(Cost))
+autoplot(a10, Cost) +
+  labs(y = "$ (millones)",
+       title = "Ventas de medicinas para diabetes")
+```
+En este caso, podemos ver que la variabilidad de la serie (incluyendo patrones
+de estacionalidad) es mayor cuanto mayores valores toma. Aunque es posible
+modelar esto explícitamente, puede ser más simple modelar el logaritmo de
+esta serie (es decir, nuestro modelo de observaciones es multiplicativo en
+la observación original, en lugar de aditivo):
+
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+data(PBS)
+a10 <- a10 |> 
+  mutate(log_Costo = log(Cost))
+autoplot(a10, log_Costo) +
+  labs(y = "$ (millones)",
+       title = "Ventas de medicianas para diabetes") 
+```
+Una vez que transformamos a modelo multiplicativo, la variabilidad de
+la serie es más regular a lo largo del periodo de modelación. Otras posibilidad
+común es transformar usando la raíz cuadrada:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+data(PBS)
+a10 <- a10 |> 
+  mutate(sqrt_Costo = sqrt(Cost))
+autoplot(a10, sqrt_Costo) +
+  labs(y = "$ (millones)",
+       title = "Ventas de medicianas para diabetes") 
+```
+Utilizaremos la transformación logarítmica. Es importante notar que cuando
+hacemos transformaciones, es necesario tener cuidado en la transformación
+inversa para regresar a unidades originales:
+
+- La mediana y otros percentiles pueden transformarse con la inversa
+y siguen siendo mediana y percentiles en la escala original.
+- La media y desviación estándar en la escala transformada no pueden transformarse
+directamente con la transformación inversa (no es lo mismo, por ejemplo,
+obtener la media en la escala logarítmica y aplicar exponencial que aplicar exponencial a los datos y luego tomar la media).
+- Si tenemos simulaciones (como cuando usamos MCMC), podemos simplemente aplicar
+la transformación inversa a los valores simulados y luego tomar el resumen
+que nos interesa.
+
+```{r}
+modelo_diabetes  <- AddLocalLinearTrend(list(), a10$log_Costo) |> 
+  AddSeasonal(nseasons = 12, a10$log_Costo) 
+ajuste_1 <- bsts(a10$log_Costo, modelo_diabetes, 
+                   niter = 10000, ping = 5000)
+```
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+plot(ajuste_1)
+```
+
+```{r}
+pred_errors_tbl <- 
+  ajuste_1$one.step.prediction.errors |> 
+  t() |> as_tibble() |>
+  mutate(t = 1:nrow(a10)) |> 
+  pivot_longer(-c(t), names_to = "sim", values_to = "valor") |> 
+  group_by(t) |> 
+  summarise(valor = mean(valor)) |> 
+  as_tsibble(index = t)
+```
+
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+ACF(pred_errors_tbl[-c(1:12), ]) |> 
+  autoplot() + ylim(c(-1,1))
+ggplot(pred_errors_tbl |> filter(t > 12)) +
+  geom_qq(aes(sample = valor)) +
+  geom_qq_line(aes(sample = valor))
+```
+
+Podemos producir pronósticos de la siguiente forma (por ejemplo
+si queremos predecir con las medias de la posterior predictiva) :
+
+```{r}
+sims_log_pred <- predict(ajuste_1, horizon = 12)
+dim(sims_log_pred$distribution)
+pronostico_puntual_media <- exp(sims_log_pred$distribution) |> 
+  apply(2, mean)
+pronostico_puntual_media
+```
+
+Los intervalos de percentiles podemos simplemente transfomarlos directamente:
+
+```{r}
+sims_log_pred$interval |> exp()
+```
+
+::: callout-tip
+# Transformación inversa
+
+Cuando usamos usamos como pronóstico el valor esperado de la serie transformada,
+aplicar la transformación inversa no nos da en general el valor esperado
+de serie sin transformar. 
+
+Pueden aplicarse correcciones (ver por ejemplo [aquí](https://otexts.com/fpp3/ftransformations.html)). Si tenemos simulaciones
+individuales para la cantidad de interés, podemos aplicar a cada simulación
+la transformación y después resumir apropiadamente (por ejemplo, la media).
+
+:::

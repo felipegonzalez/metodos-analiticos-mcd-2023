@@ -18,6 +18,7 @@ book:
     - 99-referencias.qmd
   appendices:
     - apendice-1.qmd
+    - apendice-2.qmd
 bibliography: referencias/book.bib
 
 format:
