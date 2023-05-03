@@ -234,6 +234,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Apéndice 1</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apendice-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Apéndice 2</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -341,30 +347,30 @@ div.csl-indent {
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bsts</span>(ent_hosp_ts, spec, <span class="at">niter =</span> <span class="dv">40000</span>, <span class="at">ping =</span> <span class="dv">10000</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 22:31:00 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Tue May  2 22:31:13 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Tue May  2 22:31:26 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Tue May  2 22:31:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Tue May  2 22:31:53 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Tue May  2 22:32:08 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Tue May  2 22:32:23 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Tue May  2 22:32:38 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Tue May  2 22:32:54 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Tue May  2 22:33:28 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Tue May  2 22:34:02 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Tue May  2 22:34:36 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Tue May  2 22:35:11 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Tue May  2 22:35:51 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Tue May  2 22:36:32 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Tue May  2 22:37:12 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Tue May  2 22:37:52 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Tue May  2 22:38:34 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Tue May  2 22:39:16 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Tue May  2 22:39:58 2023 =-=-=-=-=
-=-=-=-=-= Iteration 0 Tue May  2 22:40:40 2023 =-=-=-=-=
-=-=-=-=-= Iteration 10000 Tue May  2 22:41:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 20000 Tue May  2 22:42:37 2023 =-=-=-=-=
-=-=-=-=-= Iteration 30000 Tue May  2 22:43:36 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:24:52 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Tue May  2 23:25:05 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Tue May  2 23:25:18 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Tue May  2 23:25:31 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Tue May  2 23:25:44 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Tue May  2 23:25:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Tue May  2 23:26:15 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Tue May  2 23:26:30 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Tue May  2 23:26:46 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Tue May  2 23:27:21 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Tue May  2 23:27:56 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Tue May  2 23:28:31 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Tue May  2 23:29:07 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Tue May  2 23:29:48 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Tue May  2 23:30:30 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Tue May  2 23:31:11 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Tue May  2 23:31:53 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Tue May  2 23:32:35 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Tue May  2 23:33:17 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Tue May  2 23:33:59 2023 =-=-=-=-=
+=-=-=-=-= Iteration 0 Tue May  2 23:34:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 10000 Tue May  2 23:35:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 20000 Tue May  2 23:36:40 2023 =-=-=-=-=
+=-=-=-=-= Iteration 30000 Tue May  2 23:37:40 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>En primer lugar, podemos comparar las predicciones a un paso de cada modelo. En este caso, los modelos 3 y 4 son claramente superiores a 1 y 2 en desempeño a un paso. El mejor modelo en desempeño a un paso es el modelo 4, por la tendencia lineal de la serie.</p>
@@ -435,7 +441,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pred<span class="sc">$</span>distribution, <span class="dv">1</span>, sum) <span class="sc">|&gt;</span> <span class="fu">quantile</span>(<span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.50</span>, <span class="fl">0.95</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      5%      50%      95% 
-600145.2 617425.3 634535.9 </code></pre>
+600307.2 618114.5 636151.1 </code></pre>
 </div>
 </div>
 </section>
@@ -549,16 +555,16 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ajuste_nat <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y, modelo_natalidad, <span class="at">niter =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 22:44:44 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Tue May  2 22:46:16 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Tue May  2 22:47:47 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Tue May  2 22:49:19 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Tue May  2 22:50:51 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Tue May  2 22:52:22 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Tue May  2 22:53:54 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Tue May  2 22:55:26 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Tue May  2 22:56:57 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Tue May  2 22:58:29 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:38:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Tue May  2 23:40:21 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Tue May  2 23:41:53 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Tue May  2 23:43:25 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Tue May  2 23:44:57 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Tue May  2 23:46:29 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Tue May  2 23:48:02 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Tue May  2 23:49:34 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Tue May  2 23:51:06 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Tue May  2 23:52:38 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -620,16 +626,16 @@ Current temporal ordering may yield unexpected results.
 <pre><code># A tsibble: 2,922 x 5 [1D]
    fecha      nacimientos feb_29  error dia_sem
    &lt;date&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  
- 1 2013-01-01        8.45      0 -0.201 martes 
+ 1 2013-01-01        8.45      0 -0.202 martes 
  2 2009-11-02        8.64      0 -0.184 lunes  
- 3 2012-09-16        8.66      0  0.174 domingo
- 4 2012-12-25        8.47      0 -0.173 martes 
- 5 2016-11-21        8.49      0 -0.173 lunes  
- 6 2016-12-25        8.15      0  0.163 domingo
- 7 2015-11-16        8.56      0 -0.158 lunes  
- 8 2012-11-19        8.66      0 -0.150 lunes  
+ 3 2012-09-16        8.66      0  0.173 domingo
+ 4 2016-11-21        8.49      0 -0.172 lunes  
+ 5 2012-12-25        8.47      0 -0.171 martes 
+ 6 2016-12-25        8.15      0  0.162 domingo
+ 7 2015-11-16        8.56      0 -0.157 lunes  
+ 8 2012-11-19        8.66      0 -0.149 lunes  
  9 2014-03-17        8.55      0 -0.148 lunes  
-10 2011-11-21        8.69      0 -0.148 lunes  
+10 2011-11-21        8.69      0 -0.147 lunes  
 # … with 2,912 more rows</code></pre>
 </div>
 </div>
@@ -670,16 +676,16 @@ Nowcasting
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">state.specification =</span> ss,</span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">niter =</span> <span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:00:06 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Tue May  2 23:00:10 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Tue May  2 23:00:14 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Tue May  2 23:00:19 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Tue May  2 23:00:23 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Tue May  2 23:00:27 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Tue May  2 23:00:32 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Tue May  2 23:00:36 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Tue May  2 23:00:40 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Tue May  2 23:00:45 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:54:15 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Tue May  2 23:54:19 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Tue May  2 23:54:24 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Tue May  2 23:54:28 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Tue May  2 23:54:32 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Tue May  2 23:54:37 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Tue May  2 23:54:41 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Tue May  2 23:54:46 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Tue May  2 23:54:50 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Tue May  2 23:54:55 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -719,16 +725,16 @@ Nowcasting
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> initial.claims, </span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">expected.model.size =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:00:50 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Tue May  2 23:00:54 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Tue May  2 23:00:59 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Tue May  2 23:01:03 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Tue May  2 23:01:08 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Tue May  2 23:01:12 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Tue May  2 23:01:16 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Tue May  2 23:01:21 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Tue May  2 23:01:25 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Tue May  2 23:01:30 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:55:00 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Tue May  2 23:55:05 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Tue May  2 23:55:09 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Tue May  2 23:55:14 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Tue May  2 23:55:18 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Tue May  2 23:55:22 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Tue May  2 23:55:27 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Tue May  2 23:55:31 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Tue May  2 23:55:36 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Tue May  2 23:55:40 2023 =-=-=-=-=</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(iclaimsNSA <span class="sc">~</span> .,</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">state.specification =</span> ss,</span>
@@ -736,16 +742,16 @@ Nowcasting
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> initial.claims,</span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">expected.model.size =</span> <span class="dv">6</span>)  <span class="co"># Passed to SpikeSlabPrior.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:01:34 2023 =-=-=-=-=
-=-=-=-=-= Iteration 100 Tue May  2 23:01:39 2023 =-=-=-=-=
-=-=-=-=-= Iteration 200 Tue May  2 23:01:43 2023 =-=-=-=-=
-=-=-=-=-= Iteration 300 Tue May  2 23:01:47 2023 =-=-=-=-=
-=-=-=-=-= Iteration 400 Tue May  2 23:01:52 2023 =-=-=-=-=
-=-=-=-=-= Iteration 500 Tue May  2 23:01:56 2023 =-=-=-=-=
-=-=-=-=-= Iteration 600 Tue May  2 23:02:00 2023 =-=-=-=-=
-=-=-=-=-= Iteration 700 Tue May  2 23:02:05 2023 =-=-=-=-=
-=-=-=-=-= Iteration 800 Tue May  2 23:02:09 2023 =-=-=-=-=
-=-=-=-=-= Iteration 900 Tue May  2 23:02:14 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:55:45 2023 =-=-=-=-=
+=-=-=-=-= Iteration 100 Tue May  2 23:55:49 2023 =-=-=-=-=
+=-=-=-=-= Iteration 200 Tue May  2 23:55:54 2023 =-=-=-=-=
+=-=-=-=-= Iteration 300 Tue May  2 23:55:58 2023 =-=-=-=-=
+=-=-=-=-= Iteration 400 Tue May  2 23:56:03 2023 =-=-=-=-=
+=-=-=-=-= Iteration 500 Tue May  2 23:56:07 2023 =-=-=-=-=
+=-=-=-=-= Iteration 600 Tue May  2 23:56:12 2023 =-=-=-=-=
+=-=-=-=-= Iteration 700 Tue May  2 23:56:16 2023 =-=-=-=-=
+=-=-=-=-= Iteration 800 Tue May  2 23:56:21 2023 =-=-=-=-=
+=-=-=-=-= Iteration 900 Tue May  2 23:56:25 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <p>Comparamos los modelos con el error de pronóstico a un paso, y el modelo 2 es el de mejor desempeño:</p>
@@ -980,17 +986,17 @@ Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling)
 Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 1 finished in 212.5 seconds.
+Chain 1 finished in 213.3 seconds.
 Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 3 finished in 242.8 seconds.
+Chain 3 finished in 244.6 seconds.
 Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 2 finished in 244.2 seconds.
+Chain 2 finished in 246.5 seconds.
 Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 4 finished in 247.5 seconds.
+Chain 4 finished in 249.2 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 236.8 seconds.
-Total execution time: 247.8 seconds.</code></pre>
+Mean chain execution time: 238.4 seconds.
+Total execution time: 249.6 seconds.</code></pre>
 </div>
 </div>
 <p>Extraemos la componente de interés, la resumimos y la transformamos a porcentaje de preferencia:</p>
@@ -1146,11 +1152,11 @@ Método de Impacto causal
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>mod_esp_2 <span class="ot">&lt;-</span> <span class="fu">AddLocalLinearTrend</span>(<span class="fu">list</span>(), y_mod)</span>
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>ajuste_pre_1 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y_mod <span class="sc">~</span> x, mod_esp_1, <span class="at">niter =</span> <span class="dv">5000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:07:04 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed May  3 00:01:18 2023 =-=-=-=-=</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>ajuste_pre_2 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y_mod <span class="sc">~</span> x, mod_esp_2, <span class="at">niter =</span> <span class="dv">5000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:07:06 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed May  3 00:01:21 2023 =-=-=-=-=</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CompareBstsModels</span>(<span class="fu">list</span>(ajuste_pre_1, ajuste_pre_2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1187,12 +1193,12 @@ Método de Impacto causal
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>diferencia <span class="ot">&lt;-</span>  <span class="fu">mean</span>(y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>]) <span class="sc">-</span> media_dia_post</span>
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(diferencia)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.982688</code></pre>
+<pre><code>[1] 9.121521</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(diferencia, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  2.5%  97.5% 
- 3.345 10.288 </code></pre>
+ 3.761 10.112 </code></pre>
 </div>
 </div>
 <p>O más simplemente:</p>
@@ -1202,19 +1208,19 @@ Método de Impacto causal
 <div class="cell-output cell-output-stdout">
 <pre><code>Posterior inference {CausalImpact}
 
-                         Average      Cumulative   
-Actual                   87           2613         
-Prediction (s.d.)        78 (0.49)    2331 (14.69) 
-95% CI                   [77, 79]     [2305, 2363] 
-                                                   
-Absolute effect (s.d.)   9.4 (0.49)   282.2 (14.69)
-95% CI                   [8.3, 10]    [249.9, 309] 
-                                                   
-Relative effect (s.d.)   12% (0.7%)   12% (0.7%)   
-95% CI                   [11%, 13%]   [11%, 13%]   
+                         Average       Cumulative   
+Actual                   87            2613         
+Prediction (s.d.)        78 (0.39)     2330 (11.67) 
+95% CI                   [77, 78]      [2308, 2353] 
+                                                    
+Absolute effect (s.d.)   9.5 (0.39)    283.5 (11.67)
+95% CI                   [8.7, 10]     [260.0, 306] 
+                                                    
+Relative effect (s.d.)   12% (0.56%)   12% (0.56%)  
+95% CI                   [11%, 13%]    [11%, 13%]   
 
-Posterior tail-area probability p:   0.00028
-Posterior prob. of a causal effect:  99.97246%
+Posterior tail-area probability p:   0.00025
+Posterior prob. of a causal effect:  99.975%
 
 For more details, type: summary(impact, "report")</code></pre>
 </div>
@@ -1235,16 +1241,16 @@ For more details, type: summary(impact, "report")</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Posterior inference {CausalImpact}
 
-                         Average      Cumulative  
-Actual                   87           2613        
-Prediction (s.d.)        78 (0.7)     2335 (20.9) 
-95% CI                   [76, 79]     [2294, 2376]
-                                                  
-Absolute effect (s.d.)   9.3 (0.7)    278.5 (20.9)
-95% CI                   [7.9, 11]    [237.3, 319]
-                                                  
-Relative effect (s.d.)   12% (1%)     12% (1%)    
-95% CI                   [10%, 14%]   [10%, 14%]  
+                         Average      Cumulative   
+Actual                   87           2613         
+Prediction (s.d.)        78 (0.69)    2335 (20.77) 
+95% CI                   [76, 79]     [2294, 2375] 
+                                                   
+Absolute effect (s.d.)   9.3 (0.69)   278.5 (20.77)
+95% CI                   [8, 11]      [239, 319]   
+                                                   
+Relative effect (s.d.)   12% (1%)     12% (1%)     
+95% CI                   [10%, 14%]   [10%, 14%]   
 
 Posterior tail-area probability p:   2e-04
 Posterior prob. of a causal effect:  99.97997%
@@ -1328,7 +1334,7 @@ For more details, type: summary(impact, "report")</code></pre>
 <span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>                 modelo_ent, <span class="at">data =</span> datos_ent_tbl,</span>
 <span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">niter =</span> <span class="dv">5000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:07:15 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed May  3 00:01:29 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1355,7 +1361,7 @@ For more details, type: summary(impact, "report")</code></pre>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAPE</span></span>
 <span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(preds_val<span class="sc">$</span>mean <span class="sc">-</span> drivers_val)<span class="sc">/</span>drivers_val)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.05802647</code></pre>
+<pre><code>[1] 0.05806103</code></pre>
 </div>
 </div>
 <p>Estas son las variables que utilizamos en el modelo (el color indica el signo cuando entra en el modelo):</p>
@@ -1376,7 +1382,7 @@ For more details, type: summary(impact, "report")</code></pre>
 <span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>ajuste_1 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(y <span class="sc">~</span> kms <span class="sc">+</span> rear <span class="sc">+</span> PetrolPrice, modelo_1, <span class="at">data =</span> datos_mod_tbl,</span>
 <span id="cb105-8"><a href="#cb105-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">niter =</span> <span class="dv">5000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Tue May  2 23:07:27 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed May  3 00:01:41 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1395,17 +1401,17 @@ For more details, type: summary(impact, "report")</code></pre>
 
                          Average        Cumulative    
 Actual                   1322           30399         
-Prediction (s.d.)        1623 (42)      37328 (957)   
-95% CI                   [1539, 1705]   [35393, 39210]
+Prediction (s.d.)        1625 (41)      37375 (947)   
+95% CI                   [1543, 1705]   [35497, 39221]
                                                       
-Absolute effect (s.d.)   -301 (42)      -6929 (957)   
-95% CI                   [-383, -217]   [-8811, -4994]
+Absolute effect (s.d.)   -303 (41)      -6976 (947)   
+95% CI                   [-384, -222]   [-8822, -5098]
                                                       
 Relative effect (s.d.)   -19% (2.1%)    -19% (2.1%)   
 95% CI                   [-22%, -14%]   [-22%, -14%]  
 
 Posterior tail-area probability p:   0.00021
-Posterior prob. of a causal effect:  99.97906%
+Posterior prob. of a causal effect:  99.97874%
 
 For more details, type: summary(impact, "report")</code></pre>
 </div>
@@ -1429,11 +1435,11 @@ For more details, type: summary(impact, "report")</code></pre>
 
                          Average        Cumulative    
 Actual                   1322           30399         
-Prediction (s.d.)        1610 (45)      37036 (1026)  
-95% CI                   [1527, 1701]   [35127, 39131]
+Prediction (s.d.)        1610 (45)      37036 (1044)  
+95% CI                   [1521, 1700]   [34974, 39106]
                                                       
-Absolute effect (s.d.)   -289 (45)      -6637 (1026)  
-95% CI                   [-380, -206]   [-8732, -4728]
+Absolute effect (s.d.)   -289 (45)      -6637 (1044)  
+95% CI                   [-379, -199]   [-8707, -4575]
                                                       
 Relative effect (s.d.)   -18% (2.3%)    -18% (2.3%)   
 95% CI                   [-22%, -13%]   [-22%, -13%]  
