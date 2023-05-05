@@ -542,8 +542,8 @@ $$\textrm{softmax}(\mu_i) = \pi_i$$
 Ahora consideramos $\mu_i$ para cada encuesta. Esta cantidad dependerá de:
 
 - La preferencia subyacente $p(t_i)$ de los votantes al tiempo $t_i$ que se tomó
-la encuesta.
-- Sesgos propios de cada cada casa encuestadora $d_i$. Estos ocurren porque
+la encuesta $i$.
+- Sesgos propios de la casa encuestadora $c(i)$, que hizo la encuesta $i$, que denotamos como  $d_{c(i)}$. Estos ocurren porque
 diversas metodologías alcanzan a distintos sectores de posibles votantes, o 
 consideran diferentes poblaciones objetivo. Suponemos
 que en promedio sobre las casas encuestadores, este valor es cercano 
@@ -553,7 +553,7 @@ sistemático ocurre por ejemplo, cuando un sector particular no responde a encue
 
 El modelo entonces es
 
-$$\mu_i = \alpha(t_i) +  b + d_i$$
+$$\mu_i = \alpha(t_i) +  b + d_{c(i)}$$
 Nuestro interés es estimar $\alpha(t)$ para cada $t$, y en consecuencia
 nuestra estimación de la preferencia será
 
