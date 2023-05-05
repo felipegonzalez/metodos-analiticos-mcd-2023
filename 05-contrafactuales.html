@@ -539,12 +539,12 @@ Ingorabilidad
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod_aspirina <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/contrafactual-simple.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpCLStI2/
-model-2410b56f496.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpTYQQWp/
+model-24101fb0fcb8.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpCLStI2/model-2410b56f496.hpp'</code></pre>
+RtmpTYQQWp/model-24101fb0fcb8.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_aspirina)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -624,26 +624,26 @@ Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)
 Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 9.2 seconds.
+Chain 1 finished in 9.3 seconds.
 Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 finished in 8.6 seconds.
+Chain 2 finished in 8.9 seconds.
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 3 finished in 7.9 seconds.
+Chain 3 finished in 8.0 seconds.
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 7.8 seconds.
+Chain 4 finished in 7.7 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 8.4 seconds.
-Total execution time: 33.9 seconds.</code></pre>
+Mean chain execution time: 8.5 seconds.
+Total execution time: 34.3 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -973,12 +973,12 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod_efectos_berkeley <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">"../src/berkeley-efectos-naturales.stan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpCLStI2/
-model-24103fc75dd9.hpp'</code></pre>
+<pre><code>Warning in readLines(hpp_path): incomplete final line found on '/tmp/RtmpTYQQWp/
+model-24102850190d.hpp'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(private$hpp_file_): incomplete final line found on '/tmp/
-RtmpCLStI2/model-24103fc75dd9.hpp'</code></pre>
+RtmpTYQQWp/model-24102850190d.hpp'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod_efectos_berkeley)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1099,17 +1099,17 @@ Chain 1 Iteration:  301 / 1300 [ 23%]  (Sampling)
 Chain 2 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 4 Iteration:  301 / 1300 [ 23%]  (Sampling) 
 Chain 3 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 3 finished in 167.9 seconds.
-Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 2 finished in 180.3 seconds.
+Chain 3 finished in 174.9 seconds.
 Chain 4 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 4 finished in 181.5 seconds.
+Chain 4 finished in 188.4 seconds.
+Chain 2 Iteration: 1300 / 1300 [100%]  (Sampling) 
+Chain 2 finished in 188.7 seconds.
 Chain 1 Iteration: 1300 / 1300 [100%]  (Sampling) 
-Chain 1 finished in 184.6 seconds.
+Chain 1 finished in 193.3 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 178.5 seconds.
-Total execution time: 184.6 seconds.</code></pre>
+Mean chain execution time: 186.3 seconds.
+Total execution time: 193.4 seconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>resumen_mod <span class="ot">&lt;-</span> ajuste<span class="sc">$</span><span class="fu">summary</span>(</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>( <span class="st">"efecto_nat_dir"</span>, <span class="st">"efecto_nat_ind"</span>, <span class="st">"efecto_total"</span>)) <span class="sc">|&gt;</span> </span>
