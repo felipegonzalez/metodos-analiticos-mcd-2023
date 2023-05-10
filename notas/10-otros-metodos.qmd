@@ -1,0 +1,246 @@
+# Evaluación con datos de prueba
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| message: false
+library(tidyverse)
+library(kableExtra)
+library(DiagrammeR)
+locale <- Sys.setlocale("LC_TIME", "es_ES.UTF-8")
+library(lubridate)
+library(fpp3)
+library(prophet)
+library(fable.prophet)
+library(fable.bsts)
+library(bsts)
+ggplot2::theme_set(ggplot2::theme_light())
+# ojo: este es un fork de un paquete auxiliar experimental:
+#remotes::install_github("felipegonzalez/fable.bsts")
+```
+
+En secciones anteriores consideramos únicamente el desempeño
+a un paso para los modelos que consideramos. Podemos hacer evaluaciones
+en distintos horizontes con muestras de prueba y validación cruzada.
+
+## Evaluación de pronósticos puntuales
+
+Un primer esquema de evaluación para pronósticos puntuales es el de
+muestra de prueba.
+
+::: callout-note
+# Entrenamiento-Prueba
+Para probar la calidad de pronósticos puntuales de modelos, podemos
+separar en un conjunto de entrenamiento y uno de prueba.
+
+Por la naturaleza de las series de tiempo y los pronósticos, el
+la separación debe respetar la temporalidad: el conjunto de entrenamiento
+debe estar dado por $t\leq t_0$ y el de prueba por $t > t_0$
+:::
+
+Si escogemos al azar los datos de prueba y entrenamiento, los "pronósticos"
+utilizan datos del pasado y futuro de las observaciones, que no es la manera
+en que hacemos pronósticos (siempre son hacia el futuro). La evaluación
+será optimista en cuanto al verdadero desempeño hacia el futuro.
+
+En secciones anteriores (bsts) hemos utilizado usualmente el
+error absoluto. La métrica correspondiente es el error absoluto medio
+(MAE),
+$$MAE = \textrm{media}(|e_t|),$$
+donde
+$$e_t = y_t - f_t$$
+es el error de pronóstico, se calculan en el conjunto de prueba.
+
+Similar al MAE es el RMSE, o raíza del error cuadrático medio:
+$$RMSE = \sqrt{\textrm{media}(e_t^2)},$$
+También existen errores de tipo porcentual, el MAPE (error absoluto porcentual promedio) por ejemplo
+se calcula como 
+$$MAPE = \textrm{media}(|p_t|),$$
+donde
+$$p_t = 100 e_t / y_t$$.
+
+## Referencias y evaluación del error
+
+Es útil considerar algún método simple de pronósticos (un *benchmark*) para comparar otros modelos que prentender utilizar más información. Los benchmarks
+usuales son
+
+- Tomar el promedio de la serie.
+- Tomar el valor anterior.
+- Para series con estacionalidad, tomar el valor anterior de la estacionalidad.
+
+Por ejemplo consideramos el ejemplo de @hyndman2014 de producción de cerveza
+en Australia. Consideramos bsts y también [Prophet](https://facebook.github.io/prophet/), una plataforma relativamente
+reciente para producir pronósticos mediante regresión.
+
+```{r}
+# fig-width: 7
+# fig-height: 4
+recent_production <- aus_production |>
+  filter(year(Quarter) >= 2000)
+beer_train <- recent_production |>
+  filter(year(Quarter) <= 2007)
+beer_fit <- beer_train |>
+  model(
+    Media = MEAN(Beer),
+    Ingenuo = NAIVE(Beer),
+    `Ingenuo estacional` = SNAIVE(Beer),
+    Prophet = prophet(Beer ~ season(period = 4, order = 2)),
+    Bsts = BSTS(Beer ~ level() + seasonal(period_bsts = 4) )
+  )
+
+beer_fc <- beer_fit |>
+  forecast(h = 10)
+
+beer_fc |>
+  autoplot(
+    aus_production |> filter(year(Quarter) >= 2000),
+    level = NULL
+  ) +
+  labs(
+    y = "Megalitres",
+    title = "Forecasts for quarterly beer production"
+  ) +
+  guides(colour = guide_legend(title = "Forecast"))
+```
+
+Y comparamos los resultados:
+
+```{r}
+accuracy(beer_fc, recent_production, 
+         measures = list(point_accuracy_measures, skill = skill_score(MAE))) |> 
+  select(.model, .type, RMSE, MAE, MAPE, skill, ACF1) |> 
+  arrange(MAE)
+```
+Podemos agregar también una medida de calidad del modelo con
+referencia a un modelo básico (dependiendo de cuál se desempeña mejor,
+el ingenuo básico o estacional ingenuo):
+
+```{r}
+accuracy(beer_fc, recent_production, 
+         measures = list(point_accuracy_measures, 
+         skill = skill_score(MAE))) |>
+  select(.model, .type, RMSE, MAE, MAPE, skill, ACF1) |> 
+  arrange(MAE)
+```
+
+
+Donde vemos que los métodos de *Prophet* o *bsts* en este
+caso dan resultados algo mejores que el modelo
+simple (estacional ingenuo, que toma el valor anterior).
+
+## Evaluación de pronósticos distribucionales
+
+En muchos modelos que hemos considerado, el pronóstico tiene una
+distribución que nos indica la incertidumbre acerca del valor
+que vamos a observar. 
+
+Podemos evaluar los modelos comparando una medida
+que toma en cuenta:
+
+- Qué tan dispersa es la distribución del pronóstico.
+- Si los valores observados están en zonas de alta probabilidad de la
+distribución del pronóstico.
+
+Una manera de construir una medida es con el *Continuous Ranking Probability
+Score* (CRPS), que se puede utilizar para evaluar cualquier distribución predictiva
+contra valores observados. Si observamos $y^*$ y nuestra distribución
+acumulada predictiva es $F(y)$, entonces:
+
+$$
+CRPS(F, y^*) =  \int (F(y) - I(y\geq y^*))^2 \,dy
+$$
+Si $F$ está muy concentrada en el valor observado $y^*$, entonces
+esta cantidad es cercana a cero, y es más grande cuando la distribución
+es más amplia o el valor observado se aleja de los valores de alta probabilidad
+de esta distribución. 
+
+Por ejemplo, supongamos que $F$ es normal con media 100 y desviación estándar
+10, podemos evaluar:
+
+```{r}
+library(distributional)
+# media 100, angostos:
+CRPS(dist_normal(100, 0.2), .actual = 100)
+CRPS(dist_normal(100, 0.2), .actual = 130)
+# media 100, más anchos
+CRPS(dist_normal(100, 20), .actual = 100)
+CRPS(dist_normal(100, 20), .actual = 130)
+```
+
+
+Para nuestros modelos, tenemos:
+
+
+```{r}
+accuracy(beer_fc, recent_production, 
+    list(crps = CRPS, skill = skill_score(CRPS))) |> 
+  arrange(crps)
+```
+## Validación cruzada
+
+También es posible hacer validación cruzada adiconalmente a conjuntos de prueba. Igual que en validación de prueba, nuestros cortes deben
+respetar la estructura temporal de los datos. En general, esta estrategia
+es superior a utilizar un solo conjunto prueba, pues podemos evaluar el
+desempeño de nuestro método en distintos momentos de la evolución de la serie.
+
+Por ejemplo,
+para evaluar pronósticos a un paso, consideramos el siguiente esquema:
+
+```{r}
+tibble(eval = 1:20) |> 
+  group_by(eval) |> 
+  mutate(t = list(1:eval)) |> 
+  unnest() |> 
+  mutate(tipo = "entrena") |> 
+  mutate(tipo = ifelse(t == max(t), "prueba", tipo)) |> 
+  filter(eval > 5) |> 
+ggplot(aes(x = eval, y = t, colour = tipo)) +
+  geom_point() + coord_flip() + scale_x_reverse()
+```
+
+Evaluamos en cada punto de prueba con los datos de entremiento anteriores,
+y finalmente promediamos todos los errores (por ejemplo errores absolutos).
+Podemos también evaluar predicciones a distintos horizontes (por ejemplo, dos o tres pasos más adelante).
+
+::: callout-tip
+
+En *bsts*, los errores a un paso que consideramos son útiles para seleccionar
+modelos, pero la posterior de las
+varianzas de las componentes son estimadas para todo el
+periodo donde tenemos datos. Los esquemas que presentamos aquí (muestra de
+prueba y validación cruzada) son más rigurosos (aunque computacionalmente más exigentes) pues utilizan la estimación 
+de la varianza solamente con los datos de entrenamiento.
+
+Nótese que en *bsts* todos los estados de las predicciones a un paso 
+sólo se calculan con el filtro de Kalman, que utiliza solamente los valores anteriores de la serie observada una vez que simulamos de la
+posterior de las varianzas.
+
+:::
+
+
+### Ejemplo
+
+En bsts podemos calcular
+
+```{r}
+data(AirPassengers)
+y <- log(AirPassengers)[1:125]
+ss <- AddLocalLinearTrend(list(), y)
+ss <- AddSeasonal(ss, y, nseasons = 12)
+model <- bsts(y, state.specification = ss, niter = 500)
+errors <- bsts.prediction.errors(model, burn = 100)
+PlotDynamicDistribution(errors$in.sample)
+```
+
+Y podemos hacer validación cruzada para periodo de 5 observaciones mediante:
+
+```{r}
+# el argumento cutpoints produce errores completamente "out of sample"
+errors <- bsts.prediction.errors(model, cutpoints = seq(80, 120, 5))
+plot(model, "prediction.errors", cutpoints = seq(80, 120, 5))
+```
+
+
+
+
+

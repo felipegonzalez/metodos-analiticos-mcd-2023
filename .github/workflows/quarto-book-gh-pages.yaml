@@ -8,6 +8,7 @@ on:
 
 env:
   RENV_PATHS_ROOT: ~/renv
+  GITHUB_PAT: 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
 
 permissions:
   contents: write
@@ -48,8 +49,7 @@ jobs:
           cmdstanr::check_cmdstan_toolchain(fix = TRUE)
           cmdstanr::install_cmdstan(cores = 2)
         shell: Rscript {0}
-        
-      - uses: r-lib/actions/setup-renv@v2
+
       - name: Install fable.bsts
         run: |
           remotes::install_github("felipegonzalez/fable.bsts")
