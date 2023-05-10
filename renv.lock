@@ -850,7 +850,8 @@
         "lubridate",
         "rlang",
         "tidyverse",
-        "tsibble"
+        "tsibble",
+        "feasts"
       ],
       "Hash": "bcedd80770bda23d88e7df1d01433be3"
     },
@@ -925,7 +926,7 @@
     },
     "feasts": {
       "Package": "feasts",
-      "Version": "0.3.0",
+      "Version": "0.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -946,7 +947,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "4623f208fd5acb20c061667aafc561fe"
+      "Hash": "4e2130fecd2802de19c69d129abab1db"
     },
     "flexmix": {
       "Package": "flexmix",
