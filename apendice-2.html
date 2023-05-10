@@ -319,8 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ajuste_1 <span class="ot">&lt;-</span> <span class="fu">bsts</span>(a10<span class="sc">$</span>log_Costo, modelo_diabetes, </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">niter =</span> <span class="dv">10000</span>, <span class="at">ping =</span> <span class="dv">5000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>=-=-=-=-= Iteration 0 Fri May  5 22:30:08 2023 =-=-=-=-=
-=-=-=-=-= Iteration 5000 Fri May  5 22:30:26 2023 =-=-=-=-=</code></pre>
+<pre><code>=-=-=-=-= Iteration 0 Wed May 10 17:28:01 2023 =-=-=-=-=
+=-=-=-=-= Iteration 5000 Wed May 10 17:28:19 2023 =-=-=-=-=</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -365,14 +365,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sims_log_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ajuste_1, <span class="at">horizon =</span> <span class="dv">12</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(sims_log_pred<span class="sc">$</span>distribution)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9800   12</code></pre>
+<pre><code>[1] 9320   12</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pronostico_puntual_media <span class="ot">&lt;-</span> <span class="fu">exp</span>(sims_log_pred<span class="sc">$</span>distribution) <span class="sc">|&gt;</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="dv">2</span>, mean)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pronostico_puntual_media</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 24218115 25146400 24753307 26704955 28411348 30653164 34644560 21422474
- [9] 22813367 23443631 26003627 24734095</code></pre>
+<pre><code> [1] 24100766 25155253 24601978 26570038 28431381 30256056 34423827 21398438
+ [9] 22616409 23282067 25950765 24495144</code></pre>
 </div>
 </div>
 <p>Los intervalos de percentiles podemos simplemente transfomarlos directamente:</p>
@@ -380,11 +380,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sims_log_pred<span class="sc">$</span>interval <span class="sc">|&gt;</span> <span class="fu">exp</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]
-2.5%  21269736 22087319 21694324 23317589 24683734 26357768 30030792 18464598
-97.5% 27451557 28433569 28148468 30314754 32473173 35368737 39758326 24662413
+2.5%  21249040 22086581 21517687 23177038 24623379 26239435 29712793 18354603
+97.5% 27266035 28574442 27909914 30267062 32494364 34842481 39591539 24667170
           [,9]    [,10]    [,11]    [,12]
-2.5%  19535361 20030300 22147366 20869052
-97.5% 26336756 27047243 30249576 28891755</code></pre>
+2.5%  19298528 19925555 21885715 20655164
+97.5% 26220729 26971849 30291291 28584307</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
