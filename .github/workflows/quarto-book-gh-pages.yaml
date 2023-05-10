@@ -8,7 +8,6 @@ on:
 
 env:
   RENV_PATHS_ROOT: ~/renv
-  GITHUB_PAT: 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
 
 permissions:
   contents: write
