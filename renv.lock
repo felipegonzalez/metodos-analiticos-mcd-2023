@@ -838,22 +838,22 @@
       "RemoteRepo": "fable.bsts",
       "RemoteUsername": "felipegonzalez",
       "RemoteRef": "HEAD",
-      "RemoteSha": "26107c4343ba3e2c2ffe855f71a4f6f822fe7afa",
+      "RemoteSha": "b5c72ca173a19e84831aa5acd5ffdd22a2e8d8c2",
       "Requirements": [
         "R",
         "Rcpp",
         "bsts",
         "dplyr",
         "fabletools",
+        "feasts",
         "future",
         "future.apply",
         "lubridate",
         "rlang",
         "tidyverse",
-        "tsibble",
-        "feasts"
+        "tsibble"
       ],
-      "Hash": "bcedd80770bda23d88e7df1d01433be3"
+      "Hash": "68c87b530a584854918c5cca9ebb8c39"
     },
     "fable.prophet": {
       "Package": "fable.prophet",
@@ -2412,18 +2412,17 @@
     },
     "slider": {
       "Package": "slider",
-      "Version": "0.2.2",
+      "Version": "0.3.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
-        "ellipsis",
-        "glue",
+        "cli",
         "rlang",
         "vctrs",
         "warp"
       ],
-      "Hash": "5237bd176dc0c4dd7eb8dcdafe514de3"
+      "Hash": "c1c73df260af9e1e3692eb3b8e1ecb88"
     },
     "stringi": {
       "Package": "stringi",
