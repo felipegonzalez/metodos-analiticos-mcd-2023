@@ -833,6 +833,7 @@
         "fabletools",
         "future",
         "future.apply",
+        "tidyverse",
         "lubridate",
         "rlang",
         "tsibble"
