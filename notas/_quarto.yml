@@ -15,6 +15,7 @@ book:
     - 07-intro-series.qmd
     - 08-modelos-1.qmd
     - 09-aplicaciones-espacio-estados.qmd
+    - 10-otros-metodos.qmd
     - 99-referencias.qmd
   appendices:
     - apendice-1.qmd
