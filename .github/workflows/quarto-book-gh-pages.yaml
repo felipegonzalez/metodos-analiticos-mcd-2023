@@ -50,6 +50,7 @@ jobs:
           cmdstanr::install_cmdstan(cores = 2)
         shell: Rscript {0}
 
+      - uses: r-lib/actions/setup-renv@v2
       - name: Install fable.bsts
         run: |
           remotes::install_github("felipegonzalez/fable.bsts")
