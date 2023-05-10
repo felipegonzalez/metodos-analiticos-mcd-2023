@@ -832,7 +832,9 @@
         "fabletools",
         "lubridate",
         "rlang",
-        "tsibble"
+        "tsibble",
+        "future",
+        "future.apply"
       ],
       "Hash": "0d9fa4db3a7c0eadf3438568afb19ae9"
     },
